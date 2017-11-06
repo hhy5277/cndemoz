@@ -261,6 +261,162 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://quanke.name/2012/10/23/android/android-e4-bd-bf-e7-94-a8mina-e9-9c-80-e8-a6-81-e6-b3-a8-e6-84-8f-e7-9a-84-e9-97-ae-e9-a2-98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="全科">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/dog.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="全科-不安分的码农">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2012/10/23/android/android-e4-bd-bf-e7-94-a8mina-e9-9c-80-e8-a6-81-e6-b3-a8-e6-84-8f-e7-9a-84-e9-97-ae-e9-a2-98/" itemprop="url">android使用mina需要注意的问题</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2012-10-23T03:45:12+08:00">
+                2012-10-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/android开发/" itemprop="url" rel="index">
+                    <span itemprop="name">android开发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2012/10/23/android/android-e4-bd-bf-e7-94-a8mina-e9-9c-80-e8-a6-81-e6-b3-a8-e6-84-8f-e7-9a-84-e9-97-ae-e9-a2-98/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/10/23/android/android-e4-bd-bf-e7-94-a8mina-e9-9c-80-e8-a6-81-e6-b3-a8-e6-84-8f-e7-9a-84-e9-97-ae-e9-a2-98/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>1.第三方jar包的使用<br>      如果在Java Build Path中使用Add External JARs这种方式，运行时会有找不到类的错误（我的上面有，如果你没出现，恭喜你），上网查了几种方式，我这边运行通过的方式如下：<br>     在项目中建个lib文件夹，把需要的jar包复制进去，在   Java Build Path中使用  Add JARs ，选择项目下的lib包中的jar文件即可，发布apk文件时会自动打包进去。<br>     网上还有一种方式，在  Java Build Path 中使用 Add Library， 选择 User Libaray -&gt; 新建一个User Libaray的方式，这种我没试，有通过的同志们说下。软件开发<br>    本人推荐项目建文件夹的方式。</p>
+<p>2.  mina包的使用之日志<br>     我使用的是mina2.0.2，如果没有特殊需求，使用mina-core-2.0.2核心包就可以了。<br>     关键点在这里：<br>     mina中使用slf4j作为日志框架（不知道slf4j的同志们请google下）， 这个只是一个日志框架，是没有实现的，你需要一个具体的实现，比如说log4j（具体使用方法我就不说了，很简单，实在不知道给我发站内信）。使用mina必须把slf4j的jar包也引入，那么你也要引入一个实现日志的包，在普通客户端开发这个不是问题，但在android中，已经有了一个日志实现，而且配合logcat，其功能是很强大的，那么怎么配合slf4j来使用呢？（ps：slf4j是必须的，mina要用到）<br>   这里就要感谢网络了，我在slf4j的官网居然发现有一个slf4j-android的jar包<br><a href="http://www.slf4j.org/android/" target="_blank" rel="external">http://www.slf4j.org/android/</a>  同志们可以去看看，（强烈推荐去看看）下载这个包，引入到项目中，注意啊，这个包是不能和slf4j-api包共存的，我的解决方式是只使用slf4j-android这个包，其余的日志相关的包都删除，（其实别的日志包也没什么用，我们有android提供的日志类），这样mina就不会报日志类找不到的错误了，而且日志都输出到logcat，调试程序也方便。这方面我们要感谢slf4j，如果没有这个实现，mina使用就麻烦了，我能想到的方式就只有更改mina源代码，重新编译了，当然你也可以自己提供日志实现类。<br>    android的日志类中有一个限制，tag不能超过23个字符（你不知道tag，我也不知道该怎么说了…），slf4j也给解决了，官网上面有介绍。（再建议看下官网）</p>
+<p>3.  mina包的使用之NioSocketConnectortp-link</p>
+<pre><code>在android2.1中好像没有问题，但在android2.2中会有Bad address family的异常，这个异常是由于IPv6引起的，这个bug已经在 http://code.google.com/p/android/issues/detail?id=9431  （同志们看看吧），android2.2不支持IPV6,在使用nio 时会有问题，有建议是使用io，可以解决，但我们如果一定要使用nio呢，解决方法如下：
+</code></pre><p>设置系统属性： System.setProperty(“java.net.preferIPv6Addresses”, “false”); 就这一行解决问题，有同志可能要问，在哪加啊？系统开始的地方加，比如说是service，在onCreate（）中启动mina前加上就行，activity中也一样。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://quanke.name/2012/10/17/android/android-tts-e7-9a-84-e5-bc-80-e5-8f-91/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1664,7 +1820,7 @@ mTts.synthesizeToFile(wakuUpText, myHashRender, destFileName);
 <p><strong>解决问题：</strong><br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2012/08/29/e4-bd-bf-e7-94-a8android-e6-96-b0-e7-89-88-e6-9c-ac-ef-bc-88adt20-ef-bc-89-e5-bc-80-e5-8f-91-e5-b7-a5-e5-85-b7-e5-87-ba-e7-8e-b0noclassdeffounderror-e8-a7-a3-e5-86-b3-e6-96-b9-e6-a1-88/#more" rel="contents">
+            <a class="btn" href="/2012/08/29/e4-bd-bf-e7-94-a8android-e6-96-b0-e7-89-88-e6-9c-ac-ef-bc-88adt20-ef-bc-89-e5-bc-80-e5-8f-91-e5-b7-a5-e5-85-b7-e5-87-ba-e7-8e-b0noclassdeffounderror-e8-a7-a3-e5-86-b3-e6-96-b9-e6-a1-88/#espandi" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1880,168 +2036,6 @@ export PATH=${JAVA_HOME}/bin:$PATH:<span style="color: #ff0000;">${ANDROID_HOME}
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://quanke.name/2012/08/28/linux-e9-85-8d-e7-bd-aejava-e7-8e-af-e5-a2-83-e5-8f-98-e9-87-8f/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="全科">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/dog.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="全科-不安分的码农">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2012/08/28/linux-e9-85-8d-e7-bd-aejava-e7-8e-af-e5-a2-83-e5-8f-98-e9-87-8f/" itemprop="url">linux配置java环境变量</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2012-08-28T03:09:51+08:00">
-                2012-08-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/android开发/" itemprop="url" rel="index">
-                    <span itemprop="name">android开发</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2012/08/28/linux-e9-85-8d-e7-bd-aejava-e7-8e-af-e5-a2-83-e5-8f-98-e9-87-8f/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/08/28/linux-e9-85-8d-e7-bd-aejava-e7-8e-af-e5-a2-83-e5-8f-98-e9-87-8f/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><strong>一. 解压安装jdk</strong><br>在shell终端下进入jdk-6u14-linux-i586.bin文件所在目录，<br>执行命令 ./jdk-6u14-linux-i586.bin 这时会出现一段协议，连继敲回车，当询问是否同意的时候，输入yes，回车。之后会在当前目录下生成一个jdk1.6.0_14目录，你可以将它复制到 任何一个目录下。</p>
-<p><strong>二. 需要配置的环境变量</strong><br>1. PATH环境变量。作用是指定命令搜索路径，在shell下面执行命令时，它会到PATH变量所指定的路径中查找看是否能找到相应的命令程序。我们需要把 jdk安装目录下的bin目录增加到现有的PATH变量中，bin目录中包含经常要用到的可执行文件如javac/java/javadoc等待，设置好 PATH变量后，就可以在任何目录下执行javac/java等工具了。<br>2. CLASSPATH环境变量。作用是指定类搜索路径，要使用已经编写好的类，前提当然是能够找到它们了，JVM就是通过CLASSPTH来寻找类的。我们 需要把jdk安装目录下的lib子目录中的dt.jar和tools.jar设置到CLASSPATH中，当然，当前目录“.”也必须加入到该变量中。<br>3. JAVA_HOME环境变量。它指向jdk的安装目录，Eclipse/NetBeans/Tomcat等软件就是通过搜索JAVA_HOME变量来找到并使用安装好的jdk。</p>
-<p><strong>三. 三种配置环境变量的方法</strong></p>
-<p>1. 修改/etc/profile文件<br>如果你的计算机仅仅作为开发使用时推荐使用这种方法，因为所有用户的shell都有权使用这些环境变量，可能会给系统带来安全性问题。<br>·用文本编辑器打开/etc/profile<br>·在profile文件末尾加入：<br>export JAVA_HOME=/usr/share/jdk1.6.0_14<br>export PATH=$JAVA_HOME/bin:$PATH<br>export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar<br>·重新登录<br>·注解<br>a. 你要将 /usr/share/jdk1.6.0_14改为你的jdk安装目录<br>b. linux下用冒号“:”来分隔路径<br>c. $PATH / $CLASSPATH / $JAVA_HOME 是用来引用原来的环境变量的值<br>在设置环境变量时特别要注意不能把原来的值给覆盖掉了，这是一种<br>常见的错误。<br>d. CLASSPATH中当前目录“.”不能丢,把当前目录丢掉也是常见的错误。<br>e. export是把这三个变量导出为全局变量。<br>f. 大小写必须严格区分。</p>
-<p><strong>2. 修改.bash_profile文件</strong></p>
-<p>这种方法更为安全，它可以把使用这些环境变量的权限控制到用户级别，如果你需要给某个用户权限使用这些环境变量，你只需要修改其个人用户主目录下的.bash_profile文件就可以了。<br>·用文本编辑器打开用户目录下的.bash_profile文件<br>·在.bash_profile文件末尾加入：</p>
-<p>export JAVA_HOME=/usr/share/jdk1.6.0_14<br>export PATH=$JAVA_HOME/bin:$PATH<br>export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar</p>
-<p>·重新登录</p>
-<p>3. 直接在shell下设置变量<br>不赞成使用这种方法，因为换个shell，你的设置就无效了，因此这种方法仅仅是临时使用，以后要使用的时候又要重新设置，比较麻烦。<br>只需在shell终端执行下列命令：<br>export JAVA_HOME=/usr/share/jdk1.6.0_14<br>export PATH=$JAVA_HOME/bin:$PATH<br>export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar</p>
-<p><strong>四. 测试jdk</strong><br>1. 用文本编辑器新建一个Test.java文件，在其中输入以下代码并保存：<br>[code lang=”java”]<br>public class test {<br>   public static void main(String args[]) {<br>   System.out.println(&quot;A new jdk test !&quot;);<br>  }<br>}<br>[/code]<br>2. 编译：在shell终端执行命令 javac Test.java<br>3. 运行：在shell终端执行命令 java Test<br>当shell下出现“A new jdk test !”字样则jdk运行正常。</p>
-<p><strong>五. 卸载jdk</strong><br>·找到jdk安装目录的_uninst子目录<br>·在shell终端执行命令./uninstall.sh即可卸载jdk。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2096,7 +2090,7 @@ export PATH=${JAVA_HOME}/bin:$PATH:<span style="color: #ff0000;">${ANDROID_HOME}
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">112</span>
+                  <span class="site-state-item-count">113</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2107,7 +2101,7 @@ export PATH=${JAVA_HOME}/bin:$PATH:<span style="color: #ff0000;">${ANDROID_HOME}
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2118,7 +2112,7 @@ export PATH=${JAVA_HOME}/bin:$PATH:<span style="color: #ff0000;">${ANDROID_HOME}
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">33</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

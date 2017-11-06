@@ -261,6 +261,198 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://quanke.name/2017/11/06/elasticsearch5xx使用logstash同步mysql/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="全科">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/dog.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="全科-不安分的码农">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/11/06/elasticsearch5xx使用logstash同步mysql/" itemprop="url">elasticsearch5xx使用logstash同步mysql</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-06T15:53:00+08:00">
+                2017-11-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/大数据/" itemprop="url" rel="index">
+                    <span itemprop="name">大数据</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/11/06/elasticsearch5xx使用logstash同步mysql/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/11/06/elasticsearch5xx使用logstash同步mysql/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li>欢迎关注<a href="http://quanke.name/">http://quanke.name/</a></li>
+<li>转载请注明出处，谢谢</li>
+</ul>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><h4 id="下载logstash"><a href="#下载logstash" class="headerlink" title="下载logstash"></a>下载logstash</h4><p>下载地址：<a href="https://www.elastic.co/downloads/logstash" target="_blank" rel="external">https://www.elastic.co/downloads/logstash</a></p>
+<blockquote>
+<p>当时我下载的是5.6.3版本</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">https://artifacts.elastic.co/downloads/logstash/logstash-5.6.3.tar.gz</div></pre></td></tr></table></figure>
+<p>解压：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">tar -zxvf logstash-5.6.3.tar.gz</div></pre></td></tr></table></figure></p>
+<p>进入安装目录</p>
+<p>运行：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">bin/logstash -e &apos;input &#123; stdin &#123; &#125; &#125; output &#123; stdout &#123;&#125; &#125;&apos;</div></pre></td></tr></table></figure>
+<p>等待几秒钟 出现  </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">The stdin plugin is now waiting for input:</div></pre></td></tr></table></figure>
+<p>然后输入 </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">hello world</div></pre></td></tr></table></figure>
+<p>得到类似的结果<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">2017-10-30T02:49:59.005Z test-env hello world</div></pre></td></tr></table></figure></p>
+<h4 id="安装logstash-input-jdbc插件"><a href="#安装logstash-input-jdbc插件" class="headerlink" title="安装logstash-input-jdbc插件"></a>安装logstash-input-jdbc插件</h4><p>1.安装 ruby 和 rubygems（注意：需要 ruby 的版本在 1.8.7 以上）</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">yum install -y ruby rubygems</div></pre></td></tr></table></figure>
+<p>检查 ruby 版本：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">ruby -v</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">ruby 1.8.7 (2013-06-27 patchlevel 374) [x86_64-linux]</div></pre></td></tr></table></figure>
+<p>替换国内的镜像</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">gem sources --remove http://rubygems.org/</div><div class="line">gem sources -a http://gems.ruby-china.org/</div></pre></td></tr></table></figure>
+<p>验证是否成功</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">gem sources -l</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">*** CURRENT SOURCES ***</div><div class="line"></div><div class="line">http://rubygems.org/</div><div class="line">http://gems.ruby-china.org/</div></pre></td></tr></table></figure>
+<p>修改Gemfile的数据源地址</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">vim Gemfile</div></pre></td></tr></table></figure>
+<p>修改 source 的值 为： <code>&quot;https://gems.ruby-china.org/&quot;</code></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">vim  Gemfile.jruby-1.9.lock</div></pre></td></tr></table></figure>
+<p>找到 remote 修改它的值为：<code>https://gems.ruby-china.org/</code></p>
+<p>开始安装:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">./bin/logstash-plugin install --no-verify  logstash-input-jdbc</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">Installing logstash-input-jdbc</div><div class="line">Installation successful</div></pre></td></tr></table></figure>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><h4 id="配置语法"><a href="#配置语法" class="headerlink" title="配置语法"></a>配置语法</h4><p>最基本的配置文件定义，必须包含input 和 output。如果需要对数据进操作，则需要加上filter段</p>
+<p>配置 java mysql 连接驱动 <code>mysql-connector-java-5.1.42-bin.jar</code> </p>
+<p><a href="https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.42.tar.gz" target="_blank" rel="external">https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.42.tar.gz</a></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">input &#123;</div><div class="line">  stdin &#123;</div><div class="line"></div><div class="line">  &#125;</div><div class="line">  jdbc &#123;</div><div class="line">    jdbc_connection_string =&gt; &quot;jdbc:mysql://dbs1:3306/db2_utan_cs&quot;</div><div class="line">    jdbc_user =&gt; &quot;root&quot;</div><div class="line">    jdbc_password =&gt; &quot;123456&quot;</div><div class="line">    jdbc_driver_library =&gt; &quot;/data/arrow/logstash/mysql-connector-java-5.1.42-bin.jar&quot;</div><div class="line">    jdbc_driver_class =&gt; &quot;com.mysql.jdbc.Driver&quot;</div><div class="line">    jdbc_paging_enabled =&gt; &quot;true&quot;</div><div class="line">    jdbc_page_size =&gt; &quot;50000&quot;</div><div class="line">    statement =&gt; &quot;SELECT * FROM crawler_data WHERE id &gt; (SELECT MAX(t1.id) FROM db2_utan_cs.crawler_data AS t1)-70000 AND updatetime &gt; :sql_last_value&quot;</div><div class="line">    use_column_value =&gt; true</div><div class="line">    tracking_column =&gt; &quot;updatetime&quot;</div><div class="line">    schedule =&gt; &quot;* * * * *&quot;</div><div class="line">    type =&gt; &quot;baby_crawler&quot;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">filter &#123;</div><div class="line">  mutate &#123;</div><div class="line">    remove_field =&gt; [ &quot;@timestamp&quot;, &quot;@version&quot;, &quot;id&quot; ]</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"> </div><div class="line">output &#123;</div><div class="line">  elasticsearch &#123;</div><div class="line">    hosts =&gt; &quot;192.168.1.21:9201&quot;</div><div class="line">    index =&gt; &quot;baby_crawler_b&quot;</div><div class="line">    document_id =&gt; &quot;%&#123;uniquekey&#125;&quot;</div><div class="line">  &#125;</div><div class="line">  stdout &#123;</div><div class="line">    codec =&gt; json_lines</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="启动方式"><a href="#启动方式" class="headerlink" title="启动方式"></a>启动方式</h4><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line"></div><div class="line"># 通过手动指定配置文件启动</div><div class="line"> </div><div class="line">/bin/logstash -f /etc/logstash/conf.d/nginx_logstash.conf</div><div class="line"> </div><div class="line"># 以daemon方式运行，则在指令后面加一个 &amp; 符号</div><div class="line"> </div><div class="line">/bin/logstash -f /etc/logstash/conf.d/nginx_logstash.conf &amp;</div><div class="line"> </div><div class="line"> </div><div class="line"># 如果是通过rpm包安装的logstash则可以使用自带的脚本启动</div><div class="line"> </div><div class="line">/etc/init.d/logstash start </div><div class="line"> </div><div class="line"># 通过这种方式启动，logstash会自动加载 /etc/logstash/conf.d/ 下的配置文件</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://quanke.name/2017/02/28/已有Android工程-集成React-Native-的那些事/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -292,7 +484,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-28T23:03:29+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-28T23:03:00+08:00">
                 2017-02-28
               </time>
             
@@ -1880,169 +2072,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://quanke.name/2016/05/08/Thinking-in-Java-Java-编程思想-PDF-ePub-Mobi格式电子书/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="全科">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/dog.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="全科-不安分的码农">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/05/08/Thinking-in-Java-Java-编程思想-PDF-ePub-Mobi格式电子书/" itemprop="url">Thinking in Java (Java 编程思想) PDF ePub Mobi格式电子书</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-05-08T16:01:19+08:00">
-                2016-05-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2016/05/08/Thinking-in-Java-Java-编程思想-PDF-ePub-Mobi格式电子书/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/08/Thinking-in-Java-Java-编程思想-PDF-ePub-Mobi格式电子书/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li>欢迎关注<a href="http://quanke.name/">http://quanke.name/</a></li>
-<li>转载请注明出处，谢谢</li>
-</ul>
-<hr>
-<p>本书来自网络，<a href="http://quanke.name">http://quanke.name</a> 整理成电子书，支持PDF,ePub,Mobi格式，方便大家下载阅读。</p>
-<p>阅读地址：<a href="https://www.gitbook.com/read/book/quanke/think-in-java" target="_blank" rel="external">https://www.gitbook.com/read/book/quanke/think-in-java</a></p>
-<p>下载地址：<a href="https://www.gitbook.com/book/quanke/think-in-java/" target="_blank" rel="external">https://www.gitbook.com/book/quanke/think-in-java/</a></p>
-<p>github地址：<a href="https://github.com/quanke/think-in-java" target="_blank" rel="external">https://github.com/quanke/think-in-java</a></p>
-<p>编辑：<a href="http://quanke.name">http://quanke.name</a></p>
-<p>第13章没有编辑，觉得没有意义，Java的GUI先在应用少，有时间在编辑好。。。</p>
-<p>编辑整理辛苦，还望大神们点一下star ，抚平我虚荣的心</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2097,7 +2126,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">112</span>
+                  <span class="site-state-item-count">113</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2108,7 +2137,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2119,7 +2148,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">33</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
