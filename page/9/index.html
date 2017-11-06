@@ -261,6 +261,409 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://quanke.name/2012/11/05/spannablestring-e8-ae-b0-e5-bd-95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="全科">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/dog.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="全科-不安分的码农">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2012/11/05/spannablestring-e8-ae-b0-e5-bd-95/" itemprop="url">android中的spannable String 使用记录</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2012-11-05T15:02:48+08:00">
+                2012-11-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/android开发/" itemprop="url" rel="index">
+                    <span itemprop="name">android开发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2012/11/05/spannablestring-e8-ae-b0-e5-bd-95/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/11/05/spannablestring-e8-ae-b0-e5-bd-95/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>SpannableString<br>TextView是用来显示文本的，有时需要给TextView中的个别字设置为超链接，或者设置个别字的颜色、字体等，那就需要用到Spannable对象，可以借助Spannable对象实现以上设置<br>[code lang=”java”]<br>myTextView = (TextView) this.findViewById(R.id.myTextView);</p>
+<p>//创建一个 SpannableString对象<br>SpannableString sp = new SpannableString(&quot;这句话中有百度超链接,有高亮显示，这样，或者这样，还有斜体.&quot;);<br>//设置超链接<br>sp.setSpan(new URLSpan(&quot;<a href="http://www.baidu.com&amp;quot" target="_blank" rel="external">http://www.baidu.com&amp;quot</a>;), 5, 7,<br>Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);<br>//设置高亮样式一<br>sp.setSpan(new BackgroundColorSpan(Color.RED), 17 ,19,Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);<br>//设置高亮样式二<br>sp.setSpan(new ForegroundColorSpan(Color.YELLOW),20,24,Spannable.SPAN_EXCLUSIVE_INCLUSIVE);<br>//设置斜体<br>sp.setSpan(new StyleSpan(android.graphics.Typeface.BOLD_ITALIC), 27, 29, Spannable.SPAN_EXCLUSIVE_INCLUSIVE);<br>//SpannableString对象设置给TextView<br>myTextView.setText(sp);<br>//设置TextView可点击<br>myTextView.setMovementMethod(LinkMovementMethod.getInstance());<br>[/code]<br>textview显示不同的颜色、样式来表示，需要用到SpannableString对象来处理<br>下面是从网上找的一段代码，已验证过：<br>[code lang=”java”]<br>mTextView = (TextView)findViewById(R.id.test);<br>SpannableString tSS = new SpannableString(“SpannableString学习中”);<br>tSS.setSpan(new BackgroundColorSpan(Color.RED), 0, 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE); //红色高亮<br>tSS.setSpan(new UnderlineSpan(), 15, 18,Spannable.SPAN_EXCLUSIVE_EXCLUSIVE); //下划线<br>tSS.setSpan(new StyleSpan(android.graphics.Typeface.BOLD_ITALIC), 2, 5, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE); //斜体<br>mTextView.setText(tSS);<br>[/code]<br>关键方法：<br>[code lang=”java”]<br>public void setSpan (Object what, int start, int end, int flags)<br>[/code]<br>主要是start跟end<br>start是起始位置,无论中英文，都算一个。从0开始计算起。end是结束位置，所以处理的文字，包含开始位置，但不包含结束位置。</p>
+<p>下面解决点击不同文字跳转到不同activity的问题：<br>直接贴代码：<br>[code lang=”java”]<br>import android.app.Activity;<br>import android.os.Bundle;<br>import android.text.SpannableString;<br>import android.text.Spanned;<br>import android.text.method.LinkMovementMethod;<br>import android.text.style.ClickableSpan;<br>import android.view.View;<br>import android.view.View.OnClickListener;<br>import android.widget.LinearLayout;<br>import android.widget.TextView;<br>import android.widget.Toast;<br>public class TextViewJump2Activity extends Activity {<br>/<em>* Called when the activity is first created. </em>/<br>private TextView mClickableText;<br>@Override<br>public void onCreate(Bundle savedInstanceState) {<br>super.onCreate(savedInstanceState);<br>LinearLayout layout = new LinearLayout(this);<br>mClickableText = new TextView(this);<br>mClickableText.setClickable(true);<br>mClickableText.setTextSize(20);</p>
+<p>layout.addView(mClickableText);<br>setContentView(layout);<br>mClickableText.setText(getClickableSpan());<br>mClickableText.setMovementMethod(LinkMovementMethod.getInstance());<br>}<br>private SpannableString getClickableSpan() {<br>View.OnClickListener l = new View.OnClickListener() {<br>//如下定义自己的动作<br>public void onClick(View v) {<br>Toast.makeText(TextViewJump2Activity.this, &quot;Click Success&quot;, Toast.LENGTH_SHORT).show();<br>//在这里就可以做跳转到activity或者弹出对话框的操作了<br>}<br>};<br>SpannableString spanableInfo = new SpannableString(&quot;This is a test, Click Here!&quot;);<br>int start = 16;<br>int end = spanableInfo.length();<br>spanableInfo.setSpan(new Clickable(l), start, end,<br>Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);<br>return spanableInfo;<br>}<br>}<br>class Clickable extends ClickableSpan implements OnClickListener {<br>private final View.OnClickListener mListener;<br>public Clickable(View.OnClickListener l) {<br>mListener = l;<br>}<br>@Override<br>public void onClick(View v) {<br>mListener.onClick(v);<br>}<br>}<br>[/code]<br>转自：<a href="http://blog.csdn.net/rockcoding/article/details/7231756" target="_blank" rel="external">http://blog.csdn.net/rockcoding/article/details/7231756</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://quanke.name/2012/11/05/relativelayout/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="全科">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/dog.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="全科-不安分的码农">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2012/11/05/relativelayout/" itemprop="url">RelativeLayout的基本属性用法以及代码实现</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2012-11-05T03:13:31+08:00">
+                2012-11-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/android开发/" itemprop="url" rel="index">
+                    <span itemprop="name">android开发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2012/11/05/relativelayout/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/11/05/relativelayout/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>RelativeLayout，顾名思义，就是以“相对”位置/对齐 为基础的布局方式。android.widget.RelativeLayout 有个 继承自android.view.ViewGroup.LayoutParams 的内嵌类 LayoutParams，使用这个类的实例调用 RelativeLayout.addView 就可以实现“相对布局”。他比LinearLyout更灵活的为控件布置位置.</p>
+<p><span style="color: #ff0000;">在新版本中属性的设置可能有变化，具体请看官方api</span></p>
+<p>RelativeLayout 的属性：<br>// 相对于给定ID控件</p>
+<p>android:layout_above 将该控件的底部置于给定ID的控件之上;</p>
+<p>android:layout_below 将该控件的底部置于给定ID的控件之下;</p>
+<p>android:layout_toLeftOf 将该控件的右边缘与给定ID的控件左边缘对齐;</p>
+<p>android:layout_toRightOf 将该控件的左边缘与给定ID的控件右边缘对齐;</p>
+<p>android:layout_alignBaseline 将该控件的baseline与给定ID的baseline对齐;</p>
+<p>android:layout_alignTop 将该控件的顶部边缘与给定ID的顶部边缘对齐;</p>
+<p>android:layout_alignBottom 将该控件的底部边缘与给定ID的底部边缘对齐;</p>
+<p>android:layout_alignLeft 将该控件的左边缘与给定ID的左边缘对齐;</p>
+<p>android:layout_alignRight 将该控件的右边缘与给定ID的右边缘对齐;</p>
+<p>// 相对于父组件</p>
+<p>android:layout_alignParentTop 如果为true,将该控件的顶部与其父控件的顶部对齐;</p>
+<p>android:layout_alignParentBottom 如果为true,将该控件的底部与其父控件的底部对齐;</p>
+<p>android:layout_alignParentLeft 如果为true,将该控件的左部与其父控件的左部对齐;</p>
+<p>android:layout_alignParentRight 如果为true,将该控件的右部与其父控件的右部对齐;</p>
+<p>// 居中</p>
+<p>android:layout_centerHorizontal 如果为true,将该控件的置于水平居中;</p>
+<p>android:layout_centerVertical 如果为true,将该控件的置于垂直居中;</p>
+<p>android:layout_centerInParent 如果为true,将该控件的置于父控件的中央;</p>
+<p>// 指定移动像素</p>
+<p>android:layout_marginTop 上偏移的值;</p>
+<p>android:layout_marginBottom 下偏移的值;</p>
+<p>android:layout_marginLeft 　　左偏移的值;</p>
+<p>android:layout_marginRight 　 右偏移的值;</p>
+<p>example:</p>
+<p>android:layout_below = “@id/<em>*</em>“</p>
+<p>android:layout_alignBaseline = “@id/<em>*</em>“</p>
+<p>android:layout_alignParentTop = true</p>
+<p>android:layout_marginLeft = “10px”</p>
+<p>以下是代码中的用法：</p>
+<p>[code lang=”java”]<br>import android.app.Activity;<br>import android.os.Bundle;<br>import android.widget.<em>;<br>import android.view.</em>;</p>
+<p>public class RLTest extends Activity {</p>
+<pre><code>private RelativeLayout rl;
+
+private Button btn1;
+private Button btn2;
+private Button btn3;
+private Button btn4;
+
+private static final int ID_BTN1 = 1;
+private static final int ID_BTN2 = 2;
+private static final int ID_BTN3 = 3;
+private static final int ID_BTN4 = 4;
+
+/** Called when the activity is first created. */
+@Override
+public void onCreate(Bundle icicle) {
+    super.onCreate(icicle);
+
+    rl = new RelativeLayout(this);
+
+    btn1 = new Button(this);
+    btn1.setText(&amp;quot;----------------------&amp;quot;);
+    btn1.setId(ID_BTN1);
+
+    RelativeLayout.LayoutParams lp1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+    lp1.addRule(RelativeLayout.ALIGN_WITH_PARENT_TOP);
+    lp1.addRule(RelativeLayout.CENTER_HORIZONTAL, RelativeLayout.TRUE);
+    // btn1 位于父 View 的顶部，在父 View 中水平居中
+    rl.addView(btn1, lp1 );
+
+    btn2 = new Button(this);
+    btn2.setText(&amp;quot;|\n|\n|\n|\n|\n|&amp;quot;);
+    btn2.setId(ID_BTN2);
+
+    RelativeLayout.LayoutParams lp2 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+    lp2.addRule(RelativeLayout.POSITION_BELOW, ID_BTN1);
+    lp2.addRule(RelativeLayout.ALIGN_LEFT, ID_BTN1);
+    // btn2 位于 btn1 的下方、其左边和 btn1 的左边对齐
+    rl.addView(btn2, lp2);
+
+    btn3 = new Button(this);
+    btn3.setText(&amp;quot;|\n|\n|\n|\n|\n|&amp;quot;);
+    btn3.setId(ID_BTN3);
+
+    RelativeLayout.LayoutParams lp3 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+   lp3.addRule(RelativeLayout.POSITION_BELOW, ID_BTN1);
+    lp3.addRule(RelativeLayout.POSITION_TO_RIGHT, ID_BTN2);
+    lp3.addRule(RelativeLayout.ALIGN_RIGHT, ID_BTN1);
+    // btn3 位于 btn1 的下方、btn2 的右方且其右边和 btn1 的右边对齐（要扩充）
+    rl.addView(btn3,lp3);
+
+    btn4 = new Button(this);
+    btn4.setText(&amp;quot;--------------------------------------------&amp;quot;);
+    btn4.setId(ID_BTN4);
+
+    RelativeLayout.LayoutParams lp4 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+    lp4.addRule(RelativeLayout.POSITION_BELOW, ID_BTN2);
+    lp4.addRule(RelativeLayout.CENTER_HORIZONTAL, RelativeLayout.TRUE);
+    // btn4 位于 btn2 的下方，在父 Veiw 中水平居中
+    rl.addView(btn4,lp4);
+
+    setContentView(rl);
+}
+</code></pre><p>}<br>[/code] </p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://quanke.name/2012/11/05/android/android-xml-graphics/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1519,443 +1922,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://quanke.name/2012/10/30/xcode-4-x-e5-85-8d-e8-af-81-e4-b9-a6-e7-9c-9f-e6-9c-ba-e5-8f-91-e5-b8-83-e5-8f-8a-e8-b0-83-e8-af-95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="全科">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/dog.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="全科-不安分的码农">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2012/10/30/xcode-4-x-e5-85-8d-e8-af-81-e4-b9-a6-e7-9c-9f-e6-9c-ba-e5-8f-91-e5-b8-83-e5-8f-8a-e8-b0-83-e8-af-95/" itemprop="url">xCode 4.X 免证书真机发布及调试</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2012-10-30T08:04:04+08:00">
-                2012-10-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ios开发/" itemprop="url" rel="index">
-                    <span itemprop="name">ios开发</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2012/10/30/xcode-4-x-e5-85-8d-e8-af-81-e4-b9-a6-e7-9c-9f-e6-9c-ba-e5-8f-91-e5-b8-83-e5-8f-8a-e8-b0-83-e8-af-95/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/10/30/xcode-4-x-e5-85-8d-e8-af-81-e4-b9-a6-e7-9c-9f-e6-9c-ba-e5-8f-91-e5-b8-83-e5-8f-8a-e8-b0-83-e8-af-95/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>由于没有购买苹果的开发者证书，所以目前大多数开发环境都是使用以下的方式实现开发与真机测试（本文部分摘自网络）</p>
-<p>【2012年3月15日更新】：目前我使用的是Xcode4.3.1 mac os 10.7.3</p>
-<p>最简单的办法就是让xcode不检查签名，直接编译发布。</p>
-<p>1、 修改SDKSettings.plist文件：<br>进入SDK目录：xcode4.3版本以前是：/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.3（可能是5.0/4.2等）.sdk/<br>xcode4.3及以上版本的目录是：/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.1.sdk</p>
-<p>打开该目录下的SDKSettings.plist文件，把其中所有的包含REQUIRED的项的值改成NO（在实际就是有2项值需要修改：CODE_SIGNING_REQUIRED和ENTITLEMENTS_REQUIRED）。</p>
-<p>2、工程的配置修改：<br>对每个工程进行修改，把所有的Code Signing Identity 全部改为 Don’t Code Sign</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>旧的方法可以参考：</p>
-<p>&nbsp;</p>
-<p>使用环境：越狱过的iPhone 机器 Mac OS 10.6.8 xCode 4.0.1 及Xcode4.0.2</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>操作步骤过程：</p>
-<p>（一）制作证书</p>
-<p>1、 打开   Finder－&gt;应用程序－&gt;实用工具 -&gt;  钥匙串访问</p>
-<p>2、单击：”钥匙串访问”选择  “证书” 再选择”创建证书”过程如下图：</p>
-<p><a href="http://photo.blog.sina.com.cn/showpic.html" target="_blank" rel="external"><img src="http://images.cnblogs.com/cnblogs_com/liubiqu/201110/201110261354057979.png" alt=""></a></p>
-<p>3、证书名称必须填写为：”iPhone Developer” ，（不能随便填写）然后点击”创建”。(如图）</p>
-<p><a href="http://photo.blog.sina.com.cn/showpic.html" target="_blank" rel="external"><img src="http://images.cnblogs.com/cnblogs_com/liubiqu/201110/201110261354068012.png" alt=""></a></p>
-<p><a href="http://photo.blog.sina.com.cn/showpic.html" target="_blank" rel="external"><img src="http://images.cnblogs.com/cnblogs_com/liubiqu/201110/201110261354069997.png" alt=""></a></p>
-<p><a href="http://photo.blog.sina.com.cn/showpic.html" target="_blank" rel="external"><img src="http://images.cnblogs.com/cnblogs_com/liubiqu/201110/201110261354068394.png" alt=""></a></p>
-<p><a href="http://photo.blog.sina.com.cn/showpic.html" target="_blank" rel="external"><img src="http://images.cnblogs.com/cnblogs_com/liubiqu/201110/201110261354071525.png" alt=""></a></p>
-<p><a href="http://photo.blog.sina.com.cn/showpic.html" target="_blank" rel="external"><img src="http://images.cnblogs.com/cnblogs_com/liubiqu/201110/201110261354073194.png" alt=""></a></p>
-<p><a href="http://photo.blog.sina.com.cn/showpic.html" target="_blank" rel="external"><img src="http://images.cnblogs.com/cnblogs_com/liubiqu/201110/201110261354089083.png" alt=""></a></p>
-<p><a href="http://photo.blog.sina.com.cn/showpic.html" target="_blank" rel="external"><img src="http://images.cnblogs.com/cnblogs_com/liubiqu/201110/201110261354082180.png" alt=""></a></p>
-<p><a href="http://photo.blog.sina.com.cn/showpic.html" target="_blank" rel="external"><img src="http://images.cnblogs.com/cnblogs_com/liubiqu/201110/201110261354086117.png" alt=""></a></p>
-<p><a href="http://photo.blog.sina.com.cn/showpic.html" target="_blank" rel="external"><img src="http://images.cnblogs.com/cnblogs_com/liubiqu/201110/201110261354095278.png" alt=""></a></p>
-<p>(二)修改xcode配置文件</p>
-<p>注意：由于这些配置文件是系统文件，修改系统文件需要管理员权限才可以进行操作，所以保存的时候不能直接保存，会遇到系统提示”你没有修改此文件得权限”，但可以保存一个副本。可以先修改这个副本，然后再复制到原先的目录，系统会提示你是否修改替换，选择”替换”，这时候是需要管理员密码才可以覆盖原来的文件，输入密码后，修改完成。</p>
-<p>1.修改SDKsettings.plist文件。</p>
-<p>找到 “  /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.3.sdk “下得  SDKSettings.plist  文件，修改”Default Properties “项下面得 “CODE_SIGNING_REQUIRED “得值为：NO。</p>
-<p>2.修改”/Developer/Platforms/iPhoneOS.platform/Info.plist”文件（用文本编辑器或者Xcode打开）：</p>
-<p><img src="http://images.cnblogs.com/cnblogs_com/liubiqu/201110/201110261354098343.png" alt=""></p>
-<p>增加两项：</p>
-<p>PROVISIONING_PROFILE_ALLOWED = NO</p>
-<p>PROVISIONING_PROFILE_REQUIRED = NO</p>
-<p>效果如下图所示：</p>
-<p><img src="http://images.cnblogs.com/cnblogs_com/liubiqu/201110/201110261354092279.png" alt=""></p>
-<p>然后将所有”XCiPhoneOSCodeSignContext”替换为”XCCodeSignContext”。</p>
-<p><img src="http://images.cnblogs.com/cnblogs_com/liubiqu/201110/201110261354096772.png" alt=""></p>
-<p>3.修改好配置文件后重启xcode，修改项目的属性</p>
-<p>1）点击  项目图标，找到”Build Settings”  找到  “Code Sign Identity”</p>
-<p>按照下面得方式设置一下就可以 了。</p>
-<p><img src="http://images.cnblogs.com/cnblogs_com/liubiqu/201110/201110261354108442.png" alt=""></p>
-<p>2） 设置工程属性：</p>
-<p><img src="http://images.cnblogs.com/cnblogs_com/liubiqu/201110/201110261354105476.png" alt=""></p>
-<p><img src="http://images.cnblogs.com/cnblogs_com/liubiqu/201110/201110261354119413.png" alt=""></p>
-<p>3）然后点击  “Run” 我们会看到工程正在编译，然后弹出如图提示（两次）：我们选择 “总是允许”</p>
-<p><img src="http://images.cnblogs.com/cnblogs_com/liubiqu/201110/201110261354111398.png" alt=""></p>
-<p>4）在项目中添加一个Entitlement.plist文件，设置允许调试。</p>
-<p>注：若不操作该步可能连接真机调试的时候还会出现一个错误：Error launching remote program: failed to get the task for process xxx</p>
-<p>操作步骤：在Xcode4.X  中这样做：</p>
-<p>a.在工程中按照这个执行创建一个名为：Entitlement.plist 文件In the File Menu, select New File -&gt; iPhone OS -&gt; Code Signing -&gt; Entitlements. Name the file “Entitlements.plist” and click ‘Finish’.</p>
-<p><img src="http://images.cnblogs.com/cnblogs_com/liubiqu/201110/201110261354113067.png" alt=""></p>
-<p>b.打开  这个  “Entitlement.plist”文件，将 “Can be debugged”属性值改为 “YES”。</p>
-<p><img src="http://images.cnblogs.com/cnblogs_com/liubiqu/201110/201110261354122544.png" alt=""></p>
-<p>c.将Code Signing Entitlements 那项得值改为刚刚新建得”Entitlements.plist”.</p>
-<p><img src="http://images.cnblogs.com/cnblogs_com/liubiqu/201110/201110261354126513.png" alt=""></p>
-<p>4。提示选择完后：可以看到</p>
-<p><img src="http://images.cnblogs.com/cnblogs_com/liubiqu/201110/201110261354122086.png" alt=""></p>
-<p>我们就可以看到 程序可以出现在 你得iphone上了。</p>
-<p>当你运行程序时，可以通过 organizer 看到你得iphone 运行时打印出来得Log。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://quanke.name/2012/10/30/e8-87-aa-e7-94-b1-e6-a2-a6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="全科">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/dog.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="全科-不安分的码农">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2012/10/30/e8-87-aa-e7-94-b1-e6-a2-a6/" itemprop="url">自由梦</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2012-10-30T06:44:57+08:00">
-                2012-10-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/随笔/" itemprop="url" rel="index">
-                    <span itemprop="name">随笔</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2012/10/30/e8-87-aa-e7-94-b1-e6-a2-a6/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/10/30/e8-87-aa-e7-94-b1-e6-a2-a6/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>夜的微光里有着无限的迷茫</p>
-<p> 萤火虫在黑暗里漫无目的的舞动着</p>
-<p> 即使恶魔也无法掩饰</p>
-<p> 那来自自己眼中的两束绿光</p>
-<p> 绝望的人们感到了暗夜里滋生着希望</p>
-<p> 封存的太久了</p>
-<p> 光明将厚厚的壁障膨胀</p>
-<p> 纵然是铁壁铜墙</p>
-<p> 那供魔鬼进出的门也会在开合时</p>
-<p> 仍然有光亮的泄出</p>
-<p> 整个世界颠倒了</p>
-<p> 在恐惧颤栗中</p>
-<p> 人们忍受着寒冷、寂寞、惊悚</p>
-<p> 时刻让神经紧张着</p>
-<p> 肉体上的痛苦是不安情绪的释放</p>
-<p> 精神上的折磨如同在炼狱中生活</p>
-<p> 内心的阴冷让更多的人</p>
-<p> 化作了为虎作伥的厉鬼</p>
-<p> 他们比魔鬼更让人刻骨铭心的恐惧</p>
-<p> 魔鬼锁起了光明</p>
-<p> 光明带走了自由</p>
-<p> 恶魔们活动在阳光下</p>
-<p> 体面的装扮让他们看上去更象人类</p>
-<p> 道貌岸然里过着人一样的生活</p>
-<p> 它们时刻担心着光明的泄露</p>
-<p> 睡觉时都睁着一只圆眼</p>
-<p> 他们害怕所有的人</p>
-<p> 更让他们害怕的是来自同类中的枭雄</p>
-<p> 只有魔鬼才可以轻意的制服魔鬼</p>
-<p> 活着的钟馗让鬼们害怕</p>
-<p> 死去的钟馗才是鬼们真正的克星</p>
-<p> 觉醒的过程需要经历一段漫长的艰辛</p>
-<p> 摸索着前进会有更多的鲜血</p>
-<p> 将这牢狱般的生活浸泡</p>
-<p> 房顶不破   墙壁不坏</p>
-<p> 鲜血也会让这牢狱的地面下沉</p>
-<p> 最后将这黑暗之屋葬送</p>
-<p> 殉难者中挺起的是</p>
-<p> 一个个追寻着光明脖颈</p>
-<p> 那些来自魔鬼阵营中的魔鬼们的鲜血</p>
-<p> 与抗争者们是一样的殷红</p>
-<p> 也是同样汇成浸塌这屋子的一份力量</p>
-<p> 没有不倒塌的房子</p>
-<p> 只有倒塌了再重建起来</p>
-<p> 灾难中的人们在麻木中缓慢地觉醒着</p>
-<p> 当光明降临时的喜悦还没有平静</p>
-<p> 新的房子又在人们的诧异中重新建了起来</p>
-<p> 不要相信别人会给你带来什么</p>
-<p> 号召你起来推翻魔鬼的</p>
-<p> 更多的时候也是魔鬼</p>
-<p> 魔鬼和基督的区别就是</p>
-<p> 基督把自己送上了祭坛</p>
-<p> 而魔鬼是鼓惑别人为他上祭坛</p>
-<p> 善良的人们啊</p>
-<p> 总是被利用</p>
-<p> 光明迟迟地难以等到</p>
-<p> 总是在一出现就被遮盖</p>
-<p> 人们生活在被欺骗中</p>
-<p> 沉默中不再相信任何的许诺</p>
-<p> 冷眼注视着一出出闹剧的表演</p>
-<p> 华丽中无法掩饰丑陋与拙劣</p>
-<p> 等待着技穷之后将骷髅现出</p>
-<p> 无声的抗议将深藏着的愤怒堆积</p>
-<p> 暴发时化作震动天地的怒吼</p>
-<p> 在这声音里</p>
-<p> 无论这黑屋是如何的坚固</p>
-<p> 爆碎声中还世界一个朗朗乾坤</p>
-<p> 光明会将自由带来</p>
-<p> 世界因魔鬼再无法变回魔鬼</p>
-<p> 迎来期盼已久的梦想</p>
-<p> 长久的等待   长久的等待</p>
-<p> 等来的是真实的自由</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2010,7 +1976,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">113</span>
+                  <span class="site-state-item-count">115</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2021,7 +1987,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2032,7 +1998,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-count">38</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

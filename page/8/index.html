@@ -261,6 +261,345 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://quanke.name/2012/11/08/android/android-e4-bd-bf-e7-94-a8ndk-e4-b8-8e-e7-8e-af-e5-a2-83-e6-90-ad-e5-bb-ba/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="全科">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/dog.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="全科-不安分的码农">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2012/11/08/android/android-e4-bd-bf-e7-94-a8ndk-e4-b8-8e-e7-8e-af-e5-a2-83-e6-90-ad-e5-bb-ba/" itemprop="url">android 使用NDK与环境搭建</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2012-11-08T04:02:00+08:00">
+                2012-11-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/android开发/" itemprop="url" rel="index">
+                    <span itemprop="name">android开发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2012/11/08/android/android-e4-bd-bf-e7-94-a8ndk-e4-b8-8e-e7-8e-af-e5-a2-83-e6-90-ad-e5-bb-ba/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/11/08/android/android-e4-bd-bf-e7-94-a8ndk-e4-b8-8e-e7-8e-af-e5-a2-83-e6-90-ad-e5-bb-ba/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>一、NDK介绍</p>
+<p>使用NDK，并不会给我们程序提高执行性能，反而会使程序复杂化。因此，尽量避免使用NDK，除非你真的需要使用本地库（通常是C/C++库），不要因为擅长使用C/C++编程而使用NDK。</p>
+<p>Android提供了两种使用本地代码的方式<br>1.通过JNI调用本地代码</p>
+<p>2.通过<a href="http://developer.android.com/reference/android/app/NativeActivity.html" target="_blank" rel="external">NativeActivity类</a>调用本地代码（从2.3版本开始支持）</p>
+<p>NDK 提供了一系列的工具，帮助开发者快速开发 C （或 C++ ）的动态库，并能自动将 so 和java 应用一起打包成 apk 。这些工具对开发者的帮助是巨大的。<br>NDK 集成了交叉编译器，并提供了相应的 mk 文件隔离 CPU 、平台、 ABI 等差异，开发人员只需要简单修改 mk 文件（指出 “ 哪些文件需要编译 ” 、 “ 编译特性要求 ” 等），就可以创建出 so 。 NDK 可以自动地将 so 和 Java 应用一起打包，极大地减轻了开发人员的打包工作 。 比较简单的说， NDK 是一套交叉编译工具，它可以帮你把你用 C 或 C++ 书写的代码，编译为 .so （类似与 win 下的 .dll ）格式的文件，使你可以在你的 Android 程序当中用 Java 语言（ JNI ）调用这些代码。</p>
+<p>二：Windows平台安装cygwin<br>由于 NDK 编译代码时必须要用到 make 和 gcc ，所以你必须先搭建一个 linux 环境， cygwin 是一个在 windows 平台上运行的 unix 模拟环境 , 它对于学习 unix/linux 操作环境，或者从 unix 到 windows 的应用程序移植，非常有用。通过它，你就可以在不安装 linux 的情况下使用 NDK 来编译 C 、 C++ 代码了。下面我们一步一步的安装 cygwin 吧。<br>1.在cygwin主页<a href="http://www.cygwin.com/" target="_blank" rel="external">下载setup.exe</a></p>
+<p>2.双击安装setup.exe</p>
+<p><img src="http://hi.csdn.net/attachment/201112/21/0_1324443486CEEE.gif" alt=""></p>
+<p>3.选择安装目录</p>
+<p><img src="http://hi.csdn.net/attachment/201112/21/0_1324443511RQ1d.gif" alt=""></p>
+<p>4.选择下载网址，<a href="http://mirrors.163.com比较快" target="_blank" rel="external">http://mirrors.163.com比较快</a></p>
+<p><img src="http://hi.csdn.net/attachment/201112/21/0_1324443536h1Ne.gif" alt=""></p>
+<p>5.安装向导提示是第一次安装，这个不用管它，直接点“确定”</p>
+<p><img src="http://hi.csdn.net/attachment/201112/21/0_132444360233tN.gif" alt=""></p>
+<p>6.选择安装包，这里要把Devel包由Default改成Install</p>
+<p><img src="http://hi.csdn.net/attachment/201112/21/0_1324443866rmRZ.gif" alt=""></p>
+<p>7.正在安装，时间有点长，估计要2个小时左右（根据网络而定）</p>
+<p><img src="http://hi.csdn.net/attachment/201112/21/0_1324443894UVMV.gif" alt=""></p>
+<p>&nbsp;</p>
+<p>8.测试cygwin是否安装好了<br>运行cygwin，在弹出的命令行窗口输入：cygcheck -c cygwin命令</p>
+<p><img src="http://hi.csdn.net/attachment/201112/21/0_1324443951xWCu.gif" alt=""></p>
+<p>&nbsp;</p>
+<p>三、配置NDK环境变量<br>1.在cygwin的安装目录，找到home\&lt;PC用户名&gt;.bash_profile文件（我是在C:\cygwin\home\user.bash_profile），有时候安装home目录下是空的，可以自行创建&lt;PC用户名&gt;目录，并将cygwin\etc\skel.bash_profile文件拷贝过来。<br>2.打开bash_profile文件，添加如下两行，例如：<br>NDK=/cygdrive/h/android-ndk-r7<br>export NDK</p>
+<p>NDK这个名字可以随便取，路径格式为/cygdrive/&lt;你的盘符&gt;/&lt;android ndk 目录&gt;<br>注意：用某些编辑器编辑bash_profile文件，会导致问题，如用写字板、VC++6。可以用Uedit、UltraEdit的dos格式编辑</p>
+<p>3.测试环境是否配置好了，打开cygwin，输入cd $NDK，出现/cygdrive/h/android-ndk-r7信息表示配置好了。如下图</p>
+<p><img src="http://hi.csdn.net/attachment/201112/21/0_1324444004BTXm.gif" alt=""></p>
+<p>注意：如果第2步用写字板打开编辑bash_profile文件，输入cd $NDK时会显示no such file or directory，说明配置不成功<br>四、用NDK来编译程序<br>1.现在我们用安装好的NDK来编译一个简单的程序，我们选择ndk自带的例子hello-jni，我的位于H:\android-ndk-r7\samples\hello-jni(根据你具体的安装位置而定)，<br>2.运行cygwin，输入命令cd /cygdrive/h/android-ndk-r7/samples/hello-jni，进入到H:\android-ndk-r7\samples\hello-jni目录。<br>3.输入$NDK/ndk-build，执行成功后，它会自动生成一个libs目录，把编译生成的.so文件放在里面。($NDK是调用我们之前配置好的环境变量，ndk-build是调用ndk的编译程序)<br>4.此时去hello-jni的libs目录下看有没有生成的.so文件，如果有，你的ndk就运行正常了</p>
+<p>五、在eclipse中集成c/c++开发环境<br>1.装Eclipse的C/C++环境插件：CDT，这里选择在线安装。<br>首先登录<a href="http://www.eclipse.org/cdt/downloads.php，找到对应你Eclipse版本的CDT插件的在线安装地址。" target="_blank" rel="external">http://www.eclipse.org/cdt/downloads.php，找到对应你Eclipse版本的CDT插件的在线安装地址。</a><br>2.然后点Help菜单，找到Install New Software菜单<br>3.点击Add按钮，把取的地址填进去，出来插件列表后，选Select All，然后选择下一步即可完成安装<br>4.安装完成后，在eclispe中右击新建一个项目，如果出现了c/c++项目，则表明你的CDT插件安装成功了</p>
+<p>&nbsp;</p>
+<p>六、配置C/C++的编译器<br>1.打开eclipse，导入ndk自带的hello-jni例子，右键单击项目名称，点击Properties，弹出配置界面，之后再点击Builders，弹出项目的编译工具列表，之后点击New，新添加一个编译器，点击后出现添加界面，选择Program，点击OK<br>2.出现了添加界面，首先给编译配置起个名字，如：C_Builder<br>设置Location为&lt;你cygwin安装路径&gt;\bin\bash.exe程序，例如：C:\cygwin\bin\bash.exe<br>设置Working Directory为&lt;你cygwin安装路径&gt;\bin目录，例如：C:\cygwin\bin<br>设置Arguments为  –login -c “cd /cygdrive/F/workspace/hello-jni &amp;&amp; $NDK/ndk-build”</p>
+<p><img src="http://hi.csdn.net/attachment/201112/21/0_1324444100zLFY.gif" alt=""></p>
+<p>上面的配置中 /cygdrive/F/workspace/hello-jni是你当前要编译的程序的目录，$NDK是之前配置的ndk的环境变量，这两个根据你具体的安装目录进行配置，其他的不用变，Arguments这串参数实际是  给bash.exe命令行程序传参数，进入要编译的程序目录，然后运行ndk-build编译程序</p>
+<p>3.接着切换到Refresh选项卡，给Refresh resources upon completion打上钩<br><img src="http://hi.csdn.net/attachment/201112/21/0_132444416374Ge.gif" alt=""><br>4.然后切换到Build Options选项卡，勾选上最后三项<br><img src="http://hi.csdn.net/attachment/201112/21/0_1324444176sQGE.gif" alt=""><br>5.之后点击Specify Resources按钮，选择资源目录，勾选你的项目目录即可<br><img src="http://hi.csdn.net/attachment/201112/21/0_1324444191ey9E.gif" alt=""><br>6.最后点击Finish，点击OK一路把刚才的配置都保存下来，注意：如果你配置的编译器在其它编译器下边，记得一定要点Up按钮，把它排到第一位，否则C代码的编译晚于Java代码的编译，会造成你的C代码要编译两次才能看到最新的修改</p>
+<p><img src="http://hi.csdn.net/attachment/201112/21/0_1324444229KpRM.gif" alt=""><br>7.编译配置完成，现在来测试一下是否可以自动编译，打开项目jni目录里的hello-jni.c文件把提示Hello from JNI!改成其他的文字：如：Hello，Automatic Compile.，然后再模拟器中运行你的程序，如果模拟器中显示了你最新修改的文字，说明环境搭建完成！</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://quanke.name/2012/11/08/e5-a3-b0-e9-9f-b3-e5-8e-8b-e7-bc-a9-e5-ba-93-speex/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="全科">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/dog.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="全科-不安分的码农">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2012/11/08/e5-a3-b0-e9-9f-b3-e5-8e-8b-e7-bc-a9-e5-ba-93-speex/" itemprop="url">声音压缩库 Speex </a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2012-11-08T03:31:49+08:00">
+                2012-11-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/android开发/" itemprop="url" rel="index">
+                    <span itemprop="name">android开发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2012/11/08/e5-a3-b0-e9-9f-b3-e5-8e-8b-e7-bc-a9-e5-ba-93-speex/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/11/08/e5-a3-b0-e9-9f-b3-e5-8e-8b-e7-bc-a9-e5-ba-93-speex/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><img src="http://www.oschina.net/uploads/img/200906/18121058_90zB.png" alt=""></p>
+<p>Speex是一套专门用于压缩声音的库,由于其专门针对声音,所以压缩声音的性能非常高.Speex由于其压缩性能,及0.80版后的跨平台的性能,所以在网络声音的传输中有很大的价值.但是需要注意的是speex只能对声音进行压缩,不支持音乐的压缩,如果你需要音乐的压缩你或许需要用vorbis库.</p>
+<p>支持包括Linux、BSD、MacOS 以及 Symbian 系统。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://quanke.name/2012/11/08/android/android-e5-bd-95-e5-88-b6-e5-a3-b0-e9-9f-b3-e5-bd-95-e9-9f-b3-e8-be-93-e8-be-93-e5-87-ba-e6-a0-bc-e5-bc-8f/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1776,409 +2115,6 @@ com.android.music</code><br>Monkey是一个命令行工具，可以运行在模�
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://quanke.name/2012/11/05/spannablestring-e8-ae-b0-e5-bd-95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="全科">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/dog.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="全科-不安分的码农">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2012/11/05/spannablestring-e8-ae-b0-e5-bd-95/" itemprop="url">android中的spannable String 使用记录</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2012-11-05T15:02:48+08:00">
-                2012-11-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/android开发/" itemprop="url" rel="index">
-                    <span itemprop="name">android开发</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2012/11/05/spannablestring-e8-ae-b0-e5-bd-95/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/11/05/spannablestring-e8-ae-b0-e5-bd-95/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>SpannableString<br>TextView是用来显示文本的，有时需要给TextView中的个别字设置为超链接，或者设置个别字的颜色、字体等，那就需要用到Spannable对象，可以借助Spannable对象实现以上设置<br>[code lang=”java”]<br>myTextView = (TextView) this.findViewById(R.id.myTextView);</p>
-<p>//创建一个 SpannableString对象<br>SpannableString sp = new SpannableString(&quot;这句话中有百度超链接,有高亮显示，这样，或者这样，还有斜体.&quot;);<br>//设置超链接<br>sp.setSpan(new URLSpan(&quot;<a href="http://www.baidu.com&amp;quot" target="_blank" rel="external">http://www.baidu.com&amp;quot</a>;), 5, 7,<br>Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);<br>//设置高亮样式一<br>sp.setSpan(new BackgroundColorSpan(Color.RED), 17 ,19,Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);<br>//设置高亮样式二<br>sp.setSpan(new ForegroundColorSpan(Color.YELLOW),20,24,Spannable.SPAN_EXCLUSIVE_INCLUSIVE);<br>//设置斜体<br>sp.setSpan(new StyleSpan(android.graphics.Typeface.BOLD_ITALIC), 27, 29, Spannable.SPAN_EXCLUSIVE_INCLUSIVE);<br>//SpannableString对象设置给TextView<br>myTextView.setText(sp);<br>//设置TextView可点击<br>myTextView.setMovementMethod(LinkMovementMethod.getInstance());<br>[/code]<br>textview显示不同的颜色、样式来表示，需要用到SpannableString对象来处理<br>下面是从网上找的一段代码，已验证过：<br>[code lang=”java”]<br>mTextView = (TextView)findViewById(R.id.test);<br>SpannableString tSS = new SpannableString(“SpannableString学习中”);<br>tSS.setSpan(new BackgroundColorSpan(Color.RED), 0, 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE); //红色高亮<br>tSS.setSpan(new UnderlineSpan(), 15, 18,Spannable.SPAN_EXCLUSIVE_EXCLUSIVE); //下划线<br>tSS.setSpan(new StyleSpan(android.graphics.Typeface.BOLD_ITALIC), 2, 5, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE); //斜体<br>mTextView.setText(tSS);<br>[/code]<br>关键方法：<br>[code lang=”java”]<br>public void setSpan (Object what, int start, int end, int flags)<br>[/code]<br>主要是start跟end<br>start是起始位置,无论中英文，都算一个。从0开始计算起。end是结束位置，所以处理的文字，包含开始位置，但不包含结束位置。</p>
-<p>下面解决点击不同文字跳转到不同activity的问题：<br>直接贴代码：<br>[code lang=”java”]<br>import android.app.Activity;<br>import android.os.Bundle;<br>import android.text.SpannableString;<br>import android.text.Spanned;<br>import android.text.method.LinkMovementMethod;<br>import android.text.style.ClickableSpan;<br>import android.view.View;<br>import android.view.View.OnClickListener;<br>import android.widget.LinearLayout;<br>import android.widget.TextView;<br>import android.widget.Toast;<br>public class TextViewJump2Activity extends Activity {<br>/<em>* Called when the activity is first created. </em>/<br>private TextView mClickableText;<br>@Override<br>public void onCreate(Bundle savedInstanceState) {<br>super.onCreate(savedInstanceState);<br>LinearLayout layout = new LinearLayout(this);<br>mClickableText = new TextView(this);<br>mClickableText.setClickable(true);<br>mClickableText.setTextSize(20);</p>
-<p>layout.addView(mClickableText);<br>setContentView(layout);<br>mClickableText.setText(getClickableSpan());<br>mClickableText.setMovementMethod(LinkMovementMethod.getInstance());<br>}<br>private SpannableString getClickableSpan() {<br>View.OnClickListener l = new View.OnClickListener() {<br>//如下定义自己的动作<br>public void onClick(View v) {<br>Toast.makeText(TextViewJump2Activity.this, &quot;Click Success&quot;, Toast.LENGTH_SHORT).show();<br>//在这里就可以做跳转到activity或者弹出对话框的操作了<br>}<br>};<br>SpannableString spanableInfo = new SpannableString(&quot;This is a test, Click Here!&quot;);<br>int start = 16;<br>int end = spanableInfo.length();<br>spanableInfo.setSpan(new Clickable(l), start, end,<br>Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);<br>return spanableInfo;<br>}<br>}<br>class Clickable extends ClickableSpan implements OnClickListener {<br>private final View.OnClickListener mListener;<br>public Clickable(View.OnClickListener l) {<br>mListener = l;<br>}<br>@Override<br>public void onClick(View v) {<br>mListener.onClick(v);<br>}<br>}<br>[/code]<br>转自：<a href="http://blog.csdn.net/rockcoding/article/details/7231756" target="_blank" rel="external">http://blog.csdn.net/rockcoding/article/details/7231756</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://quanke.name/2012/11/05/relativelayout/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="全科">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/dog.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="全科-不安分的码农">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2012/11/05/relativelayout/" itemprop="url">RelativeLayout的基本属性用法以及代码实现</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2012-11-05T03:13:31+08:00">
-                2012-11-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/android开发/" itemprop="url" rel="index">
-                    <span itemprop="name">android开发</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2012/11/05/relativelayout/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/11/05/relativelayout/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>RelativeLayout，顾名思义，就是以“相对”位置/对齐 为基础的布局方式。android.widget.RelativeLayout 有个 继承自android.view.ViewGroup.LayoutParams 的内嵌类 LayoutParams，使用这个类的实例调用 RelativeLayout.addView 就可以实现“相对布局”。他比LinearLyout更灵活的为控件布置位置.</p>
-<p><span style="color: #ff0000;">在新版本中属性的设置可能有变化，具体请看官方api</span></p>
-<p>RelativeLayout 的属性：<br>// 相对于给定ID控件</p>
-<p>android:layout_above 将该控件的底部置于给定ID的控件之上;</p>
-<p>android:layout_below 将该控件的底部置于给定ID的控件之下;</p>
-<p>android:layout_toLeftOf 将该控件的右边缘与给定ID的控件左边缘对齐;</p>
-<p>android:layout_toRightOf 将该控件的左边缘与给定ID的控件右边缘对齐;</p>
-<p>android:layout_alignBaseline 将该控件的baseline与给定ID的baseline对齐;</p>
-<p>android:layout_alignTop 将该控件的顶部边缘与给定ID的顶部边缘对齐;</p>
-<p>android:layout_alignBottom 将该控件的底部边缘与给定ID的底部边缘对齐;</p>
-<p>android:layout_alignLeft 将该控件的左边缘与给定ID的左边缘对齐;</p>
-<p>android:layout_alignRight 将该控件的右边缘与给定ID的右边缘对齐;</p>
-<p>// 相对于父组件</p>
-<p>android:layout_alignParentTop 如果为true,将该控件的顶部与其父控件的顶部对齐;</p>
-<p>android:layout_alignParentBottom 如果为true,将该控件的底部与其父控件的底部对齐;</p>
-<p>android:layout_alignParentLeft 如果为true,将该控件的左部与其父控件的左部对齐;</p>
-<p>android:layout_alignParentRight 如果为true,将该控件的右部与其父控件的右部对齐;</p>
-<p>// 居中</p>
-<p>android:layout_centerHorizontal 如果为true,将该控件的置于水平居中;</p>
-<p>android:layout_centerVertical 如果为true,将该控件的置于垂直居中;</p>
-<p>android:layout_centerInParent 如果为true,将该控件的置于父控件的中央;</p>
-<p>// 指定移动像素</p>
-<p>android:layout_marginTop 上偏移的值;</p>
-<p>android:layout_marginBottom 下偏移的值;</p>
-<p>android:layout_marginLeft 　　左偏移的值;</p>
-<p>android:layout_marginRight 　 右偏移的值;</p>
-<p>example:</p>
-<p>android:layout_below = “@id/<em>*</em>“</p>
-<p>android:layout_alignBaseline = “@id/<em>*</em>“</p>
-<p>android:layout_alignParentTop = true</p>
-<p>android:layout_marginLeft = “10px”</p>
-<p>以下是代码中的用法：</p>
-<p>[code lang=”java”]<br>import android.app.Activity;<br>import android.os.Bundle;<br>import android.widget.<em>;<br>import android.view.</em>;</p>
-<p>public class RLTest extends Activity {</p>
-<pre><code>private RelativeLayout rl;
-
-private Button btn1;
-private Button btn2;
-private Button btn3;
-private Button btn4;
-
-private static final int ID_BTN1 = 1;
-private static final int ID_BTN2 = 2;
-private static final int ID_BTN3 = 3;
-private static final int ID_BTN4 = 4;
-
-/** Called when the activity is first created. */
-@Override
-public void onCreate(Bundle icicle) {
-    super.onCreate(icicle);
-
-    rl = new RelativeLayout(this);
-
-    btn1 = new Button(this);
-    btn1.setText(&amp;quot;----------------------&amp;quot;);
-    btn1.setId(ID_BTN1);
-
-    RelativeLayout.LayoutParams lp1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-    lp1.addRule(RelativeLayout.ALIGN_WITH_PARENT_TOP);
-    lp1.addRule(RelativeLayout.CENTER_HORIZONTAL, RelativeLayout.TRUE);
-    // btn1 位于父 View 的顶部，在父 View 中水平居中
-    rl.addView(btn1, lp1 );
-
-    btn2 = new Button(this);
-    btn2.setText(&amp;quot;|\n|\n|\n|\n|\n|&amp;quot;);
-    btn2.setId(ID_BTN2);
-
-    RelativeLayout.LayoutParams lp2 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-    lp2.addRule(RelativeLayout.POSITION_BELOW, ID_BTN1);
-    lp2.addRule(RelativeLayout.ALIGN_LEFT, ID_BTN1);
-    // btn2 位于 btn1 的下方、其左边和 btn1 的左边对齐
-    rl.addView(btn2, lp2);
-
-    btn3 = new Button(this);
-    btn3.setText(&amp;quot;|\n|\n|\n|\n|\n|&amp;quot;);
-    btn3.setId(ID_BTN3);
-
-    RelativeLayout.LayoutParams lp3 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-   lp3.addRule(RelativeLayout.POSITION_BELOW, ID_BTN1);
-    lp3.addRule(RelativeLayout.POSITION_TO_RIGHT, ID_BTN2);
-    lp3.addRule(RelativeLayout.ALIGN_RIGHT, ID_BTN1);
-    // btn3 位于 btn1 的下方、btn2 的右方且其右边和 btn1 的右边对齐（要扩充）
-    rl.addView(btn3,lp3);
-
-    btn4 = new Button(this);
-    btn4.setText(&amp;quot;--------------------------------------------&amp;quot;);
-    btn4.setId(ID_BTN4);
-
-    RelativeLayout.LayoutParams lp4 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-    lp4.addRule(RelativeLayout.POSITION_BELOW, ID_BTN2);
-    lp4.addRule(RelativeLayout.CENTER_HORIZONTAL, RelativeLayout.TRUE);
-    // btn4 位于 btn2 的下方，在父 Veiw 中水平居中
-    rl.addView(btn4,lp4);
-
-    setContentView(rl);
-}
-</code></pre><p>}<br>[/code] </p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2233,7 +2169,7 @@ public void onCreate(Bundle icicle) {
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">113</span>
+                  <span class="site-state-item-count">115</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2244,7 +2180,7 @@ public void onCreate(Bundle icicle) {
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2255,7 +2191,7 @@ public void onCreate(Bundle icicle) {
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-count">38</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

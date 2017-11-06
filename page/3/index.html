@@ -261,6 +261,394 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://quanke.name/2016/04/09/Vert-x-3-x版本callback-hell的解决/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="全科">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/dog.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="全科-不安分的码农">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/04/09/Vert-x-3-x版本callback-hell的解决/" itemprop="url">Vert.x 3.x版本callback hell的解决</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-04-09T19:15:01+08:00">
+                2016-04-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Vert-x3-系列/" itemprop="url" rel="index">
+                    <span itemprop="name">Vert.x3 系列</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/04/09/Vert-x-3-x版本callback-hell的解决/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/09/Vert-x-3-x版本callback-hell的解决/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li>欢迎关注<a href="http://quanke.name/">http://quanke.name/</a></li>
+<li>交流群：<code>231419585</code></li>
+<li>转载请注明出处，谢谢</li>
+</ul>
+<p><code>Vert.x</code>乃神器也，管玩管住还包饭，异步处理，很多人头疼的<code>callback hell</code>（回调地狱），也就是金字塔，不知不觉就走入了金字塔的陷阱里，一般<code>callback</code>都发生在异步处理期间，而异步处理，除了少数数据量极大的<code>cpu intense</code>的代码块以外（这部分主要通过降低算法时间复杂度来优化），绝大多数都集中在<code>io</code>上，将一个<code>io</code>操作包装成一个异步程序块来执行，是比较常见的优化方式，<code>vert.x</code>的<code>io</code>集中在以下几个部分。</p>
+<p>第一，<a href="http://vertx.io/docs/apidocs/io/vertx/core/eventbus/EventBus.html#send-java.lang.String-java.lang.Object-" target="_blank" rel="external">eventbus.send()</a>方法。</p>
+<p>第二，<code>jdbcclient.getconnection</code>以及<code>connection.update/query</code>等方法。</p>
+<p>第三，httpclient.get/post等方法，其中前两个都可以通过vert.x自带的Future来对付。</p>
+<p>首先我们要实例化一个<code>future</code>对象：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">Future&lt;MyResult&gt; future = Future.future();</div></pre></td></tr></table></figure>
+<p>然后<code>future</code>有几个方法值得注意，其中一个是<code>setHandler</code>方法，这个方法就是设置后续处理的函数，另外一个，与之相对应的是<code>completer()</code>方法，这个方法返回的就是<code>setHandler</code>方法<code>set</code>的<code>handler</code>函数，通俗点说，就是<code>getHandler()</code>方法，在<code>callback</code>位置调用该方法，就可以在<code>callback</code>的时候执行<code>handler</code>方法/函数，比如原本是：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">vertx.eventBus().send(CommerceVerticle.class.getName(),myAsyncResult -&gt; &#123;...&#125;);</div></pre></td></tr></table></figure>
+<p>经过改写之后，就变成了：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">vertx.eventBus().send(CommerceVerticle.class.getName(),future.completer());</div><div class="line">future.setHandler(myAsyncResult -&gt; &#123;...&#125;);</div></pre></td></tr></table></figure>
+<p>这样通过拆分原来的内嵌<code>lambda</code>/匿名函数来达到扁平化的效果。<br><code>callback hell</code>一个典型特征就是金字塔，也就是经过多层回调<code>/callback</code>函数嵌套之后，程序会变成：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">ar -&gt; &#123;</div><div class="line">    ar1 -&gt; &#123;</div><div class="line">         ar2 -&gt; &#123;</div><div class="line">             ...</div><div class="line">         &#125;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>这种方式，或者<code>fp</code>里面常见的<code>(+ 1 (+ 1 (+ 1 1)))</code>;如果强行<code>format</code>的话，就会变成一个多层多次缩进的，向右凸起的金字塔，极为丑陋，但是如果不这么做，又无法保证顺序，所以为了保证顺序的同时，我们要扁平化该金字塔，那么如何保证顺序呢？<br>用<code>compose</code>方法，比如：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">Future fut1 = Future.future();</div><div class="line">Future fut2 = Future.future();</div><div class="line">fut1.compose(asyncMyResult -&gt; &#123;</div><div class="line">    ...</div><div class="line">    fut2.complete();</div><div class="line">    ...</div><div class="line">&#125;, fut2);</div><div class="line"></div><div class="line">fut2.setHandler(asyncMyResult2 -&gt; &#123;</div><div class="line">    ...</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>那么当<code>fut1</code>被触发之后，如果成功，则执行<code>compose</code>方法里面的第一个参数，也就是那个回调函数<code>/handler</code>，如果失败，则直接传递给<code>compose</code>方法的第二个参数，也就是<code>fut2</code>，依次类推，便可以很轻松地组装出你想要的扁平化链条，使得多层缩进的噩梦不再。<br>利用这种方式，可以扁平化处理<code>vertx.eventBus()</code>，<code>jdbcClient.getConnection()</code>等包含有异步<code>callback</code>的代码块。<br>至于<code>Vert.x</code>自带的<code>httpclient</code>，这个稍微有些特殊，因为执行<code>get/post</code>等方法的时候，<code>response handler</code>并不能囊括全部情况，尤其是常见的超时/<code>timeout</code>，属于<code>exception</code>范畴，也就是说，要想囊括全部返回情况，至少需要<code>response</code>的<code>body handler</code>，同时也需要一个<code>exception handler</code>，最后还要调用end方法才能将全部常见的情况全部覆盖住，代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">client1.get(port, ip, url, response -&gt; &#123;</div><div class="line">    response.bodyHandler(respBody -&gt; &#123;</div><div class="line">    //这里处理正常返回</div><div class="line">    &#125;);</div><div class="line">&#125;).exceptionHandler(exception -&gt; &#123;</div><div class="line">    //这里处理超时</div><div class="line">&#125;).end();</div></pre></td></tr></table></figure>
+<p>如果要在这里面用<code>future</code>的话，需要显式处理标识成功<code>future.complete(...)</code>或者失败<code>future.fail(...)</code><br>另外，常见的<code>httpClient.getNow()</code>;等方法相当于：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">client1.get(port, ip, url, response -&gt; &#123;</div><div class="line">    response.bodyHandler(respBody -&gt; &#123;</div><div class="line">    //这里处理正常返回</div><div class="line">    &#125;);</div><div class="line">&#125;).end();</div></pre></td></tr></table></figure>
+<p>也就是没有<code>exception handler</code>的普通<code>get/post</code>等方法<code>＋end</code>方法，所以如果用<code>getNow</code>等方法发送请求，会无法捕捉处理<code>timeout</code>超时异常。</p>
+<p>通过这篇文章想必对Vertx如何避免callback hell有所了解。</p>
+<p><a href="http://dwz.cn/34QFDQ" target="_blank" rel="external">参考此文编辑</a> 非常感谢。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://quanke.name/2016/04/04/Vert-x配置项VertxOptions的使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="全科">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/dog.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="全科-不安分的码农">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/04/04/Vert-x配置项VertxOptions的使用/" itemprop="url">Vert-x配置项VertxOptions的使用</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-04-04T06:59:52+08:00">
+                2016-04-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Vert-x3-系列/" itemprop="url" rel="index">
+                    <span itemprop="name">Vert.x3 系列</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/04/04/Vert-x配置项VertxOptions的使用/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/04/Vert-x配置项VertxOptions的使用/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li>欢迎关注<a href="http://quanke.name/">http://quanke.name/</a></li>
+<li>交流群：<code>231419585</code></li>
+<li>转载请注明出处，谢谢</li>
+</ul>
+<p>今天清明节，一大早被孩子吵醒，起来撸一篇关于VertxOptions的文章，此文章诞生于洗手间，读此文章可能会闻到臭臭的味道。下面正式开始：</p>
+<p>在发布Vert.x实例时，需要传入一个<a href="http://vertx.io/docs/apidocs/io/vertx/core/VertxOptions.html" target="_blank" rel="external">VertxOptions</a>来实现针对Vert.x的配置项的管理，代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">VertxOptions options = new VertxOptions();</div><div class="line">options.setWorkerPoolSize(40)//举个栗子，设置支持的Worker线程的最大数量</div><div class="line">Vertx vertx = Vertx.vertx(options);</div></pre></td></tr></table></figure>
+<p>配置项的API说明：</p>
+<ul>
+<li><p><a href="http://vertx.io/docs/apidocs/io/vertx/core/VertxOptions.html#setEventLoopPoolSize-int-" target="_blank" rel="external">setEventLoopPoolSize</a></p>
+<p>  设置Vert.x实例中使用的Event Loop线程的数量，默认值为：2 * Runtime.getRuntime().availableProcessors()（可用的处理器个数）；</p>
+</li>
+<li><p><a href="http://vertx.io/docs/apidocs/io/vertx/core/VertxOptions.html#setWorkerPoolSize-int-" target="_blank" rel="external">setWorkerPoolSize</a></p>
+<p>  设置Vert.x实例中支持的Worker线程的最大数量，默认值为20；</p>
+</li>
+<li><p><a href="http://vertx.io/docs/apidocs/io/vertx/core/VertxOptions.html#setInternalBlockingPoolSize-int-" target="_blank" rel="external">setInternalBlockingPoolSize</a></p>
+<p>  设置内部阻塞线程池最大线程数，这个参数主要被Vert.x的一些内部操作使用，默认值为20；</p>
+</li>
+<li><p><a href="http://vertx.io/docs/apidocs/io/vertx/core/VertxOptions.html#setClustered-boolean-" target="_blank" rel="external">setClustered</a></p>
+<p>  是否开启Vert.x的Cluster集群模式，默认值为false；</p>
+</li>
+<li><p><a href="http://vertx.io/docs/apidocs/io/vertx/core/VertxOptions.html#setClusterHost-java.lang.String-" target="_blank" rel="external">setClusterHost</a></p>
+<p>  【Cluster集群模式有效】设置集群运行的默认hostname，默认值为localhost；</p>
+</li>
+<li><p><a href="http://vertx.io/docs/apidocs/io/vertx/core/VertxOptions.html#setClusterPort-int-" target="_blank" rel="external">setClusterPort</a></p>
+<p>  【Cluster集群模式有效】设置集群运行的端口号，可自定义固定端口号，默认值为0（随机分配）；</p>
+</li>
+<li><p><a href="http://vertx.io/docs/apidocs/io/vertx/core/VertxOptions.html#setClusterPingInterval-long-" target="_blank" rel="external">setClusterPingInterval</a></p>
+<p>  【Cluster集群模式有效】使用ping命令检测Cluster的时间间隔，默认20000，单位毫秒ms，即20秒；</p>
+</li>
+<li><p><a href="http://vertx.io/docs/apidocs/io/vertx/core/VertxOptions.html#setClusterPingReplyInterval-long-" target="_blank" rel="external">setClusterPingReplyInterval</a></p>
+<p>  【Cluster集群模式有效】集群响应ping命令的时间间隔，默认20000，单位毫秒ms，即20秒；</p>
+</li>
+<li><p><a href="http://vertx.io/docs/apidocs/io/vertx/core/VertxOptions.html#setBlockedThreadCheckInterval-long-" target="_blank" rel="external">setBlockedThreadCheckInterval</a></p>
+<p>  阻塞线程检查的时间间隔，默认1000，单位ms，即1秒；</p>
+</li>
+<li><p><a href="http://vertx.io/docs/apidocs/io/vertx/core/VertxOptions.html#setMaxEventLoopExecuteTime-long-" target="_blank" rel="external">setMaxEventLoopExecuteTime</a></p>
+<p>  Event Loop的最大执行时间，默认2l <em> 1000 </em> 1000000，单位ns，即2秒；</p>
+</li>
+<li><p><a href="http://vertx.io/docs/apidocs/io/vertx/core/VertxOptions.html#setMaxWorkerExecuteTime-long-" target="_blank" rel="external">setMaxWorkerExecuteTime</a></p>
+<p>  Worker线程的最大执行时间，默认60l <em> 1000 </em> 1000000，单位ns，即60秒；</p>
+</li>
+<li><p><a href="http://vertx.io/docs/apidocs/io/vertx/core/VertxOptions.html#setHAEnabled-boolean-" target="_blank" rel="external">setHAEnabled</a></p>
+<p>  是否支持HA架构，默认值false；（*：如果Vert.x启用了HA模式，其中一个Vert.x实例运行出现了异常或者死掉，那么这个Vert.x实例中运行的Verticle会执行重发布Redeploy的过程将运行在该实例中的Verticle实例重新发布到其他正常运行的Vert.x实例中【Verticle Fail-Over】。）</p>
+</li>
+<li><p><a href="http://vertx.io/docs/apidocs/io/vertx/core/VertxOptions.html#setHAGroup-java.lang.String-" target="_blank" rel="external">setHAGroup</a></p>
+<p>  【HA模式有效】支持了HA模式过后，可根据不同的组名将Vert.x进行逻辑分组，此方法设置当前Vert.x的逻辑组名，默认<strong>DEFAULT</strong>；</p>
+</li>
+<li><p><a href="http://vertx.io/docs/apidocs/io/vertx/core/VertxOptions.html#setQuorumSize-int-" target="_blank" rel="external">setQuorumSize</a></p>
+<p>  【HA模式有效】支持了HA模式过后，此方法设置冲裁节点的数量，默认值1；（*：这个值一旦设置过后，如果要发布Verticle组件，则需要运行环境中的节点数量达到这个值才可执行发布，比如quorum的值设置成3，如果仅仅运行了两个Vert.x实例，那么这种情况下Verticle不会被发布，必须要运行至少三个Vert.x实例，才会执行发布Deploy流程，Undeploy流程类似）</p>
+</li>
+<li><p><a href="http://vertx.io/docs/apidocs/io/vertx/core/VertxOptions.html#setWarningExceptionTime-long-" target="_blank" rel="external">setWarningExceptionTime</a></p>
+<p>  如果线程阻塞时间超过了这个阀值，那么就会打印警告的堆栈信息，默认为5l <em> 1000 </em> 1000000，单位ns，即5秒；</p>
+</li>
+</ul>
+<blockquote>
+<p>之后还有大招，请关注<a href="http://quanke.name/">http://quanke.name/</a> ，马化腾群：231419585</p>
+</blockquote>
+<p>此文参考： <a href="http://dwz.cn/32dhMF" target="_blank" rel="external">http://dwz.cn/32dhMF</a>    感谢戒子猪</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://quanke.name/2016/01/20/Vert-x-Core手册-for-Java-了解Vert-x/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1910,342 +2298,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://quanke.name/2015/07/13/liveoak/MBaaS-LiveOak系列三：LiveOak官方实例-聊天/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="全科">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/dog.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="全科-不安分的码农">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2015/07/13/liveoak/MBaaS-LiveOak系列三：LiveOak官方实例-聊天/" itemprop="url">MBaaS-LiveOak系列三：LiveOak官方实例-聊天</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-07-13T10:03:56+08:00">
-                2015-07-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MBaaS-LiveOak系列/" itemprop="url" rel="index">
-                    <span itemprop="name">MBaaS-LiveOak系列</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2015/07/13/liveoak/MBaaS-LiveOak系列三：LiveOak官方实例-聊天/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/13/liveoak/MBaaS-LiveOak系列三：LiveOak官方实例-聊天/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li>欢迎关注<a href="http://quanke.name/">http://quanke.name/</a></li>
-<li>交流群：<code>231419585</code></li>
-<li>转载请注明出处，谢谢</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://quanke.name/2015/07/11/liveoak/MBaaS-LiveOak系列二：LiveOak的安装和运行/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="全科">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/dog.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="全科-不安分的码农">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2015/07/11/liveoak/MBaaS-LiveOak系列二：LiveOak的安装和运行/" itemprop="url">MBaaS-LiveOak系列二：LiveOak的安装和运行</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-07-11T16:41:49+08:00">
-                2015-07-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MBaaS-LiveOak系列/" itemprop="url" rel="index">
-                    <span itemprop="name">MBaaS-LiveOak系列</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2015/07/11/liveoak/MBaaS-LiveOak系列二：LiveOak的安装和运行/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/11/liveoak/MBaaS-LiveOak系列二：LiveOak的安装和运行/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li>欢迎关注<a href="http://quanke.name/">http://quanke.name/</a></li>
-<li>交流群：<code>231419585</code></li>
-<li>转载请注明出处，谢谢</li>
-</ul>
-<p>LiveOak是<code>Java</code>开发，所以前提是需要有Java运行环境，<code>Java</code>运行环境自己百度安装，不会装Java环境的看这个还是困难的，LiveOak要求的Java环境是<code>Java 8</code> </p>
-<p>下面命令是查看你的<code>Java</code>版本</p>
-<p><code>java -version</code></p>
-<p>下载地址： <a href="http://liveoak.io/downloads" target="_blank" rel="external">http://liveoak.io/downloads</a>.</p>
-<p>首先下载解压后执行下面的命令（$LIVEOAK_HOME是LiveOak的目录）：</p>
-<p><code>$LIVEOAK_HOME/bin/standalone.sh -b 0.0.0.0</code></p>
-<p>之后会自动下载<code>MongoDB</code></p>
-<p>最后访问 <a href="http://localhost:8080/admin" target="_blank" rel="external">http://localhost:8080/admin</a> ，用户名和密码是<code>admin</code></p>
-<p>LiveOak支持安装在<code>OpenShift</code>上</p>
-<p>LiveOak 在OpenShift 市场上的地址<a href="https://marketplace.openshift.com/apps/10363" target="_blank" rel="external">https://marketplace.openshift.com/apps/10363</a></p>
-<p>用户名和密码都是<code>admin</code></p>
-<p>安装LiveOak 的<code>Docker</code>容器</p>
-<p>首先从<code>Docker</code>容器 <code>pull</code>下来，安装</p>
-<p><code>docker pull jboss/liveoak-server</code></p>
-<p>启动</p>
-<p><code>docker run -it -p 8080:8080 -p 9090:9090 jboss/liveoak-server</code></p>
-<p>想要在<code>docker</code>上用好，建议系统学习<code>docker</code></p>
-<p>如果用的是Mac系统，<code>kitematic</code>（<a href="https://docs.docker.com/kitematic/）可以非常简单的使用docker，在kitematic里搜索LiveOak" target="_blank" rel="external">https://docs.docker.com/kitematic/）可以非常简单的使用docker，在kitematic里搜索LiveOak</a> ，安装就可以使用了，非常简单</p>
-<p>运行效果</p>
-<p><img src="/images/liveoak/img_liveoak02/docker_run_liveoak.png" alt="docker运行liveoak界面"></p>
-<p><img src="/images/liveoak/img_liveoak02/liveoak_login_page.png" alt="liveoak管理登陆界面"></p>
-<p><img src="/images/liveoak/img_liveoak02/liveoak_admin_page.png" alt="liveoak管理应用界面"></p>
-<p><img src="/images/liveoak/img_liveoak02/liveoak_formatscript_page.png" alt="liveoak管理formatscript界面（一个liveoak的实例）"></p>
-<p><strong>有问题请多多指教</strong></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2300,7 +2352,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">113</span>
+                  <span class="site-state-item-count">115</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2311,7 +2363,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2322,7 +2374,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-count">38</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

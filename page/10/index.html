@@ -261,6 +261,443 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://quanke.name/2012/10/30/xcode-4-x-e5-85-8d-e8-af-81-e4-b9-a6-e7-9c-9f-e6-9c-ba-e5-8f-91-e5-b8-83-e5-8f-8a-e8-b0-83-e8-af-95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="全科">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/dog.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="全科-不安分的码农">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2012/10/30/xcode-4-x-e5-85-8d-e8-af-81-e4-b9-a6-e7-9c-9f-e6-9c-ba-e5-8f-91-e5-b8-83-e5-8f-8a-e8-b0-83-e8-af-95/" itemprop="url">xCode 4.X 免证书真机发布及调试</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2012-10-30T08:04:04+08:00">
+                2012-10-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ios开发/" itemprop="url" rel="index">
+                    <span itemprop="name">ios开发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2012/10/30/xcode-4-x-e5-85-8d-e8-af-81-e4-b9-a6-e7-9c-9f-e6-9c-ba-e5-8f-91-e5-b8-83-e5-8f-8a-e8-b0-83-e8-af-95/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/10/30/xcode-4-x-e5-85-8d-e8-af-81-e4-b9-a6-e7-9c-9f-e6-9c-ba-e5-8f-91-e5-b8-83-e5-8f-8a-e8-b0-83-e8-af-95/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>由于没有购买苹果的开发者证书，所以目前大多数开发环境都是使用以下的方式实现开发与真机测试（本文部分摘自网络）</p>
+<p>【2012年3月15日更新】：目前我使用的是Xcode4.3.1 mac os 10.7.3</p>
+<p>最简单的办法就是让xcode不检查签名，直接编译发布。</p>
+<p>1、 修改SDKSettings.plist文件：<br>进入SDK目录：xcode4.3版本以前是：/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.3（可能是5.0/4.2等）.sdk/<br>xcode4.3及以上版本的目录是：/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.1.sdk</p>
+<p>打开该目录下的SDKSettings.plist文件，把其中所有的包含REQUIRED的项的值改成NO（在实际就是有2项值需要修改：CODE_SIGNING_REQUIRED和ENTITLEMENTS_REQUIRED）。</p>
+<p>2、工程的配置修改：<br>对每个工程进行修改，把所有的Code Signing Identity 全部改为 Don’t Code Sign</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>旧的方法可以参考：</p>
+<p>&nbsp;</p>
+<p>使用环境：越狱过的iPhone 机器 Mac OS 10.6.8 xCode 4.0.1 及Xcode4.0.2</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>操作步骤过程：</p>
+<p>（一）制作证书</p>
+<p>1、 打开   Finder－&gt;应用程序－&gt;实用工具 -&gt;  钥匙串访问</p>
+<p>2、单击：”钥匙串访问”选择  “证书” 再选择”创建证书”过程如下图：</p>
+<p><a href="http://photo.blog.sina.com.cn/showpic.html" target="_blank" rel="external"><img src="http://images.cnblogs.com/cnblogs_com/liubiqu/201110/201110261354057979.png" alt=""></a></p>
+<p>3、证书名称必须填写为：”iPhone Developer” ，（不能随便填写）然后点击”创建”。(如图）</p>
+<p><a href="http://photo.blog.sina.com.cn/showpic.html" target="_blank" rel="external"><img src="http://images.cnblogs.com/cnblogs_com/liubiqu/201110/201110261354068012.png" alt=""></a></p>
+<p><a href="http://photo.blog.sina.com.cn/showpic.html" target="_blank" rel="external"><img src="http://images.cnblogs.com/cnblogs_com/liubiqu/201110/201110261354069997.png" alt=""></a></p>
+<p><a href="http://photo.blog.sina.com.cn/showpic.html" target="_blank" rel="external"><img src="http://images.cnblogs.com/cnblogs_com/liubiqu/201110/201110261354068394.png" alt=""></a></p>
+<p><a href="http://photo.blog.sina.com.cn/showpic.html" target="_blank" rel="external"><img src="http://images.cnblogs.com/cnblogs_com/liubiqu/201110/201110261354071525.png" alt=""></a></p>
+<p><a href="http://photo.blog.sina.com.cn/showpic.html" target="_blank" rel="external"><img src="http://images.cnblogs.com/cnblogs_com/liubiqu/201110/201110261354073194.png" alt=""></a></p>
+<p><a href="http://photo.blog.sina.com.cn/showpic.html" target="_blank" rel="external"><img src="http://images.cnblogs.com/cnblogs_com/liubiqu/201110/201110261354089083.png" alt=""></a></p>
+<p><a href="http://photo.blog.sina.com.cn/showpic.html" target="_blank" rel="external"><img src="http://images.cnblogs.com/cnblogs_com/liubiqu/201110/201110261354082180.png" alt=""></a></p>
+<p><a href="http://photo.blog.sina.com.cn/showpic.html" target="_blank" rel="external"><img src="http://images.cnblogs.com/cnblogs_com/liubiqu/201110/201110261354086117.png" alt=""></a></p>
+<p><a href="http://photo.blog.sina.com.cn/showpic.html" target="_blank" rel="external"><img src="http://images.cnblogs.com/cnblogs_com/liubiqu/201110/201110261354095278.png" alt=""></a></p>
+<p>(二)修改xcode配置文件</p>
+<p>注意：由于这些配置文件是系统文件，修改系统文件需要管理员权限才可以进行操作，所以保存的时候不能直接保存，会遇到系统提示”你没有修改此文件得权限”，但可以保存一个副本。可以先修改这个副本，然后再复制到原先的目录，系统会提示你是否修改替换，选择”替换”，这时候是需要管理员密码才可以覆盖原来的文件，输入密码后，修改完成。</p>
+<p>1.修改SDKsettings.plist文件。</p>
+<p>找到 “  /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.3.sdk “下得  SDKSettings.plist  文件，修改”Default Properties “项下面得 “CODE_SIGNING_REQUIRED “得值为：NO。</p>
+<p>2.修改”/Developer/Platforms/iPhoneOS.platform/Info.plist”文件（用文本编辑器或者Xcode打开）：</p>
+<p><img src="http://images.cnblogs.com/cnblogs_com/liubiqu/201110/201110261354098343.png" alt=""></p>
+<p>增加两项：</p>
+<p>PROVISIONING_PROFILE_ALLOWED = NO</p>
+<p>PROVISIONING_PROFILE_REQUIRED = NO</p>
+<p>效果如下图所示：</p>
+<p><img src="http://images.cnblogs.com/cnblogs_com/liubiqu/201110/201110261354092279.png" alt=""></p>
+<p>然后将所有”XCiPhoneOSCodeSignContext”替换为”XCCodeSignContext”。</p>
+<p><img src="http://images.cnblogs.com/cnblogs_com/liubiqu/201110/201110261354096772.png" alt=""></p>
+<p>3.修改好配置文件后重启xcode，修改项目的属性</p>
+<p>1）点击  项目图标，找到”Build Settings”  找到  “Code Sign Identity”</p>
+<p>按照下面得方式设置一下就可以 了。</p>
+<p><img src="http://images.cnblogs.com/cnblogs_com/liubiqu/201110/201110261354108442.png" alt=""></p>
+<p>2） 设置工程属性：</p>
+<p><img src="http://images.cnblogs.com/cnblogs_com/liubiqu/201110/201110261354105476.png" alt=""></p>
+<p><img src="http://images.cnblogs.com/cnblogs_com/liubiqu/201110/201110261354119413.png" alt=""></p>
+<p>3）然后点击  “Run” 我们会看到工程正在编译，然后弹出如图提示（两次）：我们选择 “总是允许”</p>
+<p><img src="http://images.cnblogs.com/cnblogs_com/liubiqu/201110/201110261354111398.png" alt=""></p>
+<p>4）在项目中添加一个Entitlement.plist文件，设置允许调试。</p>
+<p>注：若不操作该步可能连接真机调试的时候还会出现一个错误：Error launching remote program: failed to get the task for process xxx</p>
+<p>操作步骤：在Xcode4.X  中这样做：</p>
+<p>a.在工程中按照这个执行创建一个名为：Entitlement.plist 文件In the File Menu, select New File -&gt; iPhone OS -&gt; Code Signing -&gt; Entitlements. Name the file “Entitlements.plist” and click ‘Finish’.</p>
+<p><img src="http://images.cnblogs.com/cnblogs_com/liubiqu/201110/201110261354113067.png" alt=""></p>
+<p>b.打开  这个  “Entitlement.plist”文件，将 “Can be debugged”属性值改为 “YES”。</p>
+<p><img src="http://images.cnblogs.com/cnblogs_com/liubiqu/201110/201110261354122544.png" alt=""></p>
+<p>c.将Code Signing Entitlements 那项得值改为刚刚新建得”Entitlements.plist”.</p>
+<p><img src="http://images.cnblogs.com/cnblogs_com/liubiqu/201110/201110261354126513.png" alt=""></p>
+<p>4。提示选择完后：可以看到</p>
+<p><img src="http://images.cnblogs.com/cnblogs_com/liubiqu/201110/201110261354122086.png" alt=""></p>
+<p>我们就可以看到 程序可以出现在 你得iphone上了。</p>
+<p>当你运行程序时，可以通过 organizer 看到你得iphone 运行时打印出来得Log。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://quanke.name/2012/10/30/e8-87-aa-e7-94-b1-e6-a2-a6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="全科">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/dog.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="全科-不安分的码农">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2012/10/30/e8-87-aa-e7-94-b1-e6-a2-a6/" itemprop="url">自由梦</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2012-10-30T06:44:57+08:00">
+                2012-10-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/随笔/" itemprop="url" rel="index">
+                    <span itemprop="name">随笔</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2012/10/30/e8-87-aa-e7-94-b1-e6-a2-a6/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/10/30/e8-87-aa-e7-94-b1-e6-a2-a6/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>夜的微光里有着无限的迷茫</p>
+<p> 萤火虫在黑暗里漫无目的的舞动着</p>
+<p> 即使恶魔也无法掩饰</p>
+<p> 那来自自己眼中的两束绿光</p>
+<p> 绝望的人们感到了暗夜里滋生着希望</p>
+<p> 封存的太久了</p>
+<p> 光明将厚厚的壁障膨胀</p>
+<p> 纵然是铁壁铜墙</p>
+<p> 那供魔鬼进出的门也会在开合时</p>
+<p> 仍然有光亮的泄出</p>
+<p> 整个世界颠倒了</p>
+<p> 在恐惧颤栗中</p>
+<p> 人们忍受着寒冷、寂寞、惊悚</p>
+<p> 时刻让神经紧张着</p>
+<p> 肉体上的痛苦是不安情绪的释放</p>
+<p> 精神上的折磨如同在炼狱中生活</p>
+<p> 内心的阴冷让更多的人</p>
+<p> 化作了为虎作伥的厉鬼</p>
+<p> 他们比魔鬼更让人刻骨铭心的恐惧</p>
+<p> 魔鬼锁起了光明</p>
+<p> 光明带走了自由</p>
+<p> 恶魔们活动在阳光下</p>
+<p> 体面的装扮让他们看上去更象人类</p>
+<p> 道貌岸然里过着人一样的生活</p>
+<p> 它们时刻担心着光明的泄露</p>
+<p> 睡觉时都睁着一只圆眼</p>
+<p> 他们害怕所有的人</p>
+<p> 更让他们害怕的是来自同类中的枭雄</p>
+<p> 只有魔鬼才可以轻意的制服魔鬼</p>
+<p> 活着的钟馗让鬼们害怕</p>
+<p> 死去的钟馗才是鬼们真正的克星</p>
+<p> 觉醒的过程需要经历一段漫长的艰辛</p>
+<p> 摸索着前进会有更多的鲜血</p>
+<p> 将这牢狱般的生活浸泡</p>
+<p> 房顶不破   墙壁不坏</p>
+<p> 鲜血也会让这牢狱的地面下沉</p>
+<p> 最后将这黑暗之屋葬送</p>
+<p> 殉难者中挺起的是</p>
+<p> 一个个追寻着光明脖颈</p>
+<p> 那些来自魔鬼阵营中的魔鬼们的鲜血</p>
+<p> 与抗争者们是一样的殷红</p>
+<p> 也是同样汇成浸塌这屋子的一份力量</p>
+<p> 没有不倒塌的房子</p>
+<p> 只有倒塌了再重建起来</p>
+<p> 灾难中的人们在麻木中缓慢地觉醒着</p>
+<p> 当光明降临时的喜悦还没有平静</p>
+<p> 新的房子又在人们的诧异中重新建了起来</p>
+<p> 不要相信别人会给你带来什么</p>
+<p> 号召你起来推翻魔鬼的</p>
+<p> 更多的时候也是魔鬼</p>
+<p> 魔鬼和基督的区别就是</p>
+<p> 基督把自己送上了祭坛</p>
+<p> 而魔鬼是鼓惑别人为他上祭坛</p>
+<p> 善良的人们啊</p>
+<p> 总是被利用</p>
+<p> 光明迟迟地难以等到</p>
+<p> 总是在一出现就被遮盖</p>
+<p> 人们生活在被欺骗中</p>
+<p> 沉默中不再相信任何的许诺</p>
+<p> 冷眼注视着一出出闹剧的表演</p>
+<p> 华丽中无法掩饰丑陋与拙劣</p>
+<p> 等待着技穷之后将骷髅现出</p>
+<p> 无声的抗议将深藏着的愤怒堆积</p>
+<p> 暴发时化作震动天地的怒吼</p>
+<p> 在这声音里</p>
+<p> 无论这黑屋是如何的坚固</p>
+<p> 爆碎声中还世界一个朗朗乾坤</p>
+<p> 光明会将自由带来</p>
+<p> 世界因魔鬼再无法变回魔鬼</p>
+<p> 迎来期盼已久的梦想</p>
+<p> 长久的等待   长久的等待</p>
+<p> 等来的是真实的自由</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://quanke.name/2012/10/30/e8-ae-a4-e8-af-86html5-e7-9a-84websocket/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1665,343 +2102,6 @@ public class HomeActivity extends Activity {
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://quanke.name/2012/10/24/opencore-e4-bb-8b-e7-bb-8d/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="全科">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/dog.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="全科-不安分的码农">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2012/10/24/opencore-e4-bb-8b-e7-bb-8d/" itemprop="url">OpenCore介绍</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2012-10-24T14:46:33+08:00">
-                2012-10-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/android开发/" itemprop="url" rel="index">
-                    <span itemprop="name">android开发</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2012/10/24/opencore-e4-bb-8b-e7-bb-8d/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/10/24/opencore-e4-bb-8b-e7-bb-8d/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="一、OpenCore简介"><a href="#一、OpenCore简介" class="headerlink" title="一、OpenCore简介"></a>一、OpenCore简介</h2><div>        OpenCore是Android的多媒体核心，采用C++实现，定义了全功能的操作系统移植层（OSCL），各种基本的功能均被封装成类的形式，各层次之间的接口多使用继承等方式。</div><br><div>        从宏观上来看，它主要包含了两大方面的内容：</div>
-
-<ol>
-<li>PVPlayer：提供媒体播放器的功能，完成各种音频(Audio)、视频(Video)流的回放(Playback)功能。</li>
-<li>PVAuthor：提供媒体流记录的功能，完成各种音频(Audio)、视频(Video)流的以及静态图像捕获功能 。</li>
-</ol>
-<h2 id="二、OpenCore在Android系统中的位置"><a href="#二、OpenCore在Android系统中的位置" class="headerlink" title="二、OpenCore在Android系统中的位置"></a><a name="t1"></a>二、OpenCore在Android系统中的位置</h2><div>        首先来一张抽象一点的图（如下）：</div><br><div><img src="http://hi.csdn.net/attachment/201105/12/0_1305170388xxRX.gif" alt=""></div><br><div>        从上图我们可以感觉到OpenCore封装了一些接口给应用程序。具体是什么呢？下面以音频/视频播放器为例，看看具体的过程：</div><br><div><img src="http://hi.csdn.net/attachment/201105/12/0_130517039657HT.gif" alt=""></div><br><div><br><div>         其中，</div>
-
-<ol>
-<li><ol>
-<li><strong>VideoView.java </strong>是一个media集成的高层的JAVA类，这个类的文件在/frameworks/base/core/java/android/widget/。它集成了MediaPlayer和SurfaceView的类，可以作为一个UI元素（View）直接放在界面中，用于视频的播放。</li>
-<li><strong>MediaPlayer.java和MediaRecorder.java</strong> 为基本的处理音频数据的Java类，它里面直接调用很多本地接口。</li>
-<li><strong>android_media_MediaPlayer.cpp</strong> 和<strong>android_media_MediaRecorder.cpp</strong> 封装了相应的JNI接口。</li>
-</ol>
-</li>
-</ol>
-<h2 id="三、多媒体播放的过程"><a href="#三、多媒体播放的过程" class="headerlink" title="三、多媒体播放的过程"></a><a name="t2"></a>三、多媒体播放的过程</h2><div>        视频文件（流）播放过程就像一个状态机。图形如下，其中椭圆形代表MediaPlayer类的状态；线代表状态变化，由源状态指向目标状态，它旁边标注有状态变化的条件，其中单箭头的线表示同步（synchronous）方法调用，双箭头表示异步（asynchronous）方法调用。</div><br></div><br><div><img src="http://hi.csdn.net/attachment/201105/12/0_1305170406yTWF.gif" alt=""></div><br><div><br><div>这幅状态运行图显示了视频播放时的各种状态之间的切换方法，除此之外，为了方便用户处理，在一些状态下，系统会调用回调函数，只要用户提前注册好相应的回调函数即可。</div><br><div><br><table border="1"><br><tbody><br><tr><br><td>状态</td><br><td>回调函数</td><br><td>注册方法</td><br></tr><br><tr><br><td>Error</td><br><td>OnErrorListener.onError()</td><br><td>setOnErrorListener(android.media.MediaPlayer.OnErrorListener)</td><br></tr><br><tr><br><td>Prepared</td><br><td>OnPreparedListener.onPrepared()</td><br><td>setOnPreparedListener(android.media.MediaPlayer.OnPreparedListener)</td><br></tr><br><tr><br><td>Started</td><br><td>OnBufferingUpdateListener.onBufferingUpdate()</td><br><td>setOnBufferingUpdateListener(OnBufferingUpdateListener)</td><br></tr><br><tr><br><td>使用seekTo(int)后</td><br><td>OnSeekComplete.onSeekComplete()</td><br><td>setOnSeekCompleteListener(OnSeekCompleteListener)</td><br></tr><br><tr><br><td>PlaybackCompleted</td><br><td>OnCompletionListener.onCompletion()</td><br><td>setOnCompletionListener(OnCompletionListener)</td><br></tr><br></tbody><br></table><br></div><br><div></div>
-
-<h2 id="四、OpenCore内部的重要概念"><a href="#四、OpenCore内部的重要概念" class="headerlink" title="四、OpenCore内部的重要概念"></a><a name="t3"></a>四、OpenCore内部的重要概念</h2><div>　　<strong>OSCL</strong> ：Operating System Compatibility Library (操作系统兼容库)，包含了一些操作系统底层的操作，为了更好地在不同操作系统移植。包含了基本数据类型、配置、字符串工具、IO、错误处理、线程等内容，类似一个基础的C++库。<br><strong>PVMF</strong> ：PacketVideo Multimedia Framework(PV多媒体框架)，在框架内实现一个<strong>文件解析(parser)</strong> 和<strong>组成(composer)</strong> 、<strong>编解码</strong> 的<strong>NODE</strong> ，也可以继承其通用的接口，在用户层实现一些NODE。</div><br><div></div>
-
-<h2 id="五、OpenCore的内部调度过程"><a href="#五、OpenCore的内部调度过程" class="headerlink" title="五、OpenCore的内部调度过程"></a><a name="t4"></a>五、OpenCore的内部调度过程</h2><div>        PlayerDriver创建后进入<strong>OSCL</strong> 线程来处理消息，<strong>engine</strong> 创建完各个<strong>node</strong> 节点并将其连接起来，剩下的就是node间的通讯问题，各node状态变化会触发oscl对其下一次调度，参与到oscl调度中的模块都必须提供一个<strong>Run函数</strong> ，oscl会去call这个函数。</div><br><div>        内部流程图如下：</div><br></div><br><div><img src="http://hi.csdn.net/attachment/201105/12/0_130517041266CP.gif" alt=""></div><br><div><br><div>       文件的播放过程如下：</div>
-
-<ol>
-<li><ol>
-<li>判断源文件的格式，根据文件格式创建对应的文件解析节点ParseNode：  PVPlayerRecognizerRegistry负责文件格式识别，并将结果返回给PVPlayerEngine；</li>
-<li>通过文件解析节点（ParseNode）来完成音视频文件格式的解析，并将文件中的音频、视频数据送到对应的解码节点进行解码；</li>
-<li>解码节点（DecNode）通过调用底层的<strong>opencoreMAX </strong>通用接口实现媒体数据的解码；对于一个普通的视频文件，存在2个解码节点：<strong>音频解码节点</strong> 和<strong>视频解码节点</strong> ；</li>
-</ol>
-</li>
-</ol>
-<h2 id="六、解码的内部流程："><a href="#六、解码的内部流程：" class="headerlink" title="六、解码的内部流程："></a><a name="t5"></a>六、解码的内部流程：</h2><div>        参考OpenMax 的相关介绍。</div><br><div></div>
-
-<h2 id="七、Android上的视频输出方案"><a href="#七、Android上的视频输出方案" class="headerlink" title="七、Android上的视频输出方案"></a><a name="t6"></a>七、Android上的视频输出方案</h2><div>        为了使opencore的视频播放支持Android系统，谷歌定义了两套视频输出方案，一种是由硬件 厂商实现硬件加速的视频输出（ <strong>libopencorehw.so</strong> ），硬件视频输出里面可以调用硬件Overlay模块对输出的视频数据进行硬件混叠，这样输出效率会非常的高；另外一种为谷歌定义的软视频输出，该软视频输出定义为<strong>AndroidSurfaceOutput</strong> 类，这种方案中系统会调用SurfaceFilnger对输出视频数据进行混叠，该混叠为软件混叠，执行效率比较低。</div><br><div></div>
-
-<h2 id="八、OpenCore的测试方式"><a href="#八、OpenCore的测试方式" class="headerlink" title="八、OpenCore的测试方式"></a><a name="t7"></a>八、OpenCore的测试方式</h2><div>参考《Build OpenCORE 2.05 on x86 Linux .PDF》和《pvplayer_engine_unit_test_guide.pdf》</div><br></div>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://quanke.name/2012/10/24/oauth-e6-9c-8d-e5-8a-a1-e7-ab-af-e5-bc-80-e5-8f-91/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="全科">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/dog.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="全科-不安分的码农">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2012/10/24/oauth-e6-9c-8d-e5-8a-a1-e7-ab-af-e5-bc-80-e5-8f-91/" itemprop="url">oauth服务端开发</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2012-10-24T07:55:22+08:00">
-                2012-10-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/服务端开发/" itemprop="url" rel="index">
-                    <span itemprop="name">服务端开发</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2012/10/24/oauth-e6-9c-8d-e5-8a-a1-e7-ab-af-e5-bc-80-e5-8f-91/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/10/24/oauth-e6-9c-8d-e5-8a-a1-e7-ab-af-e5-bc-80-e5-8f-91/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>使用开源实现，比如 spring-security-oauth 项目，或者apache Amber 等等。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2056,7 +2156,7 @@ public class HomeActivity extends Activity {
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">113</span>
+                  <span class="site-state-item-count">115</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2067,7 +2167,7 @@ public class HomeActivity extends Activity {
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2078,7 +2178,7 @@ public class HomeActivity extends Activity {
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-count">38</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

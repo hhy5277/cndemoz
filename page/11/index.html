@@ -261,6 +261,343 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://quanke.name/2012/10/24/opencore-e4-bb-8b-e7-bb-8d/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="全科">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/dog.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="全科-不安分的码农">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2012/10/24/opencore-e4-bb-8b-e7-bb-8d/" itemprop="url">OpenCore介绍</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2012-10-24T14:46:33+08:00">
+                2012-10-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/android开发/" itemprop="url" rel="index">
+                    <span itemprop="name">android开发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2012/10/24/opencore-e4-bb-8b-e7-bb-8d/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/10/24/opencore-e4-bb-8b-e7-bb-8d/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="一、OpenCore简介"><a href="#一、OpenCore简介" class="headerlink" title="一、OpenCore简介"></a>一、OpenCore简介</h2><div>        OpenCore是Android的多媒体核心，采用C++实现，定义了全功能的操作系统移植层（OSCL），各种基本的功能均被封装成类的形式，各层次之间的接口多使用继承等方式。</div><br><div>        从宏观上来看，它主要包含了两大方面的内容：</div>
+
+<ol>
+<li>PVPlayer：提供媒体播放器的功能，完成各种音频(Audio)、视频(Video)流的回放(Playback)功能。</li>
+<li>PVAuthor：提供媒体流记录的功能，完成各种音频(Audio)、视频(Video)流的以及静态图像捕获功能 。</li>
+</ol>
+<h2 id="二、OpenCore在Android系统中的位置"><a href="#二、OpenCore在Android系统中的位置" class="headerlink" title="二、OpenCore在Android系统中的位置"></a><a name="t1"></a>二、OpenCore在Android系统中的位置</h2><div>        首先来一张抽象一点的图（如下）：</div><br><div><img src="http://hi.csdn.net/attachment/201105/12/0_1305170388xxRX.gif" alt=""></div><br><div>        从上图我们可以感觉到OpenCore封装了一些接口给应用程序。具体是什么呢？下面以音频/视频播放器为例，看看具体的过程：</div><br><div><img src="http://hi.csdn.net/attachment/201105/12/0_130517039657HT.gif" alt=""></div><br><div><br><div>         其中，</div>
+
+<ol>
+<li><ol>
+<li><strong>VideoView.java </strong>是一个media集成的高层的JAVA类，这个类的文件在/frameworks/base/core/java/android/widget/。它集成了MediaPlayer和SurfaceView的类，可以作为一个UI元素（View）直接放在界面中，用于视频的播放。</li>
+<li><strong>MediaPlayer.java和MediaRecorder.java</strong> 为基本的处理音频数据的Java类，它里面直接调用很多本地接口。</li>
+<li><strong>android_media_MediaPlayer.cpp</strong> 和<strong>android_media_MediaRecorder.cpp</strong> 封装了相应的JNI接口。</li>
+</ol>
+</li>
+</ol>
+<h2 id="三、多媒体播放的过程"><a href="#三、多媒体播放的过程" class="headerlink" title="三、多媒体播放的过程"></a><a name="t2"></a>三、多媒体播放的过程</h2><div>        视频文件（流）播放过程就像一个状态机。图形如下，其中椭圆形代表MediaPlayer类的状态；线代表状态变化，由源状态指向目标状态，它旁边标注有状态变化的条件，其中单箭头的线表示同步（synchronous）方法调用，双箭头表示异步（asynchronous）方法调用。</div><br></div><br><div><img src="http://hi.csdn.net/attachment/201105/12/0_1305170406yTWF.gif" alt=""></div><br><div><br><div>这幅状态运行图显示了视频播放时的各种状态之间的切换方法，除此之外，为了方便用户处理，在一些状态下，系统会调用回调函数，只要用户提前注册好相应的回调函数即可。</div><br><div><br><table border="1"><br><tbody><br><tr><br><td>状态</td><br><td>回调函数</td><br><td>注册方法</td><br></tr><br><tr><br><td>Error</td><br><td>OnErrorListener.onError()</td><br><td>setOnErrorListener(android.media.MediaPlayer.OnErrorListener)</td><br></tr><br><tr><br><td>Prepared</td><br><td>OnPreparedListener.onPrepared()</td><br><td>setOnPreparedListener(android.media.MediaPlayer.OnPreparedListener)</td><br></tr><br><tr><br><td>Started</td><br><td>OnBufferingUpdateListener.onBufferingUpdate()</td><br><td>setOnBufferingUpdateListener(OnBufferingUpdateListener)</td><br></tr><br><tr><br><td>使用seekTo(int)后</td><br><td>OnSeekComplete.onSeekComplete()</td><br><td>setOnSeekCompleteListener(OnSeekCompleteListener)</td><br></tr><br><tr><br><td>PlaybackCompleted</td><br><td>OnCompletionListener.onCompletion()</td><br><td>setOnCompletionListener(OnCompletionListener)</td><br></tr><br></tbody><br></table><br></div><br><div></div>
+
+<h2 id="四、OpenCore内部的重要概念"><a href="#四、OpenCore内部的重要概念" class="headerlink" title="四、OpenCore内部的重要概念"></a><a name="t3"></a>四、OpenCore内部的重要概念</h2><div>　　<strong>OSCL</strong> ：Operating System Compatibility Library (操作系统兼容库)，包含了一些操作系统底层的操作，为了更好地在不同操作系统移植。包含了基本数据类型、配置、字符串工具、IO、错误处理、线程等内容，类似一个基础的C++库。<br><strong>PVMF</strong> ：PacketVideo Multimedia Framework(PV多媒体框架)，在框架内实现一个<strong>文件解析(parser)</strong> 和<strong>组成(composer)</strong> 、<strong>编解码</strong> 的<strong>NODE</strong> ，也可以继承其通用的接口，在用户层实现一些NODE。</div><br><div></div>
+
+<h2 id="五、OpenCore的内部调度过程"><a href="#五、OpenCore的内部调度过程" class="headerlink" title="五、OpenCore的内部调度过程"></a><a name="t4"></a>五、OpenCore的内部调度过程</h2><div>        PlayerDriver创建后进入<strong>OSCL</strong> 线程来处理消息，<strong>engine</strong> 创建完各个<strong>node</strong> 节点并将其连接起来，剩下的就是node间的通讯问题，各node状态变化会触发oscl对其下一次调度，参与到oscl调度中的模块都必须提供一个<strong>Run函数</strong> ，oscl会去call这个函数。</div><br><div>        内部流程图如下：</div><br></div><br><div><img src="http://hi.csdn.net/attachment/201105/12/0_130517041266CP.gif" alt=""></div><br><div><br><div>       文件的播放过程如下：</div>
+
+<ol>
+<li><ol>
+<li>判断源文件的格式，根据文件格式创建对应的文件解析节点ParseNode：  PVPlayerRecognizerRegistry负责文件格式识别，并将结果返回给PVPlayerEngine；</li>
+<li>通过文件解析节点（ParseNode）来完成音视频文件格式的解析，并将文件中的音频、视频数据送到对应的解码节点进行解码；</li>
+<li>解码节点（DecNode）通过调用底层的<strong>opencoreMAX </strong>通用接口实现媒体数据的解码；对于一个普通的视频文件，存在2个解码节点：<strong>音频解码节点</strong> 和<strong>视频解码节点</strong> ；</li>
+</ol>
+</li>
+</ol>
+<h2 id="六、解码的内部流程："><a href="#六、解码的内部流程：" class="headerlink" title="六、解码的内部流程："></a><a name="t5"></a>六、解码的内部流程：</h2><div>        参考OpenMax 的相关介绍。</div><br><div></div>
+
+<h2 id="七、Android上的视频输出方案"><a href="#七、Android上的视频输出方案" class="headerlink" title="七、Android上的视频输出方案"></a><a name="t6"></a>七、Android上的视频输出方案</h2><div>        为了使opencore的视频播放支持Android系统，谷歌定义了两套视频输出方案，一种是由硬件 厂商实现硬件加速的视频输出（ <strong>libopencorehw.so</strong> ），硬件视频输出里面可以调用硬件Overlay模块对输出的视频数据进行硬件混叠，这样输出效率会非常的高；另外一种为谷歌定义的软视频输出，该软视频输出定义为<strong>AndroidSurfaceOutput</strong> 类，这种方案中系统会调用SurfaceFilnger对输出视频数据进行混叠，该混叠为软件混叠，执行效率比较低。</div><br><div></div>
+
+<h2 id="八、OpenCore的测试方式"><a href="#八、OpenCore的测试方式" class="headerlink" title="八、OpenCore的测试方式"></a><a name="t7"></a>八、OpenCore的测试方式</h2><div>参考《Build OpenCORE 2.05 on x86 Linux .PDF》和《pvplayer_engine_unit_test_guide.pdf》</div><br></div>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://quanke.name/2012/10/24/oauth-e6-9c-8d-e5-8a-a1-e7-ab-af-e5-bc-80-e5-8f-91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="全科">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/dog.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="全科-不安分的码农">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2012/10/24/oauth-e6-9c-8d-e5-8a-a1-e7-ab-af-e5-bc-80-e5-8f-91/" itemprop="url">oauth服务端开发</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2012-10-24T07:55:22+08:00">
+                2012-10-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/服务端开发/" itemprop="url" rel="index">
+                    <span itemprop="name">服务端开发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2012/10/24/oauth-e6-9c-8d-e5-8a-a1-e7-ab-af-e5-bc-80-e5-8f-91/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/10/24/oauth-e6-9c-8d-e5-8a-a1-e7-ab-af-e5-bc-80-e5-8f-91/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>使用开源实现，比如 spring-security-oauth 项目，或者apache Amber 等等。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://quanke.name/2012/10/23/android/android-e4-bd-bf-e7-94-a8mina-e9-9c-80-e8-a6-81-e6-b3-a8-e6-84-8f-e7-9a-84-e9-97-ae-e9-a2-98/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1695,347 +2032,6 @@ mTts.synthesizeToFile(wakuUpText, myHashRender, destFileName);
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://quanke.name/2012/08/29/e4-bd-bf-e7-94-a8android-e6-96-b0-e7-89-88-e6-9c-ac-ef-bc-88adt20-ef-bc-89-e5-bc-80-e5-8f-91-e5-b7-a5-e5-85-b7-e5-87-ba-e7-8e-b0noclassdeffounderror-e8-a7-a3-e5-86-b3-e6-96-b9-e6-a1-88/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="全科">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/dog.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="全科-不安分的码农">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2012/08/29/e4-bd-bf-e7-94-a8android-e6-96-b0-e7-89-88-e6-9c-ac-ef-bc-88adt20-ef-bc-89-e5-bc-80-e5-8f-91-e5-b7-a5-e5-85-b7-e5-87-ba-e7-8e-b0noclassdeffounderror-e8-a7-a3-e5-86-b3-e6-96-b9-e6-a1-88/" itemprop="url">使用android新版本（adt20）开发工具出现NoClassDefFoundError解决方案</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2012-08-29T03:24:04+08:00">
-                2012-08-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/android开发/" itemprop="url" rel="index">
-                    <span itemprop="name">android开发</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2012/08/29/e4-bd-bf-e7-94-a8android-e6-96-b0-e7-89-88-e6-9c-ac-ef-bc-88adt20-ef-bc-89-e5-bc-80-e5-8f-91-e5-b7-a5-e5-85-b7-e5-87-ba-e7-8e-b0noclassdeffounderror-e8-a7-a3-e5-86-b3-e6-96-b9-e6-a1-88/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/08/29/e4-bd-bf-e7-94-a8android-e6-96-b0-e7-89-88-e6-9c-ac-ef-bc-88adt20-ef-bc-89-e5-bc-80-e5-8f-91-e5-b7-a5-e5-85-b7-e5-87-ba-e7-8e-b0noclassdeffounderror-e8-a7-a3-e5-86-b3-e6-96-b9-e6-a1-88/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><strong>出现问题：</strong></p>
-<p>在使用新版本开发有时候会莫名其妙的来一个“没有发现类异常”</p>
-<blockquote>
-<p>java.lang.NoClassDefFoundError: <em>*</em><br>检查了老久还是不知道怎么回事。</p>
-</blockquote>
-<p><strong>查出问题：</strong></p>
-<p>开始我是: 右击jar文件-&gt;Build Path -&gt;Add Build Path，就是这一步出现的问题</p>
-<p><strong>解决问题：</strong><br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2012/08/29/e4-bd-bf-e7-94-a8android-e6-96-b0-e7-89-88-e6-9c-ac-ef-bc-88adt20-ef-bc-89-e5-bc-80-e5-8f-91-e5-b7-a5-e5-85-b7-e5-87-ba-e7-8e-b0noclassdeffounderror-e8-a7-a3-e5-86-b3-e6-96-b9-e6-a1-88/#espandi" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://quanke.name/2012/08/28/linuxubuntu-e4-b8-8b-e9-85-8d-e7-bd-aeandroid-e7-8e-af-e5-a2-83-e5-8f-98-e9-87-8f/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="全科">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/dog.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="全科-不安分的码农">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2012/08/28/linuxubuntu-e4-b8-8b-e9-85-8d-e7-bd-aeandroid-e7-8e-af-e5-a2-83-e5-8f-98-e9-87-8f/" itemprop="url">Linux(Ubuntu)下配置Android环境变量</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2012-08-28T07:04:46+08:00">
-                2012-08-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/android开发/" itemprop="url" rel="index">
-                    <span itemprop="name">android开发</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2012/08/28/linuxubuntu-e4-b8-8b-e9-85-8d-e7-bd-aeandroid-e7-8e-af-e5-a2-83-e5-8f-98-e9-87-8f/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/08/28/linuxubuntu-e4-b8-8b-e9-85-8d-e7-bd-aeandroid-e7-8e-af-e5-a2-83-e5-8f-98-e9-87-8f/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><strong>前提条件：</strong></p>
-<p>eclipse，adt都装好了，可以开发android应用程序，但是不能在命令行操作，不能直接执行adb，android等命令</p>
-<p><strong>开始配置：</strong></p>
-<p>按住Ctrl+Alt+T打开命令行， 然后输入</p>
-<blockquote>
-<p>sudo gedit /etc/profile<br>打开配置文件，加入android的配置信息，最后的样子是</p>
-<pre>#Set jdk1.7.0_04 Environment
-
-export JAVA_HOME=/usr/lib/jvm/jdk1.7.0_04
-
-<span style="color: #ff0000;">export ANDROID_HOME=/home/gaialine/android-sdks</span>
-
-export JRE_HOME=${JAVA_HOME}/jre
-
-export CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib
-
-export PATH=${JAVA_HOME}/bin:$PATH:<span style="color: #ff0000;">${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools</span></pre>
-<pre>然后保存，一定要记得重启电脑才能生效。
-<span style="color: #ff0000;">**注意：**</span></pre>
-
-</blockquote>
-<ol>
-<li><span style="color: #ff0000;">配置完成后要重启电脑</span></li>
-<li><span style="color: #ff0000;">配置PATH的时候不要吧，已经有的配置删除，要加一个“：”再写自己的配置信息</span></li>
-<li><span style="color: #ff0000;">在配置android的PATH的时候有两个目录，${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools</span><pre>**小结：**
-其实这里面就包含了，java的环境变量的配置，android环境变量的配置和java的一样，都是在/etc/profile里配置。</pre></li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2090,7 +2086,7 @@ export PATH=${JAVA_HOME}/bin:$PATH:<span style="color: #ff0000;">${ANDROID_HOME}
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">113</span>
+                  <span class="site-state-item-count">115</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2101,7 +2097,7 @@ export PATH=${JAVA_HOME}/bin:$PATH:<span style="color: #ff0000;">${ANDROID_HOME}
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2112,7 +2108,7 @@ export PATH=${JAVA_HOME}/bin:$PATH:<span style="color: #ff0000;">${ANDROID_HOME}
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-count">38</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
