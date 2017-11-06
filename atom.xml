@@ -1,0 +1,643 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>全科-不安分的码农</title>
+  
+  <subtitle>android，ios，html5，微服务架构，XP，scrum，项目管理（PMP）</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://quanke.name/"/>
+  <updated>2017-11-06T08:23:26.509Z</updated>
+  <id>http://quanke.name/</id>
+  
+  <author>
+    <name>全科</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>使用PM2运行node.js服务</title>
+    <link href="http://quanke.name/2017/11/06/%E4%BD%BF%E7%94%A8PM2%E8%BF%90%E8%A1%8Cnode-js%E6%9C%8D%E5%8A%A1/"/>
+    <id>http://quanke.name/2017/11/06/使用PM2运行node-js服务/</id>
+    <published>2017-11-06T08:20:00.000Z</published>
+    <updated>2017-11-06T08:23:26.509Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li>欢迎关注<a href="http://quanke.name/">http://quanke.name/</a></li><li>转载请注明出处，谢谢</li></ul><hr><ul><li>GitHub 地址：  <a href="https://github.com/Unitech/pm2" target="_blank" rel="external">https://github.com/Unitech/pm2</a></li><li>官网： <a href="http://pm2.keymetrics.io/" target="_blank" rel="external">http://pm2.keymetrics.io/</a></li></ul><h2 id="为什么需要使用PM2"><a href="#为什么需要使用PM2" class="headerlink" title="为什么需要使用PM2"></a>为什么需要使用PM2</h2><p>因为node.js 是单进程，进程被杀死后整个服务就跪了，所以需要进程管理工具，但是pm2 远远不止这些。</p><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>PM2 是一个带有负载均衡功能的 Node 应用的进程管理器。</p><p>当你要把你的独立代码利用全部的服务器上的所有 CPU，并保证进程永远都活着，0 秒的重载， PM2 是完美的。</p><h3 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h3><ul><li>内建负载均衡（使用Node cluster 集群模块）</li><li>后台运行</li><li>0秒停机重载(维护升级的时候不需要停机).</li><li>具有Ubuntu和CentOS 的启动脚本</li><li>停止不稳定的进程（避免无限循环）</li><li>控制台检测</li><li>提供 HTTP API</li><li>远程控制和实时的接口API ( Nodejs 模块,允许和PM2进程管理器交互 )</li></ul><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><blockquote><p>首先确保有node.js 的环境</p></blockquote><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">npm install -g pm2</div></pre></td></tr></table></figure><h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">pm2 start app.js --name my-api # 命名进程</div></pre></td></tr></table></figure><h3 id="其他运行方式："><a href="#其他运行方式：" class="headerlink" title="其他运行方式："></a>其他运行方式：</h3><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">pm2 start app.js -i max  # 根据有效CPU数目启动最大进程数目</div><div class="line">pm2 start app.js -i 3      # 启动3个进程</div><div class="line">pm2 start app.js -x        #用fork模式启动 app.js 而不是使用 cluster</div><div class="line">pm2 start app.js -x -- -a 23   # 用fork模式启动 app.js 并且传递参数 (-a 23)</div><div class="line">pm2 start app.js --name serverone  # 启动一个进程并把它命名为 serverone</div><div class="line">pm2 stop serverone       # 停止 serverone 进程</div><div class="line">pm2 start app.json        # 启动进程, 在 app.json里设置选项</div><div class="line">pm2 start app.js -i max -- -a 23                   #在--之后给 app.js 传递参数</div><div class="line">pm2 start app.js -i max -e err.log -o out.log  # 启动 并 生成一个配置文件，你也可以执行用其他语言编写的app  ( fork 模式):</div><div class="line">pm2 start my-bash-script.sh    -x --interpreter bash</div><div class="line">pm2 start my-python-script.py -x --interpreter python</div></pre></td></tr></table></figure><h3 id="npm-运行"><a href="#npm-运行" class="headerlink" title="npm 运行"></a>npm 运行</h3><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">pm2 start npm -- start</div></pre></td></tr></table></figure><p>动一个进程并把它命名为 test<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">pm2 start npm --name test -- start</div></pre></td></tr></table></figure></p><h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">npm install pm2 -g     # 命令行安装 pm2 </div><div class="line">pm2 start app.js -i 4 #后台运行pm2，启动4个app.js </div><div class="line">                              # 也可以把&apos;max&apos; 参数传递给 start</div><div class="line">                              # 正确的进程数目依赖于Cpu的核心数目</div><div class="line">pm2 start app.js --name my-api # 命名进程</div><div class="line">pm2 list               # 显示所有进程状态</div><div class="line">pm2 monit              # 监视所有进程</div><div class="line">pm2 logs               #  显示所有进程日志</div><div class="line">pm2 stop all           # 停止所有进程</div><div class="line">pm2 restart all        # 重启所有进程</div><div class="line">pm2 reload all         # 0秒停机重载进程 (用于 NETWORKED 进程)</div><div class="line">pm2 stop 0             # 停止指定的进程</div><div class="line">pm2 restart 0          # 重启指定的进程</div><div class="line">pm2 startup            # 产生 init 脚本 保持进程活着</div><div class="line">pm2 web                # 运行健壮的 computer API endpoint (http://localhost:9615)</div><div class="line">pm2 delete 0           # 杀死指定的进程</div><div class="line">pm2 delete all         # 杀死全部进程</div></pre></td></tr></table></figure><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul><li><a href="https://www.douban.com/note/314200231/" target="_blank" rel="external">https://www.douban.com/note/314200231/</a></li><li><a href="https://stackoverflow.com/questions/31579509/can-pm2-run-an-npm-start-script" target="_blank" rel="external">https://stackoverflow.com/questions/31579509/can-pm2-run-an-npm-start-script</a></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;ul&gt;
+&lt;li&gt;欢迎关注&lt;a href=&quot;http://quanke.name/&quot;&gt;http://quanke.name/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;转载请注明出处，谢谢&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;ul&gt;
+&lt;li&gt;GitHub 地址：  &lt;a href=&quot;https:/
+      
+    
+    </summary>
+    
+      <category term="node.js" scheme="http://quanke.name/categories/node-js/"/>
+    
+    
+      <category term="PM2" scheme="http://quanke.name/tags/PM2/"/>
+    
+      <category term="node.js 运行" scheme="http://quanke.name/tags/node-js-%E8%BF%90%E8%A1%8C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>swagger-edit写接口文档神器的部署和使用</title>
+    <link href="http://quanke.name/2017/11/06/swagger-edit%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BD%BF%E7%94%A8/"/>
+    <id>http://quanke.name/2017/11/06/swagger-edit部署和使用/</id>
+    <published>2017-11-06T08:18:00.000Z</published>
+    <updated>2017-11-06T08:41:12.732Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li>欢迎关注<a href="http://quanke.name/">http://quanke.name/</a></li><li>转载请注明出处，谢谢</li></ul><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>swagger 是一套开源的API设计工具，包括Swagger UI，Swagger Editor等。</p><p>其中Swagger Editor是个WEB小程序，它可以让你用YAML来定义你的接口规范，并实时验证和现实成接口文档。</p><p>我们主要使用Swagger Editor 编写接口文档，在线 <a href="https://editor.swagger.io" target="_blank" rel="external">Swagger Editor</a> 也是可以使用的，但是访问速度在国内有点慢，所以为了效率，自己在服务器搭建一套服务</p><h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p>直接git clone 最新代码：</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">git clone https://github.com/swagger-api/swagger-editor.git</div></pre></td></tr></table></figure><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><blockquote><p>首先确保有node.js 的环境</p></blockquote><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">cd swagger-edito</div><div class="line">npm install</div></pre></td></tr></table></figure><blockquote><p>安装 PM2 ,如果不会PM2，请查看 <a href="http://quanke.name/2017/11/06/%E4%BD%BF%E7%94%A8PM2%E8%BF%90%E8%A1%8Cnode-js%E6%9C%8D%E5%8A%A1/">《使用PM2运行node.js服务》</a> </p></blockquote><h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><p>使用PM2运行</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">pm2 start npm -- start</div></pre></td></tr></table></figure><h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>访问：</p><p><a href="http://192.168.2.52:3001/" target="_blank" rel="external">http://192.168.2.52:3001/</a></p><h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h2><ul><li><a href="http://blog.csdn.net/wangmeng951011/article/details/67640375" target="_blank" rel="external">http://blog.csdn.net/wangmeng951011/article/details/67640375</a></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;ul&gt;
+&lt;li&gt;欢迎关注&lt;a href=&quot;http://quanke.name/&quot;&gt;http://quanke.name/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;转载请注明出处，谢谢&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;介绍&quot;&gt;&lt;a href=&quot;#介绍&quot; class=&quot;headerlin
+      
+    
+    </summary>
+    
+      <category term="使用" scheme="http://quanke.name/categories/%E4%BD%BF%E7%94%A8/"/>
+    
+    
+      <category term="接口文档" scheme="http://quanke.name/tags/%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3/"/>
+    
+      <category term="swagger-api" scheme="http://quanke.name/tags/swagger-api/"/>
+    
+      <category term="swagger-edit" scheme="http://quanke.name/tags/swagger-edit/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>elasticsearch5xx使用logstash同步mysql</title>
+    <link href="http://quanke.name/2017/11/06/elasticsearch5xx%E4%BD%BF%E7%94%A8logstash%E5%90%8C%E6%AD%A5mysql/"/>
+    <id>http://quanke.name/2017/11/06/elasticsearch5xx使用logstash同步mysql/</id>
+    <published>2017-11-06T07:53:00.000Z</published>
+    <updated>2017-11-06T08:30:13.237Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li>欢迎关注<a href="http://quanke.name/">http://quanke.name/</a></li><li>转载请注明出处，谢谢</li></ul><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><h4 id="下载logstash"><a href="#下载logstash" class="headerlink" title="下载logstash"></a>下载logstash</h4><p>下载地址：<a href="https://www.elastic.co/downloads/logstash" target="_blank" rel="external">https://www.elastic.co/downloads/logstash</a></p><blockquote><p>当时我下载的是5.6.3版本</p></blockquote><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">https://artifacts.elastic.co/downloads/logstash/logstash-5.6.3.tar.gz</div></pre></td></tr></table></figure><p>解压：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">tar -zxvf logstash-5.6.3.tar.gz</div></pre></td></tr></table></figure></p><p>进入安装目录</p><p>运行：</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">bin/logstash -e &apos;input &#123; stdin &#123; &#125; &#125; output &#123; stdout &#123;&#125; &#125;&apos;</div></pre></td></tr></table></figure><p>等待几秒钟 出现  </p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">The stdin plugin is now waiting for input:</div></pre></td></tr></table></figure><p>然后输入 </p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">hello world</div></pre></td></tr></table></figure><p>得到类似的结果<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">2017-10-30T02:49:59.005Z test-env hello world</div></pre></td></tr></table></figure></p><h4 id="安装logstash-input-jdbc插件"><a href="#安装logstash-input-jdbc插件" class="headerlink" title="安装logstash-input-jdbc插件"></a>安装logstash-input-jdbc插件</h4><p>1.安装 ruby 和 rubygems（注意：需要 ruby 的版本在 1.8.7 以上）</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">yum install -y ruby rubygems</div></pre></td></tr></table></figure><p>检查 ruby 版本：</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">ruby -v</div></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">ruby 1.8.7 (2013-06-27 patchlevel 374) [x86_64-linux]</div></pre></td></tr></table></figure><p>替换国内的镜像</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">gem sources --remove http://rubygems.org/</div><div class="line">gem sources -a http://gems.ruby-china.org/</div></pre></td></tr></table></figure><p>验证是否成功</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">gem sources -l</div></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">*** CURRENT SOURCES ***</div><div class="line"></div><div class="line">http://rubygems.org/</div><div class="line">http://gems.ruby-china.org/</div></pre></td></tr></table></figure><p>修改Gemfile的数据源地址</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">vim Gemfile</div></pre></td></tr></table></figure><p>修改 source 的值 为： <code>&quot;https://gems.ruby-china.org/&quot;</code></p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">vim  Gemfile.jruby-1.9.lock</div></pre></td></tr></table></figure><p>找到 remote 修改它的值为：<code>https://gems.ruby-china.org/</code></p><p>开始安装:</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">./bin/logstash-plugin install --no-verify  logstash-input-jdbc</div></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">Installing logstash-input-jdbc</div><div class="line">Installation successful</div></pre></td></tr></table></figure><h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><h4 id="配置语法"><a href="#配置语法" class="headerlink" title="配置语法"></a>配置语法</h4><p>最基本的配置文件定义，必须包含input 和 output。如果需要对数据进操作，则需要加上filter段</p><p>配置 java mysql 连接驱动 <code>mysql-connector-java-5.1.42-bin.jar</code> </p><p><a href="https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.42.tar.gz" target="_blank" rel="external">https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.42.tar.gz</a></p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">input &#123;</div><div class="line">  stdin &#123;</div><div class="line"></div><div class="line">  &#125;</div><div class="line">  jdbc &#123;</div><div class="line">    jdbc_connection_string =&gt; &quot;jdbc:mysql://dbs1:3306/db2_utan_cs&quot;</div><div class="line">    jdbc_user =&gt; &quot;root&quot;</div><div class="line">    jdbc_password =&gt; &quot;123456&quot;</div><div class="line">    jdbc_driver_library =&gt; &quot;/data/arrow/logstash/mysql-connector-java-5.1.42-bin.jar&quot;</div><div class="line">    jdbc_driver_class =&gt; &quot;com.mysql.jdbc.Driver&quot;</div><div class="line">    jdbc_paging_enabled =&gt; &quot;true&quot;</div><div class="line">    jdbc_page_size =&gt; &quot;50000&quot;</div><div class="line">    statement =&gt; &quot;SELECT * FROM crawler_data WHERE id &gt; (SELECT MAX(t1.id) FROM db2_utan_cs.crawler_data AS t1)-70000 AND updatetime &gt; :sql_last_value&quot;</div><div class="line">    use_column_value =&gt; true</div><div class="line">    tracking_column =&gt; &quot;updatetime&quot;</div><div class="line">    schedule =&gt; &quot;* * * * *&quot;</div><div class="line">    type =&gt; &quot;baby_crawler&quot;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">filter &#123;</div><div class="line">  mutate &#123;</div><div class="line">    remove_field =&gt; [ &quot;@timestamp&quot;, &quot;@version&quot;, &quot;id&quot; ]</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"> </div><div class="line">output &#123;</div><div class="line">  elasticsearch &#123;</div><div class="line">    hosts =&gt; &quot;192.168.1.21:9201&quot;</div><div class="line">    index =&gt; &quot;baby_crawler_b&quot;</div><div class="line">    document_id =&gt; &quot;%&#123;uniquekey&#125;&quot;</div><div class="line">  &#125;</div><div class="line">  stdout &#123;</div><div class="line">    codec =&gt; json_lines</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure><h4 id="启动方式"><a href="#启动方式" class="headerlink" title="启动方式"></a>启动方式</h4><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line"></div><div class="line"># 通过手动指定配置文件启动</div><div class="line"> </div><div class="line">/bin/logstash -f /etc/logstash/conf.d/nginx_logstash.conf</div><div class="line"> </div><div class="line"># 以daemon方式运行，则在指令后面加一个 &amp; 符号</div><div class="line"> </div><div class="line">/bin/logstash -f /etc/logstash/conf.d/nginx_logstash.conf &amp;</div><div class="line"> </div><div class="line"> </div><div class="line"># 如果是通过rpm包安装的logstash则可以使用自带的脚本启动</div><div class="line"> </div><div class="line">/etc/init.d/logstash start </div><div class="line"> </div><div class="line"># 通过这种方式启动，logstash会自动加载 /etc/logstash/conf.d/ 下的配置文件</div></pre></td></tr></table></figure><h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="http://tchuairen.blog.51cto.com/3848118/1840596/" target="_blank" rel="external">http://tchuairen.blog.51cto.com/3848118/1840596/</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;ul&gt;
+&lt;li&gt;欢迎关注&lt;a href=&quot;http://quanke.name/&quot;&gt;http://quanke.name/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;转载请注明出处，谢谢&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;安装&quot;&gt;&lt;a href=&quot;#安装&quot; class=&quot;headerlin
+      
+    
+    </summary>
+    
+      <category term="大数据" scheme="http://quanke.name/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
+    
+    
+      <category term="logstash" scheme="http://quanke.name/tags/logstash/"/>
+    
+      <category term="elasticsearch" scheme="http://quanke.name/tags/elasticsearch/"/>
+    
+      <category term="mysql" scheme="http://quanke.name/tags/mysql/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>已有Android工程 集成React Native 的那些事</title>
+    <link href="http://quanke.name/2017/02/28/%E5%B7%B2%E6%9C%89Android%E5%B7%A5%E7%A8%8B-%E9%9B%86%E6%88%90React-Native-%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/"/>
+    <id>http://quanke.name/2017/02/28/已有Android工程-集成React-Native-的那些事/</id>
+    <published>2017-02-28T15:03:00.000Z</published>
+    <updated>2017-11-06T07:56:12.320Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li>欢迎关注<a href="http://quanke.name/">http://quanke.name/</a></li><li>转载请注明出处，谢谢</li></ul><p>2017年2月27日，天气晴，我永远记得这天，我心潮澎湃，因为终于把<a href="http://utantop.com/" target="_blank" rel="external">优谈TOP</a> 集成了React Native，从去年开始，公司陆陆续续的集成和学习React Native，通过demo的形式，写了不少组件和API，也能和后端调通，也多次，多个人尝试把优谈TOP集成React Native，但是每次都是失败的，因为缺少经验，不能直接通过错误判断原因，只能通过Google查找各种资料，慢慢解决，下面记录了我们，<a href="http://utantop.com/" target="_blank" rel="external">优谈TOP</a> 原生 集成React Native 的那些事。也许也是你的那些事？</p><h3 id="常规思路："><a href="#常规思路：" class="headerlink" title="常规思路："></a>常规思路：</h3><p>通过百度搜索 <code>已有Android工程集成ReactNative</code> 出现一大堆教程，大部分教程都是通过在原来的基础上增加React Native的支持，比如这个：<a href="http://blog.csdn.net/jj120522/article/details/51982228" target="_blank" rel="external">《Android之原生项目集成React Native》</a> ，这也是官方推荐的集成方式，我也推荐这个，只是我这样，一直报错，有一个启动 MainaAtivity的错，一直过不去，所以我就换一种思路。。。</p><h3 id="在React-Native基础上增加原生"><a href="#在React-Native基础上增加原生" class="headerlink" title="在React Native基础上增加原生"></a>在React Native基础上增加原生</h3><p>开始通过<a href="http://facebook.github.io/react-native/docs/getting-started.html#content" target="_blank" rel="external">官方文档安装和初始化</a>React Native项目。</p><h4 id="创建和运行React-Native-项目"><a href="#创建和运行React-Native-项目" class="headerlink" title="创建和运行React Native 项目"></a>创建和运行React Native 项目</h4><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">react-native init UtanTop</div><div class="line"></div><div class="line">cd UtanTop</div><div class="line"></div><div class="line">react-native run-android</div></pre></td></tr></table></figure><blockquote><p>如果没有错,再继续。如果有错，说明你环境都没有安装好，哈哈。请参考<a href="http://reactnative.cn/docs/0.41/getting-started.html" target="_blank" rel="external">环境安装文档</a></p></blockquote><p>恭喜你，第一步搞定了。接下来，巨坑的地方要来了。</p><h4 id="把原生的-build-gradle-文件先集成进去"><a href="#把原生的-build-gradle-文件先集成进去" class="headerlink" title="把原生的 build.gradle 文件先集成进去"></a>把原生的 <code>build.gradle</code> 文件先集成进去</h4><p>这一步比较简单，就是把<code>gradle</code>相关文件复制替换就可以了，你想的好简单哈。。。</p><p><strong>我建议：</strong></p><p>首先把原项目的gradle相关文件复制到新建的React Native项目，<em>不要破坏原来的React Native项目的配置</em>。</p><blockquote><p>如果原生项目里有Module，先不要把Module导入，为了保险，把最简单的导入。</p></blockquote><h5 id="修改Root-目录下的build-gradle"><a href="#修改Root-目录下的build-gradle" class="headerlink" title="修改Root 目录下的build.gradle"></a>修改Root 目录下的<code>build.gradle</code></h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line"></div><div class="line">allprojects &#123;</div><div class="line">    repositories &#123;</div><div class="line">        mavenLocal()</div><div class="line">        jcenter()</div><div class="line">        maven &#123;</div><div class="line">            url &quot;http://192.168.1.205:8081/repository/utancenter/&quot;</div><div class="line">        &#125;</div><div class="line">        maven &#123;</div><div class="line">            // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm</div><div class="line">            url &quot;$rootDir/../node_modules/react-native/android&quot;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure><p>如果有其他maven仓库直接这么写就可以了。</p><h5 id="配置app目录下的build-gradle"><a href="#配置app目录下的build-gradle" class="headerlink" title="配置app目录下的build.gradle"></a>配置app目录下的<code>build.gradle</code></h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">buildTypes &#123;</div><div class="line"></div><div class="line"></div><div class="line">//        release &#123;</div><div class="line">//            // 不显示Log</div><div class="line">//            buildConfigField &quot;boolean&quot;, &quot;LOG_DEBUG&quot;, &quot;false&quot;</div><div class="line">//</div><div class="line">//            minifyEnabled enableProguardInReleaseBuilds</div><div class="line">//            zipAlignEnabled true</div><div class="line">//            shrinkResources true</div><div class="line">//            proguardFiles getDefaultProguardFile(&apos;proguard-android.txt&apos;), &apos;proguard-project.txt&apos;</div><div class="line">//            signingConfig signingConfigs.release</div><div class="line">//</div><div class="line">//            applicationVariants.all &#123; variant -&gt;</div><div class="line">//                variant.outputs.each &#123; output -&gt;</div><div class="line">//                    def outputFile = output.outputFile</div><div class="line">//                    if (outputFile != null &amp;&amp; outputFile.name.endsWith(&apos;.apk&apos;)) &#123;</div><div class="line">//</div><div class="line">//                        //if (&quot;woman&quot;.equals(WOMAN))&#123;</div><div class="line">//                        //  def fileName = &quot;WomanTop_v$&#123;defaultConfig.versionName&#125;_$&#123;variant.productFlavors[0].name&#125;.apk&quot;</div><div class="line">//                        //output.outputFile = new File(outputFile.parent+File.separator+&quot;v&quot;+defaultConfig.versionName, fileName)</div><div class="line">//                        //&#125; else &#123;</div><div class="line">//                        def fileName = &quot;UtanTop_v$&#123;defaultConfig.versionName&#125;_$&#123;variant.productFlavors[0].name&#125;.apk&quot;</div><div class="line">//                        output.outputFile = new File(outputFile.parent + File.separator + &quot;v&quot; + defaultConfig.versionName, fileName)</div><div class="line">//                        //&#125;</div><div class="line">//</div><div class="line">//</div><div class="line">//                    &#125;</div><div class="line">//                &#125;</div><div class="line">//            &#125;</div><div class="line">//        &#125;</div><div class="line"></div><div class="line">        release &#123;</div><div class="line">            minifyEnabled enableProguardInReleaseBuilds</div><div class="line">            proguardFiles getDefaultProguardFile(&quot;proguard-android.txt&quot;), &quot;proguard-rules.pro&quot;</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure><p>贴这个的意思就是先把打渠道包的去掉，使用React Native生成的配置，之后打渠道包在说，记得把下面几段也要先注释掉。</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line"></div><div class="line">//    // 多渠道打包</div><div class="line">//    productFlavors &#123;</div><div class="line"></div><div class="line">//        T1 &#123;&#125;</div><div class="line">//        T2 &#123;&#125;</div><div class="line">//        T3 &#123;&#125;</div><div class="line">//</div><div class="line">//    &#125;</div><div class="line">//</div><div class="line">//    productFlavors.all &#123; flavor -&gt;</div><div class="line">//        flavor.manifestPlaceholders = [CHANNEL_VALUE: name]</div><div class="line">//    &#125;</div></pre></td></tr></table></figure><p>如果集成友盟的多渠道包，还需要在<code>AndroidManifest.xml</code>中注释掉。</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&lt;meta-data</div><div class="line">           android:name=&quot;UMENG_APPKEY&quot;</div><div class="line">           android:value=&quot;$&#123;UMENG_APPKEY&#125;&quot; /&gt;</div></pre></td></tr></table></figure><p>在这个时候我们还没集成源码，再执行：</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">react-native run-android</div></pre></td></tr></table></figure><blockquote><p>如果编译通过，恭喜你，如果没有过那是正常的，因为还有一个坑。</p></blockquote><p>我的报错信息是</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line"></div><div class="line">* What went wrong:</div><div class="line">Execution failed for task &apos;:app:packageAllDebugClassesForMultiDex&apos;.</div><div class="line">&gt; java.util.zip.ZipException: duplicate entry: bolts/AggregateException.class</div></pre></td></tr></table></figure><p>是因为导入了重复的条目。</p><blockquote><p>可能是在某些某些gradle版本才有吧。。。</p></blockquote><p>我的解决方法：</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">compile(&apos;com.facebook.fresco:fresco:0.10.0&apos;) &#123;</div><div class="line">    exclude group: &apos;com.parse.bolts&apos;,</div><div class="line">            module: &apos;bolts-android&apos;</div><div class="line">&#125;</div><div class="line"></div><div class="line">compile (&apos;com.facebook.fresco:animated-gif:0.10.0&apos;)&#123;</div><div class="line">    exclude group: &apos;com.parse.bolts&apos;,</div><div class="line">            module: &apos;bolts-android&apos;</div><div class="line">&#125;</div></pre></td></tr></table></figure><p>这时候再执行：</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">react-native run-android</div></pre></td></tr></table></figure><p>现在问题应该不大了，按道理可以运行起来了，反正我的运行起来了，但是还没有加入源码。。。</p><h5 id="现在就把java-res-libs-assets-目录下的文件和-AndroidManifest-xml-复制到React-Native项目中。"><a href="#现在就把java-res-libs-assets-目录下的文件和-AndroidManifest-xml-复制到React-Native项目中。" class="headerlink" title="现在就把java res libs assets 目录下的文件和 AndroidManifest.xml 复制到React Native项目中。"></a>现在就把<code>java</code> <code>res</code> <code>libs</code> <code>assets</code> 目录下的文件和 <code>AndroidManifest.xml</code> 复制到React Native项目中。</h5><p>把<code>MainApplication</code> 集成你原生项目的<code>Application</code> </p><blockquote><p>一般项目都会自定一个<code>Application</code></p></blockquote><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">public class MainApplication extends UtanToutiaoApp implements ReactApplication &#123;</div><div class="line"></div><div class="line">  private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) &#123;</div><div class="line">    @Override</div><div class="line">    public boolean getUseDeveloperSupport() &#123;</div><div class="line">      return BuildConfig.DEBUG;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    protected List&lt;ReactPackage&gt; getPackages() &#123;</div><div class="line">      return Arrays.&lt;ReactPackage&gt;asList(</div><div class="line">          new MainReactPackage()</div><div class="line">      );</div><div class="line">    &#125;</div><div class="line">  &#125;;</div><div class="line"></div><div class="line">  @Override</div><div class="line">  public ReactNativeHost getReactNativeHost() &#123;</div><div class="line">    return mReactNativeHost;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  @Override</div><div class="line">  public void onCreate() &#123;</div><div class="line">    super.onCreate();</div><div class="line">    SoLoader.init(this, /* native exopackage */ false);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure><blockquote><p>注意：不要把<code>MainActivity</code> <code>MainApplication</code> ,文件覆盖了。</p></blockquote><p>再执行：</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">react-native run-android</div></pre></td></tr></table></figure><p>应该可以成功了，如果默认启动的是<code>MainActivity</code>，那展示的就是React Native 界面，如果默认不是<code>MainActivity</code>，那就通过下面的方式启动。</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line"></div><div class="line">Intent i = new Intent(context, MainReactActivity.class);</div><div class="line">    </div><div class="line">context.startActivity(i);</div></pre></td></tr></table></figure><p>到这里我反正就ok了，不知道你ok了没？</p><p>如果不OK ，请留言，一起探讨。。</p><p>还有我在学习和使用React Native 之后也会贴出来供大伙参考。。请关注 quanke</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;ul&gt;
+&lt;li&gt;欢迎关注&lt;a href=&quot;http://quanke.name/&quot;&gt;http://quanke.name/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;转载请注明出处，谢谢&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;2017年2月27日，天气晴，我永远记得这天，我心潮澎湃，因为终于把&lt;a hr
+      
+    
+    </summary>
+    
+      <category term="React Native" scheme="http://quanke.name/categories/React-Native/"/>
+    
+    
+      <category term="React Native" scheme="http://quanke.name/tags/React-Native/"/>
+    
+      <category term="React" scheme="http://quanke.name/tags/React/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android Gradle 相同应用多包名打包，实现测试发布包分离，不同服务器地址以生成不同安装包</title>
+    <link href="http://quanke.name/2017/02/23/Android-Gradle-%E7%9B%B8%E5%90%8C%E5%BA%94%E7%94%A8%E5%A4%9A%E5%8C%85%E5%90%8D%E6%89%93%E5%8C%85%EF%BC%8C%E5%AE%9E%E7%8E%B0%E6%B5%8B%E8%AF%95%E5%8F%91%E5%B8%83%E5%8C%85%E5%88%86%E7%A6%BB%EF%BC%8C%E4%B8%8D%E5%90%8C%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%9C%B0%E5%9D%80%E4%BB%A5%E7%94%9F%E6%88%90%E4%B8%8D%E5%90%8C%E5%AE%89%E8%A3%85%E5%8C%85/"/>
+    <id>http://quanke.name/2017/02/23/Android-Gradle-相同应用多包名打包，实现测试发布包分离，不同服务器地址以生成不同安装包/</id>
+    <published>2017-02-22T16:07:42.000Z</published>
+    <updated>2017-11-06T05:32:04.645Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li>欢迎关注<a href="http://quanke.name/">http://quanke.name/</a></li><li>转载请注明出处，谢谢</li></ul><h1 id="Android-Gradle-相同应用多包名打包，实现测试发布包分离，不同服务器地址以生成不同安装包"><a href="#Android-Gradle-相同应用多包名打包，实现测试发布包分离，不同服务器地址以生成不同安装包" class="headerlink" title="Android Gradle 相同应用多包名打包，实现测试发布包分离，不同服务器地址以生成不同安装包"></a>Android Gradle 相同应用多包名打包，实现测试发布包分离，不同服务器地址以生成不同安装包</h1><p>简介：<br>公司的新需求：同一份代码打出另一个包名的apk，即包名不同、名称不同的两个apk。因为市场是识别包名的，所有可以相同的代码可以发布多个APP，以便于测试什么样的名字被用户接受（本人不太认同这种观点，这里只谈技术），可以在同一个手机同时安装测试包和发布包（大部分测试的接口地址与发布的接口地址是不一样的，还有一些公司还有开发的接口），方便测试</p><p>我经过多方渠道发现大致有一下三种方法：</p><ul><li><strong>通过ant打多包名应用</strong></li><li><strong>建立多个与“main”同级的文件夹，修改清单文件及build.gradle以达到打多包名效果</strong></li><li><strong>通过修改build.gradle文件的applicationId达到打多包名的效果，原理与第二种方法但比较简单</strong></li></ul><p>因为是新手，对ant并不太了解，原理也不太清楚，为了赶时间所以直接选择了第二种与第三种方法，经过测试发现第三种方法要更加简单的多，所以最后直接使用了第三种方法，以下为详解。</p><hr><p>因为要修改的是build.gradle文件而该文件一经修改就要重新编译，用过史丢丢的童鞋应该都清楚等待编译完成是是件多么蛋疼的事情所以建议大家一次性修改完成以便节约开发时间。</p><p>上面已经说过该方法主要是通过修改build.gradle文件的applicationId达到打多包名的效果的，下面便粘出本人代码供大家参考。</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">productFlavors &#123;</div><div class="line">      app_one &#123;</div><div class="line">          applicationId &quot;com.example.app1&quot;</div><div class="line">          manifestPlaceholders = [</div><div class="line">                  app_name:&quot;测试-1&quot;</div><div class="line">          ]</div><div class="line">      &#125;</div><div class="line">      app_two &#123;</div><div class="line">          applicationId &quot;com.example.app2&quot;</div><div class="line">          manifestPlaceholders = [</div><div class="line">                  app_name:&quot;测试-2&quot;</div><div class="line">          ]</div><div class="line">      &#125;</div><div class="line">      app_three &#123;</div><div class="line">          applicationId &quot;com.example.app3&quot;</div><div class="line">          manifestPlaceholders = [</div><div class="line">                  app_name:&quot;测试-3&quot;</div><div class="line">          ]</div><div class="line">      &#125;</div><div class="line">  &#125;</div></pre></td></tr></table></figure><p>是不是感觉这个方法很眼熟？<br>没错就是多渠道打包的地方，通过添加这段代码后需要用到gradle面板进行打包，得到app_one 通过查看包名发现它的包名为 <code>com.example.app1</code> 显示的名称也为 <code>测试-1</code>，app_two 与 app_three 效果等同，至此已经完成多包名打包，且通过同一份代码打出了不同包名、不同名称的三个应用，而需求也达到了。</p><p>可能有的朋友会问如果还需要其他的渠道包怎么办，如果有10的渠道而又要打包两个不同的应用那岂不是要写20个类似于app_one的东西，那不是要很麻烦？没错我正好也碰到了这种情况，经过多次研究测试发现并没有那么麻烦，只需设定一个默认的包名、应用名即可，废话不多说，直接贴代码。</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">defaultConfig &#123;</div><div class="line">       if (PACKAGE == &quot;one&quot;) &#123;</div><div class="line">           applicationId &quot;com.example.app1&quot;</div><div class="line">           manifestPlaceholders = [</div><div class="line">                   app_name:&quot;测试-1&quot;</div><div class="line">           ]</div><div class="line">       &#125; else &#123;</div><div class="line">           applicationId &quot;com.example.app2&quot;</div><div class="line">           manifestPlaceholders = [</div><div class="line">                   app_name:&quot;测试-2&quot;</div><div class="line">           ]</div><div class="line">       &#125;</div><div class="line">       minSdkVersion 14</div><div class="line">       targetSdkVersion 23</div><div class="line">       versionCode 1</div><div class="line">       versionName &quot;1.0&quot;</div><div class="line"></div><div class="line">   &#125;</div><div class="line">   buildTypes &#123;</div><div class="line">       release &#123;</div><div class="line">           minifyEnabled false</div><div class="line">           proguardFiles getDefaultProguardFile(&apos;proguard-android.txt&apos;), &apos;proguard-rules.pro&apos;</div><div class="line">       &#125;</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   productFlavors &#123;</div><div class="line">       app_one &#123;&#125;</div><div class="line">       app_two &#123;&#125;</div><div class="line">       app_three &#123;&#125;</div><div class="line">   &#125;</div></pre></td></tr></table></figure><p>嗯，就是这样，在defaultConfig里面设置一个默认的包名与应用名就可以了。</p><p>好了，到了这一步我们就要用到另一个神奇的文件了</p><p><img src="http://upload-images.jianshu.io/upload_images/432952-e297ef08da09dbd1?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="工程目录下配置文件"></p><p>看看你的工程根目录下得这个东西，没错就是它，这里我设置了一个字段“PACKAGE”，即告诉Studio我想要什么包，到这里相信大家也就明白我写的判断的目的了。</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">PACKAGE=one</div></pre></td></tr></table></figure><p>只要通过修改这一字段为“one”，然后通过打包后就可以得到三个“测试-1”的app_one、app_two、app_three的apk文件了，同理将其修改为其他字段即可打出其他包名、应用名的应用了。<br>但是转到本人公司项目后发现这种方法竟然失灵了，即修改 properties 文件内的字段后得不到我想要的包，经过探索发现可能是与项目工程的大小有关，改完重启后就可以了。<br>当然还有另一个最重要的地方</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;manifest xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</div><div class="line">    package=&quot;com.example.morepackagenametest&quot;&gt;</div><div class="line"></div><div class="line">    &lt;application</div><div class="line">        android:allowBackup=&quot;true&quot;</div><div class="line">        android:icon=&quot;@mipmap/ic_launcher&quot;</div><div class="line">        android:label=&quot;$&#123;app_name&#125;&quot;</div><div class="line">        android:supportsRtl=&quot;true&quot;</div><div class="line">        android:theme=&quot;@style/AppTheme&quot;&gt;</div><div class="line">        &lt;activity android:name=&quot;.MainActivity&quot;&gt;</div><div class="line">            &lt;intent-filter&gt;</div><div class="line">                &lt;action android:name=&quot;android.intent.action.MAIN&quot; /&gt;</div><div class="line"></div><div class="line">                &lt;category android:name=&quot;android.intent.category.LAUNCHER&quot; /&gt;</div><div class="line">            &lt;/intent-filter&gt;</div><div class="line">        &lt;/activity&gt;</div><div class="line">    &lt;/application&gt;</div><div class="line"></div><div class="line">&lt;/manifest&gt;</div></pre></td></tr></table></figure><p>不同服务器地址以生成不同安装包方法类似，我这里不细说，有问题请留言</p><p>就是这里了，即之前定义的名字赋给应用了，在这里大家要注意一下在该项目的其他 model 内的清单文件里最好不要写  <code>android：label</code> 这句了，否则会报错的，至于是什么错一眼就可以看到了，当然如果报错了有两个方法：</p><ol><li>删掉其他 model 内清单文件下<code>application</code>的 <code>label</code> 属性</li><li>通过在 <code>application</code> 下添加 <code>tools:replace=&quot;android:label&quot;</code> 属性解决</li></ol><p>好了，打完收工。期待大神的批评指导。</p><ul><li>欢迎关注<a href="http://quanke.name/">http://quanke.name/</a></li><li>转载请注明出处，谢谢</li></ul><p>此文同事编写，此后会增加不同服务器地址以生成不同安装包的demo</p><p>原文：<a href="http://blog.csdn.net/qq_33673284/article/details/52875696" target="_blank" rel="external">http://blog.csdn.net/qq_33673284/article/details/52875696</a></p><p>最后附上资源下载地址  <a href="http://download.csdn.net/detail/qq_33673284/9659262" target="_blank" rel="external">Android 多包名打包应用</a>  供各位参考</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;ul&gt;
+&lt;li&gt;欢迎关注&lt;a href=&quot;http://quanke.name/&quot;&gt;http://quanke.name/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;转载请注明出处，谢谢&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&quot;Android-Gradle-相同应用多包名打包，实现测试发布包分离
+      
+    
+    </summary>
+    
+      <category term="android开发" scheme="http://quanke.name/categories/android%E5%BC%80%E5%8F%91/"/>
+    
+    
+      <category term="Gradle" scheme="http://quanke.name/tags/Gradle/"/>
+    
+      <category term="Android多渠道打包" scheme="http://quanke.name/tags/Android%E5%A4%9A%E6%B8%A0%E9%81%93%E6%89%93%E5%8C%85/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>一个老司机工程师整理的自动化测试资料</title>
+    <link href="http://quanke.name/2017/02/23/%E4%B8%80%E4%B8%AA%E8%80%81%E5%8F%B8%E6%9C%BA%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%95%B4%E7%90%86%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E8%B5%84%E6%96%99/"/>
+    <id>http://quanke.name/2017/02/23/一个老司机工程师整理的自动化测试资料/</id>
+    <published>2017-02-22T16:05:15.000Z</published>
+    <updated>2017-11-06T05:32:04.756Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li>欢迎关注<a href="http://quanke.name/">http://quanke.name/</a></li><li>转载请注明出处，谢谢</li></ul><h4 id="Python教程"><a href="#Python教程" class="headerlink" title="Python教程"></a>Python教程</h4><hr><p><a href="http://www.liaoxuefeng.com/wiki/001374738125095c955c1e6d8bb493182103fac9270762a000" target="_blank" rel="external">http://www.liaoxuefeng.com/wiki/001374738125095c955c1e6d8bb493182103fac9270762a000</a></p><h4 id="Appium："><a href="#Appium：" class="headerlink" title="Appium："></a>Appium：</h4><p><a href="http://appium.io/slate/en/master/#" target="_blank" rel="external">http://appium.io/slate/en/master/#</a></p><p>Appium 中文 Appium API 文档<br><a href="https://testerhome.com/topics/3144" target="_blank" rel="external">https://testerhome.com/topics/3144</a></p><p>Appium移动自动化测试（虫师写的系列，质量高）<br><a href="http://www.cnblogs.com/fnng/p/4540731.html" target="_blank" rel="external">http://www.cnblogs.com/fnng/p/4540731.html</a></p><p>Robot Framework +Appium的简单教程及实例<br><a href="http://blog.csdn.net/xyh421/article/details/52119872" target="_blank" rel="external">http://blog.csdn.net/xyh421/article/details/52119872</a></p><p>Python + Appium+ IOS自动化测试<br><a href="http://blog.csdn.net/temanm/article/details/49641133" target="_blank" rel="external">http://blog.csdn.net/temanm/article/details/49641133</a></p><p>Saucelabs+Java+TestNG+Appium+Maven+Git+Jenkins+ReportNG for Android 自动化测试<br><a href="http://blog.csdn.net/wanglin_lin/article/details/51931728" target="_blank" rel="external">http://blog.csdn.net/wanglin_lin/article/details/51931728</a></p><h4 id="Selenium-2"><a href="#Selenium-2" class="headerlink" title="Selenium 2"></a>Selenium 2</h4><hr><p>Selenium 2 入门<br><a href="http://www.ibm.com/developerworks/cn/web/wa-selenium2/" target="_blank" rel="external">http://www.ibm.com/developerworks/cn/web/wa-selenium2/</a></p><h4 id="Robot-Framework自动化测试"><a href="#Robot-Framework自动化测试" class="headerlink" title="Robot Framework自动化测试"></a>Robot Framework自动化测试</h4><hr><p>Robot Framework自动化测试（一）—第一个脚本<br><a href="http://www.cnblogs.com/fnng/p/3871712.html" target="_blank" rel="external">http://www.cnblogs.com/fnng/p/3871712.html</a></p><p>Robot Framework自动化测试 —视频与教程免费分享（里面有 <code>PDF</code> 质量非常高）<br><a href="http://www.cnblogs.com/fnng/p/4333977.html" target="_blank" rel="external">http://www.cnblogs.com/fnng/p/4333977.html</a></p><p>Jenkins+robotframework+svn持续集成环境配置<br><a href="http://lijunwei1228ok.blog.163.com/blog/static/97383797201407113453672/" target="_blank" rel="external">http://lijunwei1228ok.blog.163.com/blog/static/97383797201407113453672/</a></p><p>这个是一个程序员学习自动化测试的一个过程和资料，之后会有一些原创内容，欢迎关注</p><pre><code>如果你想零基础开始 从入门到精通 学习软件测试，建议花几块钱买视频教程</code></pre><p><a href="https://item.taobao.com/item.htm?id=544901106180" target="_blank" rel="external">https://item.taobao.com/item.htm?id=544901106180</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;ul&gt;
+&lt;li&gt;欢迎关注&lt;a href=&quot;http://quanke.name/&quot;&gt;http://quanke.name/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;转载请注明出处，谢谢&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&quot;Python教程&quot;&gt;&lt;a href=&quot;#Python教程&quot; clas
+      
+    
+    </summary>
+    
+      <category term="自动化测试" scheme="http://quanke.name/categories/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/"/>
+    
+    
+      <category term="自动化测试" scheme="http://quanke.name/tags/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/"/>
+    
+      <category term="软件测试" scheme="http://quanke.name/tags/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>APP版本管理SDK项目实战-准备篇</title>
+    <link href="http://quanke.name/2016/10/26/APP%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86SDK%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98-%E5%87%86%E5%A4%87%E7%AF%87/"/>
+    <id>http://quanke.name/2016/10/26/APP版本管理SDK项目实战-准备篇/</id>
+    <published>2016-10-26T12:42:19.000Z</published>
+    <updated>2017-11-06T05:32:04.644Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li>欢迎关注<a href="http://quanke.name/">http://quanke.name/</a></li><li>转载请注明出处，谢谢</li></ul><p>因为友盟APP版本管理服务关闭（这是官方通知：<a href="http://bbs.umeng.com/thread-14590-1-1.html" target="_blank" rel="external">http://bbs.umeng.com/thread-14590-1-1.html</a> ），我计划做一个类似友盟的APP版本管理的功能，开放SDK，方便大家使用，我会把开发过程的思路分享给大家。</p><h4 id="项目简介："><a href="#项目简介：" class="headerlink" title="项目简介："></a>项目简介：</h4><p>版本管理项目我觉得对于所有的APP都是需要的，前期希望能做到和友盟一样。支持自动更新、手动更新、静默更新、强制更新、断点续传、忽略版本，服务端开放RESTFul的API，支持WEB管理页面，文件存储对接七牛，之后会支持各种存储</p><p>整个项目会涉及到API设计、移动端SDK开发、服务端开发、服务器选型、我打算全部自己一个人搞定</p><p>API我打算采用RESTFul架构，使用swagger在线调试API，分别用POST、PUT、GET、DELETE方法对资源做CURD操作。使用RESTFul的难点在于如何定义好各种资源的表述，即URI的定义。</p><p>SDK开发则打算第一版只用原生实现，优先Android SDK开发，之后再开发IOS SDK。</p><p>服务端开发准备使用最经典的SSM，数据库使用最最最经典的MySQL。</p><p>WEB管理后台使用Bootstrap响应式后台管理系统meadmin模板</p><p>服务器先自己本地开发，之后考虑阿里云或者其他。</p><h4 id="功能需求整理："><a href="#功能需求整理：" class="headerlink" title="功能需求整理："></a>功能需求整理：</h4><h5 id="SDK"><a href="#SDK" class="headerlink" title="SDK:"></a>SDK:</h5><ul><li>自动更新</li><li>手动更新</li><li>静默更新</li><li>强制更新</li><li>断点续传</li><li>忽略版本</li></ul><h5 id="服务端："><a href="#服务端：" class="headerlink" title="服务端："></a>服务端：</h5><ul><li>web管理</li><li>七牛存储</li><li>多个APP管理</li><li>渠道包支持</li><li>统计</li></ul><h4 id="写在最后："><a href="#写在最后：" class="headerlink" title="写在最后："></a>写在最后：</h4><p>因为是SDK，管理使用模板，所以没有原型设计，功能确定好，就可以设计API了。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;ul&gt;
+&lt;li&gt;欢迎关注&lt;a href=&quot;http://quanke.name/&quot;&gt;http://quanke.name/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;转载请注明出处，谢谢&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;因为友盟APP版本管理服务关闭（这是官方通知：&lt;a href=&quot;http://
+      
+    
+    </summary>
+    
+      <category term="项目实战" scheme="http://quanke.name/categories/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/"/>
+    
+    
+      <category term="SDK" scheme="http://quanke.name/tags/SDK/"/>
+    
+      <category term="Android" scheme="http://quanke.name/tags/Android/"/>
+    
+      <category term="JavaEE" scheme="http://quanke.name/tags/JavaEE/"/>
+    
+      <category term="IOS" scheme="http://quanke.name/tags/IOS/"/>
+    
+      <category term="Spring Boot" scheme="http://quanke.name/tags/Spring-Boot/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android DownloadManager ERROR_UNKNOWN 在API 17 巨坑完美解决</title>
+    <link href="http://quanke.name/2016/10/26/Android-DownloadManager-ERROR-UNKNOWN-%E5%9C%A8API-17-%E5%B7%A8%E5%9D%91%E5%AE%8C%E7%BE%8E%E8%A7%A3%E5%86%B3/"/>
+    <id>http://quanke.name/2016/10/26/Android-DownloadManager-ERROR-UNKNOWN-在API-17-巨坑完美解决/</id>
+    <published>2016-10-26T12:36:20.000Z</published>
+    <updated>2017-11-06T05:32:04.645Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li>欢迎关注<a href="http://quanke.name/">http://quanke.name/</a></li><li>转载请注明出处，谢谢</li></ul><p>现在做了一个下载，为了兼容性直接使用Android Sdk 自带的 <a href="https://developer.android.com/reference/android/app/DownloadManager.html" target="_blank" rel="external">DownloadManager</a> 开发，在其他手机上都是OK，只有在有一台vivo上不行。</p><p>我尝试使用vivo系统浏览器去下载这个链接，也是OK的，这个排除了网络问题和系统下载的bug的问题。</p><p>尝试去找错误给我返回一个<code>ERROR_UNKNOWN</code>,完全SB了，此路不通。</p><p>尝试换一个链接去下载，居然也是OK的，所以确定了是链接的问题，链接有什么问题？我对比了一下，除了下载失败链接里包含了中括号<code>[]</code>,其他也没有什么不一样的，所以我尝试着使用<code>%5B</code>、<code>%5D</code> 替换 <code>[]</code>,居然好了。这也太奇葩了吧。。。</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">url = url.replace(&quot;[&quot;,&quot;%5B&quot;).replace(&quot;]&quot;,&quot;%5D&quot;);</div></pre></td></tr></table></figure><p>之后我去Google了一下，搞明白了，原来Android系统在18之前有这么一个问题，之后修复了。</p><p>最终解决：</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">if(Build.VERSION.SDK_INT&lt;=Build.VERSION_CODES.JELLY_BEAN_MR2)&#123;</div><div class="line">            uri = uri.replace(&quot;[&quot;,&quot;%5B&quot;).replace(&quot;]&quot;,&quot;%5D&quot;);</div><div class="line">        &#125;</div></pre></td></tr></table></figure><p>参考：</p><p><a href="http://stackoverflow.com/questions/37976748/downloadmanager-fails-with-error-unknown-on-api-17" target="_blank" rel="external">http://stackoverflow.com/questions/37976748/downloadmanager-fails-with-error-unknown-on-api-17</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;ul&gt;
+&lt;li&gt;欢迎关注&lt;a href=&quot;http://quanke.name/&quot;&gt;http://quanke.name/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;转载请注明出处，谢谢&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;现在做了一个下载，为了兼容性直接使用Android Sdk 自带的 &lt;a hr
+      
+    
+    </summary>
+    
+      <category term="android开发" scheme="http://quanke.name/categories/android%E5%BC%80%E5%8F%91/"/>
+    
+    
+      <category term="android" scheme="http://quanke.name/tags/android/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android Studio Service AIDL 详解</title>
+    <link href="http://quanke.name/2016/07/22/Android-Studio-Service-AIDL-%E8%AF%A6%E8%A7%A3/"/>
+    <id>http://quanke.name/2016/07/22/Android-Studio-Service-AIDL-详解/</id>
+    <published>2016-07-22T15:35:30.000Z</published>
+    <updated>2017-11-06T05:32:04.646Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li>欢迎关注<a href="http://quanke.name/">http://quanke.name/</a></li><li>转载请注明出处，谢谢</li></ul><p>公司产品之前IM这块存在很多问题，消息到达率低，加上协议上有些问题，丢消息频繁，所以需要重构IM，AIDL不能解决以上问题。好吧！那AIDL可以解决什么问题？什么是AIDL？</p><h3 id="什么是AIDL？"><a href="#什么是AIDL？" class="headerlink" title="什么是AIDL？"></a>什么是AIDL？</h3><p><code>AIDL</code>是 <code>Android Interface definition language</code>的缩写，它是一种<code>Android</code>内部进程通信接口的描述语言，通过它我们可以定义进程间的通信接口</p><h3 id="AIDL可以解决什么问题？"><a href="#AIDL可以解决什么问题？" class="headerlink" title="AIDL可以解决什么问题？"></a>AIDL可以解决什么问题？</h3><ul><li>可以实现多个应用程序共享同一个Service的功能，比如：IM服务可以提供给多个APP使用，先在推送基本都是采取这种方案</li><li>可以跨进程调用服务里的方法</li></ul><h3 id="Android-Studio-AIDL-实战"><a href="#Android-Studio-AIDL-实战" class="headerlink" title="Android Studio AIDL 实战"></a>Android Studio AIDL 实战</h3><p>大部分文章介绍都是在eclipse下介绍的，现在 Android Studio 作为开发工具比较普及了，所以我在Android Studio 下介绍（其实区别不大）。</p><p>言归正传，我们需要使用Android Studio实现一个远程Service，并且建立AIDL进行通信。</p><h4 id="搭建了简单的Service框架"><a href="#搭建了简单的Service框架" class="headerlink" title="搭建了简单的Service框架"></a>搭建了简单的Service框架</h4><p>1.继承Service</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">package name.quanke.aidldemo;</div><div class="line"></div><div class="line">import android.app.Service;</div><div class="line">import android.content.Intent;</div><div class="line">import android.os.IBinder;</div><div class="line"></div><div class="line"></div><div class="line">/**</div><div class="line"> *</div><div class="line"> * Created by http://quanke.name on 16/7/23.</div><div class="line"> */</div><div class="line">public class PushService extends Service &#123;</div><div class="line">    public PushService() &#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public IBinder onBind(Intent intent) &#123;</div><div class="line">        return new LibHandler();</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    @Override</div><div class="line">    public boolean onUnbind(Intent intent) &#123;</div><div class="line">        return super.onUnbind(intent);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure><p>2.在AndroidManifest.xml里注册 </p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;manifest xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</div><div class="line">          package=&quot;name.quanke.aidldemo&quot;&gt;</div><div class="line"></div><div class="line">    &lt;application</div><div class="line">            android:allowBackup=&quot;true&quot;</div><div class="line">            android:icon=&quot;@mipmap/ic_launcher&quot;</div><div class="line">            android:label=&quot;@string/app_name&quot;</div><div class="line">            android:name=&quot;.App&quot;</div><div class="line">            android:supportsRtl=&quot;true&quot;</div><div class="line">            android:theme=&quot;@style/AppTheme&quot;&gt;</div><div class="line">        &lt;activity android:name=&quot;.MainActivity&quot;&gt;</div><div class="line">            &lt;intent-filter&gt;</div><div class="line">                &lt;action android:name=&quot;android.intent.action.MAIN&quot;/&gt;</div><div class="line"></div><div class="line">                &lt;category android:name=&quot;android.intent.category.LAUNCHER&quot;/&gt;</div><div class="line">            &lt;/intent-filter&gt;</div><div class="line">        &lt;/activity&gt;</div><div class="line"></div><div class="line">        &lt;service</div><div class="line">                android:name=&quot;.PushService&quot;</div><div class="line">                android:enabled=&quot;true&quot;</div><div class="line">                android:process=&quot;:push&quot;</div><div class="line">                android:exported=&quot;true&quot;&gt;</div><div class="line">        &lt;/service&gt;</div><div class="line">    &lt;/application&gt;</div><div class="line"></div><div class="line">&lt;/manifest&gt;</div></pre></td></tr></table></figure><h4 id="建立AIDL"><a href="#建立AIDL" class="headerlink" title="建立AIDL"></a>建立AIDL</h4><h5 id="1-创建AIDL文件夹"><a href="#1-创建AIDL文件夹" class="headerlink" title="1.创建AIDL文件夹"></a>1.创建AIDL文件夹</h5><img src="/2016/07/22/Android-Studio-Service-AIDL-详解/1.png" title="1.创建AIDL文件夹"><h5 id="2-创建AIDL文件"><a href="#2-创建AIDL文件" class="headerlink" title="2.创建AIDL文件"></a>2.创建AIDL文件</h5><img src="/2016/07/22/Android-Studio-Service-AIDL-详解/2.png" title="2.创建AIDL文件"><h5 id="3-编写AIDL文件"><a href="#3-编写AIDL文件" class="headerlink" title="3.编写AIDL文件"></a>3.编写AIDL文件</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">// IHandler.aidl</div><div class="line">package name.quanke.aidldemo;</div><div class="line"></div><div class="line">// Declare any non-default types here with import statements</div><div class="line"></div><div class="line">interface IHandler &#123;</div><div class="line">    void connect();</div><div class="line">&#125;</div></pre></td></tr></table></figure><h5 id="4-AIDL文件-生成接口"><a href="#4-AIDL文件-生成接口" class="headerlink" title="4.AIDL文件 生成接口"></a>4.AIDL文件 生成接口</h5><img src="/2016/07/22/Android-Studio-Service-AIDL-详解/4.png" title="4.AIDL文件 生成接口"><p>生成后的样子</p><img src="/2016/07/22/Android-Studio-Service-AIDL-详解/3.png" title="4.AIDL文件 生成后的样子"><h5 id="5-编写客户端-ServiceConnection"><a href="#5-编写客户端-ServiceConnection" class="headerlink" title="5.编写客户端 ServiceConnection"></a>5.编写客户端 ServiceConnection</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">package name.quanke.aidldemo;</div><div class="line"></div><div class="line">import android.app.Application;</div><div class="line">import android.content.ComponentName;</div><div class="line">import android.content.Context;</div><div class="line">import android.content.Intent;</div><div class="line">import android.content.ServiceConnection;</div><div class="line">import android.os.IBinder;</div><div class="line">import android.os.RemoteException;</div><div class="line">import android.util.Log;</div><div class="line"></div><div class="line">/**</div><div class="line"> * Created by quanke on 16/7/23.</div><div class="line"> */</div><div class="line">public class PushManager &#123;</div><div class="line"></div><div class="line">    private static final String TAG = &quot;PushManager.class&quot;;</div><div class="line">    private IHandler iHandler;</div><div class="line"></div><div class="line">    private static PushManager ourInstance = new PushManager();</div><div class="line"></div><div class="line">    public static PushManager getInstance() &#123;</div><div class="line">        return ourInstance;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    private PushManager() &#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void init(Application app)&#123;</div><div class="line"></div><div class="line">        Intent binderIntent = new Intent(app,PushService.class);</div><div class="line">        app.bindService(binderIntent, serviceConnection, Context.BIND_AUTO_CREATE);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void connect()&#123;</div><div class="line">        try &#123;</div><div class="line">            //通过AIDL远程调用</div><div class="line">            Log.d(TAG,&quot;++start Remote++&quot;);</div><div class="line">            iHandler.connect();</div><div class="line">        &#125; catch (RemoteException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    private ServiceConnection serviceConnection = new ServiceConnection() &#123;</div><div class="line">        @Override</div><div class="line">        public void onServiceConnected(ComponentName name, IBinder service) &#123;</div><div class="line">            iHandler = IHandler.Stub.asInterface(service);</div><div class="line">            //连接成功调动</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        @Override</div><div class="line">        public void onServiceDisconnected(ComponentName name) &#123;</div><div class="line">            //断开连接调用</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure><h5 id="6-编写服务端实现connect方法"><a href="#6-编写服务端实现connect方法" class="headerlink" title="6.编写服务端实现connect方法"></a>6.编写服务端实现connect方法</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">package name.quanke.aidldemo;</div><div class="line"></div><div class="line">import android.os.IBinder;</div><div class="line">import android.os.RemoteException;</div><div class="line">import android.util.Log;</div><div class="line"></div><div class="line">/**</div><div class="line"> *</div><div class="line"> * Created by quanke on 16/7/23.</div><div class="line"> */</div><div class="line">public class LibHandler extends IHandler.Stub&#123;</div><div class="line"></div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void connect() throws RemoteException &#123;</div><div class="line">        Log.d(&quot;&quot;,&quot;connect()&quot;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public IBinder asBinder() &#123;</div><div class="line">        return null;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure><p>以上实现了简单的连接，接下来我们实现传递自定义类型</p><h4 id="传递自定义的类型"><a href="#传递自定义的类型" class="headerlink" title="传递自定义的类型"></a>传递自定义的类型</h4><p>AIDL默认支持的类型包括Java基本类型（int、long、boolean等），和（String、List、Map、CharSequence），如果要传递自定义的类型需要实现android.os.Parcelable接口。自己写了一个实体类public class Message implements Parcelable。</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">package name.quanke.aidldemo.model;</div><div class="line"></div><div class="line">import android.os.Parcel;</div><div class="line">import android.os.Parcelable;</div><div class="line"></div><div class="line">/**</div><div class="line"> * </div><div class="line"> * Created by quanke on 16/7/23.</div><div class="line"> */</div><div class="line">public class Message implements Parcelable &#123;</div><div class="line">    private long id;</div><div class="line">    private String content;</div><div class="line"></div><div class="line"></div><div class="line">    public long getId() &#123;</div><div class="line">        return id;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void setId(long id) &#123;</div><div class="line">        this.id = id;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public String getContent() &#123;</div><div class="line">        return content;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void setContent(String content) &#123;</div><div class="line">        this.content = content;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public String toString() &#123;</div><div class="line">        return &quot;Message&#123;&quot; +</div><div class="line">                &quot;id=&quot; + id +</div><div class="line">                &quot;, content=&apos;&quot; + content + &apos;\&apos;&apos; +</div><div class="line">                &apos;&#125;&apos;;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public int describeContents() &#123;</div><div class="line">        return 0;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void writeToParcel(Parcel dest, int flags) &#123;</div><div class="line">        dest.writeLong(this.id);</div><div class="line">        dest.writeString(this.content);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public Message() &#123;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    protected Message(Parcel in) &#123;</div><div class="line">        this.id = in.readLong();</div><div class="line">        this.content = in.readString();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public static final Creator&lt;Message&gt; CREATOR = new Creator&lt;Message&gt;() &#123;</div><div class="line">        @Override</div><div class="line">        public Message createFromParcel(Parcel source) &#123;</div><div class="line">            return new Message(source);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        @Override</div><div class="line">        public Message[] newArray(int size) &#123;</div><div class="line">            return new Message[size];</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure><p>修改IHandler</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">// IHandler.aidl</div><div class="line">package name.quanke.aidldemo;</div><div class="line"></div><div class="line">// Declare any non-default types here with import statements</div><div class="line"></div><div class="line">import name.quanke.aidldemo.model.Message;</div><div class="line"></div><div class="line">interface IHandler &#123;</div><div class="line">    void connect();</div><div class="line"></div><div class="line">    void sendMessage(Message message);</div><div class="line">&#125;</div></pre></td></tr></table></figure><p>编译项目，报错</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">/Users/quanke/Dev/android/src/AIDLDemo/app/src/main/aidl/name/quanke/aidldemo/IHandler.aidl</div><div class="line">Error:(6) couldn&apos;t find import for class name.quanke.aidldemo.model.Message</div><div class="line">Error:Execution failed for task &apos;:app:compileDebugAidl&apos;.</div><div class="line">&gt; java.lang.RuntimeException: com.android.ide.common.process.ProcessException: org.gradle.process.internal.ExecException: Process &apos;command &apos;/Users/quanke/Dev/android/tools/android-sdks/build-tools/23.0.3/aidl&apos;&apos; finished with non-zero exit value 1</div><div class="line">Information:BUILD FAILED</div></pre></td></tr></table></figure><p>因为自定义类型不仅要定义实现android.os.Parcelable接口的类，还得为该实现类定义一个aidl文件，如下：</p><img src="/2016/07/22/Android-Studio-Service-AIDL-详解/5.png" title="自定义类aidl文件"><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">// IHandler.aidl</div><div class="line">package name.quanke.aidldemo.model;</div><div class="line"></div><div class="line">// Declare any non-default types here with import statements</div><div class="line"></div><div class="line">import name.quanke.aidldemo.model.Message;</div><div class="line"></div><div class="line">parcelable Message ;</div></pre></td></tr></table></figure><blockquote><p><code>切记</code> 自定类型aidl文件名字、路径需要和自定义类名字、路径保持一致，</p></blockquote><p>编译项目，还是报错</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">parameter 1: &apos;Message message&apos; can be an out parameter, so you must declare it as in, out or inout.</div></pre></td></tr></table></figure><p><code>AIDL</code>不是 Java。它是真的很接近，但它不是 Java。</p><p>Java 参数没有方向的概念，AIDL 参数有方向，参数可以从客户端传到服务端，再返回来。</p><p>如果<code>sendMessage</code>方法的<code>message</code>参数是纯粹的输入参数–这意味着是从客户端到服务器的数据，你需要在AIDL声明：</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">void sendMessage(in Message message);</div></pre></td></tr></table></figure><p>如果<code>sendMessage</code>方法的<code>message</code>参数是纯粹的输出-这意味着它的数据是通过从服务器到客户端，使用：</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">void sendMessage(out Message message);</div></pre></td></tr></table></figure><p>如果<code>sendMessage</code>方法的<code>message</code>参数是输入也是输出-客户端的值在服务可能会修改，使用：</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">void sendMessage(inout Message message);</div></pre></td></tr></table></figure><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>Android Studio Service AIDL 详解 就到这里，现在应该可以使用AIDL实现想要的功能了，实现简答的AIDL很简单，主要是在自定义类型的时候，有几个坑注意就好。</p><p><code>源码地址：</code> <a href="https://github.com/quanke/AIDLDemo.git" target="_blank" rel="external">https://github.com/quanke/AIDLDemo.git</a> </p><blockquote><p>有什么问题欢迎留言。</p><p>如果喜欢请关注我，赞我，来抚平我虚荣的心</p></blockquote>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;ul&gt;
+&lt;li&gt;欢迎关注&lt;a href=&quot;http://quanke.name/&quot;&gt;http://quanke.name/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;转载请注明出处，谢谢&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;公司产品之前IM这块存在很多问题，消息到达率低，加上协议上有些问题，丢消息频繁
+      
+    
+    </summary>
+    
+      <category term="android开发" scheme="http://quanke.name/categories/android%E5%BC%80%E5%8F%91/"/>
+    
+    
+      <category term="android" scheme="http://quanke.name/tags/android/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>完美解决 Android 6 java.lang.AbstractMethodError</title>
+    <link href="http://quanke.name/2016/07/19/%E5%AE%8C%E7%BE%8E%E8%A7%A3%E5%86%B3-Android-6-java-lang-AbstractMethodError/"/>
+    <id>http://quanke.name/2016/07/19/完美解决-Android-6-java-lang-AbstractMethodError/</id>
+    <published>2016-07-19T13:55:13.000Z</published>
+    <updated>2017-11-06T05:32:04.757Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li>欢迎关注<a href="http://quanke.name/">http://quanke.name/</a></li><li>转载请注明出处，谢谢</li></ul><p>在Android Marshmallow (6.0)中有一个异常，异常信息中居然没有和APP包相关的东西，感觉这是Android SDK的一个坑</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">java.lang.AbstractMethodError: abstract method “int android.text.ParcelableSpan.getSpanTypeIdInternal()”</div></pre></td></tr></table></figure><p>Google一下，还真有人也遇到了同样的问题，看了半天也没有解决方案,只是解释了，为什么会有这个问题，大概就是在 Android 6.0 之后 <code>ParcelableSpan</code> 接口的 <code>getSpanTypeIdInternal</code> 和 <code>writeToParcelInternal</code> 方法是 <code>@hide</code> 标记了，多次提醒我们要看Google的文档，但是怎么解决呢？找另外的方法吧，此处不通。。。</p><p>既然不能实现<code>ParcelableSpan</code>接口了，那就换一种方式实现吧。</p><p>我换成继承<code>android.text.style.UnderlineSpan</code>类，居然可以了</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">package com.utan.app.utantop;</div><div class="line"></div><div class="line">import android.os.Parcel;</div><div class="line">import android.text.style.UnderlineSpan;</div><div class="line"></div><div class="line">/**</div><div class="line"> * </div><div class="line"> * Created by quanke.name on 2016/7/16.</div><div class="line"> * App Url:utantop.com</div><div class="line"> */</div><div class="line">public class UtanUnderlineSpan extends UnderlineSpan &#123;</div><div class="line">    public UtanUnderlineSpan() &#123;</div><div class="line">        super();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public UtanUnderlineSpan(Parcel src) &#123;</div><div class="line">        super(src);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure><p><a href="https://medium.com/@numan1617/android-framework-classes-choose-wisely-2f8300f6c255#.3669g6u0m" target="_blank" rel="external">https://medium.com/@numan1617/android-framework-classes-choose-wisely-2f8300f6c255#.3669g6u0m</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;ul&gt;
+&lt;li&gt;欢迎关注&lt;a href=&quot;http://quanke.name/&quot;&gt;http://quanke.name/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;转载请注明出处，谢谢&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;在Android Marshmallow (6.0)中有一个异常，异常信息中居
+      
+    
+    </summary>
+    
+      <category term="android开发" scheme="http://quanke.name/categories/android%E5%BC%80%E5%8F%91/"/>
+    
+    
+      <category term="android" scheme="http://quanke.name/tags/android/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>完美解决 java.lang.NoClassDefFoundError  R R 巨坑</title>
+    <link href="http://quanke.name/2016/07/19/%E5%AE%8C%E7%BE%8E%E8%A7%A3%E5%86%B3-java-lang-NoClassDefFoundError-R-R-%E5%B7%A8%E5%9D%91/"/>
+    <id>http://quanke.name/2016/07/19/完美解决-java-lang-NoClassDefFoundError-R-R-巨坑/</id>
+    <published>2016-07-19T13:53:59.000Z</published>
+    <updated>2017-11-06T05:32:04.758Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li>欢迎关注<a href="http://quanke.name/">http://quanke.name/</a></li><li>转载请注明出处，谢谢</li></ul><blockquote><p>此坑有点大，害我同事弄了一周没有搞定</p></blockquote><p>开始的时候是报另外一个错误，也是NoClassDefFoundError异常，但这个是因为包冲突的问题,删除掉一些包就好了。但是这个问题没有这么简单。</p><p>首先描述一下我们的场景吧：</p><p>我们做了一个<code>优谈TOP</code> APP，主要的逻辑代码是在一个单独的<code>android studio module</code> 实现的，这个主要是为了可以导入到公司其他APP里面，就是把<code>优谈TOP</code>当成sdk，嵌入到公司其他APP里，我们使用<code>优谈TOP</code>单独运行的时候没有一点问题，导入到另外要一个APP的时候，问题就出现了。</p><p>百度，Google搜了以大堆资料，都没有解决，最后在<code>stackoverflow</code>找到了一种方案。还真可以</p><p><code>stackoverflow</code> 连接 <a href="http://stackoverflow.com/questions/32110859/fatal-exception-java-lang-noclassdeffounderror-android-support-v7-appcompat-r" target="_blank" rel="external">http://stackoverflow.com/questions/32110859/fatal-exception-java-lang-noclassdeffounderror-android-support-v7-appcompat-r</a></p><blockquote><p>看了这个才知道，这是Dex超出方法数的限制问题，Dex达到极限时，会创建多个Dex文件，android Lollipop 没有处理，需要在应用中处理 。</p></blockquote><h3 id="第一步："><a href="#第一步：" class="headerlink" title="第一步："></a>第一步：</h3><p>在 <code>build.gradle</code> 中增加(非 <code>root</code> <code>build.gradle</code> )</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">dependencies &#123;</div><div class="line">    compile &apos;com.android.support:multidex:1.0.0&apos;</div><div class="line">&#125;</div><div class="line">defaultConfig &#123;          </div><div class="line">    multiDexEnabled true</div><div class="line">&#125;</div></pre></td></tr></table></figure><h3 id="第二步："><a href="#第二步：" class="headerlink" title="第二步："></a>第二步：</h3><p>在AndroidManifest.xml增加</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&lt;application</div><div class="line">        ...</div><div class="line">        android:name=&quot;android.support.multidex.MultiDexApplication&quot;&gt;</div><div class="line">        ...</div><div class="line">&lt;/application&gt;</div></pre></td></tr></table></figure><p>如果需要自己实现 <code>Application</code>,需要重写<code>attachBaseContext</code>方法</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">import android.support.multidex.MultiDexApplication;</div><div class="line">import android.support.multidex.MultiDex;</div><div class="line"></div><div class="line">public class MyApplication extends MultiDexApplication &#123;</div><div class="line"> // ......</div><div class="line"></div><div class="line">    @Override</div><div class="line">    protected void attachBaseContext(Context base) &#123;</div><div class="line">        super.attachBaseContext(base);</div><div class="line">        MultiDex.install(this);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure><p>或者</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">import android.support.multidex.MultiDex;</div><div class="line">public class MyApplication extends Application &#123;</div><div class="line"> // ......</div><div class="line"></div><div class="line">    @Override</div><div class="line">    protected void attachBaseContext(Context base) &#123;</div><div class="line">        super.attachBaseContext(base);</div><div class="line">        MultiDex.install(this);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure><p>参考：<a href="https://developer.android.com/tools/building/multidex.html#mdex-gradle" target="_blank" rel="external">https://developer.android.com/tools/building/multidex.html#mdex-gradle</a> </p><p>这里记录一下没有解决我的问题的方案，也许你有用：</p><p><a href="http://stackoverflow.com/questions/32110859/fatal-exception-java-lang-noclassdeffounderror-android-support-v7-appcompat-r?noredirect=1&amp;lq=1" target="_blank" rel="external">http://stackoverflow.com/questions/32110859/fatal-exception-java-lang-noclassdeffounderror-android-support-v7-appcompat-r?noredirect=1&amp;lq=1</a></p><p><a href="http://stackoverflow.com/questions/27614538/crash-java-lang-noclassdeffounderror-android-support-v7-appcompat-rlayout" target="_blank" rel="external">http://stackoverflow.com/questions/27614538/crash-java-lang-noclassdeffounderror-android-support-v7-appcompat-rlayout</a></p><p><a href="http://stackoverflow.com/questions/9870995/android-java-lang-noclassdeffounderror" target="_blank" rel="external">http://stackoverflow.com/questions/9870995/android-java-lang-noclassdeffounderror</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;ul&gt;
+&lt;li&gt;欢迎关注&lt;a href=&quot;http://quanke.name/&quot;&gt;http://quanke.name/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;转载请注明出处，谢谢&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;此坑有点大，害我同事弄了一周没有搞定&lt;/p&gt;
+&lt;/b
+      
+    
+    </summary>
+    
+      <category term="android开发" scheme="http://quanke.name/categories/android%E5%BC%80%E5%8F%91/"/>
+    
+    
+      <category term="android" scheme="http://quanke.name/tags/android/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android fastjson和Realm的完美结合，有坑</title>
+    <link href="http://quanke.name/2016/07/19/Android-fastjson%E5%92%8CRealm%E7%9A%84%E5%AE%8C%E7%BE%8E%E7%BB%93%E5%90%88%EF%BC%8C%E6%9C%89%E5%9D%91/"/>
+    <id>http://quanke.name/2016/07/19/Android-fastjson和Realm的完美结合，有坑/</id>
+    <published>2016-07-19T13:52:11.000Z</published>
+    <updated>2017-11-06T05:32:04.686Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li>欢迎关注<a href="http://quanke.name/">http://quanke.name/</a></li><li>转载请注明出处，谢谢</li></ul><blockquote><p>源码地址：<a href="https://github.com/quanke/FastjsonRealm" target="_blank" rel="external">https://github.com/quanke/FastjsonRealm</a></p></blockquote><p>Realm的安装和fastjson的安装这里就不详细说了。详细的文档在这里 <a href="https://realm.io/docs/java/" target="_blank" rel="external">https://realm.io/docs/java/</a> ，最好看英文文档，中文文档，不是最新的，而且看起来别扭。</p><p>现在Realm Java 的最新版本是 1.1.0，fastjson Android的版本是1.1.52</p><h3 id="安装Realm-Java"><a href="#安装Realm-Java" class="headerlink" title="安装Realm Java"></a>安装Realm Java</h3><h4 id="在项目中（最外层的build-gradle文件）build-gradle中增加"><a href="#在项目中（最外层的build-gradle文件）build-gradle中增加" class="headerlink" title="在项目中（最外层的build.gradle文件）build.gradle中增加"></a>在项目中（最外层的build.gradle文件）build.gradle中增加</h4><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">buildscript &#123;</div><div class="line">    repositories &#123;</div><div class="line">        jcenter()</div><div class="line">    &#125;</div><div class="line">    dependencies &#123;</div><div class="line">        classpath &quot;io.realm:realm-gradle-plugin:1.1.0&quot;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure><h4 id="在应用中-一般是名为app模型-build-gradle增加"><a href="#在应用中-一般是名为app模型-build-gradle增加" class="headerlink" title="在应用中(一般是名为app模型)build.gradle增加"></a>在应用中(一般是名为app模型)build.gradle增加</h4><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">apply plugin: &apos;realm-android&apos;</div></pre></td></tr></table></figure><h3 id="安装fastjson"><a href="#安装fastjson" class="headerlink" title="安装fastjson"></a>安装fastjson</h3><h4 id="在应用中-一般是名为app模型-build-gradle增加-1"><a href="#在应用中-一般是名为app模型-build-gradle增加-1" class="headerlink" title="在应用中(一般是名为app模型)build.gradle增加"></a>在应用中(一般是名为app模型)build.gradle增加</h4><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">compile &apos;com.alibaba:fastjson:1.1.52.android&apos;</div></pre></td></tr></table></figure><h3 id="现在我们写一个模型"><a href="#现在我们写一个模型" class="headerlink" title="现在我们写一个模型"></a>现在我们写一个模型</h3><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">/**</div><div class="line"> * </div><div class="line"> * Created by quanke(http://quanke.name) on 2016/7/18.</div><div class="line"> */</div><div class="line">public class User extends RealmObject implements Serializable&#123;</div><div class="line"></div><div class="line"></div><div class="line">    public User() &#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    private String          name;</div><div class="line">    private int             age;</div><div class="line"></div><div class="line">    @Ignore</div><div class="line">    private int             sessionId;</div><div class="line"></div><div class="line">    // Standard getters &amp; setters generated by your IDE…</div><div class="line">    public String getName() &#123; return name; &#125;</div><div class="line">    public void   setName(String name) &#123; this.name = name; &#125;</div><div class="line">    public int    getAge() &#123; return age; &#125;</div><div class="line">    public void   setAge(int age) &#123; this.age = age; &#125;</div><div class="line">    public int    getSessionId() &#123; return sessionId; &#125;</div><div class="line">    public void   setSessionId(int sessionId) &#123; this.sessionId = sessionId; &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure><h3 id="把User对象通过fastjson转为String"><a href="#把User对象通过fastjson转为String" class="headerlink" title="把User对象通过fastjson转为String"></a>把User对象通过fastjson转为String</h3><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line"></div><div class="line">/**</div><div class="line"></div><div class="line"> * Created by quanke(http://quanke.name) on 2016/7/18.</div><div class="line"> */</div><div class="line">public class MainActivity extends AppCompatActivity &#123;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</div><div class="line">        super.onCreate(savedInstanceState);</div><div class="line">        setContentView(R.layout.activity_main);</div><div class="line"></div><div class="line">        User user = new User();</div><div class="line">        user.setAge(2);</div><div class="line">        user.setName(&quot;http://quanke.name&quot;);</div><div class="line"></div><div class="line">        String userStr = JSON.toJSONString(user);</div><div class="line"></div><div class="line">        Log.d(&quot;userStr:&quot;,userStr);</div><div class="line"></div><div class="line">        User userObj = JSON.parseObject(userStr,User.class);</div><div class="line"></div><div class="line">        Log.d(&quot;userObj:&quot;,userObj+&quot;&quot;);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure><p>这个时候，我以为可以完美的运行了，但是运行的时候，报异常了。</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">java.lang.NoClassDefFoundError: rx.Observable</div><div class="line">at libcore.reflect.InternalNames.getClass(InternalNames.java:55)</div><div class="line">...</div></pre></td></tr></table></figure><blockquote><p>怎么解决？这里有两种方法。。</p></blockquote><h4 id="第一种：直接使用-RxJava"><a href="#第一种：直接使用-RxJava" class="headerlink" title="第一种：直接使用 RxJava"></a>第一种：直接使用 <code>RxJava</code></h4><h4 id="第二种，不想使用-RxJava，那就创建一个-Observable-空文件"><a href="#第二种，不想使用-RxJava，那就创建一个-Observable-空文件" class="headerlink" title="第二种，不想使用 RxJava，那就创建一个 Observable 空文件"></a>第二种，不想使用 <code>RxJava</code>，那就创建一个 <code>Observable</code> 空文件</h4><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">package rx;</div><div class="line"></div><div class="line">public class Observable &#123;</div><div class="line">    // Dummy class required for Jackson-Databind support if</div><div class="line">    // RxJava is not a project dependency.</div><div class="line">&#125;</div></pre></td></tr></table></figure><p>其实解决方案是官方提供的，只是里面的例子是Jackson而我用的是国产fastjson</p><p>Realm 的详细使用这里就不说了。。。有很多小伙伴分享了，但我还是建议看官方文档 <a href="https://realm.io/docs/java/" target="_blank" rel="external">https://realm.io/docs/java/</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;ul&gt;
+&lt;li&gt;欢迎关注&lt;a href=&quot;http://quanke.name/&quot;&gt;http://quanke.name/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;转载请注明出处，谢谢&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;源码地址：&lt;a href=&quot;https://gith
+      
+    
+    </summary>
+    
+      <category term="android开发" scheme="http://quanke.name/categories/android%E5%BC%80%E5%8F%91/"/>
+    
+    
+      <category term="android" scheme="http://quanke.name/tags/android/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Thinking in Java (Java 编程思想) PDF ePub Mobi格式电子书</title>
+    <link href="http://quanke.name/2016/05/08/Thinking-in-Java-Java-%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3-PDF-ePub-Mobi%E6%A0%BC%E5%BC%8F%E7%94%B5%E5%AD%90%E4%B9%A6/"/>
+    <id>http://quanke.name/2016/05/08/Thinking-in-Java-Java-编程思想-PDF-ePub-Mobi格式电子书/</id>
+    <published>2016-05-08T08:01:19.000Z</published>
+    <updated>2017-11-06T05:32:04.687Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li>欢迎关注<a href="http://quanke.name/">http://quanke.name/</a></li><li>转载请注明出处，谢谢</li></ul><hr><p>本书来自网络，<a href="http://quanke.name">http://quanke.name</a> 整理成电子书，支持PDF,ePub,Mobi格式，方便大家下载阅读。</p><p>阅读地址：<a href="https://www.gitbook.com/read/book/quanke/think-in-java" target="_blank" rel="external">https://www.gitbook.com/read/book/quanke/think-in-java</a></p><p>下载地址：<a href="https://www.gitbook.com/book/quanke/think-in-java/" target="_blank" rel="external">https://www.gitbook.com/book/quanke/think-in-java/</a></p><p>github地址：<a href="https://github.com/quanke/think-in-java" target="_blank" rel="external">https://github.com/quanke/think-in-java</a></p><p>编辑：<a href="http://quanke.name">http://quanke.name</a></p><p>第13章没有编辑，觉得没有意义，Java的GUI先在应用少，有时间在编辑好。。。</p><p>编辑整理辛苦，还望大神们点一下star ，抚平我虚荣的心</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;ul&gt;
+&lt;li&gt;欢迎关注&lt;a href=&quot;http://quanke.name/&quot;&gt;http://quanke.name/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;转载请注明出处，谢谢&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;本书来自网络，&lt;a href=&quot;http://quanke.name
+      
+    
+    </summary>
+    
+      <category term="Java" scheme="http://quanke.name/categories/Java/"/>
+    
+    
+      <category term="Java 编程思想" scheme="http://quanke.name/tags/Java-%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3/"/>
+    
+      <category term="Java" scheme="http://quanke.name/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>打造简单灵活的支持所有View的Android 空页面及错误页面</title>
+    <link href="http://quanke.name/2016/05/06/%E6%89%93%E9%80%A0%E7%AE%80%E5%8D%95%E7%81%B5%E6%B4%BB%E7%9A%84%E6%94%AF%E6%8C%81%E6%89%80%E6%9C%89View%E7%9A%84Android-%E7%A9%BA%E9%A1%B5%E9%9D%A2%E5%8F%8A%E9%94%99%E8%AF%AF%E9%A1%B5%E9%9D%A2/"/>
+    <id>http://quanke.name/2016/05/06/打造简单灵活的支持所有View的Android-空页面及错误页面/</id>
+    <published>2016-05-05T16:18:24.000Z</published>
+    <updated>2017-11-06T05:32:04.759Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li>欢迎关注<a href="http://quanke.name/">http://quanke.name/</a></li><li>转载请注明出处，谢谢</li></ul><hr><p>当页面加载数据失败，数据为空，或者数据加载中需要可以操作其他地方，我们应该怎么办？</p><p>体验良好的APP都会做相应的处理。</p><ol><li><p>比如网络异常，会显示一个网络异常页面，提示用户去检查网络；</p></li><li><p>数据为空时，出现一个温馨的空页面，引导用户去创建数据等；</p></li><li><p>当数据在加载中时，我想按返回按钮，想切换tab，想做更多的事情时，弹出一个loading就不是那么友好了，直接在页面的内容显示区域显示加载中，问题就解决了。</p></li></ol><p>这些方法各大app都在使用，但是怎么发开？每一个页面都写一个空页、面错误页面和loading页面吗？那也太恶心了吧。</p><p>下面我们一起打造简单灵活的支持所有View的Android 空页面及错误页面：</p><p>开始之前先看效果：</p><p><img src="http://upload-images.jianshu.io/upload_images/432952-7e05ff41a62e9bce.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="打造简单灵活的支持所有View的Android 空页面及错误页面.png"></p><p>继承LinearLayout</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">public class EmptyLayout extends LinearLayout&#123;</div><div class="line"></div><div class="line">public EmptyLayout(Context context, AttributeSet attrs) &#123;</div><div class="line">        super(context, attrs);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure><p>我们需要实现三种不同的页面，所以需要定义三种类型：</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line"></div><div class="line">/**</div><div class="line">    * The empty state</div><div class="line">    */</div><div class="line">   public final static int TYPE_EMPTY = 1;</div><div class="line">   /**</div><div class="line">    * The loading state</div><div class="line">    */</div><div class="line">   public final static int TYPE_LOADING = 2;</div><div class="line">   /**</div><div class="line">    * The error state</div><div class="line">    */</div><div class="line">   public final static int TYPE_ERROR = 3;</div></pre></td></tr></table></figure><p>定义操作方法：</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line"></div><div class="line">/**</div><div class="line">     * 展示错误信息</div><div class="line">     * @param resId 图片资源id</div><div class="line">     * @param text</div><div class="line">     */</div><div class="line">    public void showError(int resId,String text)</div><div class="line"></div><div class="line">/**</div><div class="line">     * 展示空信息</div><div class="line">     * @param resId 图片资源id</div><div class="line">     * @param text</div><div class="line">     */</div><div class="line">    public void showEmpty(int resId,String text)</div><div class="line"></div><div class="line">/**</div><div class="line">     * 展示加载中</div><div class="line">     * @param resId 图片资源id</div><div class="line">     * @param text</div><div class="line">     */</div><div class="line">    public void showLoading(int resId,String text)</div><div class="line"></div><div class="line">/**</div><div class="line">     *隐藏EmptyLayout</div><div class="line">     */</div><div class="line">    public void hide()</div></pre></td></tr></table></figure><p>获得EmptyLayout的子view，方便隐藏或者展示子view（这里的子view 一般用户展示本来的内容）</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">/**</div><div class="line">     * 获得EmptyLayout的子view</div><div class="line">     */</div><div class="line">    private void getChildViews()&#123;</div><div class="line">        int childCount = getChildCount();</div><div class="line">        Log.d(&quot;EmptyLayout&quot;,&quot;ChildCount:&quot;+childCount);</div><div class="line">        View view;</div><div class="line">        for (int i=0;i&lt;childCount;i++)&#123;</div><div class="line">            view = getChildAt(i);</div><div class="line">            if (isEmptyView(view))&#123;</div><div class="line">                continue;</div><div class="line">            &#125;</div><div class="line">            childViews.add(view);</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure><p>判断view 对象是否是EmptyView ：</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line"></div><div class="line">/**</div><div class="line">     * 判断view 对象是否是EmptyView</div><div class="line">     * @param view</div><div class="line">     * @return</div><div class="line">     */</div><div class="line">    private boolean isEmptyView(View view)&#123;</div><div class="line">        if ((view == null||mEmptyRelativeLayout == view||view == mLoadingView||view == mEmptyView||view == mErrorView))&#123;</div><div class="line">            return true;</div><div class="line">        &#125;</div><div class="line">        return false;</div><div class="line">    &#125;</div></pre></td></tr></table></figure><p>当数据为空时调用:</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">public void showEmpty()&#123;</div><div class="line"></div><div class="line">        getChildViews(); //获得除EmptyView的其他子view</div><div class="line">        hideChildView(); //把子view隐藏了</div><div class="line">        this.mEmptyType = TYPE_EMPTY;</div><div class="line">        changeEmptyType();</div><div class="line">        </div><div class="line">    &#125;</div></pre></td></tr></table></figure><p>其他方法和这个类似，思路很简单，大家可以试试</p><p>使用很简单</p><p>在布局文件里增加：</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&lt;name.quanke.app.libs.emptylayout.EmptyLayout</div><div class="line">        android:id=&quot;@+id/emptyLayout&quot;</div><div class="line">        android:layout_width=&quot;match_parent&quot;</div><div class="line">        android:layout_height=&quot;match_parent&quot;&gt;</div><div class="line"></div><div class="line">        &lt;TextView</div><div class="line">            android:id=&quot;@+id/textHello&quot;</div><div class="line">            android:layout_width=&quot;wrap_content&quot;</div><div class="line">            android:layout_height=&quot;wrap_content&quot;</div><div class="line">            android:text=&quot;Hello World!&quot; /&gt;</div><div class="line"></div><div class="line">&lt;/name.quanke.app.libs.emptylayout.EmptyLayout&gt;</div></pre></td></tr></table></figure><p>代码里增加:</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">findViewById(R.id.btnLoading).setOnClickListener(new View.OnClickListener() &#123;</div><div class="line">            @Override</div><div class="line">            public void onClick(View view) &#123;</div><div class="line">                emptyLayout.showLoading();</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">        findViewById(R.id.btnEmpty).setOnClickListener(new View.OnClickListener() &#123;</div><div class="line">            @Override</div><div class="line">            public void onClick(View view) &#123;</div><div class="line">                emptyLayout.showEmpty();</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">        findViewById(R.id.btnError).setOnClickListener(new View.OnClickListener() &#123;</div><div class="line">            @Override</div><div class="line">            public void onClick(View view) &#123;</div><div class="line">                emptyLayout.showError();</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">        findViewById(R.id.btnData).setOnClickListener(new View.OnClickListener() &#123;</div><div class="line">            @Override</div><div class="line">            public void onClick(View view) &#123;</div><div class="line">                emptyLayout.hide();</div><div class="line">            &#125;</div><div class="line">        &#125;);</div></pre></td></tr></table></figure><p>好了，使用起来就这么简单。。。支持所有的view</p><p>源码放在github上：<a href="https://github.com/quanke/AndroidEmptyLayout" target="_blank" rel="external">https://github.com/quanke/AndroidEmptyLayout</a></p><p>欢迎讨论</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;ul&gt;
+&lt;li&gt;欢迎关注&lt;a href=&quot;http://quanke.name/&quot;&gt;http://quanke.name/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;转载请注明出处，谢谢&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;当页面加载数据失败，数据为空，或者数据加载中需要可以操作其他地方，我
+      
+    
+    </summary>
+    
+      <category term="android开发" scheme="http://quanke.name/categories/android%E5%BC%80%E5%8F%91/"/>
+    
+    
+      <category term="android" scheme="http://quanke.name/tags/android/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Vert.x 3 Core手册 for Java 中文版</title>
+    <link href="http://quanke.name/2016/05/04/Vert-x-3-Core%E6%89%8B%E5%86%8C-for-Java-%E4%B8%AD%E6%96%87%E7%89%88/"/>
+    <id>http://quanke.name/2016/05/04/Vert-x-3-Core手册-for-Java-中文版/</id>
+    <published>2016-05-03T23:58:21.000Z</published>
+    <updated>2017-11-06T05:32:04.688Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li>欢迎关注<a href="http://quanke.name/">http://quanke.name/</a></li><li>交流群：<code>231419585</code>- </li><li>转载请注明出处，谢谢</li></ul><ul><li>阅读地址：<a href="http://vertx.quanke.name/" target="_blank" rel="external">http://vertx.quanke.name/</a></li><li>下载地址：<a href="https://www.gitbook.com/book/quanke/vert-x-core-manual-for-java" target="_blank" rel="external">https://www.gitbook.com/book/quanke/vert-x-core-manual-for-java</a></li><li>本书源码地址：<a href="https://github.com/quanke/vert-x-core-manual-for-java" target="_blank" rel="external">https://github.com/quanke/vert-x-core-manual-for-java</a></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;ul&gt;
+&lt;li&gt;欢迎关注&lt;a href=&quot;http://quanke.name/&quot;&gt;http://quanke.name/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;交流群：&lt;code&gt;231419585&lt;/code&gt;- &lt;/li&gt;
+&lt;li&gt;转载请注明出处，谢谢&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+      
+    
+    </summary>
+    
+      <category term="Vert.x3 系列" scheme="http://quanke.name/categories/Vert-x3-%E7%B3%BB%E5%88%97/"/>
+    
+    
+      <category term="Vert.x3" scheme="http://quanke.name/tags/Vert-x3/"/>
+    
+      <category term="Vertx" scheme="http://quanke.name/tags/Vertx/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>设计模式Java版,Gitbook开源电子书，含源码</title>
+    <link href="http://quanke.name/2016/05/04/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8FJava%E7%89%88-Gitbook%E5%BC%80%E6%BA%90%E7%94%B5%E5%AD%90%E4%B9%A6%EF%BC%8C%E5%90%AB%E6%BA%90%E7%A0%81/"/>
+    <id>http://quanke.name/2016/05/04/设计模式Java版-Gitbook开源电子书，含源码/</id>
+    <published>2016-05-03T23:56:26.000Z</published>
+    <updated>2017-11-06T05:32:04.760Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li>欢迎关注<a href="http://quanke.name/">http://quanke.name/</a></li><li>转载请注明出处，谢谢</li></ul><p>Sunny在CSDN技术博客中陆续发表了100多篇与设计模式学习相关的文章，涵盖了七个面向对象设计原则和24个设计模式（23个GoF设计模式 +  简单工厂模式），为了方便大家学习，<a href="http://quanke.name">http://quanke.name</a> 现将所有文章的进行了整理，方便大家下载阅读，希望能给各位带来帮助！</p><p>阅读地址：<a href="https://quanke.gitbooks.io/design-pattern-java/content/" target="_blank" rel="external">https://quanke.gitbooks.io/design-pattern-java/content/</a></p><p>下载地址：<a href="https://www.gitbook.com/book/quanke/design-pattern-java/" target="_blank" rel="external">https://www.gitbook.com/book/quanke/design-pattern-java/</a></p><p>源码下载地址：<a href="http://www.chinasa.info/download/DP-Code.rar" target="_blank" rel="external">http://www.chinasa.info/download/DP-Code.rar</a></p><p>课件下载地址：<a href="http://www.chinasa.info/download/DP-Slides.rar" target="_blank" rel="external">http://www.chinasa.info/download/DP-Slides.rar</a></p><p>作者：刘伟  <a href="http://blog.csdn.net/lovelion" target="_blank" rel="external">http://blog.csdn.net/lovelion</a></p><p>本书编辑：<a href="http://quanke.name">http://quanke.name</a></p><blockquote><p>刘伟(Sunny)，中南大学计算机应用技术博士，国家认证系统分析师（2005年），国家认证系统架构设计师（2009年，全国第四名），高级程序员，数据库系统工程师，MCSE，MCDBA，CASI专业顾问与企业内训讲师。具有十多年软件开发、项目管理及教育培训经验，曾在NIIT（印度国家信息技术学院）担任高级讲师，主持和参与30多个软件项目的开发工作，并给国内多家公司提供软件开发、软件设计等培训服务，现主要致力于软件工程、数据挖掘等领域的教学、推广和研究工作。技术专长：软件架构、设计模式、UML、OOAD、数据挖掘等。已出版设计模式书籍四本：《设计模式》（清华大学出版社，2011年）、《设计模式实训教程》（清华大学出版社，2012年）、《设计模式的艺术——软件开发人员内功修炼之道》（清华大学出版社，2013年）、《C#设计模式》（清华大学出版社，2013年）。架构师之家www.chinasa.info站长。<br>E-mail:weiliu_china@126.com<br>微博地址：<a href="http://weibo.com/csusunny" target="_blank" rel="external">http://weibo.com/csusunny</a></p></blockquote><p>更多干货，请关注：<a href="http://quanke.name">http://quanke.name</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;ul&gt;
+&lt;li&gt;欢迎关注&lt;a href=&quot;http://quanke.name/&quot;&gt;http://quanke.name/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;转载请注明出处，谢谢&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Sunny在CSDN技术博客中陆续发表了100多篇与设计模式学习相关的文章，涵
+      
+    
+    </summary>
+    
+      <category term="设计模式" scheme="http://quanke.name/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+      <category term="设计模式" scheme="http://quanke.name/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+      <category term="JAVA" scheme="http://quanke.name/tags/JAVA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Web服务器处理HTTP压缩之gzip、deflate压缩</title>
+    <link href="http://quanke.name/2016/05/01/Web%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%A4%84%E7%90%86HTTP%E5%8E%8B%E7%BC%A9%E4%B9%8Bgzip%E3%80%81deflate%E5%8E%8B%E7%BC%A9/"/>
+    <id>http://quanke.name/2016/05/01/Web服务器处理HTTP压缩之gzip、deflate压缩/</id>
+    <published>2016-05-01T07:55:53.000Z</published>
+    <updated>2017-11-06T05:32:04.702Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li>欢迎关注<a href="http://quanke.name/">http://quanke.name/</a></li><li>交流群：<code>231419585</code></li><li>转载请注明出处，谢谢</li></ul><h3 id="一、什么是gzip"><a href="#一、什么是gzip" class="headerlink" title="一、什么是gzip"></a>一、什么是gzip</h3><p>gzip是一种数据格式，默认且目前仅使用deflate算法压缩data部分；</p><p>Gzip是一种流行的文件压缩算法，现在的应用十分广泛，尤其是在Linux平台。当应用Gzip压缩到一个纯文本文件时，效果是非常明显的，大约可以减少70％以上的文件大小。这取决于文件中的内容。</p><p>利用Apache中的Gzip模块，我们可以使用Gzip压缩算法来对Apache服务器发布的网页内容进行压缩后再传输到客户端浏览器。这样经过压缩后实际上降低了网络传输的字节数，最明显的好处就是可以加快网页加载的速度。</p><p>网页加载速度加快的好处不言而喻，除了节省流量，改善用户的浏览体验外，另一个潜在的好处是Gzip与搜索引擎的抓取工具有着更好的关系。例如 Google就可以通过直接读取gzip文件来比普通手工抓取更快地检索网页。在Google网站管理员工具（Google Webmaster Tools）中你可以看到，sitemap.xml.gz 是直接作为Sitemap被提交的。</p><p>而这些好处并不仅仅限于静态内容，PHP动态页面和其他动态生成的内容均可以通过使用Apache压缩模块压缩，加上其他的性能调整机制和相应的服务器端 缓存规则，这可以大大提高网站的性能。因此，对于部署在Linux服务器上的PHP程序，在服务器支持的情况下，我们建议你开启使用Gzip Web压缩。</p><p>PS：详情参考：<a href="http://baike.baidu.com/item/gzip?fr=aladdin" target="_blank" rel="external">http://baike.baidu.com/item/gzip?fr=aladdin</a></p><h3 id="二、什么是deflate"><a href="#二、什么是deflate" class="headerlink" title="二、什么是deflate"></a>二、什么是deflate</h3><p>DEFLATE是同时使用了LZ77算法与哈夫曼编码（Huffman Coding）的一个无损数据压缩算法。</p><p>它最初是由Phil Katz为他的PKZIP归档工具第二版所定义的，后来定义在RFC 1951规范中。</p><p>人们普遍认为DEFLATE不受任何专利所制约，并且在LZW（GIF文件格式使用）相关的专利失效之前，这种格式除了在ZIP文件格式中得到应用之外也在gzip压缩文件以及PNG图像文件中得到了应用。</p><p>DEFLATE压缩与解压的源代码可以在自由、通用的压缩库zlib上找到。</p><p>更高压缩率的DEFLATE是7-zip所实现的。AdvanceCOMP也使用这种实现，它可以对gzip、PNG、MNG以及ZIP文件进行压缩从而得到比zlib更小的文件大小。在Ken Silverman的KZIP与PNGOUT中使用了一种更加高效同时要求更多用户输入的DEFLATE程序。</p><p>deflate是一种压缩算法,是huffman编码的一种加强。</p><p>deflate与gzip解压的代码几乎相同，可以合成一块代码。</p><h3 id="三、web服务器处理http压缩的过程"><a href="#三、web服务器处理http压缩的过程" class="headerlink" title="三、web服务器处理http压缩的过程"></a>三、web服务器处理http压缩的过程</h3><ol><li>Web服务器接收到浏览器的HTTP请求后，检查浏览器是否支持HTTP压缩（Accept-Encoding 信息）；</li><li>如果浏览器支持HTTP压缩，Web服务器检查请求文件的后缀名；</li><li>如果请求文件是HTML、CSS等静态文件，Web服务器到压缩缓冲目录中检查是否已经存在请求文件的最新压缩文件；</li><li>如果请求文件的压缩文件不存在，Web服务器向浏览器返回未压缩的请求文件，并在压缩缓冲目录中存放请求文件的压缩文件；</li><li>如果请求文件的最新压缩文件已经存在，则直接返回请求文件的压缩文件；</li><li>如果请求文件是动态文件，Web服务器动态压缩内容并返回浏览器，压缩内容不存放到压缩缓存目录中。</li></ol><p>下面是两个演示图：<br>未使用Gzip：</p><p><img src="http://static.oschina.net/uploads/space/2014/1113/001348_R3PV_560358.png" alt="image"></p><p>开启使用Gzip后：</p><p><img src="http://static.oschina.net/uploads/space/2014/1113/001403_CZ4O_560358.png" alt="image"></p><h3 id="四、gzip与deflate区别"><a href="#四、gzip与deflate区别" class="headerlink" title="四、gzip与deflate区别"></a>四、gzip与deflate区别</h3><p>deflate使用inflateInit()，而gzip使用inflateInit2()进行初始化，比 inflateInit()多一个参数: -MAX_WBITS，表示处理raw deflate数据。因为gzip数据中的zlib压缩数据块没有zlib header的两个字节。使用inflateInit2时要求zlib库忽略zlib header。在zlib手册中要求windowBits为8..15，但是实际上其它范围的数据有特殊作用，见zlib.h中的注释，如负数表示raw deflate。        </p><p>Apache的deflate变种可能也没有zlib header，需要添加假头后处理。即MS的错误deflate (raw deflate).zlib头第1字节一般是0x78, 第2字节与第一字节合起来的双字节应能被31整除，详见rfc1950。例如Firefox的zlib假头为0x7801，python zlib.compress()结果头部为0x789c。        </p><p>deflate 是最基础的算法，gzip 在 deflate 的 raw data 前增加了 10 个字节的 gzheader，尾部添加了 8 个字节的校验字节（可选 crc32 和 adler32） 和长度标识字节。</p><p>安装它们的Apache Web服务器版本的差异。Apache 1.x系列没有内建网页压缩技术，所以才去用额外的第三方mod_gzip 模块来执行压缩。而Apache 2.x官方在开发的时候，就把网页压缩考虑进去，内建了mod_deflate 这个模块，用以取代mod_gzip。虽然两者都是使用的Gzip压缩算法，它们的运作原理是类似的。     </p><p>压缩质量。mod_deflate 压缩速度略快而mod_gzip 的压缩比略高。一般默认情况下，mod_gzip 会比mod_deflate 多出4%~6％的压缩量。</p><p>对服务器资源的占用。 一般来说mod_gzip 对服务器CPU的占用要高一些。mod_deflate 是专门为确保服务器的性能而使用的一个压缩模块，mod_deflate 需要较少的资源来压缩文件。这意味着在高流量的服务器，使用mod_deflate 可能会比mod_gzip 加载速度更快。即在服务器性能足够的情况下，使用mod_gzip，虽然会耗费服务器性能，但是值得（压缩更快更好）；在服务器性能不足的情况下，使用mod_deflate 确保性能。</p><p>从Apache 2.0.45开始，mod_deflate 可使用DeflateCompressionLevel 指令来设置压缩级别。该指令的值可为1（压缩速度最快，最低的压缩质量）至9（最慢的压缩速度，压缩率最高）之间的整数，其默认值为6（压缩速度和压缩质 量较为平衡的值）。这个简单的变化更是使得mod_deflate 可以轻松媲美mod_gzip 的压缩。</p><h3 id="五、开启mod-gzip、mod-deflate"><a href="#五、开启mod-gzip、mod-deflate" class="headerlink" title="五、开启mod_gzip、mod_deflate"></a>五、开启mod_gzip、mod_deflate</h3><p>Apache上利用Gzip压缩算法进行压缩的模块有两种：mod_gzip 和mod_deflate。 要使用Gzip Web压缩，请首先确定你的服务器开启了对这两个组件之一的支持。在Linux服务器上，现在已经有越来越多的空间商开放了对它们的支持，有的甚至是同时 支持这两个模块的。例如目前Godaddy、Bluehost及DreamHosts等空间商的服务器都已同时支持mod_gzip 和mod_deflate。        </p><p>通过查看HTTP头，我们可以快速判断使用的客户端浏览器是否支持接受gzip压缩。若发送的HTTP头中出现以下信息，则表明你的浏览器支持接受相应的gzip压缩：</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">Accept-Encoding: gzip 支持mod_gzip</div><div class="line">Accept-Encoding: deflate 支持mod_deflate </div><div class="line">Accept-Encoding: gzip,deflate 同时支持mod_gzip 和mod_deflate</div></pre></td></tr></table></figure><p>mod_deflate 是apache自带的模块,当然是在apache 2后支持的,以前1的时候是mod_gzip,启用mod_deflate可以很好的为节省网页大小,只不过是占用服务器的资源和内存.用户看到页面的速度会大大加快。在apache2.0以上（包括apache2.0）的版中gzip压缩使用的是mod_deflate模块</p><ol><li>查看apache的安装模式</li></ol><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">apachectl -l</div></pre></td></tr></table></figure><p>发现 mod_so.c，ok可以动态加模块，不用重新编译。</p><ol><li>安装mod_deflate</li></ol><p>找到原有的apache安装包安装mod_deflate</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">cd httpd-2.0.59/modules/filters</div><div class="line">/usr/local/apache2/bin/apxs -i -c -a mod_deflate.c</div></pre></td></tr></table></figure><p>PS：apxs命令参数说明：</p><p>-i  此选项表示需要执行安装操作，以安装一个或多个动态共享对象到服务器的modules目录中。</p><p>-a  此选项自动增加一个LoadModule行到httpd.conf文件中，以激活此模块，或者，如果此行已经存在，则启用之。</p><p>-A  与 -a 选项类似，但是它增加的LoadModule命令有一个井号前缀(#)，即此模块已经准备就绪但尚未启用。</p><p>-c  此选项表示需要执行编译操作。它首先会编译C源程序(.c)files为对应的目标代码文件(.o)，然后连接这些目标代码和files中其余的目标代码文件(.o和.a)，以生成动态共享对象dsofile 。如果没有指定 -o 选项，则此输出文件名由files中的第一个文件名推测得到，也就是默认为mod_name.so 。</p><p>3、修改Apache的http.conf文件，去除mod_deflate.so前面的注释</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">LoadModule deflate_module modules/mod_deflate.so</div></pre></td></tr></table></figure><p>4、在根目录中新建.htaccess文件，定制压缩规则</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">#GZIP压缩模块配置&lt;ifmodule mod_deflate.c&gt;</div><div class="line">#启用对特定MIME类型内容的压缩</div><div class="line">SetOutputFilter DEFLATESetEnvIfNoCase Request_URI .(?:gif|jpe?g|png|exe|t?gz|zip|bz2|sit|rar|pdf|mov|avi|mp3|mp4|rm)$ no-gzip dont-vary #设置不对压缩的文件AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml application/x-httpd-php application/x-javascript #设置对压缩的文件&lt;/ifmodule&gt;</div></pre></td></tr></table></figure><p>5、对指定的文件配置缓存的生存时间，去除mod_headers.so模块前面的注释</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">LoadModule headers_module modules/mod_headers.so</div></pre></td></tr></table></figure><p>6、在根目录中新建.htaccess文件，定制压缩规则</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">#文件缓存时间配置</div><div class="line">&lt;FilesMatch &quot;.(flv|gif|jpg|jpeg|png|ico|swf|js|css)$&quot;&gt;</div><div class="line">Header set Cache-Control &quot;max-age=2592000&quot;</div><div class="line">&lt;/FilesMatch&gt;</div></pre></td></tr></table></figure><p>里面的文件MIME类型可以根据自己情况添加，至于PDF 、图片、音乐文档之类的这些本身都已经高度压缩格式，重复压缩的作用不大，反而可能会因为增加CPU的处理时间及浏览器的渲染问题而降低性能。所以就没必要再通过Gzip压缩。通过以上设置后再查看返回的HTTP头，出现以下信息则表明返回的数据已经过压缩。即网站程序所配置的Gzip压缩已生效。</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">Content-Encoding: gzip</div></pre></td></tr></table></figure><p>注：不管使用mod_gzip 还是mod_deflate，此处返回的信息都一样。因为它们都是实现的gzip压缩方式。</p><p>遇到的问题以及解决:</p><p>1：</p><p>apach2 安装mod_deflate后restart,直接</p><p>load /opt/apache/modules/mod_deflate.so into server: /opt/apache/modules/mod_deflate.so: undefined symbol: deflate 异常的痛苦</p><p>什么ldd mod_deflate.so后再export LIB_LIBRARY_PATH呀，都试了N次，google也go了N天</p><p>终于在google上go出来一篇文章，终于解决，方法如下： vi /usr/local/apache2/bin/apr-config 修改LDFLAGS=” “ 为 LDFLAGS=”-lz” 然后再apxs -ica mod_deflate.c 就OK了.</p><p>2：<br>apach2 安装mod_deflate后restart,直接</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">module deflate_module is built-in and can&apos;t be loaded ...</div></pre></td></tr></table></figure><p>这说明该模块已经安装，不必再LoadModule deflate_module启用它。</p><p>只需做<ifmodule mod_deflate.c="">配置</ifmodule></p><p><a href="http://my.oschina.net/rasine/blog/343769" target="_blank" rel="external">阅读原文</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;ul&gt;
+&lt;li&gt;欢迎关注&lt;a href=&quot;http://quanke.name/&quot;&gt;http://quanke.name/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;交流群：&lt;code&gt;231419585&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;转载请注明出处，谢谢&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id
+      
+    
+    </summary>
+    
+      <category term="Vert.x3 系列" scheme="http://quanke.name/categories/Vert-x3-%E7%B3%BB%E5%88%97/"/>
+    
+    
+      <category term="Vert.x3" scheme="http://quanke.name/tags/Vert-x3/"/>
+    
+      <category term="Vertx" scheme="http://quanke.name/tags/Vertx/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用Gitbook写开源书籍，过一把作家瘾</title>
+    <link href="http://quanke.name/2016/04/25/%E4%BD%BF%E7%94%A8Gitbook%E5%86%99%E5%BC%80%E6%BA%90%E4%B9%A6%E7%B1%8D%EF%BC%8C%E8%BF%87%E4%B8%80%E6%8A%8A%E4%BD%9C%E5%AE%B6%E7%98%BE/"/>
+    <id>http://quanke.name/2016/04/25/使用Gitbook写开源书籍，过一把作家瘾/</id>
+    <published>2016-04-25T01:16:28.000Z</published>
+    <updated>2017-11-06T05:32:04.757Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li>欢迎关注<a href="http://quanke.name/">http://quanke.name/</a></li><li>转载请注明出处，谢谢</li></ul><h3 id="初级（适合没有编程基础的童鞋看）"><a href="#初级（适合没有编程基础的童鞋看）" class="headerlink" title="初级（适合没有编程基础的童鞋看）"></a>初级（适合没有编程基础的童鞋看）</h3><h4 id="使用GitBook-Editor-写开源书籍"><a href="#使用GitBook-Editor-写开源书籍" class="headerlink" title="使用GitBook Editor 写开源书籍"></a>使用GitBook Editor 写开源书籍</h4><p>这个是gitbook官方出的编辑器，使用简单</p><h5 id="首先下载GitBook-Editor"><a href="#首先下载GitBook-Editor" class="headerlink" title="首先下载GitBook Editor"></a>首先下载GitBook Editor</h5><p><img src="http://static.open-open.com/lib/uploadImg/20141126/20141126221113_793.png" alt="GitBook Editor"></p><p>下载地址：<a href="https://www.gitbook.com/editor" target="_blank" rel="external">https://www.gitbook.com/editor</a></p><p>支持Mac、Linux、Windows</p><h5 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h5><h6 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h6><ul><li>下载<code>gitbook-win.zip</code>；</li><li>解压；</li><li>打开<code>GitBook.exe</code>安装；</li></ul><h6 id="Mac"><a href="#Mac" class="headerlink" title="Mac"></a>Mac</h6><ul><li>下载 <code>gitbook-mac.dmg</code>安装即可</li></ul><h6 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h6><ul><li>下载 <code>gitbook-linux32.tar.gz</code></li><li>使用<code>tar -xvzf gitbook-linux32.tar.gz</code>解压</li><li>运行脚本 <code>cd GitBook &amp;&amp; ./install.sh</code>安装</li></ul><h4 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h4><p>安装完成之后，如果有github账号直接，登录，但是用github登录之后也需要设置gitbook的邮箱和密码，等会儿要用到，没有账号的直接注册就好；</p><p>登录后，可以直接在gitbook上创建书籍，建议在<a href="https://www.gitbook.com" target="_blank" rel="external">gitbook</a>网站上创建书籍，然后通过GitBook Editor <code>clone</code> 下来；</p><p><code>clone</code> 下来之后 可以直接写书了，先在感觉是不是特别简单？别急，为了更爽的写作还需要继续看看下面。</p><p><strong>怎么和github同步？</strong></p><p>如果没有github账号，先注册，之后绑定<code>github</code>账号 <code>https://www.gitbook.com/@quanke/settings#social</code>（把连接中的quanke修改为自己的用户名）</p><p>如果绑定了了github账号，需要设置权限，<code>https://www.gitbook.com/@quanke/settings#github</code>（把连接中的quanke修改为自己的用户名）， <code>Reconnect GitHub Account</code> 选择 <code>With access to public repositories</code></p><p>当授权好了之后，我们来到书的设置（ <code>Settings</code> ）页面，点击设置<code>github https://www.gitbook.com/book/quanke/vert-x-core-manual-for-java/settings/github</code>（把<code>quanke</code>替换成你的用户名，把<code>vert-x-core-manual-for-java</code>替换成书名）</p><p>如果原来这本书是<code>github</code>里写的，直接填入<code>github</code>的地址就好，如果账号都是新建的，什么都没有，那就点击<code>Export to GitHub</code> （注意填入<code>gitbook</code>的用户名密码不是<code>github</code>的）</p><p>如果上面的步骤没问题，点击 <code>Add webhook</code> 就OK了，给<code>github</code>增加了一个钩子，也就是说当你的github更新的时候，会告诉gitbook</p><blockquote><p>还有一步很关键,在你的<code>GitBook Editor</code>中，打开我们刚才<code>clone</code>下来的书，点击菜单里的 <code>Book -&gt;Repository Settings</code> ，把这个设置成为刚才导到<code>github</code>的地址，之后就可以在<code>GitBook Editor</code>写作了。。有什么不懂的，直接可以留言问我</p></blockquote><h3 id="进阶（适合有编程基础的童鞋看）"><a href="#进阶（适合有编程基础的童鞋看）" class="headerlink" title="进阶（适合有编程基础的童鞋看）"></a>进阶（适合有编程基础的童鞋看）</h3><h4 id="gitbook-安装"><a href="#gitbook-安装" class="headerlink" title="gitbook 安装"></a>gitbook 安装</h4><ol><li>安装npm<br>从网站 <a href="https://nodejs.org/#download" target="_blank" rel="external">https://nodejs.org/#download</a> 下载node.js源代码（点击绿色的INSTALL），<br>解压</li></ol><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">./configure</div><div class="line">make</div><div class="line">make install</div></pre></td></tr></table></figure><p>成功执行后，npm就被安装好了。</p><ol><li>gitbook 安装</li></ol><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">npm install -g gitbook-cli</div></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">gitbook -V</div></pre></td></tr></table></figure><p>查看gitbook是否安装成功。</p><h4 id="gitbook-使用"><a href="#gitbook-使用" class="headerlink" title="gitbook 使用"></a>gitbook 使用</h4><ol><li>根据目录生成图书结构 </li></ol><pre><code>1.1 README.md 与 SUMMARY编写</code></pre><p>README.md</p><p>这个文件相当于一本Gitbook的简介。</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">$ mkdir test_gitbook</div><div class="line">$ touch README.md</div></pre></td></tr></table></figure><p>SUMMARY.md</p><p>这个文件是一本书的目录结构，使用Markdown语法，<br>如我们这本书的SUMMARY.md：</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">$ touch SUMMARY.md</div><div class="line">$ vim SUMMARY.md</div></pre></td></tr></table></figure><p>输入</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">* [简介](README.md)</div><div class="line">* [第一章](chapter1/README.md)</div><div class="line"> - [第一节](chapter1/section1.md)</div><div class="line"> - [第二节](chapter1/section2.md)</div><div class="line">* [第二章](chapter2/README.md)</div><div class="line"> - [第一节](chapter2/section1.md)</div><div class="line"> - [第二节](chapter2/section2.md)</div><div class="line">* [结束](end/README.md)</div></pre></td></tr></table></figure><p>1.2 生成图书结构</p><p>当这个目录文件创建好之后，我们可以使用Gitbook<br>的命令行工具将这个目录结构生成相应的目录及文件：</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">$ gitbook init</div><div class="line">$ tree . #查看建立的目录和文件</div></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">.</div><div class="line">├── chapter1</div><div class="line">│   ├── README.md</div><div class="line">│   ├── section1.md</div><div class="line">│   └── section2.md</div><div class="line">├── chapter2</div><div class="line">│   ├── README.md</div><div class="line">│   ├── section1.md</div><div class="line">│   └── section2.md</div><div class="line">├── end</div><div class="line">│   └── README.md</div><div class="line">├── README.md</div><div class="line">└── SUMMARY.md</div></pre></td></tr></table></figure><p>我们可以看到，gitbook给我们生成了与SUMMARY.md所<br>对应的目录及文件。</p><p>每个目录中，都有一个README.md文件，相当于一章的说明。</p><ol><li>生成图书</li></ol><p>2.1 输出为静态网站</p><p>你有两种方式输出一个静态网站：</p><p>2.1.1 本地预览时自动生成</p><p>当你在自己的电脑上编辑好图书之后，你可以使用Gitbook<br>的命令行进行本地预览：</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">$ gitbook serve .</div></pre></td></tr></table></figure><p>然后浏览器中输入 <a href="http://localhost:4000" target="_blank" rel="external">http://localhost:4000</a> 就可以预览生<br>成的以网页形式组织的书籍。</p><p>这里你会发现，你在你的图书项目的目录中多了一个名为<br>_book的文件目录，而这个目录中的文件，即是生成的静态<br>网站内容。</p><p>使用build参数生成到指定目录<br>与直接预览生成的静态网站文件不一样的是，使用这个命令，<br>你可以将内容输入到你所想要的目录中去：</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">$ mkdir /tmp/gitbook</div><div class="line">$ gitbook build --output=/tmp/gitbook</div></pre></td></tr></table></figure><p>2.2 输出PDF</p><p>输入为PDF文件，需要先使用NPM安装上gitbook pdf：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">$ sudo npm install gitbook-pdf -g</div></pre></td></tr></table></figure></p><p>我在执行上面这条命令的时候出现了下面的错误：</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">***************************************************</div><div class="line">Downloading http://cdn.bitbucket.org/ariya/phantomjs/downloads/phantomjs-1.9.7-linux-i686.tar.bz2</div><div class="line">Saving to /usr/local/lib/node_modules/gitbook-pdf/node_modules/phantomjs/phantomjs/phantomjs-1.9.7-linux-i686.tar.bz2</div><div class="line">Error: connect ETIMEDOUT</div><div class="line">    at exports._errnoException (util.js:746:11)</div><div class="line">    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1010:19)</div><div class="line">npm ERR! Linux 3.2.0-4-686-pae</div><div class="line">npm ERR! argv &quot;/usr/local/bin/node&quot; &quot;/usr/local/bin/npm&quot; &quot;install&quot; &quot;gitbook-pdf&quot; &quot;-g&quot;</div><div class="line">npm ERR! node v0.12.7</div><div class="line">npm ERR! npm  v2.11.3</div><div class="line">npm ERR! code ELIFECYCLE</div><div class="line"></div><div class="line"></div><div class="line">npm ERR! phantomjs@1.9.7-5 install: `node install.js`</div><div class="line">npm ERR! Exit status 1</div><div class="line">npm ERR! </div><div class="line">npm ERR! Failed at the phantomjs@1.9.7-5 install script &apos;node install.js&apos;.</div><div class="line">npm ERR! This is most likely a problem with the phantomjs package,</div><div class="line">npm ERR! not with npm itself.</div><div class="line">npm ERR! Tell the author that this fails on your system:</div><div class="line">npm ERR!     node install.js</div><div class="line">npm ERR! You can get their info via:</div><div class="line">npm ERR!     npm owner ls phantomjs</div><div class="line">npm ERR! There is likely additional logging output above.</div><div class="line"></div><div class="line"></div><div class="line">npm ERR! Please include the following file with any support request:</div><div class="line">npm ERR!     /home/wangxq/repository/phantomjs/npm-debug.log</div><div class="line"></div><div class="line"></div><div class="line">***************************************************</div></pre></td></tr></table></figure><p>由错误报告内容的第一行可以知道，发生错误的原因是下载<br>phantomjs发生了错误，因此我们需要手动下载和安装。</p><p>解决方法：[1]</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">$ git clone git://github.com/ariya/phantomjs.git</div><div class="line">$ sudo apt-get install build-essential g++ flex bison gperf ruby perl \</div><div class="line">  libsqlite3-dev libfontconfig1-dev libicu-dev libfreetype6 libssl-dev \</div><div class="line">  libpng-dev libjpeg-dev python libx11-dev libxext-dev       #安装编译需要的工具和依赖</div><div class="line">$ cd phantomjs</div><div class="line">$ git checkout 1.9.7  #注意：这里的1.9.7是phantom的版本号，可以由错误报告的第一行找出 </div><div class="line">$ ./build.sh --jobs 4</div><div class="line">$ sudo cp bin/phantomjs /bin/</div><div class="line">$ sudo npm install gitbook-pdf -g  #重新进行安装</div></pre></td></tr></table></figure><p>然后，使用下面的命令，要PDF文件，首先安装依赖库：</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">$ sudo apt-get install calibre  </div><div class="line">$ gitbook -v 2.1.0 pdf .</div></pre></td></tr></table></figure><p>发生错误：</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">*****************************************************</div><div class="line">info: start conversion to pdf ....ERROR</div><div class="line"></div><div class="line"></div><div class="line">Error: Command failed: /bin/sh -c ebook-convert /tmp/tmp-29384ctltwbk/SUMMARY.html /tmp/tmp-29384ctltwbk/index.pdf --title=&quot;&quot; --comments=&quot;这本书是gitbook的一个例子&quot; --language=&quot;en&quot; --book-producer=&quot;GitBook&quot; --publisher=&quot;GitBook&quot; --chapter=&quot;descendant-or-self::*[contains(concat(&apos; &apos;, normalize-space(@class), &apos; &apos;), &apos; book-chapter &apos;)]&quot; --chapter-mark=&quot;pagebreak&quot; --page-breaks-before=&quot;/&quot; --level1-toc=&quot;descendant-or-self::*[contains(concat(&apos; &apos;, normalize-space(@class), &apos; &apos;), &apos; book-chapter-1 &apos;)]&quot; --level2-toc=&quot;descendant-or-self::*[contains(concat(&apos; &apos;, normalize-space(@class), &apos; &apos;), &apos; book-chapter-2 &apos;)]&quot; --level3-toc=&quot;descendant-or-self::*[contains(concat(&apos; &apos;, normalize-space(@class), &apos; &apos;), &apos; book-chapter-3 &apos;)]&quot; --no-chapters-in-toc --max-levels=&quot;1&quot; --breadth-first --margin-left=&quot;62&quot; --margin-right=&quot;62&quot; --margin-top=&quot;56&quot; --margin-bottom=&quot;56&quot; --pdf-default-font-size=&quot;12&quot; --pdf-mono-font-size=&quot;12&quot; --paper-size=&quot;a4&quot; --pdf-header-template=&quot;&lt;p class=&apos;header&apos;&gt;&lt;span&gt;&lt;/span&gt;&lt;/p&gt;&quot; --pdf-footer-template=&quot;&lt;p class=&apos;footer&apos;&gt;&lt;span&gt;_SECTION_&lt;/span&gt; &lt;span style=&apos;float:right;&apos;&gt;_PAGENUM_&lt;/span&gt;&lt;/p&gt;&quot;</div><div class="line">Usage: ebook-convert input_file output_file [options]</div><div class="line"></div><div class="line"></div><div class="line">Convert an ebook from one format to another.</div><div class="line"></div><div class="line"></div><div class="line">input_file is the input and output_file is the output. Both must be specified as the first two arguments to the command.</div><div class="line"></div><div class="line"></div><div class="line">The output ebook format is guessed from the file extension of output_file. output_file can also be of the special format .EXT where EXT is the output file extension. In this case, the name of the output file is derived the name of the input file. Note that the filenames must not start with a hyphen. Finally, if output_file has no extension, then it is treated as a directory and an &quot;open ebook&quot; (OEB) consisting of HTML files is written to that directory. These files are the files that would normally have been passed to the output plugin.</div><div class="line"></div><div class="line"></div><div class="line">After specifying the input and output file you can customize the conversion by specifying various options. The available options depend on the input and output file types. To get help on them specify the input and output file and then use the -h option.</div><div class="line"></div><div class="line"></div><div class="line">For full documentation of the conversion system see</div><div class="line">http://manual.calibre-ebook.com/conversion.html</div><div class="line"></div><div class="line"></div><div class="line">Whenever you pass arguments to ebook-convert that have spaces in them, enclose the arguments in quotation marks.</div><div class="line"></div><div class="line"></div><div class="line">ebook-convert: error: no such option: --pdf-default-font-size</div><div class="line"></div><div class="line"></div><div class="line">*****************************************************</div></pre></td></tr></table></figure><p>解决方法[2]</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">$ sudo -v &amp;&amp; wget -nv -O- https://raw.githubusercontent.com/kovidgoyal/calibre/master/setup/linux-installer.py | sudo python -c &quot;import sys; main=lambda:sys.stderr.write(&apos;Download failed\n&apos;); exec(sys.stdin.read()); main()&quot;</div><div class="line"></div><div class="line"></div><div class="line">$ gitbook -v 2.1.0 pdf .  # 重新执行命令生成pdf，目标文件为book.pdf</div></pre></td></tr></table></figure><h4 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h4><p>如果输入<code>gitbook init</code>命令，出现<code>Installing version 2.1.0</code>，<br>需要耐性等待安装。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;ul&gt;
+&lt;li&gt;欢迎关注&lt;a href=&quot;http://quanke.name/&quot;&gt;http://quanke.name/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;转载请注明出处，谢谢&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;初级（适合没有编程基础的童鞋看）&quot;&gt;&lt;a href=&quot;#初级（适合没
+      
+    
+    </summary>
+    
+      <category term="使用" scheme="http://quanke.name/categories/%E4%BD%BF%E7%94%A8/"/>
+    
+    
+      <category term="gitbook" scheme="http://quanke.name/tags/gitbook/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android ObjectAnimator 无限循环播放，实现上下左右浮动效果</title>
+    <link href="http://quanke.name/2016/04/23/Android-ObjectAnimator-%E6%97%A0%E9%99%90%E5%BE%AA%E7%8E%AF%E6%92%AD%E6%94%BE%EF%BC%8C%E5%AE%9E%E7%8E%B0%E4%B8%8A%E4%B8%8B%E5%B7%A6%E5%8F%B3%E6%B5%AE%E5%8A%A8%E6%95%88%E6%9E%9C/"/>
+    <id>http://quanke.name/2016/04/23/Android-ObjectAnimator-无限循环播放，实现上下左右浮动效果/</id>
+    <published>2016-04-23T11:04:41.000Z</published>
+    <updated>2017-11-06T05:32:04.646Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li>欢迎关注<a href="http://quanke.name/">http://quanke.name/</a></li><li>转载请注明出处，谢谢</li></ul><p><code>Android Property Animation</code> 动画有很多大神写过，都非常好，这里只通过ObjectAnimator /ValueAnimator实现上下左右浮动效果。</p><p>很简单看代码就好</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">private void floatAnim(View view,int delay)&#123;</div><div class="line">    List&lt;Animator&gt; animators = new ArrayList&lt;&gt;();</div><div class="line">    ObjectAnimator translationXAnim = ObjectAnimator.ofFloat(view, &quot;translationX&quot;, -6.0f,6.0f,-6.0f);</div><div class="line">    translationXAnim.setDuration(1500);</div><div class="line">    translationXAnim.setRepeatCount(ValueAnimator.INFINITE);//无限循环</div><div class="line">    translationXAnim.setRepeatMode(ValueAnimator.INFINITE);//</div><div class="line">    translationXAnim.start();</div><div class="line">    animators.add(translationXAnim);</div><div class="line">    ObjectAnimator translationYAnim = ObjectAnimator.ofFloat(view, &quot;translationY&quot;, -3.0f,3.0f,-3.0f);</div><div class="line">    translationYAnim.setDuration(1000);</div><div class="line">    translationYAnim.setRepeatCount(ValueAnimator.INFINITE);</div><div class="line">    translationYAnim.setRepeatMode(ValueAnimator.INFINITE);</div><div class="line">    translationYAnim.start();</div><div class="line">    animators.add(translationYAnim);</div><div class="line"></div><div class="line">    AnimatorSet btnSexAnimatorSet = new AnimatorSet();</div><div class="line">    btnSexAnimatorSet.playTogether(animators);</div><div class="line">    btnSexAnimatorSet.setStartDelay(delay);</div><div class="line">    btnSexAnimatorSet.start();</div><div class="line">&#125;</div></pre></td></tr></table></figure><p>开始设置<code>setRepeatMode(ValueAnimator.INFINITE);</code>方法没有效果，只有设置<code>setRepeatCount(ValueAnimator.INFINITE)</code>才可以。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;ul&gt;
+&lt;li&gt;欢迎关注&lt;a href=&quot;http://quanke.name/&quot;&gt;http://quanke.name/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;转载请注明出处，谢谢&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;Android Property Animation&lt;/code&gt;
+      
+    
+    </summary>
+    
+      <category term="android开发" scheme="http://quanke.name/categories/android%E5%BC%80%E5%8F%91/"/>
+    
+    
+      <category term="android" scheme="http://quanke.name/tags/android/"/>
+    
+      <category term="android动画" scheme="http://quanke.name/tags/android%E5%8A%A8%E7%94%BB/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>10多年码代码经验腾讯管理谈职业规划</title>
+    <link href="http://quanke.name/2016/04/23/10%E5%A4%9A%E5%B9%B4%E7%A0%81%E4%BB%A3%E7%A0%81%E7%BB%8F%E9%AA%8C%E8%85%BE%E8%AE%AF%E7%AE%A1%E7%90%86%E8%B0%88%E8%81%8C%E4%B8%9A%E8%A7%84%E5%88%92/"/>
+    <id>http://quanke.name/2016/04/23/10多年码代码经验腾讯管理谈职业规划/</id>
+    <published>2016-04-23T10:56:22.000Z</published>
+    <updated>2017-11-06T05:32:04.644Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li>欢迎关注<a href="http://quanke.name/">http://quanke.name/</a></li><li>转载请注明出处，谢谢</li></ul><blockquote><p>此人是我眼中的大神，曾经任职EA高级技术，腾讯技术管理，在级别提升后因为厌恶政治斗争，毅然离开腾讯开始创业。</p></blockquote><h4 id="cto眼中的牛人是什么？"><a href="#cto眼中的牛人是什么？" class="headerlink" title="cto眼中的牛人是什么？"></a>cto眼中的牛人是什么？</h4><ul><li>有多种解决方案；</li><li>有架构思维；</li><li>一专多通；</li><li>有预判能力；</li><li>思维不单一；</li><li>基础扎实；</li><li>有一些高阶技能；</li></ul><h4 id="技术人员分工："><a href="#技术人员分工：" class="headerlink" title="技术人员分工："></a>技术人员分工：</h4><ul><li><p>前端：</p><p>  多看别人的效果，别人做出来的模仿做出来，学习新技术，前端技术更新快，需要超级顺速的更新自己的技术</p></li><li><p>后端 （分为逻辑和服务）</p><ul><li><p>逻辑</p><p>  像php,生命周期相对短，变化快，更加需要学习新技术。</p></li><li><p>服务</p><p>  生命周期长，复用要求更加高，多考虑架构的问题</p></li></ul></li><li><p>运维</p><p>  对于运营来说预判能力很重要</p></li><li><p>测试</p><p>  一个强势的部门，如果不能强制那就不要做测试</p></li></ul><h4 id="铁塔模型和故宫模型"><a href="#铁塔模型和故宫模型" class="headerlink" title="铁塔模型和故宫模型"></a>铁塔模型和故宫模型</h4><p>对于中高级技术来说，有两条技术路可以走，第一条路是成为一个技术的专家，第二条路是成为解决方案的专家，第一条路就试我们所说的铁塔模型，技术很深，优点就是，立马能有回报，前期容易实现，最后能成为行业专家，很厉害，缺点就是容易倒，受环境影响大，需要有眼光和机缘，比如以前的塞班工程师牛逼哄哄的，但是塞班幕落的时候塞班工程师就抓狂了，第二种就是故宫模型，这种模型开始的时候看不到成效，不能立即变现，但是到后面会起来，可以在自己的故宫里建立各种东西，包括铁塔，不太受环境的影响。当然也可以组合成长，先一门技术能独当一面，其他技术也学习，这就是我们所说的一专多通，这就要看自己的选择了。</p><h3 id="程序员高手养成："><a href="#程序员高手养成：" class="headerlink" title="程序员高手养成："></a>程序员高手养成：</h3><ul><li>第一：ide炉火纯青；</li><li>第二：优先考虑有哪些解决方案，不轻易说我不能实现。；</li><li>第三：熟悉新技术，比如java,可能现在用不到，但需要的时候能用好；</li><li>第四：一定要形成自己的技术体系，心目中熟悉各种架构，提炼出自己的架构。</li></ul><h4 id="职业阶梯"><a href="#职业阶梯" class="headerlink" title="职业阶梯"></a>职业阶梯</h4><p>1.代表初级</p><p>初级表现为，能实现一些基本的功能，毕业实习期一般为初级，一般一年左右</p><p>2.代表中级</p><p>中级表现为，功能基本都能实现，有一点点的分装思维，工作效率一般。</p><p>3.代表高级</p><p>高级表现为，有分装思想，考虑复用，能写出高质量，可复用，可扩展的代码，会一些一些基本的工具提高工作效率，精通一门语言</p><p>4.代表大牛</p><p>在开始的时候就有表达</p><p>5.行业精英</p><p>推动行业进步，有一定知名度</p><p>对于我们来说，每个人应该都要有成为行业精英的理想，但是我们生下来都是初级的，不论我们现在处于哪一位阶梯，都没有关系，这不一定是你自己的原因，有可能是没有遇到贵人，有可能是在为上上一个阶梯做准备，但是今天我们知道了，希望我们的人不要一直停留在自己阶梯。</p><p>从初级开始，我们每次成长都特别有成就感，比如，写了一个“Hello word”，可以被浏览器渲染出来，再写一个表单，能提交处理信息等，都是一个很有成就感的时候，这时候我们就处于阶梯的平面上，但是我们走着走着，就发现，自己很无力，比如我想做一个类似utan.com这样的网站，就要学习更多的东西，比如数据库设计、数据库管理、后端处理，服务器部署等（当然utan应该是多人合作的产物），这时候感觉自己很难提高了，遇到各种问题，踩各种坑，加班、痛苦随之而来，其实这都是正常的，这都是爬到上一个阶梯的必经之路，当爬的次数多了，就会想用石头垫在脚下，爬到上一个阶梯，当然自身的能力也会成长，就这样上中级，高级，但是要成为 牛人（4），就没有那么简单了，因为可能会遇到各种阻力，或者太滑上不去，要通过我们的智慧上去，比如，如果太滑可以借助防滑手套等等，这个自己体会。</p><p>还有一个层级都是行业精英，不是每个人都能成为行业精英的，要机缘，要看以前的路是否扎实，要看以前的选择是否符合发展等一系列因素都会影响我们成为行业精英。</p><h4 id="反PMP"><a href="#反PMP" class="headerlink" title="反PMP"></a>反PMP</h4><p>项目管理就是一群技术不好的人，又不想放弃技术，就选择做PM，是以前在项目过程中产出的畸形产物，真正的高手是不需要PM的，我们倡导敏捷。</p><h4 id="最后是提问环节。"><a href="#最后是提问环节。" class="headerlink" title="最后是提问环节。"></a>最后是提问环节。</h4><h5 id="像Android或者iOS开发这种不确定性的技术有必要转型吗？"><a href="#像Android或者iOS开发这种不确定性的技术有必要转型吗？" class="headerlink" title="像Android或者iOS开发这种不确定性的技术有必要转型吗？"></a>像Android或者iOS开发这种不确定性的技术有必要转型吗？</h5><p>不一定转型，但是绝不要只关注一个技术，比如做android只做android，做iOS的值关注ios，那就悲剧了，要去学习HTML5等，不知道未来会是怎么样？开放的心态去学习新的东西是正道。</p><h5 id="怎么掌握新技术？"><a href="#怎么掌握新技术？" class="headerlink" title="怎么掌握新技术？"></a>怎么掌握新技术？</h5><p>有时候行业出现了很多优秀的技术，我们都是知道技术的成长最快的过程是在项目中成长，但是公司没有采取此技术，我们怎么办？</p><p>先对技术有一个基本的了解，很清楚，新技术的优缺点，小规模的尝试性的在公司项目中用，最好是内部系统。</p><p>来自内部培训，地铁用上手机形成此文，欢迎拍砖。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;ul&gt;
+&lt;li&gt;欢迎关注&lt;a href=&quot;http://quanke.name/&quot;&gt;http://quanke.name/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;转载请注明出处，谢谢&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;此人是我眼中的大神，曾经任职EA高级技术，腾讯技术管
+      
+    
+    </summary>
+    
+      <category term="随笔" scheme="http://quanke.name/categories/%E9%9A%8F%E7%AC%94/"/>
+    
+    
+      <category term="职业规划" scheme="http://quanke.name/tags/%E8%81%8C%E4%B8%9A%E8%A7%84%E5%88%92/"/>
+    
+  </entry>
+  
+</feed>
