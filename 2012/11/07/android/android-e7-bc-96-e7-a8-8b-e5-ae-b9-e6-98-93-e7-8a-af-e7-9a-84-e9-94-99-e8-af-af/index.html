@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="quanke, java" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="全科-不安分的码农" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="1.设置TextView的文本颜色[code lang=”java”]TextView tv;…tv.setTextColor(R.color.white);[/code]其实这样设置的颜色是 R.color.white的资源ID值所代表的颜色值，而不是资源color下的white颜色值：正确的做法如下： [code lang=”java”]tv.setTextColor(getResources">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android编程容易犯的错误">
+<meta property="og:url" content="http://quanke.name/2012/11/07/android/android-e7-bc-96-e7-a8-8b-e5-ae-b9-e6-98-93-e7-8a-af-e7-9a-84-e9-94-99-e8-af-af/index.html">
+<meta property="og:site_name" content="全科-不安分的码农">
+<meta property="og:description" content="1.设置TextView的文本颜色[code lang=”java”]TextView tv;…tv.setTextColor(R.color.white);[/code]其实这样设置的颜色是 R.color.white的资源ID值所代表的颜色值，而不是资源color下的white颜色值：正确的做法如下： [code lang=”java”]tv.setTextColor(getResources">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-11-06T05:32:04.714Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android编程容易犯的错误">
+<meta name="twitter:description" content="1.设置TextView的文本颜色[code lang=”java”]TextView tv;…tv.setTextColor(R.color.white);[/code]其实这样设置的颜色是 R.color.white的资源ID值所代表的颜色值，而不是资源color下的white颜色值：正确的做法如下： [code lang=”java”]tv.setTextColor(getResources">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://quanke.name/2012/11/07/android/android-e7-bc-96-e7-a8-8b-e5-ae-b9-e6-98-93-e7-8a-af-e7-9a-84-e9-94-99-e8-af-af/"/>
+
+
+
+
+
+  <title>Android编程容易犯的错误 | 全科-不安分的码农</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?853906ed403c461b2dbf1df696bdf998";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">全科-不安分的码农</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">android，ios，html5，微服务架构，XP，scrum，项目管理（PMP）</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://quanke.name/2012/11/07/android/android-e7-bc-96-e7-a8-8b-e5-ae-b9-e6-98-93-e7-8a-af-e7-9a-84-e9-94-99-e8-af-af/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="全科">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/dog.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="全科-不安分的码农">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android编程容易犯的错误</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2012-11-07T02:12:24+08:00">
+                2012-11-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/android开发/" itemprop="url" rel="index">
+                    <span itemprop="name">android开发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2012/11/07/android/android-e7-bc-96-e7-a8-8b-e5-ae-b9-e6-98-93-e7-8a-af-e7-9a-84-e9-94-99-e8-af-af/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/11/07/android/android-e7-bc-96-e7-a8-8b-e5-ae-b9-e6-98-93-e7-8a-af-e7-9a-84-e9-94-99-e8-af-af/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>1.设置TextView的文本颜色<br>[code lang=”java”]<br>TextView tv;<br>…<br>tv.setTextColor(R.color.white);<br>[/code]<br>其实这样设置的颜色是 R.color.white的资源ID值所代表的颜色值，而不是资源color下的white颜色值：正确的做法如下：</p>
+<p>[code lang=”java”]<br>tv.setTextColor(getResources().getColor(R.color.white));<br>[/code]<br>这个出错的概率满高的，就是因为二者都是int类，导致编译器不报错。</p>
+<p>2.读取Cursor中的值</p>
+<p>[code lang=”java”]<br>Uri uri;<br>Cursor cursor = contentResolver.query(uri, null,null,null,null);<br>if(cursor !=null){<br>    String name = cursor.getString(1);//<br>    curosr.close();<br>    cursor =null;<br>}<br>[/code]</p>
+<p>上面语句中的，执行到cursor.getString(1)部分就会报异常，异常是: Caused by: android.database.CursorIndexOutOfBoundsException: Index -1 requested, with a size of 4</p>
+<p>编译没有问题，只有在运行的时候才会发现。</p>
+<p>正确的做法是：</p>
+<p>[code lang=”java”]<br>Uri uri;<br>Cursor cursor = contentResolver.query(uri, null,null,null,null);<br>if(cursor !=null){<br>    if(cursor.moveToFirst()){<br>        String name = cursor.getString(1);//<br>    }<br>    curosr.close();<br>    cursor =null;<br>}<br>[/code]<br>或者:</p>
+<p>[code lang=”java”]<br>Uri uri;<br>Cursor cursor = contentResolver.query(uri, null,null,null,null);<br>if(cursor !=null){<br>    while(cursor.moveToNext()){<br>        String name = cursor.getString(1);//<br>    }<br>    curosr.close();<br>    cursor =null;<br>}<br>[/code]<br>3.不要使用标有Deprecated的函数或者类,比如不要使用android.telephony.gsm.SmsMessage，而应该用android.telephony.SmsMessage,这样避免采用不同的3G协议时不会出现问题。</p>
+<p>4.SQLite中的查询条件，比如一个叫name的字段，其字段类型为TEXT,如果我们要判断其name不等某个值(如zhangsan),写出如下的语句:</p>
+<p>[code lang=”java”]<br>name &lt;&gt; ‘zhangsan’<br>[/code]<br>但是，这样写的语句，如果碰到name值为空的时候，就有问题，即name为空时 以上的布尔值为false，而不是true.</p>
+<p>原因很可能，SQLite中的判断函数采用类似写法:</p>
+<p>[code lang=”java”]<br>boolean judge(String self, String conditions){<br>    if(null == self) return false;<br>    return self.equalsIgnoreCase(conditions);<br>}<br>[/code]<br>其中 self为数据库中name的值，而conditions为上面示例中的 zhangsan。</p>
+<p>所以，以上查询条件的正确写法是:</p>
+<p>[code lang=”java”]<br>name &lt;&gt; ‘zhangsan’ or name is null<br>[/code]<br>除非你也想过滤掉name 为空的记录。</p>
+<p>5.如下所示，想要在按钮显示”删 除”（没错删除中间有个空格）,以下的字符串资源是错误的：</p>
+<p>[code lang=”java”]<br>&lt;string name=&quot;button_delete_text&quot;&gt;删 除&lt;/string&gt;<br>[/code]<br>这样的出来，最终看不到中间的空格，应该是Android SDK编译的时候，会自动过滤掉String中的空格部分，所以应该采用以下的方式:</p>
+<p>[code lang=”java”]<br>&lt;string name=&quot;button_delete_text&quot;&gt;删\u0020除&lt;/string&gt;<br>[/code]<br>类似地，其他的特殊符号都可以用\u00XX来转义，如 ‘ —- \u0027,  &lt; —– \u003C, &gt; —- \u003E 。</p>
+<p>6. context的问题:</p>
+<p>如果在一个非Activity的context里面调用startActivity，那么其intent必须设置：</p>
+<p>[code lang=”java”]<br>intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);<br>[/code]<br> 否则，会报如下类似的错误：</p>
+<p>[code lang=”java”]<br>Calling startActivity() from outside of an Activity  context requires the FLAG_ACTIVITY_NEW_TASK flag.<br>[/code]<br> 而我们还要提防系统控件中的隐性调用startActivity:</p>
+<p>[code lang=”java”]<br>TextView tv = new TextView(mContext);<br>tv.setAutoLinkMask(Linkify.ALL);<br>tv.setText(content);<br>[/code]<br>当content内容中有电话号码/邮件/URL时，并且mContext不是非Acitvity的context，而是app的context时<br>[code lang=”java”]<br>(XXXActivity.this.getApplicationContext()),<br>[/code]<br>就会出现如下的错误：<br>[code lang=”java”]<br>android.util.AndroidRuntimeException: Calling startActivity() from outside of an Activity<br>context requires the FLAG_ACTIVITY_NEW_TASK flag. Is this really what you want?<br>E/AndroidRuntime(10382):     at android.app.ContextImpl.startActivity(ContextImpl.java:622)<br>E/AndroidRuntime(10382):     at android.content.ContextWrapper.startActivity(ContextWrapper.java:258)<br>E/AndroidRuntime(10382):     at android.text.style.URLSpan.onClick(URLSpan.java:62)<br>[/code]<br>由于URLSpan.onClick中调用startActivity是由系统控制的，所以我们必须传入activity的contex,才不会出现如上的异常，导致程序退出。</p>
+<p>7. 另外一个context的问题：如果你在一个单实例的对象中，有个注册监听器的行为的话，那么传给这个单实例</p>
+<p>对象的context，就必须是ApplicationContext了，否则会出现:receiver leak的错误。</p>
+<p>8. 控件有时不能充满整个屏幕:</p>
+<p>[code lang=”java”]<br>LinearLayout panel = new LinearLayout(this);<br>LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(<br>        LinearLayout.LayoutParams.FILL_PARENT,<br>        LinearLayout.LayoutParams.FILL_PARENT);<br>panel.setLayoutParams(llp);<br>root.addView(panel);<br>[/code]<br> 而应该是：</p>
+<p>[code lang=”java”]<br>LinearLayout panel = new LinearLayout(this);<br>LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(<br>        LinearLayout.LayoutParams.FILL_PARENT,<br>        LinearLayout.LayoutParams.FILL_PARENT);<br>root.addView(panel. llp);<br>[/code]<br>9.按照以下的方式启动service，但是service没有起来<br>[code lang=”java”]<br>     Intent service = new Intent(this, FuncService.class);<br>     startService(service);<br>[/code]<br>很有可能是忘了在AndroidManifest.xml中注册FuncService<br>[code lang=”xml”]<br>&lt;service android:name=&quot;com.android.example.FuncService&quot;/&gt;<br>[/code]<br> 10.TextView中为什么会在有些行尾出现”…”字符,当然不是所有手机都是有问题，本来笔者刚开始也以为可能是</p>
+<p>手机的ROM问题,认真review了代码，发现如下的代码：<br>[code lang=”java”]<br>        mIntroView = (TextView) findViewById(R.id.description);<br>        mIntroView.setEllipsize(TruncateAt.END);<br>[/code]<br>问题是上面的第2行，之前是因为要限定文本的行数，后来去掉限制，没有去掉以上的代码。</p>
+<p>该行代码会导致很多的ROM上：只要一个文本行的文字在一个手机屏幕行显示不下的话，就自动在</p>
+<p>行尾截断并在行尾添加”…”,而之前没有问题是因为：全部显示的时候，我调用了如下方法：<br>[code lang=”java”]<br>mIntro.setMaxLines(Integer.MAX_VALUE);<br>[/code]<br> 11.不要太相信工具，比如Eclipse里面的断点遇到多线程什么，经常不起作用/走不到，这时候别太早下结论断点地方出错了，</p>
+<p>所以每个工程都应该有日志的开关，通过查看日志来确认，某个路径是否走到或者某个变量的值，。。。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2012/11/07/android/android-monkey-e6-b5-8b-e8-af-95-e5-b7-a5-e5-85-b7-e7-ae-80-e4-bb-8b-e4-b8-8e-e5-ae-9e-e4-be-8b/" rel="next" title="android monkey测试工具简介与实例">
+                <i class="fa fa-chevron-left"></i> android monkey测试工具简介与实例
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2012/11/07/codecademy-linux-e7-89-88-e8-af-9e-e7-94-9f-ef-bc-8c-e5-9b-bd-e5-86-85it-e5-9f-b9-e8-ae-ad-e5-b8-88-e6-8e-a8-e5-87-balinux-e5-85-8d-e8-b4-b9-e5-9c-a8-e7-ba-bf-e8-a7-86-e9-a2-91-e5-ad-a6-e4-b9-a0/" rel="prev" title="Codecademy Linux版诞生，国内IT培训师推出Linux免费在线视频学习及问答网站">
+                Codecademy Linux版诞生，国内IT培训师推出Linux免费在线视频学习及问答网站 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2012/11/07/android/android-e7-bc-96-e7-a8-8b-e5-ae-b9-e6-98-93-e7-8a-af-e7-9a-84-e9-94-99-e8-af-af/"
+     data-title="Android编程容易犯的错误"
+     data-content=""
+     data-url="http://quanke.name/2012/11/07/android/android-e7-bc-96-e7-a8-8b-e5-ae-b9-e6-98-93-e7-8a-af-e7-9a-84-e9-94-99-e8-af-af/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2012/11/07/android/android-e7-bc-96-e7-a8-8b-e5-ae-b9-e6-98-93-e7-8a-af-e7-9a-84-e9-94-99-e8-af-af/"
+           data-title="Android编程容易犯的错误" data-url="http://quanke.name/2012/11/07/android/android-e7-bc-96-e7-a8-8b-e5-ae-b9-e6-98-93-e7-8a-af-e7-9a-84-e9-94-99-e8-af-af/">
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/dog.jpg"
+                alt="全科" />
+            
+              <p class="site-author-name" itemprop="name">全科</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">112</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/quanke" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">全科</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"quanke"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Vert.x3,Vertx," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="全科-不安分的码农" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="欢迎关注http://quanke.name/ 交流群：231419585 转载请注明出处，谢谢  今天清明节，一大早被孩子吵醒，起来撸一篇关于VertxOptions的文章，此文章诞生于洗手间，读此文章可能会闻到臭臭的味道。下面正式开始： 在发布Vert.x实例时，需要传入一个VertxOptions来实现针对Vert.x的配置项的管理，代码如下： VertxOptions options =">
+<meta name="keywords" content="Vert.x3,Vertx">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vert-x配置项VertxOptions的使用">
+<meta property="og:url" content="http://quanke.name/2016/04/04/Vert-x配置项VertxOptions的使用/index.html">
+<meta property="og:site_name" content="全科-不安分的码农">
+<meta property="og:description" content="欢迎关注http://quanke.name/ 交流群：231419585 转载请注明出处，谢谢  今天清明节，一大早被孩子吵醒，起来撸一篇关于VertxOptions的文章，此文章诞生于洗手间，读此文章可能会闻到臭臭的味道。下面正式开始： 在发布Vert.x实例时，需要传入一个VertxOptions来实现针对Vert.x的配置项的管理，代码如下： VertxOptions options =">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-11-06T05:32:04.701Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vert-x配置项VertxOptions的使用">
+<meta name="twitter:description" content="欢迎关注http://quanke.name/ 交流群：231419585 转载请注明出处，谢谢  今天清明节，一大早被孩子吵醒，起来撸一篇关于VertxOptions的文章，此文章诞生于洗手间，读此文章可能会闻到臭臭的味道。下面正式开始： 在发布Vert.x实例时，需要传入一个VertxOptions来实现针对Vert.x的配置项的管理，代码如下： VertxOptions options =">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://quanke.name/2016/04/04/Vert-x配置项VertxOptions的使用/"/>
+
+
+
+
+
+  <title>Vert-x配置项VertxOptions的使用 | 全科-不安分的码农</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?853906ed403c461b2dbf1df696bdf998";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">全科-不安分的码农</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">android，ios，html5，微服务架构，XP，scrum，项目管理（PMP）</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://quanke.name/2016/04/04/Vert-x配置项VertxOptions的使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="全科">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/dog.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="全科-不安分的码农">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Vert-x配置项VertxOptions的使用</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-04-04T06:59:52+08:00">
+                2016-04-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Vert-x3-系列/" itemprop="url" rel="index">
+                    <span itemprop="name">Vert.x3 系列</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/04/04/Vert-x配置项VertxOptions的使用/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/04/Vert-x配置项VertxOptions的使用/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <ul>
+<li>欢迎关注<a href="http://quanke.name/">http://quanke.name/</a></li>
+<li>交流群：<code>231419585</code></li>
+<li>转载请注明出处，谢谢</li>
+</ul>
+<p>今天清明节，一大早被孩子吵醒，起来撸一篇关于VertxOptions的文章，此文章诞生于洗手间，读此文章可能会闻到臭臭的味道。下面正式开始：</p>
+<p>在发布Vert.x实例时，需要传入一个<a href="http://vertx.io/docs/apidocs/io/vertx/core/VertxOptions.html" target="_blank" rel="external">VertxOptions</a>来实现针对Vert.x的配置项的管理，代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">VertxOptions options = new VertxOptions();</div><div class="line">options.setWorkerPoolSize(40)//举个栗子，设置支持的Worker线程的最大数量</div><div class="line">Vertx vertx = Vertx.vertx(options);</div></pre></td></tr></table></figure>
+<p>配置项的API说明：</p>
+<ul>
+<li><p><a href="http://vertx.io/docs/apidocs/io/vertx/core/VertxOptions.html#setEventLoopPoolSize-int-" target="_blank" rel="external">setEventLoopPoolSize</a></p>
+<p>  设置Vert.x实例中使用的Event Loop线程的数量，默认值为：2 * Runtime.getRuntime().availableProcessors()（可用的处理器个数）；</p>
+</li>
+<li><p><a href="http://vertx.io/docs/apidocs/io/vertx/core/VertxOptions.html#setWorkerPoolSize-int-" target="_blank" rel="external">setWorkerPoolSize</a></p>
+<p>  设置Vert.x实例中支持的Worker线程的最大数量，默认值为20；</p>
+</li>
+<li><p><a href="http://vertx.io/docs/apidocs/io/vertx/core/VertxOptions.html#setInternalBlockingPoolSize-int-" target="_blank" rel="external">setInternalBlockingPoolSize</a></p>
+<p>  设置内部阻塞线程池最大线程数，这个参数主要被Vert.x的一些内部操作使用，默认值为20；</p>
+</li>
+<li><p><a href="http://vertx.io/docs/apidocs/io/vertx/core/VertxOptions.html#setClustered-boolean-" target="_blank" rel="external">setClustered</a></p>
+<p>  是否开启Vert.x的Cluster集群模式，默认值为false；</p>
+</li>
+<li><p><a href="http://vertx.io/docs/apidocs/io/vertx/core/VertxOptions.html#setClusterHost-java.lang.String-" target="_blank" rel="external">setClusterHost</a></p>
+<p>  【Cluster集群模式有效】设置集群运行的默认hostname，默认值为localhost；</p>
+</li>
+<li><p><a href="http://vertx.io/docs/apidocs/io/vertx/core/VertxOptions.html#setClusterPort-int-" target="_blank" rel="external">setClusterPort</a></p>
+<p>  【Cluster集群模式有效】设置集群运行的端口号，可自定义固定端口号，默认值为0（随机分配）；</p>
+</li>
+<li><p><a href="http://vertx.io/docs/apidocs/io/vertx/core/VertxOptions.html#setClusterPingInterval-long-" target="_blank" rel="external">setClusterPingInterval</a></p>
+<p>  【Cluster集群模式有效】使用ping命令检测Cluster的时间间隔，默认20000，单位毫秒ms，即20秒；</p>
+</li>
+<li><p><a href="http://vertx.io/docs/apidocs/io/vertx/core/VertxOptions.html#setClusterPingReplyInterval-long-" target="_blank" rel="external">setClusterPingReplyInterval</a></p>
+<p>  【Cluster集群模式有效】集群响应ping命令的时间间隔，默认20000，单位毫秒ms，即20秒；</p>
+</li>
+<li><p><a href="http://vertx.io/docs/apidocs/io/vertx/core/VertxOptions.html#setBlockedThreadCheckInterval-long-" target="_blank" rel="external">setBlockedThreadCheckInterval</a></p>
+<p>  阻塞线程检查的时间间隔，默认1000，单位ms，即1秒；</p>
+</li>
+<li><p><a href="http://vertx.io/docs/apidocs/io/vertx/core/VertxOptions.html#setMaxEventLoopExecuteTime-long-" target="_blank" rel="external">setMaxEventLoopExecuteTime</a></p>
+<p>  Event Loop的最大执行时间，默认2l <em> 1000 </em> 1000000，单位ns，即2秒；</p>
+</li>
+<li><p><a href="http://vertx.io/docs/apidocs/io/vertx/core/VertxOptions.html#setMaxWorkerExecuteTime-long-" target="_blank" rel="external">setMaxWorkerExecuteTime</a></p>
+<p>  Worker线程的最大执行时间，默认60l <em> 1000 </em> 1000000，单位ns，即60秒；</p>
+</li>
+<li><p><a href="http://vertx.io/docs/apidocs/io/vertx/core/VertxOptions.html#setHAEnabled-boolean-" target="_blank" rel="external">setHAEnabled</a></p>
+<p>  是否支持HA架构，默认值false；（*：如果Vert.x启用了HA模式，其中一个Vert.x实例运行出现了异常或者死掉，那么这个Vert.x实例中运行的Verticle会执行重发布Redeploy的过程将运行在该实例中的Verticle实例重新发布到其他正常运行的Vert.x实例中【Verticle Fail-Over】。）</p>
+</li>
+<li><p><a href="http://vertx.io/docs/apidocs/io/vertx/core/VertxOptions.html#setHAGroup-java.lang.String-" target="_blank" rel="external">setHAGroup</a></p>
+<p>  【HA模式有效】支持了HA模式过后，可根据不同的组名将Vert.x进行逻辑分组，此方法设置当前Vert.x的逻辑组名，默认<strong>DEFAULT</strong>；</p>
+</li>
+<li><p><a href="http://vertx.io/docs/apidocs/io/vertx/core/VertxOptions.html#setQuorumSize-int-" target="_blank" rel="external">setQuorumSize</a></p>
+<p>  【HA模式有效】支持了HA模式过后，此方法设置冲裁节点的数量，默认值1；（*：这个值一旦设置过后，如果要发布Verticle组件，则需要运行环境中的节点数量达到这个值才可执行发布，比如quorum的值设置成3，如果仅仅运行了两个Vert.x实例，那么这种情况下Verticle不会被发布，必须要运行至少三个Vert.x实例，才会执行发布Deploy流程，Undeploy流程类似）</p>
+</li>
+<li><p><a href="http://vertx.io/docs/apidocs/io/vertx/core/VertxOptions.html#setWarningExceptionTime-long-" target="_blank" rel="external">setWarningExceptionTime</a></p>
+<p>  如果线程阻塞时间超过了这个阀值，那么就会打印警告的堆栈信息，默认为5l <em> 1000 </em> 1000000，单位ns，即5秒；</p>
+</li>
+</ul>
+<blockquote>
+<p>之后还有大招，请关注<a href="http://quanke.name/">http://quanke.name/</a> ，马化腾群：231419585</p>
+</blockquote>
+<p>此文参考： <a href="http://dwz.cn/32dhMF" target="_blank" rel="external">http://dwz.cn/32dhMF</a>    感谢戒子猪</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Vert-x3/" rel="tag"># Vert.x3</a>
+          
+            <a href="/tags/Vertx/" rel="tag"># Vertx</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/01/20/Vert-x-Core手册-for-Java-了解Vert-x/" rel="next" title="[Vert.x Core手册 for Java]-了解Vert.x">
+                <i class="fa fa-chevron-left"></i> [Vert.x Core手册 for Java]-了解Vert.x
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/04/09/Vert-x-3-x版本callback-hell的解决/" rel="prev" title="Vert.x 3.x版本callback hell的解决">
+                Vert.x 3.x版本callback hell的解决 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/04/04/Vert-x配置项VertxOptions的使用/"
+     data-title="Vert-x配置项VertxOptions的使用"
+     data-content=""
+     data-url="http://quanke.name/2016/04/04/Vert-x配置项VertxOptions的使用/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2016/04/04/Vert-x配置项VertxOptions的使用/"
+           data-title="Vert-x配置项VertxOptions的使用" data-url="http://quanke.name/2016/04/04/Vert-x配置项VertxOptions的使用/">
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/dog.jpg"
+                alt="全科" />
+            
+              <p class="site-author-name" itemprop="name">全科</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">112</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/quanke" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">全科</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"quanke"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="quanke, java" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="全科-不安分的码农" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="1.安装程序  sudo apt-get install git sudo apt-get install git-core2.那通过命令更新版本库git clone git://git.kernel.org/pub/scm/git/git.git3.创建一个新版本库mkdir gittutorch cd gitturtorch git-init-db这样，一个空的版本库就创建好了，并在当前目录中">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ubuntu GIT 安装与使用">
+<meta property="og:url" content="http://quanke.name/2012/10/01/ubuntu-git-e5-ae-89-e8-a3-85-e4-b8-8e-e4-bd-bf-e7-94-a8/index.html">
+<meta property="og:site_name" content="全科-不安分的码农">
+<meta property="og:description" content="1.安装程序  sudo apt-get install git sudo apt-get install git-core2.那通过命令更新版本库git clone git://git.kernel.org/pub/scm/git/git.git3.创建一个新版本库mkdir gittutorch cd gitturtorch git-init-db这样，一个空的版本库就创建好了，并在当前目录中">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-11-06T05:32:04.755Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ubuntu GIT 安装与使用">
+<meta name="twitter:description" content="1.安装程序  sudo apt-get install git sudo apt-get install git-core2.那通过命令更新版本库git clone git://git.kernel.org/pub/scm/git/git.git3.创建一个新版本库mkdir gittutorch cd gitturtorch git-init-db这样，一个空的版本库就创建好了，并在当前目录中">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://quanke.name/2012/10/01/ubuntu-git-e5-ae-89-e8-a3-85-e4-b8-8e-e4-bd-bf-e7-94-a8/"/>
+
+
+
+
+
+  <title>ubuntu GIT 安装与使用 | 全科-不安分的码农</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?853906ed403c461b2dbf1df696bdf998";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">全科-不安分的码农</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">android，ios，html5，微服务架构，XP，scrum，项目管理（PMP）</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://quanke.name/2012/10/01/ubuntu-git-e5-ae-89-e8-a3-85-e4-b8-8e-e4-bd-bf-e7-94-a8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="全科">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/dog.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="全科-不安分的码农">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ubuntu GIT 安装与使用</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2012-10-01T03:56:12+08:00">
+                2012-10-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/git/" itemprop="url" rel="index">
+                    <span itemprop="name">git</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2012/10/01/ubuntu-git-e5-ae-89-e8-a3-85-e4-b8-8e-e4-bd-bf-e7-94-a8/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/10/01/ubuntu-git-e5-ae-89-e8-a3-85-e4-b8-8e-e4-bd-bf-e7-94-a8/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>1.安装程序</p>
+<blockquote>
+<p>sudo apt-get install git</p>
+<p>sudo apt-get install git-core<br>2.那通过命令更新版本库<br>git clone git://git.kernel.org/pub/scm/git/git.git<br>3.创建一个新版本库<br>mkdir gittutorch</p>
+<p>cd gitturtorch</p>
+<p>git-init-db<br>这样，一个空的版本库就创建好了，并在当前目录中创建一个叫 .git 的子目录。你可以用 ls -a 查看一下，并请注意其中的三项内容：</p>
+</blockquote>
+<p>一个叫 HEAD 的文件，我们现在来查看一下它的内容：</p>
+<ul>
+<li><p>$ cat .git/HEAD<br>现在 HEAD 的内容应该是这样：</p>
+</li>
+<li><p>ref: refs/heads/master<br>我们可以看到，HEAD 文件中的内容其实只是包含了一个索引信息，并且，这个索引将总是指向你的项目中的当前开发分支。<br>一个叫 objects 的子目录，它包含了你的项目中的所有对象，我们不必直接地了解到这些对象内容，我们应该关心是存放在这些对象中的项目的数据。<br>一个叫 refs 的子目录，它用来保存指向对象的索引。<br>具体地说，子目录 refs 包含着两个子目录叫 heads 和 tags，就像他们的名字所表达的意味一样：他们存放了不同的开发分支的头的索引, 或者是你用来标定版本的标签的索引。<br>请注意：master 是默认的分支，这也是为什么 .git/HEAD 创建的时候就指向 master 的原因，尽管目前它其实并不存在。 git 将假设你会在 master 上开始并展开你以后的工作，除非你自己创建你自己的分支。<br>另外，这只是一个约定俗成的习惯而已，实际上你可以将你的工作分支叫任何名字，而不必在版本库中一定要有一个叫 master 的分支，尽管很多 git 工具都认为 master 分支是存在的。<br>现在已经创建好了一个 git 版本库，但是它是空的，还不能做任何事情，下一步就是怎么向版本库植入数据了。<br>第四步：植入内容跟踪信息：git-add：<br>为了简明起见，我们创建两个文件作为练习：</p>
+</li>
+<li><p>$ echo “Hello world” &gt; hello</p>
+</li>
+<li><p>$ echo “Silly example” &gt; example<br>我们再用 git-add 命令将这两个文件加入到版本库文件索引当中：</p>
+</li>
+<li><p>$ git-add hello example<br>git-add 实际上是个脚本命令，它是对 git 内核命令 git-update-index 的调用。因此上面的命令和下面的命令其实是等价的：</p>
+</li>
+<li><p>$ git-update-index –add hello example<br>如果你要将某个文件从 git 的目录跟踪系统中清除出去，同样可以用 git-update-index 命令。例如：</p>
+</li>
+<li><p>$ git-update-index –force-remove foo.c<br>git-add 可以将某个目录下的所有内容全都纳入内容跟踪之下，例如： git-add ./path/to/your/wanted 。但是在这样做之前，应该注意先将一些我们不希望跟踪的文件清理掉，例如，gcc 编译出来的 <em>.o 文件，vim 的交换文件 .</em>.swp 之类。<br>应该建立一个清晰的概念就是，git-add 和 git-update-index 只是刷新了 git 的跟踪信息，hello 和 example 这两个文件中的内容并没有提交到 git 的内容跟踪范畴之内。<br>第五步：提交内容到版本库：git-commit<br>既然我们刷新了 Git 的跟踪信息，现在我们看看版本库的状态：</p>
+</li>
+<li><p>$ git-status<br>我们能看到 git 的状态提示：<br>#</p>
+<h1 id="Initial-commit"><a href="#Initial-commit" class="headerlink" title="Initial commit"></a>Initial commit</h1><p>#<br>#</p>
+<h1 id="Updated-but-not-checked-in"><a href="#Updated-but-not-checked-in" class="headerlink" title="Updated but not checked in:"></a>Updated but not checked in:</h1><h1 id="will-commit"><a href="#will-commit" class="headerlink" title="(will commit)"></a>(will commit)</h1><p>#</p>
+<h1 id="new-file-example"><a href="#new-file-example" class="headerlink" title="new file: example"></a>new file: example</h1><h1 id="new-file-hello"><a href="#new-file-hello" class="headerlink" title="new file: hello"></a>new file: hello</h1><p>#<br>提示信息告诉我们版本库中加入了两个新的文件，并且 git 提示我们提交这些文件，我们可以通过 git-commit 命令来提交：</p>
+</li>
+<li><p>$ git-commit -m “Initial commit of gittutor reposistory”<br>第六步：查看当前的工作：git-diff<br>git-diff 命令将比较当前的工作目录和版本库数据库中的差异。现在我们编辑一些文件来体验一下 git 的跟踪功能。</p>
+</li>
+<li><p>$ echo “It’s a new day for git” &gt;&gt; hello<br>我们再来比较一下，当前的工作目录和版本库中的数据的差别。</p>
+</li>
+<li><p>$ git-diff<br>差异将以典型的 patch 方式表示出来：<br>diff –git a/hello b/hello<br>index 802992c..8fdaa4e 100644<br>— a/hello<br>+++ b/hello<br>@@ -1 +1,2 @@<br>Hello world<br>+It’s a new day for git<br>此时，我们可以再次使用组合命令 git-update-index 和 git-commit 将我们的工作提交到版本库中。</p>
+</li>
+<li><p>$ git-update-index hello</p>
+</li>
+<li><p>$ git-commit -m “new day for git”<br>实际上，如果要提交的文件都是已经纳入 git 版本库的文件，那么不必为这些文件都应用 git-update-index 命令之后再进行提交，下面的命令更简捷并且和上面的命令是等价的。</p>
+</li>
+<li><p>$ git-commit -a -m “new day for git”<br>一些命令：<br>初始化git数据库</p>
+</li>
+<li><p>$ git-init-db<br>添加文件</p>
+</li>
+<li><p>$ git-add hello.c<br>查看修改、提交记录</p>
+</li>
+<li><p>$ git-log<br>创建分支</p>
+</li>
+<li><p>$ git-branch roredu<br>查看分支</p>
+</li>
+<li><p>$ git-branch</p>
+</li>
+<li><p>master<br>roredu<br>切换工作分支</p>
+</li>
+<li><p>$ git-checkout roredu<br>Switched to branch “roredu”</p>
+</li>
+<li><p>$ git-branch<br>master</p>
+</li>
+<li><p>roredu<br>提交到当前工作分支并书写标记。</p>
+</li>
+<li><p>$ git-commit -a<br>创建xux分支对于master的补丁文件。</p>
+</li>
+<li><p>$ git-format-patch master roredu<br>配置开发者自己的签名和email。</p>
+</li>
+<li><p>$ git-config –global user.name “roredu”</p>
+</li>
+<li><p>$ git-config –global user.email “roredu@gmail.com”<br>修改文件名</p>
+</li>
+<li><p>$ git-mv roredu.c helight.c<br>删除文件</p>
+</li>
+<li><p>$ git-rm roredu.c<br>协同工作，下载项目：<br>git-clone ssh@wtb:192.168.0.21/home/wtb/NetBeansProjects/project1<br>这里wtb是用户名， 192.168.0.21是项目所在机器的IP 后面跟着的是项目目录和名称</p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2012/10/01/windows-e4-b8-8bgit-e7-9a-84-e5-ae-89-e8-a3-85-e5-92-8c-e9-85-8d-e7-bd-ae/" rel="next" title="Windows下Git的安装和配置">
+                <i class="fa fa-chevron-left"></i> Windows下Git的安装和配置
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2012/10/01/e5-bc-80-e6-ba-90-e4-b9-a6-e7-b1-8d-e3-80-8ago-web-e7-bc-96-e7-a8-8b-e3-80-8b/" rel="prev" title="开源书籍《Go Web 编程》">
+                开源书籍《Go Web 编程》 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2012/10/01/ubuntu-git-e5-ae-89-e8-a3-85-e4-b8-8e-e4-bd-bf-e7-94-a8/"
+     data-title="ubuntu GIT 安装与使用"
+     data-content=""
+     data-url="http://quanke.name/2012/10/01/ubuntu-git-e5-ae-89-e8-a3-85-e4-b8-8e-e4-bd-bf-e7-94-a8/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2012/10/01/ubuntu-git-e5-ae-89-e8-a3-85-e4-b8-8e-e4-bd-bf-e7-94-a8/"
+           data-title="ubuntu GIT 安装与使用" data-url="http://quanke.name/2012/10/01/ubuntu-git-e5-ae-89-e8-a3-85-e4-b8-8e-e4-bd-bf-e7-94-a8/">
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/dog.jpg"
+                alt="全科" />
+            
+              <p class="site-author-name" itemprop="name">全科</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">112</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/quanke" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Initial-commit"><span class="nav-number">1.</span> <span class="nav-text">Initial commit</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Updated-but-not-checked-in"><span class="nav-number">2.</span> <span class="nav-text">Updated but not checked in:</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#will-commit"><span class="nav-number">3.</span> <span class="nav-text">(will commit)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#new-file-example"><span class="nav-number">4.</span> <span class="nav-text">new file: example</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#new-file-hello"><span class="nav-number">5.</span> <span class="nav-text">new file: hello</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">全科</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"quanke"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

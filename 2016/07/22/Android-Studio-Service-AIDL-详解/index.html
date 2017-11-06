@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="android," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="全科-不安分的码农" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="欢迎关注http://quanke.name/ 转载请注明出处，谢谢  公司产品之前IM这块存在很多问题，消息到达率低，加上协议上有些问题，丢消息频繁，所以需要重构IM，AIDL不能解决以上问题。好吧！那AIDL可以解决什么问题？什么是AIDL？ 什么是AIDL？AIDL是 Android Interface definition language的缩写，它是一种Android内部进程通信接口的">
+<meta name="keywords" content="android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android Studio Service AIDL 详解">
+<meta property="og:url" content="http://quanke.name/2016/07/22/Android-Studio-Service-AIDL-详解/index.html">
+<meta property="og:site_name" content="全科-不安分的码农">
+<meta property="og:description" content="欢迎关注http://quanke.name/ 转载请注明出处，谢谢  公司产品之前IM这块存在很多问题，消息到达率低，加上协议上有些问题，丢消息频繁，所以需要重构IM，AIDL不能解决以上问题。好吧！那AIDL可以解决什么问题？什么是AIDL？ 什么是AIDL？AIDL是 Android Interface definition language的缩写，它是一种Android内部进程通信接口的">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://quanke.name/2016/07/22/Android-Studio-Service-AIDL-详解/1.png">
+<meta property="og:image" content="http://quanke.name/2016/07/22/Android-Studio-Service-AIDL-详解/2.png">
+<meta property="og:image" content="http://quanke.name/2016/07/22/Android-Studio-Service-AIDL-详解/4.png">
+<meta property="og:image" content="http://quanke.name/2016/07/22/Android-Studio-Service-AIDL-详解/3.png">
+<meta property="og:image" content="http://quanke.name/2016/07/22/Android-Studio-Service-AIDL-详解/5.png">
+<meta property="og:updated_time" content="2017-11-06T05:32:04.646Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android Studio Service AIDL 详解">
+<meta name="twitter:description" content="欢迎关注http://quanke.name/ 转载请注明出处，谢谢  公司产品之前IM这块存在很多问题，消息到达率低，加上协议上有些问题，丢消息频繁，所以需要重构IM，AIDL不能解决以上问题。好吧！那AIDL可以解决什么问题？什么是AIDL？ 什么是AIDL？AIDL是 Android Interface definition language的缩写，它是一种Android内部进程通信接口的">
+<meta name="twitter:image" content="http://quanke.name/2016/07/22/Android-Studio-Service-AIDL-详解/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://quanke.name/2016/07/22/Android-Studio-Service-AIDL-详解/"/>
+
+
+
+
+
+  <title>Android Studio Service AIDL 详解 | 全科-不安分的码农</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?853906ed403c461b2dbf1df696bdf998";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">全科-不安分的码农</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">android，ios，html5，微服务架构，XP，scrum，项目管理（PMP）</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://quanke.name/2016/07/22/Android-Studio-Service-AIDL-详解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="全科">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/dog.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="全科-不安分的码农">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android Studio Service AIDL 详解</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-07-22T23:35:30+08:00">
+                2016-07-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/android开发/" itemprop="url" rel="index">
+                    <span itemprop="name">android开发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/07/22/Android-Studio-Service-AIDL-详解/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/22/Android-Studio-Service-AIDL-详解/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <ul>
+<li>欢迎关注<a href="http://quanke.name/">http://quanke.name/</a></li>
+<li>转载请注明出处，谢谢</li>
+</ul>
+<p>公司产品之前IM这块存在很多问题，消息到达率低，加上协议上有些问题，丢消息频繁，所以需要重构IM，AIDL不能解决以上问题。好吧！那AIDL可以解决什么问题？什么是AIDL？</p>
+<h3 id="什么是AIDL？"><a href="#什么是AIDL？" class="headerlink" title="什么是AIDL？"></a>什么是AIDL？</h3><p><code>AIDL</code>是 <code>Android Interface definition language</code>的缩写，它是一种<code>Android</code>内部进程通信接口的描述语言，通过它我们可以定义进程间的通信接口</p>
+<h3 id="AIDL可以解决什么问题？"><a href="#AIDL可以解决什么问题？" class="headerlink" title="AIDL可以解决什么问题？"></a>AIDL可以解决什么问题？</h3><ul>
+<li>可以实现多个应用程序共享同一个Service的功能，比如：IM服务可以提供给多个APP使用，先在推送基本都是采取这种方案</li>
+<li>可以跨进程调用服务里的方法</li>
+</ul>
+<h3 id="Android-Studio-AIDL-实战"><a href="#Android-Studio-AIDL-实战" class="headerlink" title="Android Studio AIDL 实战"></a>Android Studio AIDL 实战</h3><p>大部分文章介绍都是在eclipse下介绍的，现在 Android Studio 作为开发工具比较普及了，所以我在Android Studio 下介绍（其实区别不大）。</p>
+<p>言归正传，我们需要使用Android Studio实现一个远程Service，并且建立AIDL进行通信。</p>
+<h4 id="搭建了简单的Service框架"><a href="#搭建了简单的Service框架" class="headerlink" title="搭建了简单的Service框架"></a>搭建了简单的Service框架</h4><p>1.继承Service</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">package name.quanke.aidldemo;</div><div class="line"></div><div class="line">import android.app.Service;</div><div class="line">import android.content.Intent;</div><div class="line">import android.os.IBinder;</div><div class="line"></div><div class="line"></div><div class="line">/**</div><div class="line"> *</div><div class="line"> * Created by http://quanke.name on 16/7/23.</div><div class="line"> */</div><div class="line">public class PushService extends Service &#123;</div><div class="line">    public PushService() &#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public IBinder onBind(Intent intent) &#123;</div><div class="line">        return new LibHandler();</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    @Override</div><div class="line">    public boolean onUnbind(Intent intent) &#123;</div><div class="line">        return super.onUnbind(intent);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>2.在AndroidManifest.xml里注册 </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;manifest xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</div><div class="line">          package=&quot;name.quanke.aidldemo&quot;&gt;</div><div class="line"></div><div class="line">    &lt;application</div><div class="line">            android:allowBackup=&quot;true&quot;</div><div class="line">            android:icon=&quot;@mipmap/ic_launcher&quot;</div><div class="line">            android:label=&quot;@string/app_name&quot;</div><div class="line">            android:name=&quot;.App&quot;</div><div class="line">            android:supportsRtl=&quot;true&quot;</div><div class="line">            android:theme=&quot;@style/AppTheme&quot;&gt;</div><div class="line">        &lt;activity android:name=&quot;.MainActivity&quot;&gt;</div><div class="line">            &lt;intent-filter&gt;</div><div class="line">                &lt;action android:name=&quot;android.intent.action.MAIN&quot;/&gt;</div><div class="line"></div><div class="line">                &lt;category android:name=&quot;android.intent.category.LAUNCHER&quot;/&gt;</div><div class="line">            &lt;/intent-filter&gt;</div><div class="line">        &lt;/activity&gt;</div><div class="line"></div><div class="line">        &lt;service</div><div class="line">                android:name=&quot;.PushService&quot;</div><div class="line">                android:enabled=&quot;true&quot;</div><div class="line">                android:process=&quot;:push&quot;</div><div class="line">                android:exported=&quot;true&quot;&gt;</div><div class="line">        &lt;/service&gt;</div><div class="line">    &lt;/application&gt;</div><div class="line"></div><div class="line">&lt;/manifest&gt;</div></pre></td></tr></table></figure>
+<h4 id="建立AIDL"><a href="#建立AIDL" class="headerlink" title="建立AIDL"></a>建立AIDL</h4><h5 id="1-创建AIDL文件夹"><a href="#1-创建AIDL文件夹" class="headerlink" title="1.创建AIDL文件夹"></a>1.创建AIDL文件夹</h5><img src="/2016/07/22/Android-Studio-Service-AIDL-详解/1.png" title="1.创建AIDL文件夹">
+<h5 id="2-创建AIDL文件"><a href="#2-创建AIDL文件" class="headerlink" title="2.创建AIDL文件"></a>2.创建AIDL文件</h5><img src="/2016/07/22/Android-Studio-Service-AIDL-详解/2.png" title="2.创建AIDL文件">
+<h5 id="3-编写AIDL文件"><a href="#3-编写AIDL文件" class="headerlink" title="3.编写AIDL文件"></a>3.编写AIDL文件</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">// IHandler.aidl</div><div class="line">package name.quanke.aidldemo;</div><div class="line"></div><div class="line">// Declare any non-default types here with import statements</div><div class="line"></div><div class="line">interface IHandler &#123;</div><div class="line">    void connect();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="4-AIDL文件-生成接口"><a href="#4-AIDL文件-生成接口" class="headerlink" title="4.AIDL文件 生成接口"></a>4.AIDL文件 生成接口</h5><img src="/2016/07/22/Android-Studio-Service-AIDL-详解/4.png" title="4.AIDL文件 生成接口">
+<p>生成后的样子</p>
+<img src="/2016/07/22/Android-Studio-Service-AIDL-详解/3.png" title="4.AIDL文件 生成后的样子">
+<h5 id="5-编写客户端-ServiceConnection"><a href="#5-编写客户端-ServiceConnection" class="headerlink" title="5.编写客户端 ServiceConnection"></a>5.编写客户端 ServiceConnection</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">package name.quanke.aidldemo;</div><div class="line"></div><div class="line">import android.app.Application;</div><div class="line">import android.content.ComponentName;</div><div class="line">import android.content.Context;</div><div class="line">import android.content.Intent;</div><div class="line">import android.content.ServiceConnection;</div><div class="line">import android.os.IBinder;</div><div class="line">import android.os.RemoteException;</div><div class="line">import android.util.Log;</div><div class="line"></div><div class="line">/**</div><div class="line"> * Created by quanke on 16/7/23.</div><div class="line"> */</div><div class="line">public class PushManager &#123;</div><div class="line"></div><div class="line">    private static final String TAG = &quot;PushManager.class&quot;;</div><div class="line">    private IHandler iHandler;</div><div class="line"></div><div class="line">    private static PushManager ourInstance = new PushManager();</div><div class="line"></div><div class="line">    public static PushManager getInstance() &#123;</div><div class="line">        return ourInstance;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    private PushManager() &#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void init(Application app)&#123;</div><div class="line"></div><div class="line">        Intent binderIntent = new Intent(app,PushService.class);</div><div class="line">        app.bindService(binderIntent, serviceConnection, Context.BIND_AUTO_CREATE);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void connect()&#123;</div><div class="line">        try &#123;</div><div class="line">            //通过AIDL远程调用</div><div class="line">            Log.d(TAG,&quot;++start Remote++&quot;);</div><div class="line">            iHandler.connect();</div><div class="line">        &#125; catch (RemoteException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    private ServiceConnection serviceConnection = new ServiceConnection() &#123;</div><div class="line">        @Override</div><div class="line">        public void onServiceConnected(ComponentName name, IBinder service) &#123;</div><div class="line">            iHandler = IHandler.Stub.asInterface(service);</div><div class="line">            //连接成功调动</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        @Override</div><div class="line">        public void onServiceDisconnected(ComponentName name) &#123;</div><div class="line">            //断开连接调用</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="6-编写服务端实现connect方法"><a href="#6-编写服务端实现connect方法" class="headerlink" title="6.编写服务端实现connect方法"></a>6.编写服务端实现connect方法</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">package name.quanke.aidldemo;</div><div class="line"></div><div class="line">import android.os.IBinder;</div><div class="line">import android.os.RemoteException;</div><div class="line">import android.util.Log;</div><div class="line"></div><div class="line">/**</div><div class="line"> *</div><div class="line"> * Created by quanke on 16/7/23.</div><div class="line"> */</div><div class="line">public class LibHandler extends IHandler.Stub&#123;</div><div class="line"></div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void connect() throws RemoteException &#123;</div><div class="line">        Log.d(&quot;&quot;,&quot;connect()&quot;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public IBinder asBinder() &#123;</div><div class="line">        return null;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>以上实现了简单的连接，接下来我们实现传递自定义类型</p>
+<h4 id="传递自定义的类型"><a href="#传递自定义的类型" class="headerlink" title="传递自定义的类型"></a>传递自定义的类型</h4><p>AIDL默认支持的类型包括Java基本类型（int、long、boolean等），和（String、List、Map、CharSequence），如果要传递自定义的类型需要实现android.os.Parcelable接口。自己写了一个实体类public class Message implements Parcelable。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">package name.quanke.aidldemo.model;</div><div class="line"></div><div class="line">import android.os.Parcel;</div><div class="line">import android.os.Parcelable;</div><div class="line"></div><div class="line">/**</div><div class="line"> * </div><div class="line"> * Created by quanke on 16/7/23.</div><div class="line"> */</div><div class="line">public class Message implements Parcelable &#123;</div><div class="line">    private long id;</div><div class="line">    private String content;</div><div class="line"></div><div class="line"></div><div class="line">    public long getId() &#123;</div><div class="line">        return id;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void setId(long id) &#123;</div><div class="line">        this.id = id;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public String getContent() &#123;</div><div class="line">        return content;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void setContent(String content) &#123;</div><div class="line">        this.content = content;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public String toString() &#123;</div><div class="line">        return &quot;Message&#123;&quot; +</div><div class="line">                &quot;id=&quot; + id +</div><div class="line">                &quot;, content=&apos;&quot; + content + &apos;\&apos;&apos; +</div><div class="line">                &apos;&#125;&apos;;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public int describeContents() &#123;</div><div class="line">        return 0;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void writeToParcel(Parcel dest, int flags) &#123;</div><div class="line">        dest.writeLong(this.id);</div><div class="line">        dest.writeString(this.content);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public Message() &#123;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    protected Message(Parcel in) &#123;</div><div class="line">        this.id = in.readLong();</div><div class="line">        this.content = in.readString();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public static final Creator&lt;Message&gt; CREATOR = new Creator&lt;Message&gt;() &#123;</div><div class="line">        @Override</div><div class="line">        public Message createFromParcel(Parcel source) &#123;</div><div class="line">            return new Message(source);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        @Override</div><div class="line">        public Message[] newArray(int size) &#123;</div><div class="line">            return new Message[size];</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>修改IHandler</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">// IHandler.aidl</div><div class="line">package name.quanke.aidldemo;</div><div class="line"></div><div class="line">// Declare any non-default types here with import statements</div><div class="line"></div><div class="line">import name.quanke.aidldemo.model.Message;</div><div class="line"></div><div class="line">interface IHandler &#123;</div><div class="line">    void connect();</div><div class="line"></div><div class="line">    void sendMessage(Message message);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>编译项目，报错</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">/Users/quanke/Dev/android/src/AIDLDemo/app/src/main/aidl/name/quanke/aidldemo/IHandler.aidl</div><div class="line">Error:(6) couldn&apos;t find import for class name.quanke.aidldemo.model.Message</div><div class="line">Error:Execution failed for task &apos;:app:compileDebugAidl&apos;.</div><div class="line">&gt; java.lang.RuntimeException: com.android.ide.common.process.ProcessException: org.gradle.process.internal.ExecException: Process &apos;command &apos;/Users/quanke/Dev/android/tools/android-sdks/build-tools/23.0.3/aidl&apos;&apos; finished with non-zero exit value 1</div><div class="line">Information:BUILD FAILED</div></pre></td></tr></table></figure>
+<p>因为自定义类型不仅要定义实现android.os.Parcelable接口的类，还得为该实现类定义一个aidl文件，如下：</p>
+<img src="/2016/07/22/Android-Studio-Service-AIDL-详解/5.png" title="自定义类aidl文件">
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">// IHandler.aidl</div><div class="line">package name.quanke.aidldemo.model;</div><div class="line"></div><div class="line">// Declare any non-default types here with import statements</div><div class="line"></div><div class="line">import name.quanke.aidldemo.model.Message;</div><div class="line"></div><div class="line">parcelable Message ;</div></pre></td></tr></table></figure>
+<blockquote>
+<p><code>切记</code> 自定类型aidl文件名字、路径需要和自定义类名字、路径保持一致，</p>
+</blockquote>
+<p>编译项目，还是报错</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">parameter 1: &apos;Message message&apos; can be an out parameter, so you must declare it as in, out or inout.</div></pre></td></tr></table></figure>
+<p><code>AIDL</code>不是 Java。它是真的很接近，但它不是 Java。</p>
+<p>Java 参数没有方向的概念，AIDL 参数有方向，参数可以从客户端传到服务端，再返回来。</p>
+<p>如果<code>sendMessage</code>方法的<code>message</code>参数是纯粹的输入参数–这意味着是从客户端到服务器的数据，你需要在AIDL声明：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">void sendMessage(in Message message);</div></pre></td></tr></table></figure>
+<p>如果<code>sendMessage</code>方法的<code>message</code>参数是纯粹的输出-这意味着它的数据是通过从服务器到客户端，使用：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">void sendMessage(out Message message);</div></pre></td></tr></table></figure>
+<p>如果<code>sendMessage</code>方法的<code>message</code>参数是输入也是输出-客户端的值在服务可能会修改，使用：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">void sendMessage(inout Message message);</div></pre></td></tr></table></figure>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>Android Studio Service AIDL 详解 就到这里，现在应该可以使用AIDL实现想要的功能了，实现简答的AIDL很简单，主要是在自定义类型的时候，有几个坑注意就好。</p>
+<p><code>源码地址：</code> <a href="https://github.com/quanke/AIDLDemo.git" target="_blank" rel="external">https://github.com/quanke/AIDLDemo.git</a> </p>
+<blockquote>
+<p>有什么问题欢迎留言。</p>
+<p>如果喜欢请关注我，赞我，来抚平我虚荣的心</p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/android/" rel="tag"># android</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/19/完美解决-Android-6-java-lang-AbstractMethodError/" rel="next" title="完美解决 Android 6 java.lang.AbstractMethodError">
+                <i class="fa fa-chevron-left"></i> 完美解决 Android 6 java.lang.AbstractMethodError
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/10/26/Android-DownloadManager-ERROR-UNKNOWN-在API-17-巨坑完美解决/" rel="prev" title="Android DownloadManager ERROR_UNKNOWN 在API 17 巨坑完美解决">
+                Android DownloadManager ERROR_UNKNOWN 在API 17 巨坑完美解决 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/07/22/Android-Studio-Service-AIDL-详解/"
+     data-title="Android Studio Service AIDL 详解"
+     data-content=""
+     data-url="http://quanke.name/2016/07/22/Android-Studio-Service-AIDL-详解/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2016/07/22/Android-Studio-Service-AIDL-详解/"
+           data-title="Android Studio Service AIDL 详解" data-url="http://quanke.name/2016/07/22/Android-Studio-Service-AIDL-详解/">
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/dog.jpg"
+                alt="全科" />
+            
+              <p class="site-author-name" itemprop="name">全科</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">112</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/quanke" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是AIDL？"><span class="nav-number">1.</span> <span class="nav-text">什么是AIDL？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AIDL可以解决什么问题？"><span class="nav-number">2.</span> <span class="nav-text">AIDL可以解决什么问题？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Android-Studio-AIDL-实战"><span class="nav-number">3.</span> <span class="nav-text">Android Studio AIDL 实战</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#搭建了简单的Service框架"><span class="nav-number">3.1.</span> <span class="nav-text">搭建了简单的Service框架</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#建立AIDL"><span class="nav-number">3.2.</span> <span class="nav-text">建立AIDL</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-创建AIDL文件夹"><span class="nav-number">3.2.1.</span> <span class="nav-text">1.创建AIDL文件夹</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-创建AIDL文件"><span class="nav-number">3.2.2.</span> <span class="nav-text">2.创建AIDL文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-编写AIDL文件"><span class="nav-number">3.2.3.</span> <span class="nav-text">3.编写AIDL文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-AIDL文件-生成接口"><span class="nav-number">3.2.4.</span> <span class="nav-text">4.AIDL文件 生成接口</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-编写客户端-ServiceConnection"><span class="nav-number">3.2.5.</span> <span class="nav-text">5.编写客户端 ServiceConnection</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-编写服务端实现connect方法"><span class="nav-number">3.2.6.</span> <span class="nav-text">6.编写服务端实现connect方法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#传递自定义的类型"><span class="nav-number">3.3.</span> <span class="nav-text">传递自定义的类型</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">全科</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"quanke"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
