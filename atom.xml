@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://quanke.name/"/>
-  <updated>2017-11-06T08:23:26.509Z</updated>
+  <updated>2017-11-08T10:52:08.798Z</updated>
   <id>http://quanke.name/</id>
   
   <author>
@@ -15,6 +15,37 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Elasticsearch 5.6 Java API 中文手册 </title>
+    <link href="http://quanke.name/2017/11/08/Elasticsearch-5-6-Java-API-%E4%B8%AD%E6%96%87%E6%89%8B%E5%86%8C/"/>
+    <id>http://quanke.name/2017/11/08/Elasticsearch-5-6-Java-API-中文手册/</id>
+    <published>2017-11-08T09:21:00.000Z</published>
+    <updated>2017-11-08T10:52:08.798Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="http://upload-images.jianshu.io/upload_images/432952-5448f57c503678f5.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Elasticsearch 5.6 Java API 中文手册 "></p><p>本手册由 <a href="http://quanke.name">全科</a> 翻译，并且整理成电子书，支持PDF,ePub,Mobi格式，方便大家下载阅读。</p><blockquote><p>不只是官方文档的翻译，还包含使用实例，包含我们使用踩过的坑</p></blockquote><p>阅读地址：<a href="https://es.quanke.name" target="_blank" rel="external">https://es.quanke.name</a></p><p>下载地址：<a href="https://www.gitbook.com/book/quanke/elasticsearch-java" target="_blank" rel="external">https://www.gitbook.com/book/quanke/elasticsearch-java</a></p><p>github地址：<a href="https://github.com/quanke/elasticsearch-java" target="_blank" rel="external">https://github.com/quanke/elasticsearch-java</a></p><p>编辑：<a href="http://quanke.name">http://quanke.name</a></p><p>编辑整理辛苦，还望大神们点一下star ，抚平我虚荣的心</p><p><img src="https://static.oschina.net/uploads/img/201711/08183543_ysUa.jpg" alt="全科的公众号"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/432952-5448f57c503678f5.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; a
+      
+    
+    </summary>
+    
+      <category term="Elasticsearch" scheme="http://quanke.name/categories/Elasticsearch/"/>
+    
+    
+      <category term="Java" scheme="http://quanke.name/tags/Java/"/>
+    
+      <category term="Elasticsearch" scheme="http://quanke.name/tags/Elasticsearch/"/>
+    
+      <category term="API" scheme="http://quanke.name/tags/API/"/>
+    
+      <category term="大数据" scheme="http://quanke.name/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
+    
+  </entry>
   
   <entry>
     <title>使用PM2运行node.js服务</title>
@@ -607,36 +638,6 @@
       <category term="android" scheme="http://quanke.name/tags/android/"/>
     
       <category term="android动画" scheme="http://quanke.name/tags/android%E5%8A%A8%E7%94%BB/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>10多年码代码经验腾讯管理谈职业规划</title>
-    <link href="http://quanke.name/2016/04/23/10%E5%A4%9A%E5%B9%B4%E7%A0%81%E4%BB%A3%E7%A0%81%E7%BB%8F%E9%AA%8C%E8%85%BE%E8%AE%AF%E7%AE%A1%E7%90%86%E8%B0%88%E8%81%8C%E4%B8%9A%E8%A7%84%E5%88%92/"/>
-    <id>http://quanke.name/2016/04/23/10多年码代码经验腾讯管理谈职业规划/</id>
-    <published>2016-04-23T10:56:22.000Z</published>
-    <updated>2017-11-06T05:32:04.644Z</updated>
-    
-    <content type="html"><![CDATA[<ul><li>欢迎关注<a href="http://quanke.name/">http://quanke.name/</a></li><li>转载请注明出处，谢谢</li></ul><blockquote><p>此人是我眼中的大神，曾经任职EA高级技术，腾讯技术管理，在级别提升后因为厌恶政治斗争，毅然离开腾讯开始创业。</p></blockquote><h4 id="cto眼中的牛人是什么？"><a href="#cto眼中的牛人是什么？" class="headerlink" title="cto眼中的牛人是什么？"></a>cto眼中的牛人是什么？</h4><ul><li>有多种解决方案；</li><li>有架构思维；</li><li>一专多通；</li><li>有预判能力；</li><li>思维不单一；</li><li>基础扎实；</li><li>有一些高阶技能；</li></ul><h4 id="技术人员分工："><a href="#技术人员分工：" class="headerlink" title="技术人员分工："></a>技术人员分工：</h4><ul><li><p>前端：</p><p>  多看别人的效果，别人做出来的模仿做出来，学习新技术，前端技术更新快，需要超级顺速的更新自己的技术</p></li><li><p>后端 （分为逻辑和服务）</p><ul><li><p>逻辑</p><p>  像php,生命周期相对短，变化快，更加需要学习新技术。</p></li><li><p>服务</p><p>  生命周期长，复用要求更加高，多考虑架构的问题</p></li></ul></li><li><p>运维</p><p>  对于运营来说预判能力很重要</p></li><li><p>测试</p><p>  一个强势的部门，如果不能强制那就不要做测试</p></li></ul><h4 id="铁塔模型和故宫模型"><a href="#铁塔模型和故宫模型" class="headerlink" title="铁塔模型和故宫模型"></a>铁塔模型和故宫模型</h4><p>对于中高级技术来说，有两条技术路可以走，第一条路是成为一个技术的专家，第二条路是成为解决方案的专家，第一条路就试我们所说的铁塔模型，技术很深，优点就是，立马能有回报，前期容易实现，最后能成为行业专家，很厉害，缺点就是容易倒，受环境影响大，需要有眼光和机缘，比如以前的塞班工程师牛逼哄哄的，但是塞班幕落的时候塞班工程师就抓狂了，第二种就是故宫模型，这种模型开始的时候看不到成效，不能立即变现，但是到后面会起来，可以在自己的故宫里建立各种东西，包括铁塔，不太受环境的影响。当然也可以组合成长，先一门技术能独当一面，其他技术也学习，这就是我们所说的一专多通，这就要看自己的选择了。</p><h3 id="程序员高手养成："><a href="#程序员高手养成：" class="headerlink" title="程序员高手养成："></a>程序员高手养成：</h3><ul><li>第一：ide炉火纯青；</li><li>第二：优先考虑有哪些解决方案，不轻易说我不能实现。；</li><li>第三：熟悉新技术，比如java,可能现在用不到，但需要的时候能用好；</li><li>第四：一定要形成自己的技术体系，心目中熟悉各种架构，提炼出自己的架构。</li></ul><h4 id="职业阶梯"><a href="#职业阶梯" class="headerlink" title="职业阶梯"></a>职业阶梯</h4><p>1.代表初级</p><p>初级表现为，能实现一些基本的功能，毕业实习期一般为初级，一般一年左右</p><p>2.代表中级</p><p>中级表现为，功能基本都能实现，有一点点的分装思维，工作效率一般。</p><p>3.代表高级</p><p>高级表现为，有分装思想，考虑复用，能写出高质量，可复用，可扩展的代码，会一些一些基本的工具提高工作效率，精通一门语言</p><p>4.代表大牛</p><p>在开始的时候就有表达</p><p>5.行业精英</p><p>推动行业进步，有一定知名度</p><p>对于我们来说，每个人应该都要有成为行业精英的理想，但是我们生下来都是初级的，不论我们现在处于哪一位阶梯，都没有关系，这不一定是你自己的原因，有可能是没有遇到贵人，有可能是在为上上一个阶梯做准备，但是今天我们知道了，希望我们的人不要一直停留在自己阶梯。</p><p>从初级开始，我们每次成长都特别有成就感，比如，写了一个“Hello word”，可以被浏览器渲染出来，再写一个表单，能提交处理信息等，都是一个很有成就感的时候，这时候我们就处于阶梯的平面上，但是我们走着走着，就发现，自己很无力，比如我想做一个类似utan.com这样的网站，就要学习更多的东西，比如数据库设计、数据库管理、后端处理，服务器部署等（当然utan应该是多人合作的产物），这时候感觉自己很难提高了，遇到各种问题，踩各种坑，加班、痛苦随之而来，其实这都是正常的，这都是爬到上一个阶梯的必经之路，当爬的次数多了，就会想用石头垫在脚下，爬到上一个阶梯，当然自身的能力也会成长，就这样上中级，高级，但是要成为 牛人（4），就没有那么简单了，因为可能会遇到各种阻力，或者太滑上不去，要通过我们的智慧上去，比如，如果太滑可以借助防滑手套等等，这个自己体会。</p><p>还有一个层级都是行业精英，不是每个人都能成为行业精英的，要机缘，要看以前的路是否扎实，要看以前的选择是否符合发展等一系列因素都会影响我们成为行业精英。</p><h4 id="反PMP"><a href="#反PMP" class="headerlink" title="反PMP"></a>反PMP</h4><p>项目管理就是一群技术不好的人，又不想放弃技术，就选择做PM，是以前在项目过程中产出的畸形产物，真正的高手是不需要PM的，我们倡导敏捷。</p><h4 id="最后是提问环节。"><a href="#最后是提问环节。" class="headerlink" title="最后是提问环节。"></a>最后是提问环节。</h4><h5 id="像Android或者iOS开发这种不确定性的技术有必要转型吗？"><a href="#像Android或者iOS开发这种不确定性的技术有必要转型吗？" class="headerlink" title="像Android或者iOS开发这种不确定性的技术有必要转型吗？"></a>像Android或者iOS开发这种不确定性的技术有必要转型吗？</h5><p>不一定转型，但是绝不要只关注一个技术，比如做android只做android，做iOS的值关注ios，那就悲剧了，要去学习HTML5等，不知道未来会是怎么样？开放的心态去学习新的东西是正道。</p><h5 id="怎么掌握新技术？"><a href="#怎么掌握新技术？" class="headerlink" title="怎么掌握新技术？"></a>怎么掌握新技术？</h5><p>有时候行业出现了很多优秀的技术，我们都是知道技术的成长最快的过程是在项目中成长，但是公司没有采取此技术，我们怎么办？</p><p>先对技术有一个基本的了解，很清楚，新技术的优缺点，小规模的尝试性的在公司项目中用，最好是内部系统。</p><p>来自内部培训，地铁用上手机形成此文，欢迎拍砖。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;ul&gt;
-&lt;li&gt;欢迎关注&lt;a href=&quot;http://quanke.name/&quot;&gt;http://quanke.name/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;转载请注明出处，谢谢&lt;/li&gt;
-&lt;/ul&gt;
-&lt;blockquote&gt;
-&lt;p&gt;此人是我眼中的大神，曾经任职EA高级技术，腾讯技术管
-      
-    
-    </summary>
-    
-      <category term="随笔" scheme="http://quanke.name/categories/%E9%9A%8F%E7%AC%94/"/>
-    
-    
-      <category term="职业规划" scheme="http://quanke.name/tags/%E8%81%8C%E4%B8%9A%E8%A7%84%E5%88%92/"/>
     
   </entry>
   
