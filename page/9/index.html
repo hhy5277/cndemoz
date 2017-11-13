@@ -261,6 +261,189 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://quanke.name/2012/11/07/android/android-e7-bc-96-e7-a8-8b-e5-ae-b9-e6-98-93-e7-8a-af-e7-9a-84-e9-94-99-e8-af-af/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="全科">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/dog.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="全科-不安分的码农">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2012/11/07/android/android-e7-bc-96-e7-a8-8b-e5-ae-b9-e6-98-93-e7-8a-af-e7-9a-84-e9-94-99-e8-af-af/" itemprop="url">Android编程容易犯的错误</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2012-11-07T02:12:24+08:00">
+                2012-11-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/android开发/" itemprop="url" rel="index">
+                    <span itemprop="name">android开发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2012/11/07/android/android-e7-bc-96-e7-a8-8b-e5-ae-b9-e6-98-93-e7-8a-af-e7-9a-84-e9-94-99-e8-af-af/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/11/07/android/android-e7-bc-96-e7-a8-8b-e5-ae-b9-e6-98-93-e7-8a-af-e7-9a-84-e9-94-99-e8-af-af/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>1.设置TextView的文本颜色<br>[code lang=”java”]<br>TextView tv;<br>…<br>tv.setTextColor(R.color.white);<br>[/code]<br>其实这样设置的颜色是 R.color.white的资源ID值所代表的颜色值，而不是资源color下的white颜色值：正确的做法如下：</p>
+<p>[code lang=”java”]<br>tv.setTextColor(getResources().getColor(R.color.white));<br>[/code]<br>这个出错的概率满高的，就是因为二者都是int类，导致编译器不报错。</p>
+<p>2.读取Cursor中的值</p>
+<p>[code lang=”java”]<br>Uri uri;<br>Cursor cursor = contentResolver.query(uri, null,null,null,null);<br>if(cursor !=null){<br>    String name = cursor.getString(1);//<br>    curosr.close();<br>    cursor =null;<br>}<br>[/code]</p>
+<p>上面语句中的，执行到cursor.getString(1)部分就会报异常，异常是: Caused by: android.database.CursorIndexOutOfBoundsException: Index -1 requested, with a size of 4</p>
+<p>编译没有问题，只有在运行的时候才会发现。</p>
+<p>正确的做法是：</p>
+<p>[code lang=”java”]<br>Uri uri;<br>Cursor cursor = contentResolver.query(uri, null,null,null,null);<br>if(cursor !=null){<br>    if(cursor.moveToFirst()){<br>        String name = cursor.getString(1);//<br>    }<br>    curosr.close();<br>    cursor =null;<br>}<br>[/code]<br>或者:</p>
+<p>[code lang=”java”]<br>Uri uri;<br>Cursor cursor = contentResolver.query(uri, null,null,null,null);<br>if(cursor !=null){<br>    while(cursor.moveToNext()){<br>        String name = cursor.getString(1);//<br>    }<br>    curosr.close();<br>    cursor =null;<br>}<br>[/code]<br>3.不要使用标有Deprecated的函数或者类,比如不要使用android.telephony.gsm.SmsMessage，而应该用android.telephony.SmsMessage,这样避免采用不同的3G协议时不会出现问题。</p>
+<p>4.SQLite中的查询条件，比如一个叫name的字段，其字段类型为TEXT,如果我们要判断其name不等某个值(如zhangsan),写出如下的语句:</p>
+<p>[code lang=”java”]<br>name &lt;&gt; ‘zhangsan’<br>[/code]<br>但是，这样写的语句，如果碰到name值为空的时候，就有问题，即name为空时 以上的布尔值为false，而不是true.</p>
+<p>原因很可能，SQLite中的判断函数采用类似写法:</p>
+<p>[code lang=”java”]<br>boolean judge(String self, String conditions){<br>    if(null == self) return false;<br>    return self.equalsIgnoreCase(conditions);<br>}<br>[/code]<br>其中 self为数据库中name的值，而conditions为上面示例中的 zhangsan。</p>
+<p>所以，以上查询条件的正确写法是:</p>
+<p>[code lang=”java”]<br>name &lt;&gt; ‘zhangsan’ or name is null<br>[/code]<br>除非你也想过滤掉name 为空的记录。</p>
+<p>5.如下所示，想要在按钮显示”删 除”（没错删除中间有个空格）,以下的字符串资源是错误的：</p>
+<p>[code lang=”java”]<br>&lt;string name=&quot;button_delete_text&quot;&gt;删 除&lt;/string&gt;<br>[/code]<br>这样的出来，最终看不到中间的空格，应该是Android SDK编译的时候，会自动过滤掉String中的空格部分，所以应该采用以下的方式:</p>
+<p>[code lang=”java”]<br>&lt;string name=&quot;button_delete_text&quot;&gt;删\u0020除&lt;/string&gt;<br>[/code]<br>类似地，其他的特殊符号都可以用\u00XX来转义，如 ‘ —- \u0027,  &lt; —– \u003C, &gt; —- \u003E 。</p>
+<p>6. context的问题:</p>
+<p>如果在一个非Activity的context里面调用startActivity，那么其intent必须设置：</p>
+<p>[code lang=”java”]<br>intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);<br>[/code]<br> 否则，会报如下类似的错误：</p>
+<p>[code lang=”java”]<br>Calling startActivity() from outside of an Activity  context requires the FLAG_ACTIVITY_NEW_TASK flag.<br>[/code]<br> 而我们还要提防系统控件中的隐性调用startActivity:</p>
+<p>[code lang=”java”]<br>TextView tv = new TextView(mContext);<br>tv.setAutoLinkMask(Linkify.ALL);<br>tv.setText(content);<br>[/code]<br>当content内容中有电话号码/邮件/URL时，并且mContext不是非Acitvity的context，而是app的context时<br>[code lang=”java”]<br>(XXXActivity.this.getApplicationContext()),<br>[/code]<br>就会出现如下的错误：<br>[code lang=”java”]<br>android.util.AndroidRuntimeException: Calling startActivity() from outside of an Activity<br>context requires the FLAG_ACTIVITY_NEW_TASK flag. Is this really what you want?<br>E/AndroidRuntime(10382):     at android.app.ContextImpl.startActivity(ContextImpl.java:622)<br>E/AndroidRuntime(10382):     at android.content.ContextWrapper.startActivity(ContextWrapper.java:258)<br>E/AndroidRuntime(10382):     at android.text.style.URLSpan.onClick(URLSpan.java:62)<br>[/code]<br>由于URLSpan.onClick中调用startActivity是由系统控制的，所以我们必须传入activity的contex,才不会出现如上的异常，导致程序退出。</p>
+<p>7. 另外一个context的问题：如果你在一个单实例的对象中，有个注册监听器的行为的话，那么传给这个单实例</p>
+<p>对象的context，就必须是ApplicationContext了，否则会出现:receiver leak的错误。</p>
+<p>8. 控件有时不能充满整个屏幕:</p>
+<p>[code lang=”java”]<br>LinearLayout panel = new LinearLayout(this);<br>LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(<br>        LinearLayout.LayoutParams.FILL_PARENT,<br>        LinearLayout.LayoutParams.FILL_PARENT);<br>panel.setLayoutParams(llp);<br>root.addView(panel);<br>[/code]<br> 而应该是：</p>
+<p>[code lang=”java”]<br>LinearLayout panel = new LinearLayout(this);<br>LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(<br>        LinearLayout.LayoutParams.FILL_PARENT,<br>        LinearLayout.LayoutParams.FILL_PARENT);<br>root.addView(panel. llp);<br>[/code]<br>9.按照以下的方式启动service，但是service没有起来<br>[code lang=”java”]<br>     Intent service = new Intent(this, FuncService.class);<br>     startService(service);<br>[/code]<br>很有可能是忘了在AndroidManifest.xml中注册FuncService<br>[code lang=”xml”]<br>&lt;service android:name=&quot;com.android.example.FuncService&quot;/&gt;<br>[/code]<br> 10.TextView中为什么会在有些行尾出现”…”字符,当然不是所有手机都是有问题，本来笔者刚开始也以为可能是</p>
+<p>手机的ROM问题,认真review了代码，发现如下的代码：<br>[code lang=”java”]<br>        mIntroView = (TextView) findViewById(R.id.description);<br>        mIntroView.setEllipsize(TruncateAt.END);<br>[/code]<br>问题是上面的第2行，之前是因为要限定文本的行数，后来去掉限制，没有去掉以上的代码。</p>
+<p>该行代码会导致很多的ROM上：只要一个文本行的文字在一个手机屏幕行显示不下的话，就自动在</p>
+<p>行尾截断并在行尾添加”…”,而之前没有问题是因为：全部显示的时候，我调用了如下方法：<br>[code lang=”java”]<br>mIntro.setMaxLines(Integer.MAX_VALUE);<br>[/code]<br> 11.不要太相信工具，比如Eclipse里面的断点遇到多线程什么，经常不起作用/走不到，这时候别太早下结论断点地方出错了，</p>
+<p>所以每个工程都应该有日志的开关，通过查看日志来确认，某个路径是否走到或者某个变量的值，。。。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://quanke.name/2012/11/07/android/android-monkey-e6-b5-8b-e8-af-95-e5-b7-a5-e5-85-b7-e7-ae-80-e4-bb-8b-e4-b8-8e-e5-ae-9e-e4-be-8b/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1897,158 +2080,6 @@ public void onCreate(Bundle icicle) {
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://quanke.name/2012/11/02/android/android-e6-ad-8c-e8-af-8d-e7-a7-80-e8-ae-be-e8-ae-a1-e6-80-9d-e8-b7-af-ef-bc-881-ef-bc-89safetytimer/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="全科">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/dog.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="全科-不安分的码农">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2012/11/02/android/android-e6-ad-8c-e8-af-8d-e7-a7-80-e8-ae-be-e8-ae-a1-e6-80-9d-e8-b7-af-ef-bc-881-ef-bc-89safetytimer/" itemprop="url">Android歌词秀设计思路（1）SafetyTimer</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2012-11-02T06:17:42+08:00">
-                2012-11-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/android开发/" itemprop="url" rel="index">
-                    <span itemprop="name">android开发</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2012/11/02/android/android-e6-ad-8c-e8-af-8d-e7-a7-80-e8-ae-be-e8-ae-a1-e6-80-9d-e8-b7-af-ef-bc-881-ef-bc-89safetytimer/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/11/02/android/android-e6-ad-8c-e8-af-8d-e7-a7-80-e8-ae-be-e8-ae-a1-e6-80-9d-e8-b7-af-ef-bc-881-ef-bc-89safetytimer/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>原创作品，允许转载，转载时请务必以超链接形式标明文章 <a href="http://craftsman1970.blog.51cto.com/3522772/659906" target="_blank" rel="external">原始出处</a> 、作者信息和本声明。否则将追究法律责任。<a href="http://craftsman1970.blog.51cto.com/3522772/659906" target="_blank" rel="external">http://craftsman1970.blog.51cto.com/3522772/659906</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2103,7 +2134,7 @@ public void onCreate(Bundle icicle) {
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">116</span>
+                  <span class="site-state-item-count">117</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

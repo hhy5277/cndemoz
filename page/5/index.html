@@ -261,6 +261,187 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://quanke.name/2014/06/22/android/android-change-system/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="全科">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/dog.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="全科-不安分的码农">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2014/06/22/android/android-change-system/" itemprop="url">Android中如何修改系统时间（应用程序获得系统权限）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-06-22T02:10:43+08:00">
+                2014-06-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/android开发/" itemprop="url" rel="index">
+                    <span itemprop="name">android开发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2014/06/22/android/android-change-system/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/06/22/android/android-change-system/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>在 android 的API中有提供 SystemClock.setCurrentTimeMillis()函数来修改系统时间，可惜无论你怎么调用这个函数都是没用的，无论模拟器还是真机，在logcat中总会得到”Unable to open alarm driver: Permission denied “.这个函数需要root权限或者运行与系统进程中才可以用。</p>
+<pre><code>本来以为就没有办法在应用程序这一层改系统时间了，后来在网上搜了好久，知道这个目的还是可以达到的。
+
+第一个方法简单点，不过需要在Android系统源码的环境下用make来编译：
+
+1\. 在应用程序的AndroidManifest.xml中的manifest节点中加入android:sharedUserId=&quot;android.uid.system&quot;这个属性。
+
+2\. 修改Android.mk文件，加入LOCAL_CERTIFICATE := platform这一行
+
+3\. 使用mm命令来编译，生成的apk就有修改系统时间的权限了。
+
+第二个方法麻烦点，不过不用开虚拟机跑到源码环境下用make来编译：
+
+1\. 同上，加入android:sharedUserId=&quot;android.uid.system&quot;这个属性。
+
+2\. 使用eclipse编译出apk文件，但是这个apk文件是不能用的。
+
+3\. 用压缩软件打开apk文件，删掉META-INF目录下的CERT.SF和CERT.RSA两个文件。
+
+4\. 使用目标系统的platform密钥来重新给apk文件签名。这步比较麻烦，首先找到密钥文件，在我的Android源码目录中的位置是&quot;build/target/product/security&quot;，下面的platform.pk8和platform.x509.pem两个文件。然后用Android提供的Signapk工具来签名，signapk的源代码是在&quot;build/tools/signapk&quot;下，用法为&quot;signapk platform.x509.pem platform.pk8 input.apk output.apk&quot;，文件名最好使用绝对路径防止找不到，也可以修改源代码直接使用。
+
+这样最后得到的apk和第一个方法是一样的。
+
+最后解释一下原理，首先加入android:sharedUserId=&quot;android.uid.system&quot;这个属性。通过Shared User id,拥有同一个User id的多个APK可以配置成运行在同一个进程中。那么把程序的UID配成android.uid.system，也就是要让程序运行在系统进程中，这样就有权限来修改系统时间了。
+
+只是加入UID还不够，如果这时候安装APK的话发现无法安装，提示签名不符，原因是程序想要运行在系统进程中还要有目标系统的platform key，就是上面第二个方法提到的platform.pk8和platform.x509.pem两个文件。用这两个key签名后apk才真正可以放入系统进程中。第一个方法中加入LOCAL_CERTIFICATE := platform其实就是用这两个key来签名。
+
+这也有一个问题，就是这样生成的程序只有在原始的Android系统或者是自己编译的系统中才可以用，因为这样的系统才可以拿到platform.pk8和platform.x509.pem两个文件。要是别家公司做的Android上连安装都安装不了。试试原始的Android中的key来签名，程序在模拟器上运行OK，不过放到G3上安装直接提示&quot;Package ... has no signatures that match those in shared user android.uid.system&quot;，这样也是保护了系统的安全。
+
+最最后还说下，这个android:sharedUserId属性不只可以把apk放到系统进程中，也可以配置多个APK运行在一个进程中，这样可以共享数据，应该会很有用的。
+</code></pre>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://quanke.name/2014/02/25/e4-bb-8a-e5-a4-a9-e5-8f-91-e7-8e-b0-e7-9a-84-e4-b8-80-e4-ba-9b-e4-bc-98-e7-a7-80-e7-9a-84-e8-b5-84-e6-ba-90-e7-bd-91-e7-ab-99/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1840,175 +2021,6 @@ Computer" target="_blank" rel="external">Apple</a> ‘s <a href="http://en.wikip
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://quanke.name/2012/11/28/zxing-e6-94-b9-e6-a8-aa-e5-b1-8f-e8-af-86-e5-88-ab-e4-b8-ba-e7-ab-96-e5-b1-8f-e8-af-86-e5-88-ab/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="全科">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/dog.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="全科-不安分的码农">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2012/11/28/zxing-e6-94-b9-e6-a8-aa-e5-b1-8f-e8-af-86-e5-88-ab-e4-b8-ba-e7-ab-96-e5-b1-8f-e8-af-86-e5-88-ab/" itemprop="url"> ZXing改横屏识别为竖屏识别</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2012-11-28T14:47:01+08:00">
-                2012-11-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/android开发/" itemprop="url" rel="index">
-                    <span itemprop="name">android开发</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2012/11/28/zxing-e6-94-b9-e6-a8-aa-e5-b1-8f-e8-af-86-e5-88-ab-e4-b8-ba-e7-ab-96-e5-b1-8f-e8-af-86-e5-88-ab/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/11/28/zxing-e6-94-b9-e6-a8-aa-e5-b1-8f-e8-af-86-e5-88-ab-e4-b8-ba-e7-ab-96-e5-b1-8f-e8-af-86-e5-88-ab/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Apache License 2.0 开源的 ZXing项目</p>
-<p>ZXing的android项目东西太多了，有很多是我们不需要的，得新建另一个项目简化它。</p>
-<p>在开始前大致介绍一下简化ZXing需要用到各个包 、类的职责。 </p>
-<pre><code>CaptureActivity。这个是启动Activity 也就是扫描器（如果是第一安装，它还会跳转到帮助界面）。 
-CaptureActivityHandler 解码处理类，负责调用另外的线程进行解码。 
-DecodeThread 解码的线程。 
-com.google.zxing.client.android.camera 包，摄像头控制包。 
-ViewfinderView 自定义的View，就是我们看见的拍摄时中间的框框了。   
-</code></pre><p> 解决方法：</p>
-<p>1.在DecodeHandler.java中，修改decode方法<br>  PlanarYUVLuminanceSource source = CameraManager.get().buildLuminanceSource(data, width, height);<br>为<br>    byte[] rotatedData = new byte[data.length];<br>    for (int y = 0; y &lt; height; y++) {<br>        for (int x = 0; x &lt; width; x++)<br>            rotatedData[x <em> height + height - y - 1] = data[x + y </em> width];<br>    }<br>    int tmp = width; // Here we are swapping, that’s the difference to #11<br>    width = height;<br>    height = tmp;</p>
-<pre><code>PlanarYUVLuminanceSource source = CameraManager.get().buildLuminanceSource(rotatedData, width, height);
-</code></pre><p>2.在CameraManager.java中，注释代码：<br>            // rect.left = rect.left <em> cameraResolution.x / screenResolution.x;<br>            // rect.right = rect.right </em> cameraResolution.x / screenResolution.x;<br>            // rect.top = rect.top <em> cameraResolution.y / screenResolution.y;<br>            // rect.bottom = rect.bottom </em> cameraResolution.y / screenResolution.y;<br>修改为<br>            rect.left = rect.left <em> cameraResolution.y / screenResolution.x;<br>            rect.right = rect.right </em> cameraResolution.y / screenResolution.x;<br>            rect.top = rect.top <em> cameraResolution.x / screenResolution.y;<br>            rect.bottom = rect.bottom </em> cameraResolution.x / screenResolution.y;</p>
-<p>3.在CameraConfigurationManager.java中，在setDesiredCameraParameters方法中添加一句<br>  camera.setDisplayOrientation(90);</p>
-<p>4.在AndroidManifest.xml中，把Activity的属性android:screenOrientation=”landscape”<br>改为<br>  android:screenOrientation=”portrait”</p>
-<p>编译运行即可！</p>
-<p>参考：</p>
-<p><a href="http://code.google.com/p/zxing/issues/detail?id=178#c46" target="_blank" rel="external">http://code.google.com/p/zxing/issues/detail?id=178#c46</a></p>
-<p>代码：<br><a href="https://github.com/pplante/zxing-android" target="_blank" rel="external">https://github.com/pplante/zxing-android</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2063,7 +2075,7 @@ ViewfinderView 自定义的View，就是我们看见的拍摄时中间的框框�
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">116</span>
+                  <span class="site-state-item-count">117</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

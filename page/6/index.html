@@ -261,6 +261,175 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://quanke.name/2012/11/28/zxing-e6-94-b9-e6-a8-aa-e5-b1-8f-e8-af-86-e5-88-ab-e4-b8-ba-e7-ab-96-e5-b1-8f-e8-af-86-e5-88-ab/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="全科">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/dog.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="全科-不安分的码农">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2012/11/28/zxing-e6-94-b9-e6-a8-aa-e5-b1-8f-e8-af-86-e5-88-ab-e4-b8-ba-e7-ab-96-e5-b1-8f-e8-af-86-e5-88-ab/" itemprop="url"> ZXing改横屏识别为竖屏识别</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2012-11-28T14:47:01+08:00">
+                2012-11-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/android开发/" itemprop="url" rel="index">
+                    <span itemprop="name">android开发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2012/11/28/zxing-e6-94-b9-e6-a8-aa-e5-b1-8f-e8-af-86-e5-88-ab-e4-b8-ba-e7-ab-96-e5-b1-8f-e8-af-86-e5-88-ab/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/11/28/zxing-e6-94-b9-e6-a8-aa-e5-b1-8f-e8-af-86-e5-88-ab-e4-b8-ba-e7-ab-96-e5-b1-8f-e8-af-86-e5-88-ab/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Apache License 2.0 开源的 ZXing项目</p>
+<p>ZXing的android项目东西太多了，有很多是我们不需要的，得新建另一个项目简化它。</p>
+<p>在开始前大致介绍一下简化ZXing需要用到各个包 、类的职责。 </p>
+<pre><code>CaptureActivity。这个是启动Activity 也就是扫描器（如果是第一安装，它还会跳转到帮助界面）。 
+CaptureActivityHandler 解码处理类，负责调用另外的线程进行解码。 
+DecodeThread 解码的线程。 
+com.google.zxing.client.android.camera 包，摄像头控制包。 
+ViewfinderView 自定义的View，就是我们看见的拍摄时中间的框框了。   
+</code></pre><p> 解决方法：</p>
+<p>1.在DecodeHandler.java中，修改decode方法<br>  PlanarYUVLuminanceSource source = CameraManager.get().buildLuminanceSource(data, width, height);<br>为<br>    byte[] rotatedData = new byte[data.length];<br>    for (int y = 0; y &lt; height; y++) {<br>        for (int x = 0; x &lt; width; x++)<br>            rotatedData[x <em> height + height - y - 1] = data[x + y </em> width];<br>    }<br>    int tmp = width; // Here we are swapping, that’s the difference to #11<br>    width = height;<br>    height = tmp;</p>
+<pre><code>PlanarYUVLuminanceSource source = CameraManager.get().buildLuminanceSource(rotatedData, width, height);
+</code></pre><p>2.在CameraManager.java中，注释代码：<br>            // rect.left = rect.left <em> cameraResolution.x / screenResolution.x;<br>            // rect.right = rect.right </em> cameraResolution.x / screenResolution.x;<br>            // rect.top = rect.top <em> cameraResolution.y / screenResolution.y;<br>            // rect.bottom = rect.bottom </em> cameraResolution.y / screenResolution.y;<br>修改为<br>            rect.left = rect.left <em> cameraResolution.y / screenResolution.x;<br>            rect.right = rect.right </em> cameraResolution.y / screenResolution.x;<br>            rect.top = rect.top <em> cameraResolution.x / screenResolution.y;<br>            rect.bottom = rect.bottom </em> cameraResolution.x / screenResolution.y;</p>
+<p>3.在CameraConfigurationManager.java中，在setDesiredCameraParameters方法中添加一句<br>  camera.setDisplayOrientation(90);</p>
+<p>4.在AndroidManifest.xml中，把Activity的属性android:screenOrientation=”landscape”<br>改为<br>  android:screenOrientation=”portrait”</p>
+<p>编译运行即可！</p>
+<p>参考：</p>
+<p><a href="http://code.google.com/p/zxing/issues/detail?id=178#c46" target="_blank" rel="external">http://code.google.com/p/zxing/issues/detail?id=178#c46</a></p>
+<p>代码：<br><a href="https://github.com/pplante/zxing-android" target="_blank" rel="external">https://github.com/pplante/zxing-android</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://quanke.name/2012/11/25/java-e4-bd-bf-e7-94-a8executors-e5-88-9b-e5-bb-ba-e5-92-8c-e7-ae-a1-e7-90-86-e7-ba-bf-e7-a8-8b/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1756,160 +1925,6 @@ public void run() {
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://quanke.name/2012/11/15/paas/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="全科">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/dog.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="全科-不安分的码农">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2012/11/15/paas/" itemprop="url">Paas</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2012-11-15T07:55:06+08:00">
-                2012-11-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/服务端开发/" itemprop="url" rel="index">
-                    <span itemprop="name">服务端开发</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2012/11/15/paas/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/11/15/paas/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>PaaS是Platform-as-a-Service的缩写，意思是平台即服务。<br>Paas - 概述</p>
-<p>　　计算机技术<br>　　PaaS（Platform-as-a-Service：平台即服务）<br> 　　全称:(Platform as a service)<br>　　中文: 平台即服务 PaaS的优势(1张)<br>　　所谓PaaS实际上是指将软件研发的平台（计世资讯定义为业务基础平台）作为一种服务，以SaaS的模式提交给用户。因此，PaaS也是SaaS模式的一种应用。但是，PaaS的出现可以加快SaaS的发展，尤其是加快SaaS应用的开发速度。在2007年国内外SaaS厂商先后推出自己的PAAS平台。<br> 　　PAAS之所以能够推进SaaS的发展，主要在于它能够提供企业进行定制化研发的中间件平台，同时涵盖数据库和应用服务器等。PAAS可以提高在Web平台上利用的资源数量。例如，可通过远程Web服务使用数据即服务（Data-as-a-Service：数据即服务），还可以使用可视化的API，甚至像800app的PAAS平台还允许你混合并匹配适合你应用的其他平台。用户或者厂商基于PaaS平台可以快速开发自己所需要的应用和产品。同时，PaaS平台开发的应用能更好地搭建基于SOA架构的企业应用。<br> 　　此外，PAAS对于SaaS运营商来说，可以帮助他进行产品多元化和产品定制化。例如 Salesforce的PAAS平台让更多的ISV成为其平台的客户，从而开发出基于他们平台的多种SaaS应用，使其成为多元化软件服务供货商（Multi Application Vendor），而不再只是一家CRM随选服务提供商。而国内的SaaS厂商800app通过PAAS平台，改变了仅是CRM供应商的市场定位，实现了 BTO(Built to order:按订单生产)，和在线交付流程。使用800app的PAAS开发平台，用户不再需要任何编程即可开发包括CRM、OA、HR、SCM、进销存管理等任何企业管理软件，而且不需要使用其他软件开发工具并立即在线运行。<br> 　　面向个人的EC站点(electronic commerce site)的巨头公司 Amazon，把最初为了自己公司的运营用的构筑起来的系统平台，进行出租，用户可以自由选择操作系统和中间软件，以这样的方式提供硬件以及软件平台作为服务，最初被海外以一些冒险事业的企业所使用。从2006年开始 [Amazon EC] [Amazon S3]开始作为服务推向市场。 　　还有现代软件业霸主同时又是次时代计算的先驱的Google,大家都知道在世界上构筑以及运行了非常多的数据中心。以搜索引擎以及新的广告模式而闻名。他们使用便宜的计算机和强有力的中间件，以及自己的技术装备出了世界上最强大的数据中心，以及超高性能的并行计算群。 2008年4月发表的PaaS服务[Google App Engine]和Amazon 的 EC2,S3,SimpleDB等服务拥有相似的功能。这些稳定的平台上同样搜索引擎，GMail等服务也在运行。同样以ASP~SaaS成功的Salesforce，2007年开始用于提供SaaS的系统基盘对外公开，用Force这个名称开始进入PaaS业务。他所提供的PaaS服务里采用Java类似的语言Apex以及Eclipse开发平台，整合的开发环境也作为服务进行提供(Development as a Service)。Google/Amazon/Salesforce这三个软件巨头非常的重视PaaS这种新的商业模式，Amazon的PaaS服务为了用户可以自由的组合服务提供了更多的自由度，Google的话提供了更多的服务使用户能够方便的使用，去掉了一些繁琐的作业。Google/Salesforce的PaaS不仅是基础硬件的提供开发环境的同样被提供属于真正的平台作为一种服务(PaaS)<br>Paas - APaaS和IPaaS<br>    简单的说，PaaS平台就是指云环境中的应用基础设施服务，也可以说是中间件即服务。PaaS平台在云架构中位于中间层，其上层是SaaS，其下层是IaaS。在传统On-Premise部署方式下，应用基础设施即中间件的种类非常多， 有应用服务器，数据库，ESBs, BPM, Portal, 消息中间件，远程对象调用中间件等等。对于PaaS平台，Gartner把它们分为两类，一类是应用部署和运行平台APaaS（application platform as a service)，另一类是集成平台IPaaS（integration as a service）。 人们经常说的PaaS平台基本上是指APaaS，如Force.com和Google App Engine。</p>
-<p>Paas - 公有云PaaS平台和企业级PaaS平台<br>    云计算起源于大型互联网企业。对于互联网企业，成本压力和指数级的业务增长压力使他们关注于物理资源的利用率和应用的可扩展性。在应用服务器这层，通过Cluster Session来实现水平扩展；在数据存储这层，采用基于BASE模型的NOSQL数据存储来实现扩展。目前互联网企业主导面向公众服务的公有云PaaS平台，如Google App Engine和Amazon Beanstalk。对于公有云PaaS平台，PaaS就是云环境下的应用部署平台。<br>（1）基于商业软件的部署方式：Application - Framework/Libs - Websphere/Weblogic + RMBMS<br>（2）基于开源软件的部署方式：Application - Frameworks/Libs - Tomcat/JBoss + RDBMS<br>（3）云环境下的部署方式：Application - Frameworks/Libs - PaaS(Goole App Engine, Amazon)<br>  这种情况下，PaaS实质上就是一个预先装好的Web Container和一组公共服务，如数据存储服务(不一定是关系型数据库)、消息队列、集中式session及cache等等。对于个人用户或者简单应用来说，公有云PaaS平台使得开发人员仅关注应用逻辑开发本身，不用把精力花费在基础实施和应用的扩展和维护上。<br>  所谓企业级PaaS平台，主要包含两类，一是大型企业内部的私有云PaaS平台，另一类是面向ISV厂商的PaaS平台。然而对于企业级PaaS平台，PaaS不仅仅是云环境下的应用部署平台。 抛开安全问题不讲，私有云PaaS平台和公有云PaaS有如下核心区别：<br>（1）复杂的多租户模型：对于公有云PaaS平台，其租户模型是 （用户-&gt; 应用 -&gt; 应用实例），一个用户可以部署多个应用，每个应用可以有多个运行时实例，应用实例共享资源池。对于一个大型企业，一个大部门可能是一个租户，大部门下面的子部门也是一个租户；或者一个SaaS应用系统的一个实例就是一个租户。对于租户的资源使用，大部门租户是共享资源池里面的资源，也可能某些关键租户需要独占一些资源以保证安全。<br>（2）已有应用的兼容：企业的历史应用都是基于关系型数据库的，某些PaaS平台不支持关系型数据存储，即使是简单的已有应用都无法迁移到PaaS平台上。<br>（3）复合应用的构建: 企业On-Premise应用在很长一段时间内都是要存在的，私有云PaaS平台要成为On-Premise和公有云之间的桥梁。私有云PaaS平台除了是应用部署平台外，还需要提供集成和方便构建复合应用的能力，就是Gartner所提的iPaaS能力。<br>    企业级PaaS平台不仅仅是应用部署平台，而且是复杂多租户环境和复杂应用环境下的共享基础设施平台，是On-Premise部署通往公有云部署的必经之路。<br>    CloudTao PaaS平台是国内第一个企业级PaaS平台，其构建原则是：<br>（1）开放、简单、一致、轻量的架构 - 构建平台的核心是标准，aPaaS的核心是应用运行时环境及数据存储服务，标准是Servlet和SQL，但PaaS平台需要的是 这两个标准的轻量级实现。<br>（2）细粒度的资源隔离 - 在多租户的实现方面，介于基于虚拟机的隔离与共享一切资源之间，在资源利用率、安全、可扩展性几个方面中取得平衡。<br>（3）真正的跨平台及分布式架构 - CloudTao只依赖于JVM，无单点故障，可实现水平线性扩展。<br>（4）对历史应用的兼容 - 已有应用无需改动或者极少改动即可迁移至PaaS平台，从而共享PaaS平台资源并可以容易的扩展。<br>    CloudTao PaaS平台的主要技术特性是：<br>（1）多层次的多租户实现 - 多层次的多租户能够满足不同的应用场景，能够满足各种不同的企业/ISV需求。<br>（2）支持不同类型的数据存储 - 支持关系型数据库及NOSQL数据存储。对于关系型数据库，能够实现轻量级多租户关系型数据库系统至传统关系型数据库的平滑迁移。<br>（3）开发SDK - 基于Maven的本地开发SDK，提供自定义插件方便开发人员部署和调试应用。<br>（4）统一监控及计量 - 监控应用的运行情况，JVM运行时信息，系统资源消耗，日志及HTTP请求处理统计等。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1964,7 +1979,7 @@ public void run() {
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">116</span>
+                  <span class="site-state-item-count">117</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

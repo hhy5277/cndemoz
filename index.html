@@ -261,6 +261,211 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://quanke.name/2017/11/13/Elasticsearch-Java-API-客户端连接，TransportClient，PreBuiltXPackTransportClient（一）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="全科">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/dog.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="全科-不安分的码农">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/11/13/Elasticsearch-Java-API-客户端连接，TransportClient，PreBuiltXPackTransportClient（一）/" itemprop="url">Elasticsearch Java API - 客户端连接(TransportClient，PreBuiltXPackTransportClient)（一）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-13T19:01:00+08:00">
+                2017-11-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
+                    <span itemprop="name">Elasticsearch</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/11/13/Elasticsearch-Java-API-客户端连接，TransportClient，PreBuiltXPackTransportClient（一）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/11/13/Elasticsearch-Java-API-客户端连接，TransportClient，PreBuiltXPackTransportClient（一）/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Elasticsearch-Java-API-客户端连接"><a href="#Elasticsearch-Java-API-客户端连接" class="headerlink" title="Elasticsearch Java API 客户端连接"></a>Elasticsearch Java API 客户端连接</h2><p>一个是<code>TransportClient</code>，一个是<code>NodeClient</code>，还有一个<code>XPackTransportClient</code></p>
+<ul>
+<li>TransportClient：</li>
+</ul>
+<p>作为一个外部访问者，请求ES的集群，对于集群而言，它是一个外部因素。</p>
+<ul>
+<li>NodeClient</li>
+</ul>
+<p>作为ES集群的一个节点，它是ES中的一环，其他的节点对它是感知的。</p>
+<ul>
+<li>XPackTransportClient：</li>
+</ul>
+<p>服务安装了 <code>x-pack</code> 插件</p>
+<blockquote>
+<p>重要：客户端版本应该和服务端版本保持一致</p>
+<p>TransportClient旨在被Java高级REST客户端取代，该客户端执行HTTP请求而不是序列化的Java请求。 在即将到来的Elasticsearch版本中将不赞成使用TransportClient，建议使用Java高级REST客户端。</p>
+<p>上面的警告比较尴尬，但是在 5xx版本中使用还是没有问题的，可能使用rest 客户端兼容性更好做一些。</p>
+</blockquote>
+<p><a href="https://www.gitbook.com/book/quanke/elasticsearch-java-rest" target="_blank" rel="external">Elasticsearch Java Rest API 手册</a></p>
+<h3 id="Maven-Repository"><a href="#Maven-Repository" class="headerlink" title="Maven Repository"></a>Maven Repository</h3><p>Elasticsearch Java API包已经上传到 <a href="http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22elasticsearch%22" target="_blank" rel="external">Maven Central</a></p>
+<p>在<code>pom.xml</code>文件中增加：</p>
+<blockquote>
+<p>transport 版本号最好就是与Elasticsearch版本号一致。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&lt;dependency&gt;</div><div class="line">    &lt;groupId&gt;org.elasticsearch.client&lt;/groupId&gt;</div><div class="line">    &lt;artifactId&gt;transport&lt;/artifactId&gt;</div><div class="line">    &lt;version&gt;5.6.3&lt;/version&gt;</div><div class="line">&lt;/dependency&gt;</div></pre></td></tr></table></figure>
+<h3 id="Transport-Client"><a href="#Transport-Client" class="headerlink" title="Transport Client"></a>Transport Client</h3><h4 id="不设置集群名称"><a href="#不设置集群名称" class="headerlink" title="不设置集群名称"></a>不设置集群名称</h4><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">// on startup</div><div class="line"></div><div class="line">//此步骤添加IP，至少一个，如果设置了&quot;client.transport.sniff&quot;= true 一个就够了，因为添加了自动嗅探配置</div><div class="line">TransportClient client = new PreBuiltTransportClient(Settings.EMPTY)</div><div class="line">        .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(&quot;host1&quot;), 9300))</div><div class="line">        .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(&quot;host2&quot;), 9300));</div><div class="line"></div><div class="line">// on shutdown  关闭client</div><div class="line"></div><div class="line">client.close();</div></pre></td></tr></table></figure>
+<h4 id="设置集群名称"><a href="#设置集群名称" class="headerlink" title="设置集群名称"></a>设置集群名称</h4><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">Settings settings = Settings.builder()</div><div class="line">        .put(&quot;cluster.name&quot;, &quot;myClusterName&quot;).build();  //设置ES实例的名称</div><div class="line">TransportClient client = new PreBuiltTransportClient(settings);  //自动嗅探整个集群的状态，把集群中其他ES节点的ip添加到本地的客户端列表中</div><div class="line">//Add transport addresses and do something with the client...</div></pre></td></tr></table></figure>
+<h4 id="增加自动嗅探配置"><a href="#增加自动嗅探配置" class="headerlink" title="增加自动嗅探配置"></a>增加自动嗅探配置</h4><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">Settings settings = Settings.builder()</div><div class="line">        .put(&quot;client.transport.sniff&quot;, true).build();</div><div class="line">TransportClient client = new PreBuiltTransportClient(settings);</div></pre></td></tr></table></figure>
+<h4 id="其他配置"><a href="#其他配置" class="headerlink" title="其他配置"></a>其他配置</h4><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">client.transport.ignore_cluster_name  //设置 true ，忽略连接节点集群名验证</div><div class="line">client.transport.ping_timeout       //ping一个节点的响应时间 默认5秒</div><div class="line">client.transport.nodes_sampler_interval //sample/ping 节点的时间间隔，默认是5s</div></pre></td></tr></table></figure>
+<blockquote>
+<p>对于ES Client，有两种形式，一个是TransportClient，一个是NodeClient。两个的区别为：<br>TransportClient作为一个外部访问者，通过HTTP去请求ES的集群，对于集群而言，它是一个外部因素。<br>NodeClient顾名思义，是作为ES集群的一个节点，它是ES中的一环，其他的节点对它是感知的，不像TransportClient那样，ES集群对它一无所知。NodeClient通信的性能会更好，但是因为是ES的一环，所以它出问题，也会给ES集群带来问题。NodeClient可以设置不作为数据节点，在elasticsearch.yml中设置，这样就不会在此节点上分配数据。</p>
+</blockquote>
+<p>如果用ES的节点，仁者见仁智者见智。</p>
+<h4 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h4><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">package name.quanke.es.study;</div><div class="line"></div><div class="line">import name.quanke.es.study.util.Utils;</div><div class="line">import org.elasticsearch.action.search.SearchResponse;</div><div class="line">import org.elasticsearch.client.transport.TransportClient;</div><div class="line">import org.elasticsearch.common.settings.Settings;</div><div class="line">import org.elasticsearch.common.transport.InetSocketTransportAddress;</div><div class="line">import org.elasticsearch.transport.client.PreBuiltTransportClient;</div><div class="line">import org.junit.After;</div><div class="line">import org.junit.Before;</div><div class="line"></div><div class="line">import java.net.InetAddress;</div><div class="line"></div><div class="line">/**</div><div class="line"> * Elasticsearch 5.5.1 的client 和 ElasticsearchTemplate的初始化</div><div class="line"> * 作为一个外部访问者，请求ES的集群，对于集群而言，它是一个外部因素。</div><div class="line"> * Created by http://quanke.name on 2017/11/10.</div><div class="line"> */</div><div class="line">public class ElasticsearchClient &#123;</div><div class="line"></div><div class="line">    protected TransportClient client;</div><div class="line"></div><div class="line">    @Before</div><div class="line">    public void setUp() throws Exception &#123;</div><div class="line"></div><div class="line">        Settings esSettings = Settings.builder()</div><div class="line">                .put(&quot;cluster.name&quot;, &quot;utan-es&quot;) //设置ES实例的名称</div><div class="line">                .put(&quot;client.transport.sniff&quot;, true) //自动嗅探整个集群的状态，把集群中其他ES节点的ip添加到本地的客户端列表中</div><div class="line">                .build();</div><div class="line"></div><div class="line">        /**</div><div class="line">         * 这里的连接方式指的是没有安装x-pack插件,如果安装了x-pack则参考&#123;@link ElasticsearchXPackClient&#125;</div><div class="line">         * 1. java客户端的方式是以tcp协议在9300端口上进行通信</div><div class="line">         * 2. http客户端的方式是以http协议在9200端口上进行通信</div><div class="line">         */</div><div class="line">        client = new PreBuiltTransportClient(esSettings)</div><div class="line">                .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(&quot;192.168.1.10&quot;), 9300));</div><div class="line"></div><div class="line">        System.out.println(&quot;ElasticsearchClient 连接成功&quot;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @After</div><div class="line">    public void tearDown() throws Exception &#123;</div><div class="line">        if (client != null) &#123;</div><div class="line">            client.close();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    protected void println(SearchResponse searchResponse) &#123;</div><div class="line">        Utils.println(searchResponse);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>本实例代码已经上传到 Git <a href="https://gitee.com/quanke/elasticsearch-java-study/blob/master/src/test/java/name/quanke/es/study/ElasticsearchClient.java）" target="_blank" rel="external">ElasticsearchClient.java</a></p>
+</blockquote>
+<p><a href="https://gitee.com/quanke/elasticsearch-java-study" target="_blank" rel="external">所有实例</a> 已经上传到Git</p>
+<h3 id="XPackTransportClient"><a href="#XPackTransportClient" class="headerlink" title="XPackTransportClient"></a>XPackTransportClient</h3><p>如果 <code>ElasticSearch</code> 服务安装了 <code>x-pack</code> 插件，需要<code>PreBuiltXPackTransportClient</code>实例才能访问</p>
+<p>使用Maven管理项目，把下面代码增加到<code>pom.xml</code>;</p>
+<blockquote>
+<p>一定要修改默认仓库地址为<a href="https://artifacts.elastic.co/maven" target="_blank" rel="external">https://artifacts.elastic.co/maven</a> ，因为这个库没有上传到Maven中央仓库,如果有自己的 maven ，请配置代理</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&lt;project ...&gt;</div><div class="line"></div><div class="line">   &lt;repositories&gt;</div><div class="line">      &lt;!-- add the elasticsearch repo --&gt;</div><div class="line">      &lt;repository&gt;</div><div class="line">         &lt;id&gt;elasticsearch-releases&lt;/id&gt;</div><div class="line">         &lt;url&gt;https://artifacts.elastic.co/maven&lt;/url&gt;</div><div class="line">         &lt;releases&gt;</div><div class="line">            &lt;enabled&gt;true&lt;/enabled&gt;</div><div class="line">         &lt;/releases&gt;</div><div class="line">         &lt;snapshots&gt;</div><div class="line">            &lt;enabled&gt;false&lt;/enabled&gt;</div><div class="line">         &lt;/snapshots&gt;</div><div class="line">      &lt;/repository&gt;</div><div class="line">      ...</div><div class="line">   &lt;/repositories&gt;</div><div class="line">   ...</div><div class="line"></div><div class="line">   &lt;dependencies&gt;</div><div class="line">      &lt;!-- add the x-pack jar as a dependency --&gt;</div><div class="line">      &lt;dependency&gt;</div><div class="line">         &lt;groupId&gt;org.elasticsearch.client&lt;/groupId&gt;</div><div class="line">         &lt;artifactId&gt;x-pack-transport&lt;/artifactId&gt;</div><div class="line">         &lt;version&gt;5.6.3&lt;/version&gt;</div><div class="line">      &lt;/dependency&gt;</div><div class="line">      ...</div><div class="line">   &lt;/dependencies&gt;</div><div class="line">   ...</div><div class="line"></div><div class="line"> &lt;/project&gt;</div></pre></td></tr></table></figure>
+<h4 id="实例-1"><a href="#实例-1" class="headerlink" title="实例"></a>实例</h4><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line"></div><div class="line">/**</div><div class="line"> * Elasticsearch XPack Client</div><div class="line"> * Created by http://quanke.name on 2017/11/10.</div><div class="line"> */</div><div class="line">public class ElasticsearchXPackClient &#123;</div><div class="line"></div><div class="line">    protected TransportClient client;</div><div class="line">    </div><div class="line">    @Before</div><div class="line">    public void setUp() throws Exception &#123;</div><div class="line">        /**</div><div class="line">         * 如果es集群安装了x-pack插件则以此种方式连接集群</div><div class="line">         * 1. java客户端的方式是以tcp协议在9300端口上进行通信</div><div class="line">         * 2. http客户端的方式是以http协议在9200端口上进行通信</div><div class="line">         */</div><div class="line">        Settings settings = Settings.builder()</div><div class="line">                .put(&quot;xpack.security.user&quot;, &quot;elastic:utan100&quot;)</div><div class="line">                .put(&quot;cluster.name&quot;, &quot;utan-es&quot;)</div><div class="line">                .build();</div><div class="line">        client = new PreBuiltXPackTransportClient(settings)</div><div class="line">                .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(&quot;192.168.1.10&quot;), 9300));</div><div class="line">//        final CredentialsProvider credentialsProvider = new BasicCredentialsProvider();</div><div class="line">//        credentialsProvider.setCredentials(AuthScope.ANY,</div><div class="line">//                new UsernamePasswordCredentials(&quot;elastic&quot;, &quot;utan100&quot;));</div><div class="line"></div><div class="line">        System.out.println(&quot;ElasticsearchXPackClient 启动成功&quot;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Test</div><div class="line">    public void testClientConnection() throws Exception &#123;</div><div class="line"></div><div class="line">        System.out.println(&quot;--------------------------&quot;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @After</div><div class="line">    public void tearDown() throws Exception &#123;</div><div class="line">        if (client != null) &#123;</div><div class="line">            client.close();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    protected void println(SearchResponse searchResponse) &#123;</div><div class="line">        Utils.println(searchResponse);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>本实例代码已经上传到 Git <a href="https://gitee.com/quanke/elasticsearch-java-study/blob/master/src/test/java/name/quanke/es/study/ElasticsearchXPackClient.java）" target="_blank" rel="external"> ElasticsearchXPackClient.java</a></p>
+</blockquote>
+<p><a href="https://gitee.com/quanke/elasticsearch-java-study" target="_blank" rel="external">所有实例</a> 已经上传到Git</p>
+<p>更多请浏览 <a href="https://github.com/quanke/spring-boot-starter-es" target="_blank" rel="external">spring-boot-starter-es</a> 开源项目</p>
+<blockquote>
+<p>如何有任何问题请关注微信公众号给我留言</p>
+</blockquote>
+<p><img src="https://static.oschina.net/uploads/img/201711/08183543_ysUa.jpg" alt="全科的公众号"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://quanke.name/2017/11/08/Elasticsearch-5-6-Java-API-中文手册/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1877,210 +2082,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://quanke.name/2016/07/22/Android-Studio-Service-AIDL-详解/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="全科">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/dog.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="全科-不安分的码农">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/07/22/Android-Studio-Service-AIDL-详解/" itemprop="url">Android Studio Service AIDL 详解</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-07-22T23:35:30+08:00">
-                2016-07-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/android开发/" itemprop="url" rel="index">
-                    <span itemprop="name">android开发</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2016/07/22/Android-Studio-Service-AIDL-详解/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/22/Android-Studio-Service-AIDL-详解/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li>欢迎关注<a href="http://quanke.name/">http://quanke.name/</a></li>
-<li>转载请注明出处，谢谢</li>
-</ul>
-<p>公司产品之前IM这块存在很多问题，消息到达率低，加上协议上有些问题，丢消息频繁，所以需要重构IM，AIDL不能解决以上问题。好吧！那AIDL可以解决什么问题？什么是AIDL？</p>
-<h3 id="什么是AIDL？"><a href="#什么是AIDL？" class="headerlink" title="什么是AIDL？"></a>什么是AIDL？</h3><p><code>AIDL</code>是 <code>Android Interface definition language</code>的缩写，它是一种<code>Android</code>内部进程通信接口的描述语言，通过它我们可以定义进程间的通信接口</p>
-<h3 id="AIDL可以解决什么问题？"><a href="#AIDL可以解决什么问题？" class="headerlink" title="AIDL可以解决什么问题？"></a>AIDL可以解决什么问题？</h3><ul>
-<li>可以实现多个应用程序共享同一个Service的功能，比如：IM服务可以提供给多个APP使用，先在推送基本都是采取这种方案</li>
-<li>可以跨进程调用服务里的方法</li>
-</ul>
-<h3 id="Android-Studio-AIDL-实战"><a href="#Android-Studio-AIDL-实战" class="headerlink" title="Android Studio AIDL 实战"></a>Android Studio AIDL 实战</h3><p>大部分文章介绍都是在eclipse下介绍的，现在 Android Studio 作为开发工具比较普及了，所以我在Android Studio 下介绍（其实区别不大）。</p>
-<p>言归正传，我们需要使用Android Studio实现一个远程Service，并且建立AIDL进行通信。</p>
-<h4 id="搭建了简单的Service框架"><a href="#搭建了简单的Service框架" class="headerlink" title="搭建了简单的Service框架"></a>搭建了简单的Service框架</h4><p>1.继承Service</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">package name.quanke.aidldemo;</div><div class="line"></div><div class="line">import android.app.Service;</div><div class="line">import android.content.Intent;</div><div class="line">import android.os.IBinder;</div><div class="line"></div><div class="line"></div><div class="line">/**</div><div class="line"> *</div><div class="line"> * Created by http://quanke.name on 16/7/23.</div><div class="line"> */</div><div class="line">public class PushService extends Service &#123;</div><div class="line">    public PushService() &#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public IBinder onBind(Intent intent) &#123;</div><div class="line">        return new LibHandler();</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    @Override</div><div class="line">    public boolean onUnbind(Intent intent) &#123;</div><div class="line">        return super.onUnbind(intent);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>2.在AndroidManifest.xml里注册 </p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;manifest xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</div><div class="line">          package=&quot;name.quanke.aidldemo&quot;&gt;</div><div class="line"></div><div class="line">    &lt;application</div><div class="line">            android:allowBackup=&quot;true&quot;</div><div class="line">            android:icon=&quot;@mipmap/ic_launcher&quot;</div><div class="line">            android:label=&quot;@string/app_name&quot;</div><div class="line">            android:name=&quot;.App&quot;</div><div class="line">            android:supportsRtl=&quot;true&quot;</div><div class="line">            android:theme=&quot;@style/AppTheme&quot;&gt;</div><div class="line">        &lt;activity android:name=&quot;.MainActivity&quot;&gt;</div><div class="line">            &lt;intent-filter&gt;</div><div class="line">                &lt;action android:name=&quot;android.intent.action.MAIN&quot;/&gt;</div><div class="line"></div><div class="line">                &lt;category android:name=&quot;android.intent.category.LAUNCHER&quot;/&gt;</div><div class="line">            &lt;/intent-filter&gt;</div><div class="line">        &lt;/activity&gt;</div><div class="line"></div><div class="line">        &lt;service</div><div class="line">                android:name=&quot;.PushService&quot;</div><div class="line">                android:enabled=&quot;true&quot;</div><div class="line">                android:process=&quot;:push&quot;</div><div class="line">                android:exported=&quot;true&quot;&gt;</div><div class="line">        &lt;/service&gt;</div><div class="line">    &lt;/application&gt;</div><div class="line"></div><div class="line">&lt;/manifest&gt;</div></pre></td></tr></table></figure>
-<h4 id="建立AIDL"><a href="#建立AIDL" class="headerlink" title="建立AIDL"></a>建立AIDL</h4><h5 id="1-创建AIDL文件夹"><a href="#1-创建AIDL文件夹" class="headerlink" title="1.创建AIDL文件夹"></a>1.创建AIDL文件夹</h5><img src="/2016/07/22/Android-Studio-Service-AIDL-详解/1.png" title="1.创建AIDL文件夹">
-<h5 id="2-创建AIDL文件"><a href="#2-创建AIDL文件" class="headerlink" title="2.创建AIDL文件"></a>2.创建AIDL文件</h5><img src="/2016/07/22/Android-Studio-Service-AIDL-详解/2.png" title="2.创建AIDL文件">
-<h5 id="3-编写AIDL文件"><a href="#3-编写AIDL文件" class="headerlink" title="3.编写AIDL文件"></a>3.编写AIDL文件</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">// IHandler.aidl</div><div class="line">package name.quanke.aidldemo;</div><div class="line"></div><div class="line">// Declare any non-default types here with import statements</div><div class="line"></div><div class="line">interface IHandler &#123;</div><div class="line">    void connect();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h5 id="4-AIDL文件-生成接口"><a href="#4-AIDL文件-生成接口" class="headerlink" title="4.AIDL文件 生成接口"></a>4.AIDL文件 生成接口</h5><img src="/2016/07/22/Android-Studio-Service-AIDL-详解/4.png" title="4.AIDL文件 生成接口">
-<p>生成后的样子</p>
-<img src="/2016/07/22/Android-Studio-Service-AIDL-详解/3.png" title="4.AIDL文件 生成后的样子">
-<h5 id="5-编写客户端-ServiceConnection"><a href="#5-编写客户端-ServiceConnection" class="headerlink" title="5.编写客户端 ServiceConnection"></a>5.编写客户端 ServiceConnection</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">package name.quanke.aidldemo;</div><div class="line"></div><div class="line">import android.app.Application;</div><div class="line">import android.content.ComponentName;</div><div class="line">import android.content.Context;</div><div class="line">import android.content.Intent;</div><div class="line">import android.content.ServiceConnection;</div><div class="line">import android.os.IBinder;</div><div class="line">import android.os.RemoteException;</div><div class="line">import android.util.Log;</div><div class="line"></div><div class="line">/**</div><div class="line"> * Created by quanke on 16/7/23.</div><div class="line"> */</div><div class="line">public class PushManager &#123;</div><div class="line"></div><div class="line">    private static final String TAG = &quot;PushManager.class&quot;;</div><div class="line">    private IHandler iHandler;</div><div class="line"></div><div class="line">    private static PushManager ourInstance = new PushManager();</div><div class="line"></div><div class="line">    public static PushManager getInstance() &#123;</div><div class="line">        return ourInstance;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    private PushManager() &#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void init(Application app)&#123;</div><div class="line"></div><div class="line">        Intent binderIntent = new Intent(app,PushService.class);</div><div class="line">        app.bindService(binderIntent, serviceConnection, Context.BIND_AUTO_CREATE);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void connect()&#123;</div><div class="line">        try &#123;</div><div class="line">            //通过AIDL远程调用</div><div class="line">            Log.d(TAG,&quot;++start Remote++&quot;);</div><div class="line">            iHandler.connect();</div><div class="line">        &#125; catch (RemoteException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    private ServiceConnection serviceConnection = new ServiceConnection() &#123;</div><div class="line">        @Override</div><div class="line">        public void onServiceConnected(ComponentName name, IBinder service) &#123;</div><div class="line">            iHandler = IHandler.Stub.asInterface(service);</div><div class="line">            //连接成功调动</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        @Override</div><div class="line">        public void onServiceDisconnected(ComponentName name) &#123;</div><div class="line">            //断开连接调用</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h5 id="6-编写服务端实现connect方法"><a href="#6-编写服务端实现connect方法" class="headerlink" title="6.编写服务端实现connect方法"></a>6.编写服务端实现connect方法</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">package name.quanke.aidldemo;</div><div class="line"></div><div class="line">import android.os.IBinder;</div><div class="line">import android.os.RemoteException;</div><div class="line">import android.util.Log;</div><div class="line"></div><div class="line">/**</div><div class="line"> *</div><div class="line"> * Created by quanke on 16/7/23.</div><div class="line"> */</div><div class="line">public class LibHandler extends IHandler.Stub&#123;</div><div class="line"></div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void connect() throws RemoteException &#123;</div><div class="line">        Log.d(&quot;&quot;,&quot;connect()&quot;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public IBinder asBinder() &#123;</div><div class="line">        return null;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>以上实现了简单的连接，接下来我们实现传递自定义类型</p>
-<h4 id="传递自定义的类型"><a href="#传递自定义的类型" class="headerlink" title="传递自定义的类型"></a>传递自定义的类型</h4><p>AIDL默认支持的类型包括Java基本类型（int、long、boolean等），和（String、List、Map、CharSequence），如果要传递自定义的类型需要实现android.os.Parcelable接口。自己写了一个实体类public class Message implements Parcelable。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">package name.quanke.aidldemo.model;</div><div class="line"></div><div class="line">import android.os.Parcel;</div><div class="line">import android.os.Parcelable;</div><div class="line"></div><div class="line">/**</div><div class="line"> * </div><div class="line"> * Created by quanke on 16/7/23.</div><div class="line"> */</div><div class="line">public class Message implements Parcelable &#123;</div><div class="line">    private long id;</div><div class="line">    private String content;</div><div class="line"></div><div class="line"></div><div class="line">    public long getId() &#123;</div><div class="line">        return id;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void setId(long id) &#123;</div><div class="line">        this.id = id;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public String getContent() &#123;</div><div class="line">        return content;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void setContent(String content) &#123;</div><div class="line">        this.content = content;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public String toString() &#123;</div><div class="line">        return &quot;Message&#123;&quot; +</div><div class="line">                &quot;id=&quot; + id +</div><div class="line">                &quot;, content=&apos;&quot; + content + &apos;\&apos;&apos; +</div><div class="line">                &apos;&#125;&apos;;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public int describeContents() &#123;</div><div class="line">        return 0;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void writeToParcel(Parcel dest, int flags) &#123;</div><div class="line">        dest.writeLong(this.id);</div><div class="line">        dest.writeString(this.content);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public Message() &#123;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    protected Message(Parcel in) &#123;</div><div class="line">        this.id = in.readLong();</div><div class="line">        this.content = in.readString();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public static final Creator&lt;Message&gt; CREATOR = new Creator&lt;Message&gt;() &#123;</div><div class="line">        @Override</div><div class="line">        public Message createFromParcel(Parcel source) &#123;</div><div class="line">            return new Message(source);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        @Override</div><div class="line">        public Message[] newArray(int size) &#123;</div><div class="line">            return new Message[size];</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>修改IHandler</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">// IHandler.aidl</div><div class="line">package name.quanke.aidldemo;</div><div class="line"></div><div class="line">// Declare any non-default types here with import statements</div><div class="line"></div><div class="line">import name.quanke.aidldemo.model.Message;</div><div class="line"></div><div class="line">interface IHandler &#123;</div><div class="line">    void connect();</div><div class="line"></div><div class="line">    void sendMessage(Message message);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>编译项目，报错</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">/Users/quanke/Dev/android/src/AIDLDemo/app/src/main/aidl/name/quanke/aidldemo/IHandler.aidl</div><div class="line">Error:(6) couldn&apos;t find import for class name.quanke.aidldemo.model.Message</div><div class="line">Error:Execution failed for task &apos;:app:compileDebugAidl&apos;.</div><div class="line">&gt; java.lang.RuntimeException: com.android.ide.common.process.ProcessException: org.gradle.process.internal.ExecException: Process &apos;command &apos;/Users/quanke/Dev/android/tools/android-sdks/build-tools/23.0.3/aidl&apos;&apos; finished with non-zero exit value 1</div><div class="line">Information:BUILD FAILED</div></pre></td></tr></table></figure>
-<p>因为自定义类型不仅要定义实现android.os.Parcelable接口的类，还得为该实现类定义一个aidl文件，如下：</p>
-<img src="/2016/07/22/Android-Studio-Service-AIDL-详解/5.png" title="自定义类aidl文件">
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">// IHandler.aidl</div><div class="line">package name.quanke.aidldemo.model;</div><div class="line"></div><div class="line">// Declare any non-default types here with import statements</div><div class="line"></div><div class="line">import name.quanke.aidldemo.model.Message;</div><div class="line"></div><div class="line">parcelable Message ;</div></pre></td></tr></table></figure>
-<blockquote>
-<p><code>切记</code> 自定类型aidl文件名字、路径需要和自定义类名字、路径保持一致，</p>
-</blockquote>
-<p>编译项目，还是报错</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">parameter 1: &apos;Message message&apos; can be an out parameter, so you must declare it as in, out or inout.</div></pre></td></tr></table></figure>
-<p><code>AIDL</code>不是 Java。它是真的很接近，但它不是 Java。</p>
-<p>Java 参数没有方向的概念，AIDL 参数有方向，参数可以从客户端传到服务端，再返回来。</p>
-<p>如果<code>sendMessage</code>方法的<code>message</code>参数是纯粹的输入参数–这意味着是从客户端到服务器的数据，你需要在AIDL声明：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">void sendMessage(in Message message);</div></pre></td></tr></table></figure>
-<p>如果<code>sendMessage</code>方法的<code>message</code>参数是纯粹的输出-这意味着它的数据是通过从服务器到客户端，使用：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">void sendMessage(out Message message);</div></pre></td></tr></table></figure>
-<p>如果<code>sendMessage</code>方法的<code>message</code>参数是输入也是输出-客户端的值在服务可能会修改，使用：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">void sendMessage(inout Message message);</div></pre></td></tr></table></figure>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>Android Studio Service AIDL 详解 就到这里，现在应该可以使用AIDL实现想要的功能了，实现简答的AIDL很简单，主要是在自定义类型的时候，有几个坑注意就好。</p>
-<p><code>源码地址：</code> <a href="https://github.com/quanke/AIDLDemo.git" target="_blank" rel="external">https://github.com/quanke/AIDLDemo.git</a> </p>
-<blockquote>
-<p>有什么问题欢迎留言。</p>
-<p>如果喜欢请关注我，赞我，来抚平我虚荣的心</p>
-</blockquote>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2135,7 +2136,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">116</span>
+                  <span class="site-state-item-count">117</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
