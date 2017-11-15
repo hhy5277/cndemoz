@@ -261,6 +261,162 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://quanke.name/2012/10/01/windows-e4-b8-8bgit-e7-9a-84-e5-ae-89-e8-a3-85-e5-92-8c-e9-85-8d-e7-bd-ae/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="全科">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/dog.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="全科-不安分的码农">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2012/10/01/windows-e4-b8-8bgit-e7-9a-84-e5-ae-89-e8-a3-85-e5-92-8c-e9-85-8d-e7-bd-ae/" itemprop="url">Windows下Git的安装和配置</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2012-10-01T03:08:38+08:00">
+                2012-10-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/git/" itemprop="url" rel="index">
+                    <span itemprop="name">git</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2012/10/01/windows-e4-b8-8bgit-e7-9a-84-e5-ae-89-e8-a3-85-e5-92-8c-e9-85-8d-e7-bd-ae/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/10/01/windows-e4-b8-8bgit-e7-9a-84-e5-ae-89-e8-a3-85-e5-92-8c-e9-85-8d-e7-bd-ae/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Git是Linux的创始人Linus-Torvalds在2006年开发的，Linus自嘲说是一个“傻瓜内容跟踪器”。"><a href="#Git是Linux的创始人Linus-Torvalds在2006年开发的，Linus自嘲说是一个“傻瓜内容跟踪器”。" class="headerlink" title="Git是Linux的创始人Linus Torvalds在2006年开发的，Linus自嘲说是一个“傻瓜内容跟踪器”。"></a>Git是Linux的创始人Linus Torvalds在2006年开发的，Linus自嘲说是一个“傻瓜内容跟踪器”。</h1><p>在Windows下使用Git，可以使用 Cygwin + Git，也可以使用 Msys + Git。 Cygwin太庞大了，我更倾向于使用小巧的Msys。 使用Msys + Git的话，也有两个选择：msys-cn + git，或者 msysgit。</p>
+<div id="msys-cn-git"><br><br># 安装msys-cn + git<br><br>Msys-cn是Msys的中文化项目，托管在Google Code上，里面提供了一个软件包管理器mpkg，同时提供了一系列实用工具，其中就包括git。 msys-cn的主页：<a href="http://code.google.com/p/msys-cn" target="_blank" rel="external">http://code.google.com/p/msys-cn</a> 下载msys-cn： <a href="http://msys-cn.googlecode.com/files/MSYS-Update.7z" target="_blank" rel="external">http://msys-cn.googlecode.com/files/MSYS-Update.7z</a> 下载完毕解压缩，运行msys.bat进入命令行界面。运行下面的命令来在线安装git：<br><pre>$ mpkg –install git</pre><br>如果网速太慢，可以下载git.mpkg文件后再安装。下载地址：<a href="http://msys-cn.googlecode.com/files/git.mpkg" target="_blank" rel="external">http://msys-cn.googlecode.com/files/git.mpkg</a><br><pre>$ mpkg –add git</pre><br>如果一切顺利，现在就可以运行git命令了。<br><br></div><br><div id="msysgit"><br><br># 安装msysgit<br><br>msysgit是直接将git整合到msys里的一个项目，也是托管在Google Code上： <a href="http://code.google.com/p/msysgit" target="_blank" rel="external">http://code.google.com/p/msysgit</a> 下载最新版本的安装程序，安装即可。注意安装时最好选择默认的设置，这样保证不和系统的cmd命令冲突。 安装完毕在开始菜单里会有Git菜单，里面有Git Bash和Git GUI。点击Git Bash进入msysgit命令行环境。 msysgit中文输入输出可能会出现以下几方面的问题：<br><br><em>   ls输出乱码在用户主目录下新建一个bash配置文件.bashrc来保存配置信息：<br><pre>$ echo “alias ls=’ls –show-control-chars –color=auto’” &gt;&gt; ~/.bashrc</pre>
+
+</em>   命令行中不能输入中文：修改 /etc/inputrc：<br><pre>set output-meta on<br>set convert-meta off</pre><br><br><em>   git st输出中文显示为UNICODE编码：<br><pre>$ git config –system core.quotepath false</pre>
+
+</em>   git log 输出显示为乱码：在~/.bashrc中增加less命令的编码设置：<br><pre>$ echo export LESSCHARSET=utf-8 &gt;&gt; ~/.bashrc</pre><br>以上的根目录指msysgit的安装目录，默认安装目录是C:Program FilesGit。默认用户主目录是我的文档。 msysgit默认集成open ssh客户端。要访问github上的项目，需要使用ssh-keygen来生成本地公私钥对，添加公钥到github上，就可以在本地提交了。 msysgit还带一个简单的图形界面，可以用来方便地浏览项目的历史，但用它来做日常的提交就不太合适了。你可能想到了TortoiseSVN，类似这样的图形界面才好用。幸好Tortoise也有Git版本：TortoiseGit。<br><br></div><br><div id="tortoisegit"><br><br># 安装TortoiseGit<br><br>TortoiseGit 也是托管在Google Code上的开源项目：<a href="http://code.google.com/p/tortoisegit" target="_blank" rel="external">http://code.google.com/p/tortoisegit</a> TortoiseGit只是Git的前端，要使用它，首先要安装msysgit。这个前面已提到了。 下载最新版的TortoiseGit安装： <a href="http://tortoisegit.googlecode.com/files/TortoiseGit-1.6.2.0-32bit.msi" target="_blank" rel="external">http://tortoisegit.googlecode.com/files/TortoiseGit-1.6.2.0-32bit.msi</a> 安装完毕以后需要设置TortoiseGit和MsysGit关联。在开始菜单里找到TortoiseGit-&gt;Settings，General选项里输入Git的路径即可。 和msysgit不同，TortoiseGit使用内置的puttygen来生成公私钥对，私钥的扩展名为ppk。要想用TortoiseGit管理GitHub上的项目，则需要将puttygen生成的公钥添加到github上去。 tortoisegit密钥配置参见 <a href="http://rongjih.blog.163.com/blog/static/335744612010619111042465/" target="_blank" rel="external">http://rongjih.blog.163.com/blog/static/335744612010619111042465/</a><br><div id="_mcePaste">不过可以修改使用msysgit的ssh，在设置-&gt;Network里，修改SSH Client 为msysgit的ssh.exe路径： c:\ Program Files\Git\bin\ssh.exe即可。</div><br></div>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://quanke.name/2012/09/26/e5-a6-82-e4-bd-95-e6-88-90-e4-b8-ba-e4-bc-98-e7-a7-80-e7-9a-84-e8-bd-af-e4-bb-b6-e6-a8-a1-e5-9e-8b-e8-ae-be-e8-ae-a1-e8-80-85/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1484,7 +1640,7 @@ export PATH=${JAVA_HOME}/bin:$PATH:<span style="color: #ff0000;">${ANDROID_HOME}
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">117</span>
+                  <span class="site-state-item-count">118</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

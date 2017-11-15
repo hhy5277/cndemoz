@@ -261,6 +261,195 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://quanke.name/2016/01/15/Vert-x-应用的配置/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="全科">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/dog.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="全科-不安分的码农">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/01/15/Vert-x-应用的配置/" itemprop="url">Vert.x 应用的配置</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-01-15T07:40:12+08:00">
+                2016-01-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Vert-x3-系列/" itemprop="url" rel="index">
+                    <span itemprop="name">Vert.x3 系列</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/01/15/Vert-x-应用的配置/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/15/Vert-x-应用的配置/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li>欢迎关注<a href="http://quanke.name/">http://quanke.name/</a></li>
+<li>交流群：<code>231419585</code></li>
+<li>转载请注明出处，谢谢</li>
+</ul>
+<p>在上篇文章中，开发了一个简单的Vert.x应用，介绍了怎么测试，打包和执行，这仅仅是一个开始，在这篇文章中，我们通过配置来提高应用。</p>
+<p>还记得，在上一个应用中有HTTP server，监听<code>8080</code>端口，应答一个“Hello”的消息，上篇文章的代码在<a href="https://github.com/quanke/vertx3_study_demo/tree/master/my-vertx-first-app" target="_blank" rel="external">这里</a>，本篇文章的代码在<a href="https://github.com/quanke/vertx3_study_demo/tree/master/my-vertx-first-app-config" target="_blank" rel="external">github</a></p>
+<h3 id="为什么需要配置？"><a href="#为什么需要配置？" class="headerlink" title="为什么需要配置？"></a>为什么需要配置？</h3><p>这个问题非常好。这个应用是正常工作的，但是如果当你部署在8080端口已经被占领了的机器上，如果要部署在这个机器上，我们就需要到代码里修改应用程序和测试里的端口了，这不能忍受，很幸运的是Vert.x配置一下就可以了。</p>
+<p>Vert.x使用的是JSON格式配置的，所以很简单，可以使用API传给verticle或者命令行，我们来看一看。</p>
+<h3 id="不使用-‘8080’-端口"><a href="#不使用-‘8080’-端口" class="headerlink" title="不使用 ‘8080’ 端口"></a>不使用 ‘8080’ 端口</h3><p>第一步是修改<code>name/quanke/study/vertx/first/MyFirstVerticle.java</code>类，从配置里读取端口，而不<code>8080</code>绑定，默认是<code>8080</code>端口：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">public void start(Future&lt;Void&gt; fut) &#123;</div><div class="line">  vertx</div><div class="line">      .createHttpServer()</div><div class="line">      .requestHandler(r -&gt; &#123;</div><div class="line">        r.response().end(&quot;Hello from my first &quot; +</div><div class="line">            &quot;Vert.x 3 application&quot;);</div><div class="line">      &#125;)</div><div class="line">      .listen(</div><div class="line">          // Retrieve the port from the configuration,</div><div class="line">          //从配置里检索端口</div><div class="line">          // default to 8080.</div><div class="line">          //默认8080</div><div class="line">          config().getInteger(&quot;http.port&quot;, 8080),</div><div class="line">          result -&gt; &#123;</div><div class="line">            if (result.succeeded()) &#123;</div><div class="line">              fut.complete();</div><div class="line">            &#125; else &#123;</div><div class="line">              fut.fail(result.cause());</div><div class="line">            &#125;</div><div class="line">          &#125;</div><div class="line">      );</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>与上一版本的区别仅仅是<code>listen</code>里面的第一个参数<code>8080</code>换成<code>config().getInteger(&quot;http.port&quot;, 8080)</code>。这里，我们的代码会请求这个配置并检查<code>http.port</code>属性是否配置了。如果没有，将会默认使用<code>8080</code>端口。配置信息是从<code>JsonObject</code>中返回的。</p>
+<p>默认还是使用<code>8080</code>，所以打包运行和以前一样：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">mvn clean package</div><div class="line">java -jar target/my-first-app-1.0-SNAPSHOT-fat.jar</div></pre></td></tr></table></figure>
+<h3 id="使用API的方式配置-在测试中随机生成端口号"><a href="#使用API的方式配置-在测试中随机生成端口号" class="headerlink" title="使用API的方式配置 - 在测试中随机生成端口号"></a>使用API的方式配置 - 在测试中随机生成端口号</h3><p>在测试代码中，我们把端口修改成<code>8081</code>，部署（deploying）<code>verticle</code>的代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">vertx.deployVerticle(MyFirstVerticle.class.getName(), context.asyncAssertSuccess());</div></pre></td></tr></table></figure>
+<p>传入部署（deploying）选项：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">port = 8081;</div><div class="line">DeploymentOptions options = new DeploymentOptions()</div><div class="line">    .setConfig(new JsonObject().put(&quot;http.port&quot;, port)</div><div class="line">);</div><div class="line">vertx.deployVerticle(MyFirstVerticle.class.getName(), options, context.asyncAssertSuccess());</div></pre></td></tr></table></figure>
+<p><em>post在全局变量里面声明的<code>private Integer port;</code></em></p>
+<p><code>DeploymentOptions</code>对象可以定义多个参数。将JsonObject注入到verticle的config()方法中。</p>
+<p>连接服务器的代码需要修改一下，端口要和测试里面的一样才行。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">vertx.createHttpClient().getNow(port, &quot;localhost&quot;, &quot;/&quot;, response -&gt; &#123;</div><div class="line">  response.handler(body -&gt; &#123;</div><div class="line">    context.assertTrue(body.toString().contains(&quot;Hello&quot;));</div><div class="line">    async.complete();</div><div class="line">  &#125;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>这个并没有完全解决问题，如果8081端口也被占用了怎么办？我们使用随机端口：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">ServerSocket socket = new ServerSocket(0);</div><div class="line">port = socket.getLocalPort();</div><div class="line">socket.close();</div><div class="line"></div><div class="line">DeploymentOptions options = new DeploymentOptions()</div><div class="line">    .setConfig(new JsonObject().put(&quot;http.port&quot;, port)</div><div class="line">    );</div><div class="line"></div><div class="line">vertx.deployVerticle(MyFirstVerticle.class.getName(), options, context.asyncAssertSuccess());</div></pre></td></tr></table></figure>
+<p>这种方式是很简单。打开<code>server socket</code>获取一个随机的端口（这也是为什么将0作为参数）。检索如果端口被占用就关闭socket。需要注意的是，这个方法并不完美，如果端口在socket.close()方法之后和HTTP服务器启动之前被占用的话，会失败。然而，这种情况如果被朋友的话，说明你非常幸运，所以大多数情况下都是没有问题的。</p>
+<p>测试一下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">mvn clean test</div></pre></td></tr></table></figure>
+<h3 id="外部配置-在另一个端口运行"><a href="#外部配置-在另一个端口运行" class="headerlink" title="外部配置-在另一个端口运行"></a>外部配置-在另一个端口运行</h3><p>在生产环境中，随机端口并不是我们想要的。所以，在实际执行应用的时候，我们需要将配置写在一个外部的文件里。这个配置的文件使用json格式。</p>
+<p>创建<code>src/main/conf/my-application-conf.json</code>，内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&#123;</div><div class="line">  &quot;http.port&quot; : 8082</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>通过执行下面这句命令，在启动应用的时候，加载配置文件:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">java -jar target/my-first-app-1.0-SNAPSHOT-fat.jar -conf src/main/conf/my-application-conf.json</div></pre></td></tr></table></figure>
+<p>打开浏览器，然后访问 <code>http://localhost:8082</code> 。</p>
+<p><em>编辑JSON文件，重新打包运行，端口就修改了，不需要修改源码。</em></p>
+<p>这是怎么工作的？<code>fat jar</code>是使用<code>Starter</code>类来加载应用程序。当部署<code>verticle</code>的时候，这个类会读取<code>-conf</code>参数，相应的会创建一个<code>DeploymentOptions</code>对象。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>在第一个应用的基础上，只增加了非常简单的代码就完成了Vertx的配置工作。下篇文章我们一起来看看通过<code>vertx-web</code>开发一个提供静态页面和<code>REST API</code>的小应用，这个更加厉害，但是也是非常简单。</p>
+<p><em>Happy coding &amp; Stay tuned !</em></p>
+<p>本人英语比较烂，建议看<a href="http://vertx.io/blog/vert-x-application-configuration/" target="_blank" rel="external">原文</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://quanke.name/2016/01/12/我的第一个Vert-x-3-应用/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1995,159 +2184,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://quanke.name/2014/11/03/android/android-textview-word-too-long/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="全科">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/dog.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="全科-不安分的码农">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2014/11/03/android/android-textview-word-too-long/" itemprop="url">android中textview字数过长解决方法</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-11-03T01:28:56+08:00">
-                2014-11-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/android开发/" itemprop="url" rel="index">
-                    <span itemprop="name">android开发</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2014/11/03/android/android-textview-word-too-long/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/11/03/android/android-textview-word-too-long/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>为了解决textview中内容过长的话自动换行，但是调用measureText函数时发现返回值很不准确，单位也不确定，是pixel还是dip，都不准。后来想起textview中有个内容过长加省略号的属性，即ellipsize，可以解决这个问题，用法如下：<br>在xml中<br>[code lang=”xml”]<br>android:ellipsize = &quot;end&quot;　　  省略号在结尾<br>android:ellipsize = &quot;start&quot; 　　省略号在开头<br>android:ellipsize = &quot;middle&quot;     省略号在中间<br>android:ellipsize = &quot;marquee&quot;  跑马灯<br>[/code]<br>最好加一个约束android:singleline = “true”</p>
-<p>当然也可以用代码语句<br>[code lang=”java”]<br>tv.setEllipsize(TextUtils.TruncateAt.valueOf(&quot;END&quot;));<br>tv.setEllipsize(TextUtils.TruncateAt.valueOf(&quot;START&quot;));<br>tv.setEllipsize(TextUtils.TruncateAt.valueOf(&quot;MIDDLE&quot;));<br>tv.setEllipsize(TextUtils.TruncateAt.valueOf(&quot;MARQUEE&quot;));<br>[/code]<br>最好再加一个约束tv.setSingleLine(true);<br>不仅对于textview有此属性，对于editext也有，不过它不支持marquee</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2202,7 +2238,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">117</span>
+                  <span class="site-state-item-count">118</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

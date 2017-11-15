@@ -261,6 +261,229 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://quanke.name/2012/11/15/e6-b7-b1-e5-ba-a6-e5-89-96-e6-9e-90cloudfoundry-e7-9a-84-e6-9e-b6-e6-9e-84-e8-ae-be-e8-ae-a1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="全科">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/dog.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="全科-不安分的码农">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2012/11/15/e6-b7-b1-e5-ba-a6-e5-89-96-e6-9e-90cloudfoundry-e7-9a-84-e6-9e-b6-e6-9e-84-e8-ae-be-e8-ae-a1/" itemprop="url">深度剖析CloudFoundry的架构设计</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2012-11-15T08:07:39+08:00">
+                2012-11-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/服务端开发/" itemprop="url" rel="index">
+                    <span itemprop="name">服务端开发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2012/11/15/e6-b7-b1-e5-ba-a6-e5-89-96-e6-9e-90cloudfoundry-e7-9a-84-e6-9e-b6-e6-9e-84-e8-ae-be-e8-ae-a1/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/11/15/e6-b7-b1-e5-ba-a6-e5-89-96-e6-9e-90cloudfoundry-e7-9a-84-e6-9e-b6-e6-9e-84-e8-ae-be-e8-ae-a1/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>VMware在今年4月份突然发布了业内第一个开源的PaaS——CloudFoundry。发布至今的这几个月里，笔者一直关注它的演进，并从它的架构设计中获益良多，觉得有必要写出来与大家分享一下。</p>
+<p>本文会分为两个部份：第一部份主要介绍CloudFoundry的架构设计，从它所包含的模块介绍起，到各部份的消息流向，各模块如何协调合作；第二部份会在第一部份的基础上，以如何在你的数据中心里面用CloudFoundry部署一个私有PaaS为目标，把第一部分介绍到的架构知识使用起来。</p>
+<p>第一部份讲的很多内容，会引用Pat在10月12日的VMwareCloud Forum上面关于CloudFoundry架构的演讲。Pat是CloudFoundry Core的负责人，他的那次演讲很值得一听。如果你当时在场，并且理解他所说的内容，本部份可以选择直接跳过。我除了会把说的内容讲具体点外，不太可能可以讲得比他好。</p>
+<p><strong>一、架构及模块</strong></p>
+<p>从总体地看，CloudFoundry的架构如下：</p>
+<p><img src="http://img.watchstor.com/uploadimg/20111027/1348180.jpg" alt="深度剖析CloudFoundry的架构设计"></p>
+<p>这个架构图以及下文所用到的各模块架构图均来自Pat的PPT。从上图能够看到CloudFoundry主要有以下几大组件组成：</p>
+<p>1、 Router：顾名思义，Router组件在CloudFoundry中是对所有进来的Request进行路由。进入Router的request主要有两类：首先是来自VMCClient或者STS的，由CloudFoundry使用者发出的，管理型指令。</p>
+<p>例如：列出你所有apps的vmcapps，提交一个apps等等。这类request会被路由到AppLife Management组件，又叫CloudController组件去；第二类是外界对你所部署的apps访问的request。这部份requests会被路由到Appexecution，又或者叫做DEAs的组件去。所有进入CloudFoundry系统的requests都会经过Router组件，看到这里可能会有朋友会担心Router成为单点，从而成为整个云的瓶颈。</p>
+<p>但是CloudFoundry作为云系统，其设计的核心就是去单点依赖，组件平行扩充，且可替代的以保证扩展性，这是CloudFoundry，甚至所有云计算系统的设计原则，后文会讨论CloudFoundry如何做到这点，目前只要知道，系统可以部署多个Routers共同处理进来的requests，但是Router上层的LoadBalance不在CloudFoundry的实现范围，CloudFoundry只保证所有的request是无状态的，这样就使上层均衡附载选择面非常非常大了，例如可以通过DNS做，也可以部署硬件的LoadBalancer，或者简单点，弄台ngnix作负载均衡器，都是可行的。</p>
+<p>Router组件，目前版本是对nginx的一个简单封装。熟悉ngnix的朋友应该知道，它可以一个套接字文件（.sock文件）作为输入输出。所有安装CloudFoundry的Router组件服务器都会安装一个nginx，其ngnix.conf文件有以下配置：</p>
+<p><img src="http://img.watchstor.com/uploadimg/20111027/1348181.jpg" alt="深度剖析CloudFoundry的架构设计"></p>
+<p>从整体的来看，Router组件的结构如下：</p>
+<p><img src="http://img.watchstor.com/uploadimg/20111027/1348182.jpg" alt="深度剖析CloudFoundry的架构设计"></p>
+<p>外界httprequest进入CloudFoundry服务器，nginx会首先接到request，nginx通过sock与router.rb进行交互，于是真正处理请求的是Router组件。router.rb里面根据传入的url，用户名密码等，进行逻辑判断，到CloudController组件或者DEA组件取数据并且返通过与niginx连接的.sock文件返回。</p>
+<p>router.rb是对nginx进行了逻辑封装。熟悉CloudFoundry的朋友肯定知道，CloudFoundry给每一个app分配了一个url访问，如果直接使用VMware所托管的CloudFoundry.com的话，那你的app的url可能就是xxx.cloudfoundry.com，无论通过命令给你的app扩展了多少个instances，都是从这个url访问的，这里面的url转换路由就是由router.rb实现的。</p>
+<p>2、DEA(Droplet Execution Agency): 首先要解析下什么叫做Droplet。Droplet在CloudFoundry的概念里面是指一个把你提交的源代码，以及CloudFoundry配套好的运行环境，再加上一些管理脚本，例如Start/Stop这些小脚本全部压缩好在一起的tar包。还有一个概念，叫做Stagingapp，就是指制作上面描述这个包，然后把它存储好的过程。CloudFoundry会自动保存这个Droplet，直到你start一个app的时候，一台部署了DEA模块的服务器会来拿一个Droplet的copy去运行。所以如果你扩展你的app到10个instances，那这个Droplet就被会复制十份，让10个DEA服务器拿去运行。</p>
+<p>下图是DEA模块的架构图：</p>
+<p><img src="http://img.watchstor.com/uploadimg/20111027/1348183.jpg" alt="深度剖析CloudFoundry的架构设计"></p>
+<p>Cloud Controller模块（下面会介绍）会发送start/stop等基本的apps管理请求给DEA，dea.rb接收这些请求，然后从NFS里面找到合适的Droplet。前面说到Droplet其实是一个带有运行脚本的，带运行环境的tar包，DEA只需要把它拿过来解压，并即行里面的start脚本，就可以让这个app跑起来。到此，app算是可以访问，并start起来了，换句话说就是有这台服务器的某一个端口已经在待命，只要有request从这个端口进来，这个app就可以接收并返回正确的信息。</p>
+<p>接着dea.rb要做些善后的工作：1、把这个信息告诉Router模块。我们前面说到，所有进入CloudFoundry的requests都是由Router模块处理并转发的，包括用户对app的访问request，一个app起来后，需要告诉router，让它根据loadbalance等原则，把合适的request转进来，使这个app的instance能够干起活；2、一些统计性的工作，例如要把这个用户又新部署了一个app告诉CloudController，以作quota控制等；3、把运行信息告诉HealthManager模块，实时报告该app的instance运行情况。另外DEA还要负责部份对Droplet的查询工作，譬如，如果用户通过CloudController想查询一个app的log信息，那DEA需要从该Droplet里面取到log返回等等。</p>
+<p>3、CloudController：CloudController是CloudFoundry的管理模块。主要工作包括：</p>
+<p>a) 对apps的增删改读；</p>
+<p>b) 启动、停止应用程序；</p>
+<p>c) Staging apps（把apps打包成一个droplet）；</p>
+<p>d) 修改应用程序运行环境，包括instance、mem等等；</p>
+<p>e) 管理service，包括service与app的绑定等；</p>
+<p>f) Cloud环境的管理；</p>
+<p>g) 修改Cloud的用户信息；</p>
+<p>h) 查看Cloud Foundry，以及每一个app的log信息。</p>
+<p>这似乎有点复杂，但简单的说，可以很简单：就是与VMC和STS交互的服务器端。VMC和STS与CloudFoundry通信采用的是restful接口，另一方面CloudController是一个典型的Rubyon Rails项目，从VMC或者STS接到JSON格式的协议，然后写入CloudController Database，并发消息到各模快去控制管理整个云。和其他ROR项目一样，CloudController的所有API可以从conf/routes.rb里看到。开放的Restful接口好处在于第三方应用开发和集成，企业在用CloudFoundry部署私有云的时候，可以通过这些接口来自动化控制管理整个Cloud环境。这部份内容将在第二部份论述。</p>
+<p>下图是Cloud Controller的架构图：</p>
+<p><img src="http://img.watchstor.com/uploadimg/20111027/1348184.jpg" alt="深度剖析CloudFoundry的架构设计"></p>
+<p>图中Health Manager和DEA是外部模块，CCDatabase就是CloudController Database，这个是整个CloudFoundry不能做HP的地方。CloudController Database的并发性不会很多，应用级别的数据库访问是由底下的Service模块处理的，这个数据库存的是Cloud的配置信息。读操作主要来自DEA启动，作为初始化DEA的依据；以及healthmanager模块会从这里读取预期的状态信息，这部份数据会与从DEA得到的实际状态信息进行比对。</p>
+<p>NFS是多个CloudController的共享存储，CloudController其中一个重要工作就是StagingApps。Droplets的存储是在集群环境的唯一的。而CloudController是集群运行，换言之，就是每一个控制Request可能由不同的CloudController处理，假设一个简单的用户场景：我们需要部署一个app到CloudFoundry中。我们在敲完那条简单的push命令后，VMC开始工作，在做完一轮的用户鉴权、查看所部署的apps数量是否超过预定数额，问了一堆相关app的问题后，需要发4个指令：</p>
+<p>1．发一个POST到”apps”，创建一个app;</p>
+<p>2．发一个PUT到”apps/:name/application”，上传app;</p>
+<p>3．发一个GET到”apps/:name/”，取得app状态，看看是否已经启动；</p>
+<p>4．如果没有启动，发一个PUT到”apps/:name/”，使其启动。</p>
+<p>如果第2和第4步由不同的Cloud Controller来处理，而又无法保证他们能找到同一个Droplet，那第4步将会因为找不到对应的Droplet而启动失败。如何保证这一连串指令过来所指向的Droplet都是同一个呢？使用NFS，使CloudController共享存储是最简单的方法。但是这个方法在安全性等方面并不完美。在10月12日的VMwareCloud Forum上，Pat告诉我们下一版本的CloudFoundry这里将会有大调整，但是在那部份代码公开前，我不方便在这评价太多。</p>
+<p>4、HealthManager: 做的事情不复杂，简单的说是从各个DEA里面拿到运行信息，然后进行统计分析，报告等。统计数据会与CloudController的设定指标进行比对，并提供Alert等。HealthManager模块目前还不是十分完善，但是CloudManage栈里面，自动化health管理、分析是一个很重要的领域，而这方面可以扩展的地方也很多，结合OrchestrationEngine可以使云自管理、自预警；而与BI方面技术结合，可以统计运营情况，合理分配资源等。这方面CloudFoundry还在发展之中。</p>
+<p>5、Services:Cloud Foundry的Service模块从源代码控制上看就知道是一个独立的、可Plugin的模块，以方便第三方把自己的服务整合入CloudFoundry生态系统。在Github上看到service是与CloudFoundry Core项目vcap独立的一个repository，为vcap-service。Service模块其中设计原则是方便第三方服务提供商提供服务。在这方面CloudFoundry做得很成功，从Github上看，已经有以下服务提供：a)MongoDB; b) mysql; c) neo4j; d) PostgreSql; e) RabbitMQ; f) Redis; g)vBlob。基类都是放在base文件夹中。</p>
+<p>第三方如果需要自己开发CloudFoundry的服务，需要继承改写它里面的两个基础类：Node和Gateway；而里面一些操作，如：Provision，可以在base的provisioner.rb基础上加入自己的逻辑，同样的还有Service_Error和Service_Message等。关于如何写自己的Service，ELC的博客会推出相应文章详细论述，并不在本文的讨论范围里面，从架构了解上来说，只要知道服务间的关系，知道个服务与base间透过继承关系来横向扩充，而CloudFoundry与apps调用Service是通过base来完成这一简单的架构方法即可。</p>
+<p>6、NATS(Message bus): 从CloudFoundry的总架构图看，位于各模块中心位置的是一个叫nats的组件。NATS是由CloudFoundry的架构师Derek开发的一个轻量级的，支持发布、订阅机制的消息系统。Github开源地址是：<a><a href="https://github.com/derekcollison/nats" target="_blank" rel="external">https://github.com/derekcollison/nats</a></a>。其核心基于EventMachine开发，代码量不多，可以下载下来慢慢研究。</p>
+<p>CloudFoundry是一个多模块的分布式系统，支持模块自发现，错误自检，且模块间低耦合。其核心原理就是基于消息发布订阅机制。每个台服务器上的每个模块会根据自己的消息类别，向MessageBus发布多个消息主题；而同时也向自己需要交互的模块，按照需要的信息内容的消息主题订阅消息。譬如：一个DEA被加入CloudFoundry集群中，它需要向大家吼一下，以表明它已经准备好服务了，它会发布一个主题是”dea.start”的消息：</p>
+<p><img src="http://img.watchstor.com/uploadimg/20111027/1348185.jpg" alt="深度剖析CloudFoundry的架构设计"></p>
+<p>@ hello_message_json中包括DEA的UUID,ip, port, 版本信息等内容。</p>
+<p>再例如，CloudController需要启动一个Droplet的instance：</p>
+<p>a)首先一个DEA在启动的时候，会首先会对自己UUID的消息主题进行订阅。</p>
+<p><img src="http://img.watchstor.com/uploadimg/20111027/1348186.jpg" alt="深度剖析CloudFoundry的架构设计"></p>
+<p>其他模块需要通过’’dea.#{uuid}.start”这个主题发送消息来使它启动，一旦这个DEA接收到消息，就会触发process_dea_start(msg)这个方法来处理启动所需要的工作。</p>
+<p>b)Cloud Controller或者其他模块发送消息，让UUID为xxx的DEA启动。</p>
+<p><img src="http://img.watchstor.com/uploadimg/20111027/1348187.jpg" alt="深度剖析CloudFoundry的架构设计"></p>
+<p>c)DEA模块接收到消息后，就会触发process_dea_start(msg)方法。msg是由其他模块发送过来的消息内容，包括：droplet_id,instance_index, service, runtime等内容，process_dea_start会取得这些启动DEA必须的信息，然后进行一系列操作，例如从NFS中取得Droplet，解压，修改必要环境配置，运行启动脚本等等。等一切都准备好后，然后需要给Router发个消息，告诉它这个Droplet已经随时准备好报效国家，以后有相应的request记得让它来处理。</p>
+<p><img src="http://img.watchstor.com/uploadimg/20111027/1348188.jpg" alt="深度剖析CloudFoundry的架构设计"></p>
+<p>d)Router模块在启动时就已经订阅”router.register”消息主题。</p>
+<p><img src="http://img.watchstor.com/uploadimg/20111027/1348189.jpg" alt="深度剖析CloudFoundry的架构设计"></p>
+<p>收到前面DEA发出的信息后，会触发register_droplet方法，去绑定Droplet。到此启动一个Droplet的instance工作完成。</p>
+<p>我们可以看到整个CloudFoundry的核心就是一套消息系统，如果想了解CloudFoundry的来龙去脉，去跟踪它里面复杂的消息机制是非常好的方法。另一方面，CloudFoundry是一套基于消息的分布式系统，面向消息的架构是它节点横向扩展，组件自发现等云特性的基础。</p>
+<p>Cloud Foundry的架构简单介绍至此，其实作为第一款开源的PaaS，CloudFoundry架构有很多可以学习借鉴的地方，很多细节上的处理是很精妙的，这些内容如果有可能会在后续文章继续探讨，本文题虽为深入CloudFoundry，其实也只是浅尝即止，把总体架构介绍一下，目标在于使我们有足够的背景知识去用CloudFoundry搭建企业内部的私有PaaS。总结一下，笔者从CloudFoundry的结构中学到的东西：</p>
+<p>1、基于消息的多组件架构是实现集群的简单、且有效方法。消息可以使集群节点间解耦，使自注册，自发现这些在大规模数据中心中很重要的功能得到实现；</p>
+<p>2、适当的抽象层，模板模式的使用，方便第三方可以方便在CloudFoundry开发扩展功能。CloudFoundry在DEA及Service层都做了抽象层处理，相对应地使开发者可以容易地为CloudFoundry开发Runtime和Service。例如，在CloudFoundry刚推出的时候，只支持Node.js,Java, Ruby，但第三方提供商、开源社区快速跟进，为CloudFoundry添加了PHP,Python的支持。这得益于CloudFoundry精巧的DEA架构设计，如何开发新的Runtime支持，会在后续博文中有所论述.</p>
+<p><strong>二、源码导读</strong></p>
+<p>笔者一直觉得深入理解一个技术的最好方法就是读它的源码，而CloudFoundry是完全开源的PaaS平台，而因为刚发展起来，代码量不多，主要作者们的代码功力也相当不错，读起来很舒服，很适合研读。而不得不再次表扬一下它完全基于消息机制的架构设计，对组件扩展性，第三方接入等方面做得很好，读者可以从中学到不少思想性的东西。笔者很推荐大家去读一下它的源代码。你可以在Github上找到CloudFoundry的全部代码：<a><a href="https://github.com/cloudfoundry" target="_blank" rel="external">https://github.com/cloudfoundry</a></a>，你会看到几个不同的Repositories，它们分别是：</p>
+<p>1、vcap: Cloud Foundry的Core，又或者称作Kernel；</p>
+<p>2、vcap-service: Cloud Foundry的Service组件。Cloud Foundry的service是作为插件提供的，这出于它方便第三方开发service而设计的；</p>
+<p>3、vmc: VMware Cloud CLI. 是一个Ruby应用，与Cloud Foundry的CLI交互。主要通过分析用户输入的CLI，向CloudFoundry发送Restful请求；</p>
+<p>4、vcap-java: 如果你的app是用java开发，且需要与Cloud Foundry交互，例如取得当前serviceserver的ip地址等，你可能需要这个jar，里面对我们Java开发常用框架有所支持，它底层也是对CloudFoundry的Restful请求的包装；</p>
+<p>5、vcap-java-client: Cloud Foundry的Restful API的Java封装，与上面的项目不一样，它只是个简单的读取CloudFoundry信息，并放如JavaBean中；</p>
+<p>6、vcap-test: Cloud Foundry的test cases;</p>
+<p>7、vcap-test-assets: Cloud Foundry一些apps示例。</p>
+<p>原文链接：<a href="http://qing.weibo.com/2294942122/88ca09aa330004r8.html" target="_blank" rel="external">http://qing.weibo.com/2294942122/88ca09aa330004r8.html</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://quanke.name/2012/11/15/paas/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1690,194 +1913,6 @@ return parentLayout;
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://quanke.name/2012/11/10/e7-9c-9f-e5-b8-8c-e6-9c-9b-e6-88-91-e7-ac-ac-e4-b8-80-e6-ac-a1-e5-88-9b-e4-b8-9a-e6-97-b6-e5-b0-b1-e7-9f-a5-e9-81-93-e7-9a-84-e4-ba-8b/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="全科">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/dog.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="全科-不安分的码农">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2012/11/10/e7-9c-9f-e5-b8-8c-e6-9c-9b-e6-88-91-e7-ac-ac-e4-b8-80-e6-ac-a1-e5-88-9b-e4-b8-9a-e6-97-b6-e5-b0-b1-e7-9f-a5-e9-81-93-e7-9a-84-e4-ba-8b/" itemprop="url">真希望我第一次创业时就知道的事</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2012-11-10T01:35:41+08:00">
-                2012-11-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/随笔/" itemprop="url" rel="index">
-                    <span itemprop="name">随笔</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2012/11/10/e7-9c-9f-e5-b8-8c-e6-9c-9b-e6-88-91-e7-ac-ac-e4-b8-80-e6-ac-a1-e5-88-9b-e4-b8-9a-e6-97-b6-e5-b0-b1-e7-9f-a5-e9-81-93-e7-9a-84-e4-ba-8b/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/11/10/e7-9c-9f-e5-b8-8c-e6-9c-9b-e6-88-91-e7-ac-ac-e4-b8-80-e6-ac-a1-e5-88-9b-e4-b8-9a-e6-97-b6-e5-b0-b1-e7-9f-a5-e9-81-93-e7-9a-84-e4-ba-8b/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>我们常常事后诸葛亮。当你回头看看之前做过的项目或努力，你总能更好地意识到什么事重要、什么事不重要。</p>
-<p>在创业上也是一样的。在一项事业上奋斗了一两年或更多的时间后，你总能更好地意识到一些事是值得担心的，而另一些事其实没什么大不了。</p>
-<p>既然创业者是最有资格给其他创业者在如何开始创业上提供建议的，我决定去问25名创业者同一个问题：你希望当年第一次创业时就已经了解的事是什么？而下面是就是这个问题的集合。或许这对刚刚开始创业或正在准备创业的你会有价值：</p>
-<p><a href="http://img01.36krcnd.com/wp-content/uploads/2012/11/wish_i_knew_header.jpg" target="_blank" rel="external"><img src="http://img02.36krcnd.com/wp-content/uploads/2012/11/wish_i_knew_header.jpg" alt="" title="wish_i_knew_header"></a></p>
-<p>Dan Martell <a href="http://clarity.com/" target="_blank" rel="external">Clarity</a>创始人：</p>
-<blockquote>
-<p>在开始时，你很可能不知道怎样把事情做对，这其实没什么关系。</p>
-<p>直到我真正着手创业时，我才意识到实际上并不需要在一开始就知道该怎么做——你需要的只是学会快速地把正确答案给找出来。如果你能够专注于学习并获取正确的建议——那你将可以接受任何挑战。一旦你意识到这点，你会感到解放。<br>Neil Patel  <a href="http://www.crazyegg.com/" target="_blank" rel="external">Crazy Egg</a>联合创始人：<br>我希望我当时能知道怎么做<strong>定价测试</strong>。当我们第一次发布产品时，我们的定价是基于我们自己想要的定价，而实际上优化价格可以达到最大收入和利润。</p>
-<p>我们的顾客群当时要求价格低一些，因为他们的这个需求很旺，我们照做了。尽管这么做增加了整体的注册人数，但我们的整体收入减少了。如果我们能在当时知道定价测试，我们就不会犯这么大的错误。<br>Nick Francis  <a href="http://www.helpscout.net/" target="_blank" rel="external">Help Scout</a>的CEO兼联合创始人：<br>我希望我当时能够知道，获得一名顾客、让他为你的产品买单并且像你所希望的觉得产品很棒是一件很难的事。</p>
-<p>大部分的创始人都将获得顾客作为预料中的结局，而实际上要达到所预想的顾客数，最短可能都需要两到三年。这个过程的每个环节对公司来说都是巨大的挑战。不会这么快就实现。</p>
-<p>在早期顾客获得上的一些小建议：</p>
-<p>1）和目标市场中愿意和你聊的每个人都聊一聊。要比他们自己更了解他们的需求。你最有价值的洞察将会来自每天和顾客的聊天。</p>
-<p>2）对潜在顾客进行营销是一系列的实验。在你开始之前，先定义好成功和失败分别是怎样。当实验完成，就可以往复进行了。</p>
-<p>3）你周围的团队成员和顾问会追究你的业务度量和财政情况。业务的成功和失败取决于这些人。你需要完全地信任他们，因为你没时间去做监视。<br>Allan Branch ，<a href="http://lessaccounting.com/" target="_blank" rel="external">LessAccounting</a>联合创始人：<br>我和我的商业伙伴Steve Bristol在创业的头一年里花了大量的时间在工作上。我们曾经每周工作80小时以上。这样的工作让我们身心疲惫，也让我们意识到，即使我们花了40 x 2的时间，公司也不会因此增速2倍。事实上，我们那额外的40小时比头40小时的效率要低。而且根本就不会有完成工作的时候，你永远都完不成所有测试，所有的功能，完成完美的设计。最后一次在将近凌晨4点的时候，我们合上了笔记本，回家。永远不要忘记，工作是为了让你的个人生活更有收获的一部分。</p>
-<p>而且我也不再关心我会不会变得有名，不去想自己是否会变得极其富有或能上封面杂志。我更在意怎么让我们的顾客和员工感到开心。而在我变得出名时，我唯一担心的人就是我的孩子和妻子。即使现在32岁了，我依旧努力让我的父母为我感到骄傲。但我已经卸下了要将公司做成价值5亿美元公司的负担，我也为我成为这家不知名软件公司的创始人搞到高兴。</p>
-<p>其他小建议：</p>
-<p><strong>1）只招那些你会希望在个人时间里愿意和他相处的人</strong></p>
-<p><strong>2）前十位员工会决定整个公司的基调。</strong></p>
-<p><strong>3）不要招那些因为工资而和你一块工作的人</strong><br>Leo Widrich  <a href="http://bufferapp.com/" target="_blank" rel="external">Buffer</a>联合创始人：<br>我最希望自己在创业时就能了解的事，是你周围的人会比你所想象得更能影响你的成功。看看你每天日常工作中和谁一起，和那些实干家一起工作会成就你的事业并且让你有更重要的自我提升，而和空谈家一块只会毁掉你。所以要精挑细选地招人，就像Jim Robn说过的：“你，是你最常待在一起的五个人的平均值。”<br>Renee Warren，<a href="http://www.onboardly.com/" target="_blank" rel="external">Onboardly</a>的联合创始人：<br>我希望我当时可以更好的了解我时间的价值。一场10分钟的聊天常常会变成非常漫长的聊天，而且你很容易就答应去这么做。我花了好几年的时间，才学会拒绝那些会分散我注意力的事。拒绝开会、拒绝采访并且拒绝额外的项目（额外的钱）。当我完成了我每天的任务列表后，我的整天、整周、整个月都变了。在我完成工作之后，我才会接受那些机会。</p>
-<p>而这些意识来自我的爷爷，他曾经跟我说“如果你不提早10分钟，你就会迟到10分钟。”他这么说的原因有很多，可能意味着出席会议、赶飞机、打电话、去健身等等。</p>
-<p>总而言之，我最希望我在创业时就能了解的事就是：<strong>时间是你最宝贵的一样东西，请确保你的时间投资是明智的。</strong><br>Poornima Vijayashankar ，<a href="http://bizeebee.com/" target="_blank" rel="external">BizeeBee</a>联合创始人兼CEO：<br>我知道开发产品需要时间，但我也希望我在当时就能够知道，让用户接受一个产品也需要时间。尽管你可能会有一些执着使用你产品的早期用户，但主流的接受需要花很长的时间，也需要很多的努力。主流接受需要那些不是早期用户的人们，那些不愿意改变的人，去发现你的产品，理解其中的价值主张，并愿意去尝试它，然后才是真正地使用它并买下它，并最后发展到成为一位愿意和别人谈论它的粉丝。这个周期需要好一段时间，因为它需要一个稳定的产品，让用户可以和你的公司和产品发展关系，并最终在关系够好的情况下愿意和别人谈论。</p>
-<p>尽管在营销上的努力可以为周期埋下种子，但为了让主流接受成为可能，大部分时间还是需要花在产品没有上市的时候。只付出不获得的时间过程对于创始人来说是艰难的，因为作为创始人你会希望一切在你的控制之内，并且让计划实现。但<strong>有时候你需要的就是耐心和等待！</strong><br>Ari Tulla ，<a href="http://betterdoctor.com/" target="_blank" rel="external">BetterDoctor</a>联合创始人兼CEO：<br><strong>尽可能快地建立一个公众可用原型，然后再去迭代它。</strong></p>
-<p>我们在BetterDoctor上的计划是在两个月内做出第一代最小可行的原型产品（Minimum viable product, <em>MVP</em>）然后将它推向市场。我们把它做出来了，但因为他的可行性不够，我们只好把它放在封闭测试当中。封闭测试意味着非常少的用户以及非常少的真实反馈。</p>
-<p>所以到最后，我们花了超过6个月的时间才最终推出了我们第一个beta版产品（依旧是个MVP）。而现在，也就是一年后，我们推出了针对全国的BetterDoctor搜索服务，并且有了一个稳定的平台。现在我们能在几天内推出新功能，并通过真实的用户做立即测试。</p>
-<p>要知道，年是个很长的时间单位，如果有什么方法可以尽快让你的产品传到顾客手上，那你就应该去尝试。<br>Andrew Angus ，<a href="http://www.switchvideo.com/" target="_blank" rel="external">Switch Video</a>联合创始人兼CEO：<br>我希望我在当时能够知道这个机会有多大，让我可以更好地计划利用它。现在我的公司老了、更结构化了，这可以让我更好地专注在策略上。如果我可以在一开始的时候就做到往回走一步、发展并投资一个更好的计划，我可能会我避免犯下的一堆错误。不过这些错误也成为了我学习中的一部分，这让我觉得我会继续变得成功（因为我会犯的错少了。）<br>Mike Arsenault ，<a href="http://rejoiner.com/" target="_blank" rel="external">Rejoiner</a>联合创始人：<br>永远不要猜价格。有很多方法可以检测你的产品定价，但很多第一次创业的人们（包括我自己）总是默认为“价格”就是自己所认为的顾客愿意给的价格。另外，把精力放在你为你的顾客所创造的价值上，而不是你提供产品或服务时需要花的成本。</p>
-<p>市面上有很多帮你针对目标市场、建立理想价格结构的整体设计方案。这和找出哪个产品功能是顾客认为最有价值的一样重要。</p>
-<p>将支付意愿的数据和你顾客最想要的功能结合起来，你就有一个帮你发现定价结构的落地方案，而这个结构会吸引正确的用户并为你的生意带来最多的利润。<br>Ethan Bloch ，<a href="http://techcrunch.com/2011/10/13/marketing-startup-flowtown-gets-swooped-up-by-demandforce/" target="_blank" rel="external">Flowtown</a>联合创始人：<br>不要通过那些没做成过、或没有在你想实现领域上做事的人获取建议。<br>Kapil Kale ，<a href="http://www.giftrocket.com/" target="_blank" rel="external">GiftRocket</a>联合创始人：<br>Idea是很棒的，但同时，在发行之前回头想想产品也是非常重要的。问问自己，谁会用这个产品，他们都是怎么听说到它的？</p>
-<p>很多时候，这些问题都会揭示出那些你需要建立在产品当中的关键功能，这些功能会让一位用户因为它很有用而告诉了他的朋友。<br>Bo Lu ，<a href="http://www.futureadvisor.com/" target="_blank" rel="external">FutureAdvisor</a>联合创始人兼CEO：<br><strong>及时回头想想。</strong></p>
-<p>第一次创业的人常常会在他们作为创始人的头一段时间内担心一些没必要担心的事。我今天和一些创业者聊天，问到我最多的问题大概是“怎么合法地建一家公司”，“是不是应该辞掉现在的工作还是等等看有没有奖金”。而经验显示，这些事情根本就不会建成或毁掉公司。所以，我希望第一次创业的人可以在他们作为创始人的关键的头几天里想想他们的顾客。了解什么是顾客需要的，做到理解竞争对手并保持优于竞争对手才是会让你建成或毁掉公司的问题。这么做的最好方法就是及时回头想想。假设四年后的今天你已经拥有了一家成功的公司，问问你自己：“那个曾经让我整夜辗转反侧的苦恼问题到现在还是我的问题吗？”这个问题的答案通常是“no”。<br>Dharmesh Shah，<a href="http://hubspot.com/" target="_blank" rel="external">HubSpot</a>的联合创始人兼CTO：<br>选择一个大的、不断增长并且对于你来说是有明显优势的市场是很重要的。还有，要保证自己掌握着自己的命运，而不是过分地依赖其他人。<br>Blake Williams，<a href="http://www.keepsy.com/" target="_blank" rel="external">Keepsy</a>联合创始人：<br>通过让别人看你的计划，寻找出有关你计划的最关键观点。通常来说，新手创业者会爱上一个idea，然后寻求朋友或同事的支持。但毕竟，有谁会希望一个羽翼未丰的想法被反对者扼杀呢？不过，你应该去找的就是这种人。</p>
-<p>让他们从头到尾地去毁你的计划和设计。如果你发现自己同意他们的观点并同样存在疑问，那你的计划（或者你）可能就是不能成行的。但如果你可以反复地有信念维护它，那你可能有勇气去克服你将面临的长久、艰难的苦差，这意味着这个计划或许能做得起来。<br>Otto Hilska， <a href="https://www.flowdock.com/" target="_blank" rel="external">Flowdock</a>创始人兼CEO：<br>众所周知，“不成熟的优化是万恶之源”，但我当时没有意识到，在我们花了大量时间和不同的数据库打交道之前，我们会不会有顾客。在开始的时候，你真的可以用一个半生熟的产品去验证你的假设。<br>Rami Essaid ，<a href="http://www.distil.it/" target="_blank" rel="external">Distil</a>联合创始人兼CEO<br>我希望在我第一次创业时就知道的事，是如何设置清楚且可以衡量的目标。任何创业公司都有的问题，就是它们有百万个未知数。当你在建立自己公司的时候，你可以试着尽可能多地回答这些问题。而一旦你回答得够多，你就已经知道你想做些什么。这个方法容易让人迷失。而为了确保你不会迷失，你需要设置清楚的目标并且能够衡量你的行为是否成功。如果你看到有些东西不起作用，那当务之急就是尽快地识别并纠正问题或快速改变方向。目标和指标是这么做的唯一方法。<br>Alex Schiff <a href="http://www.fetchnotes.com/" target="_blank" rel="external">Fetchnotes</a>联合创始人兼CEO：<br>我希望以前有人能教我的事情，就是你应该优化速度而不是成本。创业公司的一切都与速度以及你快速转移的能力有关。我们曾经在获得融资前自力更生过很长的时间，所以我们别无选择地变得超级节俭，但我还是希望我能在之前就了解速度的重要性，因为它会让事情变得不同。如果你花了一个小时的时间去编写程序达到一个月省20块的效果，那它根本就不值得。<br>Jason Traff ，<a href="http://leaky.com/" target="_blank" rel="external">Leaky</a>创始人：<br>从MIT出来，我获得了不少有关创业的好建议，包括了特别保护权的重要性，团队化学反应以及如何做一个好产品。我希望我能在当初了解更多创业生活中的情感变化。通常电影或电视剧里的创业公司，总是一群20多岁的年轻人天天踢足球，夜夜办派对的景象。他们很少在这些高情绪中展示出人们的低落。</p>
-<p>我的人生在我开了Leaky后，得到了很多以前从未有过并且频繁激烈的拒绝。在无数的拒绝之后，我学会了：你需要用毅力去看开暂时的情绪高低，并知道没有什么收获或者挫折会是永久性的。否则，这些情绪将无法在第二天早上从床上爬起来。<br>Tri Tran， <a href="http://munchery.com/" target="_blank" rel="external">Munchery</a>联合创始人兼CEO：<br>这当中会有很多的起起落落。当你感到在往下走时，保持平静，要知道事情会变得更好。当你在往上走时，享受那个时刻，但同时也将这种能量存下来应对不好的时候。</p>
-<p>我很幸运地在不同的创业公司工作过，知道大概会发生什么。</p>
-<p>准备去成立你的第一家创业公司可能是你在人生中做过的最难的事。它并不总会那么迷人。你需要寻求你伴侣的支持，你要有充分信任并能很好协作的联合创始人。但最后，你会想象不到还有什么职业经历会比成立自己的公司更好。<br>Ash Rust ，<a href="http://www.sendhub.com/" target="_blank" rel="external">SendHub</a>联合创始人：<br>专注比你想象得更重要。<br>Gautam Gupta ，<a href="http://www.naturebox.com/" target="_blank" rel="external">NatureBox</a>创始人：<br>创立NatureBox是让我最难忘的经历了。我永远都会为有机会建立它而心存感激。我认为对于创始人来说很重要的，就是要知道成立一家公司的时机。这会带来你情绪上的高叠起伏。管理你的情绪状态会变得很难但很重要。当你触及低谷，记得提醒自己这只是路上的一个颠簸。</p>
-<p>你可以放松，将时间花在不该担心的事情上。你会经常受到好消息和坏消息，你还会感到你的生活依赖于你公司的成功，但在这些之后，记得保持你清醒的头脑和执行力。<br>Walter Chen， <a href="http://idonethis.com/" target="_blank" rel="external">iDoneThis</a>联合创始人兼CEO：<br>我希望我当初会知道，运营一个创业团队会很像做父母。你要检查他们，你会想知道他们在干什么，你会担心他们在开车的时候Skype语音。而且你还需要经常大喊：“所有人安静！”而有的时候，你必须提醒他们在晚饭之前完成他们的工作。另外一些时候，你会想让他们娱乐放松，所以你带他们去看电影或去玩卡丁车。</p>
-<p>作为一位创业公司创始人，你希望帮助你的团队去认清他们在工作上的强项，并支持他们。你希望他们去犯错并从错误中学习，而不是羞愧地逃避。你不做决定，而是问：“你怎么看？”你要对他们的情绪流动敏感，你要知道他们什么时候是气馁或沮丧的。你自己也会感到沮丧，但你的会将这些情绪更有建设性地表达给他们。毕竟，就像所有父母那样，你希望他们开心，并且成功。因为我就是个家长。<br>Rick Perreault， <a href="http://unbounce.com/" target="_blank" rel="external">Unbounce</a>联合创始人兼CEO：<br>我希望我当初会知道，准确的度量会有多重要，这样我们就可以更容易地对我们的第一次报告做支持。这两年中，我已经听过很多次“因为app的原因，我们不能很好地做跟踪。”如果我们在之前就决定好哪些关键度量是需要跟踪的，并根据需要做app，我们可能就不用那么痛苦了。<br>Elizabeth Yin ：<br>我成立的第一家公司是一个社交购物应用，那基本上就是个灾难。我们将我们所认为的优秀工具给做了出来，但却没人想用。我们花了大概2万美元并且用了将近一年半的时间。通过这个经验，我意识到最难的部分不是技术，而是知道用户需求。</p>
-<p>如果我当时能够换种方式做，我就会在把产品做出来之前先用小样测试市场，我就会创建登录页面捕捉潜在用户的联系方式并已经和他们在谈了。我就会做个假按钮来衡量需求。简单来说，我希望我在当初就能够在做产品之前先测试一下市场。<br>原文来自： <a href="http://davidhauser.com/post/35203066523/advice-from-21-entrepreneurs" target="_blank" rel="external">DavidHauser</a> 创业者David Hauser的个人博客</p>
-</blockquote>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1932,7 +1967,7 @@ return parentLayout;
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">117</span>
+                  <span class="site-state-item-count">118</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
