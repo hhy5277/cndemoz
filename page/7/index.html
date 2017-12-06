@@ -261,6 +261,167 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://quanke.name/2012/11/15/android/android-e5-85-a5-e9-97-a8-ef-bc-9azxing-e5-ad-a6-e4-b9-a0-e7-ac-94-e8-ae-b0-ef-bc-88-e4-b8-80-ef-bc-89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="全科">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/dog.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="全科-不安分的码农">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2012/11/15/android/android-e5-85-a5-e9-97-a8-ef-bc-9azxing-e5-ad-a6-e4-b9-a0-e7-ac-94-e8-ae-b0-ef-bc-88-e4-b8-80-ef-bc-89/" itemprop="url">android入门：zxing学习笔记（一）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2012-11-15T10:11:11+08:00">
+                2012-11-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/android开发/" itemprop="url" rel="index">
+                    <span itemprop="name">android开发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2012/11/15/android/android-e5-85-a5-e9-97-a8-ef-bc-9azxing-e5-ad-a6-e4-b9-a0-e7-ac-94-e8-ae-b0-ef-bc-88-e4-b8-80-ef-bc-89/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/11/15/android/android-e5-85-a5-e9-97-a8-ef-bc-9azxing-e5-ad-a6-e4-b9-a0-e7-ac-94-e8-ae-b0-ef-bc-88-e4-b8-80-ef-bc-89/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>对于刚开始学习android开发的童鞋们来说，若有一个简单而又全面的android工程能来剖析，那就是再好不过了，zxing就是不错得例子。</p>
+<pre><code>zxing的源码可以到google code上下载，整个源码check out 下来，里面有各个平台的源码，ios的，android的。当然我们需要的就是android代码。
+将android的工程导入到eclipse中，导入完成后，eclipse会显示各种错误，这是缺少core文件夹里面的核心库文件所致，在project中创建文件夹core，再将zxing源码中得core文件夹下得代码导入进来，这样就可以了。
+如果遇到unable resolved target-X，则是你的avd版本问题，可以在project.propertities修改target值。clean下就ok。
+如上的都是zxing android代码分析的准备，下面的则是正式开始。
+
+如上图：为整个android工程的代码，android入门就重这些代码着手。其中主要关注的是android，camera，encode，result文件夹。
+</code></pre><p>   程序启动的流程：加载main activity，在此类中创建CaptureActivityHandler对象，该对象启动相机，实现自动聚焦，创建DecodeThread线程，DecodeThread创建Decodehandler，这个对象就获取从相机得到的原始byte数据，开始解码的第一步工作，从获取的byte中解析qr图来，并解析出qr图中的字符，将这块没有分析的字符抛送到CaptureActivityHandler中handle，该类调用main activity的decode函数完成对字符的分析，最后显示在界面上（刷新UI，最好在UI线程里完成）。这样一个解析qr图的过程并完成。<br>   下面具体分析整个过程。重点之处有main activity,camera.<br>   程序启动的第一个activity便是：CaptureActivity,有点类似于c中的main函数，在此是main activity。这个acitvity做的主要的事便是：加载扫描各种条形码，二维码的一个界面，启动一个处理获取一维码二维码信息的线程，完成对于获取的图像信息进行解码，最后再将解码的信息显示在界面上。</p>
+<p>   完成界面的加载主要在于onCreate，和onResume函数中，这涉及到了一个activity的生命周期，以后再具体分析。首先调用onCreate，再调用onResume，在onResume中会判断这个activity是由什么启动的，可能是其他的app触发了，也可能是用户直接启动的。这样就初始化了三个变量，一是source，便是启动activity的源，一是decodeFormats，指出解码的方式，是qr，还是其他的等等，最后一个是：charactreset，即是对于这些生成qr图的字符的编码方式。若没有对core中得代码修改，用该程序解析GB2312编码的字符则会乱码。乱码的解决后面将提到。<br>   界面的加载中有两个很关键的类。surfaceview 和 ViewFinderView，前面的是用来加载从底层硬件获取的相机取景的图像，后面的是自定义的view，实现了扫描时的界面，不停的刷新，并将识别的一些数据，如定位的点回调显示在界面上。</p>
+<p>来自：<a href="http://www.cnblogs.com/liuan/archive/2012/01/05/2312714.html" target="_blank" rel="external">http://www.cnblogs.com/liuan/archive/2012/01/05/2312714.html</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://quanke.name/2012/11/15/e8-bf-85-e9-80-9f-e5-bc-80-e5-a7-8b-e4-bd-bf-e7-94-a8cloud-foundry-e7-9a-84-e5-85-a5-e9-97-a8-e6-96-87-e6-a1-a3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1759,160 +1920,6 @@ return parentLayout;
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://quanke.name/2012/11/12/e5-a6-82-e4-bd-95-e8-ae-a9edittext-e5-9c-a8activity-e8-b5-b7-e5-a7-8b-e7-9a-84-e6-97-b6-e5-80-99-e4-b8-8d-e8-87-aa-e5-8a-a8-e8-8e-b7-e5-be-97-e7-84-a6-e7-82-b9-ef-bc-9f/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="全科">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/dog.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="全科-不安分的码农">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2012/11/12/e5-a6-82-e4-bd-95-e8-ae-a9edittext-e5-9c-a8activity-e8-b5-b7-e5-a7-8b-e7-9a-84-e6-97-b6-e5-80-99-e4-b8-8d-e8-87-aa-e5-8a-a8-e8-8e-b7-e5-be-97-e7-84-a6-e7-82-b9-ef-bc-9f/" itemprop="url">如何让edittext在activity起始的时候不自动获得焦点？</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2012-11-12T07:57:30+08:00">
-                2012-11-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/android开发/" itemprop="url" rel="index">
-                    <span itemprop="name">android开发</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2012/11/12/e5-a6-82-e4-bd-95-e8-ae-a9edittext-e5-9c-a8activity-e8-b5-b7-e5-a7-8b-e7-9a-84-e6-97-b6-e5-80-99-e4-b8-8d-e8-87-aa-e5-8a-a8-e8-8e-b7-e5-be-97-e7-84-a6-e7-82-b9-ef-bc-9f/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/11/12/e5-a6-82-e4-bd-95-e8-ae-a9edittext-e5-9c-a8activity-e8-b5-b7-e5-a7-8b-e7-9a-84-e6-97-b6-e5-80-99-e4-b8-8d-e8-87-aa-e5-8a-a8-e8-8e-b7-e5-be-97-e7-84-a6-e7-82-b9-ef-bc-9f/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>在AndroidManifest.xml里的Activity定义里添加进这个属性<br>[code lang=”xml”]android:windowSoftInputMode=&quot;adjustResize|stateHidden&quot;[/code]<br>或者在onCreate 里添加进<br>[code lang=”java”]<br>getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_UNSPECIFIED);[/code]<br>有时候在某些手机上只添加stateHidden也许无效，需要加入下面这段</p>
-<p>EditText始终不弹出软件键盘<br>例：EditText edit=(EditText)findViewById(R.id.edit);<br>edit.setInputType(InputType.TYPE_NULL);</p>
-<p>让EditText失去焦点，使用EditText的clearFocus方法<br>例如：EditText edit=(EditText)findViewById(R.id.edit);<br>edit.clearFocus();</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1967,7 +1974,7 @@ return parentLayout;
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">119</span>
+                  <span class="site-state-item-count">120</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

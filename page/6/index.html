@@ -261,6 +261,205 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://quanke.name/2012/12/22/sublime-text-2-for-linux-e7-9a-84-e5-ae-89-e8-a3-85-e3-80-81-e6-95-99-e7-a8-8b-e5-8f-8a-e9-97-ae-e9-a2-98-e6-b1-87-e6-80-bb/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="全科">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/dog.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="全科-不安分的码农">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2012/12/22/sublime-text-2-for-linux-e7-9a-84-e5-ae-89-e8-a3-85-e3-80-81-e6-95-99-e7-a8-8b-e5-8f-8a-e9-97-ae-e9-a2-98-e6-b1-87-e6-80-bb/" itemprop="url">Sublime Text 2 for Linux 的安装、教程及问题汇总</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2012-12-22T14:15:17+08:00">
+                2012-12-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Go语言/" itemprop="url" rel="index">
+                    <span itemprop="name">Go语言</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2012/12/22/sublime-text-2-for-linux-e7-9a-84-e5-ae-89-e8-a3-85-e3-80-81-e6-95-99-e7-a8-8b-e5-8f-8a-e9-97-ae-e9-a2-98-e6-b1-87-e6-80-bb/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/12/22/sublime-text-2-for-linux-e7-9a-84-e5-ae-89-e8-a3-85-e3-80-81-e6-95-99-e7-a8-8b-e5-8f-8a-e9-97-ae-e9-a2-98-e6-b1-87-e6-80-bb/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Sublime Text 2是一款跨平台文本编辑器，支持Windows，Linux，Mac os</p>
+<p>自从用上了Sublime Text 2这款文本编辑器后就爱不释手了，美观、大方、简介的界面，方便的操作和丰富的扩展造就了这么一款出色的文本编辑器。</p>
+<p>开始我只在Windows系统安装使用，因为某些原因，今天在Linux下进行安装，问题还是相当多的，还是推荐大家在官方修复这些问题之前使用Vim吧。</p>
+<p>程序是共享软件，<strong>永久</strong>免费试用！</p>
+<p>如果要购买，费用为：USD $59</p>
+<h3 id="测试平台："><a href="#测试平台：" class="headerlink" title="测试平台："></a>测试平台：</h3><p><strong>系统版本号</strong>：Ubuntu 12.04</p>
+<p><strong>Sublime Text版本号</strong>：Version 2.0.1，Build 2217</p>
+<h3 id="安装："><a href="#安装：" class="headerlink" title="安装："></a>安装：</h3><p>Sublime Text 2在Linux下的安装还是相当简单的：</p>
+<ol>
+<li>在<a href="http://www.sublimetext.com/2" title="官方网站" target="_blank" rel="external">官方网站</a>下载Linux版本</li>
+<li>得到一个“.tar.bz2”格式的压缩文件</li>
+<li>进行解压</li>
+<li>双击文件中的“sublime_text”即可打开</li>
+</ol>
+<h3 id="中文显示："><a href="#中文显示：" class="headerlink" title="中文显示："></a>中文显示：</h3><p>软件在Linux下是无法显示中文的，可以通过如下操作解决：</p>
+<p>菜单栏 -&gt; Preferences -&gt; Settings – User，在配置文件中增加（前半部分原本就有，可看情况进行替换）：</p>
+<blockquote>
+<p>// Settings in here override those in “Default/Base File.sublime-settings”, and</p>
+<p>// are overridden in turn by file type specific settings. Place your settings</p>
+<p>// here, to ensure they’re preserved when upgrading.</p>
+<p>{</p>
+<p>“font_face”: “WenQuanYi Micro Hei Mono”</p>
+<p>}<br>其中“文泉驿”是著名的开源字体 <a href="http://wenq.org/" title="http://wenq.org/" target="_blank" rel="external">http://wenq.org/</a></p>
+</blockquote>
+<h3 id="中文输入："><a href="#中文输入：" class="headerlink" title="中文输入："></a>中文输入：</h3><p>设置fcitx输入法的切换键，将默认的Ctrl+Space方式设置Ctrl+Shift，但是这样效果不太好，经常中文会启动不了。</p>
+<p>可以在其他地方输入后进行复制粘贴。</p>
+<p>在以后的Sublime Text 2或许可以得到解决。</p>
+<h3 id="快捷键冲突："><a href="#快捷键冲突：" class="headerlink" title="快捷键冲突："></a>快捷键冲突：</h3><p>默认的代码提示快捷键是“Ctrl+Space”，与输入法切换冲突，导致两方均失效。</p>
+<p>可以在菜单栏 -&gt; Preferences -&gt; Key Bindings – Default 里搜索 “insert_best_completion” 出现：</p>
+<blockquote>
+<p>{ “keys”: [“tab”], “command”: “insert_best_completion”, “args”: {“default”: “\t”, “exact”: true} },<br>改变keys的值为需要的快捷键即可，推荐：<br>{ “keys”: [“alt+/“], “command”: “insert_best_completion”, “args”: {“default”: “\t”, “exact”: true} },</p>
+</blockquote>
+<h3 id="特色功能："><a href="#特色功能：" class="headerlink" title="特色功能："></a>特色功能：</h3><ul>
+<li>良好的扩展功能(Package)</li>
+<li>右边没有滚动条，取而代之的是代码缩略图</li>
+<li>强大的快捷命令：可实时搜索相应的命令、选项、Snippet 和 Syntex， 回车即可执行</li>
+<li>即时的文件切换</li>
+<li>随心所欲的跳转到任意文件的任意位置</li>
+<li>多重选择(Multi-Selection)功能允许在页面中同时存在多个光标。</li>
+<li>支持 VIM 模式</li>
+<li>支持<a href="http://zh.wikipedia.org/wiki/%E5%AE%8F" target="_blank" rel="external">宏</a></li>
+<li>更新非常快</li>
+<li>……</li>
+</ul>
+<h3 id="小技巧："><a href="#小技巧：" class="headerlink" title="小技巧："></a>小技巧：</h3><ol>
+<li>选择文字之后，按下 Tab 和 Shift + Tab 可以控制缩进。</li>
+<li>文件无需保存就可以直接退出程序，下次启动会自动恢复。</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://quanke.name/2012/12/10/e4-bd-a0-e7-9f-a5-e9-81-93-facebooksinasohu-e9-83-bd-e7-94-a8-e7-9a-84-e5-95-a5-e6-95-b0-e6-8d-ae-e5-ba-93-e5-90-97-ef-bc-9f-e4-b8-8d-e7-9f-a5-e9-81-93-e7-9a-84-e8-af-9d-e8-af-b7-e7-9c-8b-e6-9c-ac/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1702,167 +1901,6 @@ public void run() {
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://quanke.name/2012/11/15/android/android-e5-85-a5-e9-97-a8-ef-bc-9azxing-e5-ad-a6-e4-b9-a0-e7-ac-94-e8-ae-b0-ef-bc-88-e4-b8-80-ef-bc-89/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="全科">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/dog.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="全科-不安分的码农">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2012/11/15/android/android-e5-85-a5-e9-97-a8-ef-bc-9azxing-e5-ad-a6-e4-b9-a0-e7-ac-94-e8-ae-b0-ef-bc-88-e4-b8-80-ef-bc-89/" itemprop="url">android入门：zxing学习笔记（一）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2012-11-15T10:11:11+08:00">
-                2012-11-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/android开发/" itemprop="url" rel="index">
-                    <span itemprop="name">android开发</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2012/11/15/android/android-e5-85-a5-e9-97-a8-ef-bc-9azxing-e5-ad-a6-e4-b9-a0-e7-ac-94-e8-ae-b0-ef-bc-88-e4-b8-80-ef-bc-89/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/11/15/android/android-e5-85-a5-e9-97-a8-ef-bc-9azxing-e5-ad-a6-e4-b9-a0-e7-ac-94-e8-ae-b0-ef-bc-88-e4-b8-80-ef-bc-89/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>对于刚开始学习android开发的童鞋们来说，若有一个简单而又全面的android工程能来剖析，那就是再好不过了，zxing就是不错得例子。</p>
-<pre><code>zxing的源码可以到google code上下载，整个源码check out 下来，里面有各个平台的源码，ios的，android的。当然我们需要的就是android代码。
-将android的工程导入到eclipse中，导入完成后，eclipse会显示各种错误，这是缺少core文件夹里面的核心库文件所致，在project中创建文件夹core，再将zxing源码中得core文件夹下得代码导入进来，这样就可以了。
-如果遇到unable resolved target-X，则是你的avd版本问题，可以在project.propertities修改target值。clean下就ok。
-如上的都是zxing android代码分析的准备，下面的则是正式开始。
-
-如上图：为整个android工程的代码，android入门就重这些代码着手。其中主要关注的是android，camera，encode，result文件夹。
-</code></pre><p>   程序启动的流程：加载main activity，在此类中创建CaptureActivityHandler对象，该对象启动相机，实现自动聚焦，创建DecodeThread线程，DecodeThread创建Decodehandler，这个对象就获取从相机得到的原始byte数据，开始解码的第一步工作，从获取的byte中解析qr图来，并解析出qr图中的字符，将这块没有分析的字符抛送到CaptureActivityHandler中handle，该类调用main activity的decode函数完成对字符的分析，最后显示在界面上（刷新UI，最好在UI线程里完成）。这样一个解析qr图的过程并完成。<br>   下面具体分析整个过程。重点之处有main activity,camera.<br>   程序启动的第一个activity便是：CaptureActivity,有点类似于c中的main函数，在此是main activity。这个acitvity做的主要的事便是：加载扫描各种条形码，二维码的一个界面，启动一个处理获取一维码二维码信息的线程，完成对于获取的图像信息进行解码，最后再将解码的信息显示在界面上。</p>
-<p>   完成界面的加载主要在于onCreate，和onResume函数中，这涉及到了一个activity的生命周期，以后再具体分析。首先调用onCreate，再调用onResume，在onResume中会判断这个activity是由什么启动的，可能是其他的app触发了，也可能是用户直接启动的。这样就初始化了三个变量，一是source，便是启动activity的源，一是decodeFormats，指出解码的方式，是qr，还是其他的等等，最后一个是：charactreset，即是对于这些生成qr图的字符的编码方式。若没有对core中得代码修改，用该程序解析GB2312编码的字符则会乱码。乱码的解决后面将提到。<br>   界面的加载中有两个很关键的类。surfaceview 和 ViewFinderView，前面的是用来加载从底层硬件获取的相机取景的图像，后面的是自定义的view，实现了扫描时的界面，不停的刷新，并将识别的一些数据，如定位的点回调显示在界面上。</p>
-<p>来自：<a href="http://www.cnblogs.com/liuan/archive/2012/01/05/2312714.html" target="_blank" rel="external">http://www.cnblogs.com/liuan/archive/2012/01/05/2312714.html</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1917,7 +1955,7 @@ public void run() {
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">119</span>
+                  <span class="site-state-item-count">120</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

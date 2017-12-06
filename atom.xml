@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://quanke.name/"/>
-  <updated>2017-12-05T14:23:44.447Z</updated>
+  <updated>2017-12-06T14:30:20.147Z</updated>
   <id>http://quanke.name/</id>
   
   <author>
@@ -15,6 +15,37 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Elasticsearch Java API 搜索之简介（三）</title>
+    <link href="http://quanke.name/2017/12/06/lasticsearch-Java-API-%E6%90%9C%E7%B4%A2%EF%BC%88%E4%B8%89%EF%BC%89/"/>
+    <id>http://quanke.name/2017/12/06/lasticsearch-Java-API-搜索（三）/</id>
+    <published>2017-12-06T14:25:00.000Z</published>
+    <updated>2017-12-06T14:30:20.147Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li>欢迎关注<a href="http://quanke.name/">http://quanke.name/</a></li><li>转载请注明出处，谢谢</li></ul><h1 id="Elasticsearch-Java-API-搜索之简介"><a href="#Elasticsearch-Java-API-搜索之简介" class="headerlink" title="Elasticsearch Java API 搜索之简介"></a>Elasticsearch Java API 搜索之简介</h1><p>搜索查询，返回查询匹配的结果，搜索一个index / type 或者多个index / type，可以使用 <a href="https://www.elastic.co/guide/en/elasticsearch/client/java-api/current/java-query-dsl.html" target="_blank" rel="external">query Java API</a> 作为查询条件，下面是例子：</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">import org.elasticsearch.action.search.SearchResponse;</div><div class="line">import org.elasticsearch.action.search.SearchType;</div><div class="line">import org.elasticsearch.index.query.QueryBuilders.*;</div></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">SearchResponse response = client.prepareSearch(&quot;index1&quot;, &quot;index2&quot;)</div><div class="line">        .setTypes(&quot;type1&quot;, &quot;type2&quot;)</div><div class="line">        .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)</div><div class="line">        .setQuery(QueryBuilders.termQuery(&quot;multi&quot;, &quot;test&quot;))                 // Query 查询条件</div><div class="line">        .setPostFilter(QueryBuilders.rangeQuery(&quot;age&quot;).from(12).to(18))     // Filter 过滤</div><div class="line">        .setFrom(0).setSize(60).setExplain(true)</div><div class="line">        .get();</div></pre></td></tr></table></figure><p>所有的参数都是可选的，下面是最简单的调用：</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">// MatchAll on the whole cluster with all default options</div><div class="line">SearchResponse response = client.prepareSearch().get();</div></pre></td></tr></table></figure><blockquote><p>尽管Java API默认提供<code>QUERY_AND_FETCH</code> 和 <code>DFS_QUERY_AND_FETCH</code> 两种 search types ，但是这种模式应该由系统选择，用户不要手动指定</p></blockquote><p>更多请移步 <a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search.html" target="_blank" rel="external">REST search</a> 文档</p><blockquote><p>如何有任何问题请关注微信公众号给我留言</p></blockquote><p><img src="https://static.oschina.net/uploads/img/201711/08183543_ysUa.jpg" alt="全科的公众号"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;ul&gt;
+&lt;li&gt;欢迎关注&lt;a href=&quot;http://quanke.name/&quot;&gt;http://quanke.name/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;转载请注明出处，谢谢&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&quot;Elasticsearch-Java-API-搜索之简介&quot;&gt;&lt;a h
+      
+    
+    </summary>
+    
+      <category term="Elasticsearch" scheme="http://quanke.name/categories/Elasticsearch/"/>
+    
+    
+      <category term="Elasticsearch" scheme="http://quanke.name/tags/Elasticsearch/"/>
+    
+      <category term="大数据" scheme="http://quanke.name/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
+    
+  </entry>
   
   <entry>
     <title>多种方式解决spring boot swagger ui使用 nginx 部署后无法使用问题</title>
@@ -612,37 +643,6 @@
       <category term="Vert.x3" scheme="http://quanke.name/tags/Vert-x3/"/>
     
       <category term="Vertx" scheme="http://quanke.name/tags/Vertx/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>设计模式Java版,Gitbook开源电子书，含源码</title>
-    <link href="http://quanke.name/2016/05/04/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8FJava%E7%89%88-Gitbook%E5%BC%80%E6%BA%90%E7%94%B5%E5%AD%90%E4%B9%A6%EF%BC%8C%E5%90%AB%E6%BA%90%E7%A0%81/"/>
-    <id>http://quanke.name/2016/05/04/设计模式Java版-Gitbook开源电子书，含源码/</id>
-    <published>2016-05-03T23:56:26.000Z</published>
-    <updated>2017-11-06T05:32:04.760Z</updated>
-    
-    <content type="html"><![CDATA[<ul><li>欢迎关注<a href="http://quanke.name/">http://quanke.name/</a></li><li>转载请注明出处，谢谢</li></ul><p>Sunny在CSDN技术博客中陆续发表了100多篇与设计模式学习相关的文章，涵盖了七个面向对象设计原则和24个设计模式（23个GoF设计模式 +  简单工厂模式），为了方便大家学习，<a href="http://quanke.name">http://quanke.name</a> 现将所有文章的进行了整理，方便大家下载阅读，希望能给各位带来帮助！</p><p>阅读地址：<a href="https://quanke.gitbooks.io/design-pattern-java/content/" target="_blank" rel="external">https://quanke.gitbooks.io/design-pattern-java/content/</a></p><p>下载地址：<a href="https://www.gitbook.com/book/quanke/design-pattern-java/" target="_blank" rel="external">https://www.gitbook.com/book/quanke/design-pattern-java/</a></p><p>源码下载地址：<a href="http://www.chinasa.info/download/DP-Code.rar" target="_blank" rel="external">http://www.chinasa.info/download/DP-Code.rar</a></p><p>课件下载地址：<a href="http://www.chinasa.info/download/DP-Slides.rar" target="_blank" rel="external">http://www.chinasa.info/download/DP-Slides.rar</a></p><p>作者：刘伟  <a href="http://blog.csdn.net/lovelion" target="_blank" rel="external">http://blog.csdn.net/lovelion</a></p><p>本书编辑：<a href="http://quanke.name">http://quanke.name</a></p><blockquote><p>刘伟(Sunny)，中南大学计算机应用技术博士，国家认证系统分析师（2005年），国家认证系统架构设计师（2009年，全国第四名），高级程序员，数据库系统工程师，MCSE，MCDBA，CASI专业顾问与企业内训讲师。具有十多年软件开发、项目管理及教育培训经验，曾在NIIT（印度国家信息技术学院）担任高级讲师，主持和参与30多个软件项目的开发工作，并给国内多家公司提供软件开发、软件设计等培训服务，现主要致力于软件工程、数据挖掘等领域的教学、推广和研究工作。技术专长：软件架构、设计模式、UML、OOAD、数据挖掘等。已出版设计模式书籍四本：《设计模式》（清华大学出版社，2011年）、《设计模式实训教程》（清华大学出版社，2012年）、《设计模式的艺术——软件开发人员内功修炼之道》（清华大学出版社，2013年）、《C#设计模式》（清华大学出版社，2013年）。架构师之家www.chinasa.info站长。<br>E-mail:weiliu_china@126.com<br>微博地址：<a href="http://weibo.com/csusunny" target="_blank" rel="external">http://weibo.com/csusunny</a></p></blockquote><p>更多干货，请关注：<a href="http://quanke.name">http://quanke.name</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;ul&gt;
-&lt;li&gt;欢迎关注&lt;a href=&quot;http://quanke.name/&quot;&gt;http://quanke.name/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;转载请注明出处，谢谢&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Sunny在CSDN技术博客中陆续发表了100多篇与设计模式学习相关的文章，涵
-      
-    
-    </summary>
-    
-      <category term="设计模式" scheme="http://quanke.name/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    
-      <category term="设计模式" scheme="http://quanke.name/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-      <category term="JAVA" scheme="http://quanke.name/tags/JAVA/"/>
     
   </entry>
   
