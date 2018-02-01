@@ -1,409 +1,915 @@
+
 <!DOCTYPE HTML>
-<html lang="zh-CN">
-<head>
-    <!--Setting-->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
-    <meta http-equiv="Cache-Control" content="no-siteapp">
-    <meta http-equiv="Cache-Control" content="no-transform">
-    <meta name="renderer" content="webkit|ie-comp|ie-stand">
-    <meta name="apple-mobile-web-app-capable" content="全科-不安分的码农">
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Term level queries · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="format-detection" content="telephone=no,email=no,adress=no">
-    <meta name="browsermode" content="application">
-    <meta name="screen-orientation" content="portrait">
-    <link rel="dns-prefetch" href="http://test.quanke.name">
-    <!--SEO-->
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="compound-queries.html" />
+    
+    
+    <link rel="prev" href="full-text-queries.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
 
 
-
-
-
-<meta name="robots" content="all" />
-<meta name="google" content="all" />
-<meta name="googlebot" content="all" />
-<meta name="verify" content="all" />
-    <!--Title-->
-
-
-<title>全科-不安分的码农</title>
-
-
-    <link rel="alternate" href="/atom.xml" title="全科-不安分的码农" type="application/atom+xml">
-
-
-    <link rel="icon" href="/favicon.ico">
+<ul class="summary">
+    
+    
 
     
 
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
 
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../dependency.html">
+            
+                <a href="../dependency.html">
+            
+                    
+                    Dependency
+            
+                </a>
+            
 
-<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css?rev=3.3.4">
-<link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../client.html">
+            
+                <a href="../client.html">
+            
+                    
+                    Client
+            
+                </a>
+            
 
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../client/transport-client.html">
+            
+                <a href="../client/transport-client.html">
+            
+                    
+                    Transport Client
+            
+                </a>
+            
 
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../client/xpack-transport-client.html">
+            
+                <a href="../client/xpack-transport-client.html">
+            
+                    
+                    XPack Transport Client
+            
+                </a>
+            
 
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../document-apis.html">
+            
+                <a href="../document-apis.html">
+            
+                    
+                    Document APIs
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../document-apis/index-api.html">
+            
+                <a href="../document-apis/index-api.html">
+            
+                    
+                    Index API
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../document-apis/get-api.html">
+            
+                <a href="../document-apis/get-api.html">
+            
+                    
+                    Get API
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../document-apis/delete-api.html">
+            
+                <a href="../document-apis/delete-api.html">
+            
+                    
+                    Delete API
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="../document-apis/delete-by-query-api.html">
+            
+                <a href="../document-apis/delete-by-query-api.html">
+            
+                    
+                    Delete By Query API
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" data-path="../document-apis/update-api.html">
+            
+                <a href="../document-apis/update-api.html">
+            
+                    
+                    Update API
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.6" data-path="../document-apis/multi-get-api.html">
+            
+                <a href="../document-apis/multi-get-api.html">
+            
+                    
+                    Multi Get API
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.7" data-path="../document-apis/bulk-api.html">
+            
+                <a href="../document-apis/bulk-api.html">
+            
+                    
+                    Bulk API
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.8" data-path="../document-apis/using-bulk-processor.html">
+            
+                <a href="../document-apis/using-bulk-processor.html">
+            
+                    
+                    Using Bulk Processor
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../search-api.html">
+            
+                <a href="../search-api.html">
+            
+                    
+                    Search API
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../search-api/using-scrolls-in-java.html">
+            
+                <a href="../search-api/using-scrolls-in-java.html">
+            
+                    
+                    Using scrolls in Java
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../search-api/multisearch-api.html">
+            
+                <a href="../search-api/multisearch-api.html">
+            
+                    
+                    MultiSearch API
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="../search-api/using-aggregations.html">
+            
+                <a href="../search-api/using-aggregations.html">
+            
+                    
+                    Using Aggregations
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="../search-api/terminate-after.html">
+            
+                <a href="../search-api/terminate-after.html">
+            
+                    
+                    Terminate After
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5" data-path="../search-api/search-template.html">
+            
+                <a href="../search-api/search-template.html">
+            
+                    
+                    Search Template
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../aggregations.html">
+            
+                <a href="../aggregations.html">
+            
+                    
+                    Aggregations
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../aggregations/structuring-aggregations.html">
+            
+                <a href="../aggregations/structuring-aggregations.html">
+            
+                    
+                    Structuring aggregations
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="../aggregations/metrics-aggregations.html">
+            
+                <a href="../aggregations/metrics-aggregations.html">
+            
+                    
+                    Metrics aggregations
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="../aggregations/bucket-aggregations.html">
+            
+                <a href="../aggregations/bucket-aggregations.html">
+            
+                    
+                    Bucket aggregations
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../query-dsl.html">
+            
+                <a href="../query-dsl.html">
+            
+                    
+                    Query DSL
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="match-all-query.html">
+            
+                <a href="match-all-query.html">
+            
+                    
+                    Match All Query
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.2" data-path="full-text-queries.html">
+            
+                <a href="full-text-queries.html">
+            
+                    
+                    Full text queries
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.7.3" data-path="term-level-queries.html">
+            
+                <a href="term-level-queries.html">
+            
+                    
+                    Term level queries
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.4" data-path="compound-queries.html">
+            
+                <a href="compound-queries.html">
+            
+                    
+                    Compound queries
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.5" data-path="joining-queries.html">
+            
+                <a href="joining-queries.html">
+            
+                    
+                    Joining queries
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.6" data-path="geo-queries.html">
+            
+                <a href="geo-queries.html">
+            
+                    
+                    Geo queries
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.7" data-path="specialized-queries.html">
+            
+                <a href="specialized-queries.html">
+            
+                    
+                    Specialized queries
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.8" data-path="span-queries.html">
+            
+                <a href="span-queries.html">
+            
+                    
+                    Span queries
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="../indexed-scripts-api.html">
+            
+                <a href="../indexed-scripts-api.html">
+            
+                    
+                    Indexed Scripts API
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="../indexed-scripts-api/script-language.html">
+            
+                <a href="../indexed-scripts-api/script-language.html">
+            
+                    
+                    Script Language
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="../java-api-administration.html">
+            
+                <a href="../java-api-administration.html">
+            
+                    
+                    Java API Administration
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.1" data-path="../java-api-administration/indices-administration.html">
+            
+                <a href="../java-api-administration/indices-administration.html">
+            
+                    
+                    Indices Administration
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.2" data-path="../java-api-administration/cluster-administration.html">
+            
+                <a href="../java-api-administration/cluster-administration.html">
+            
+                    
+                    Cluster Administration
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
 
     
 
+    <li class="divider"></li>
 
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Term level queries</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h3 id="term-level-queries-&#x672F;&#x8BED;&#x67E5;&#x8BE2;">Term level queries &#x672F;&#x8BED;&#x67E5;&#x8BE2;</h3>
+<p>&#x867D;&#x7136;&#x5168;&#x6587;&#x67E5;&#x8BE2;&#x5C06;&#x5728;&#x6267;&#x884C;&#x4E4B;&#x524D;&#x5206;&#x6790;&#x67E5;&#x8BE2;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x4F46;&#x662F;&#x9879;&#x7EA7;&#x522B;&#x67E5;&#x8BE2;&#x5BF9;&#x5B58;&#x50A8;&#x5728;&#x53CD;&#x5411;&#x7D22;&#x5F15;&#x4E2D;&#x7684;&#x786E;&#x5207;&#x9879;&#x8FDB;&#x884C;&#x64CD;&#x4F5C;&#x3002;</p>
+<p>&#x8FD9;&#x4E9B;&#x67E5;&#x8BE2;&#x901A;&#x5E38;&#x7528;&#x4E8E;&#x7ED3;&#x6784;&#x5316;&#x6570;&#x636E;&#xFF0C;&#x5982;&#x6570;&#x5B57;&#x3001;&#x65E5;&#x671F;&#x548C;&#x679A;&#x4E3E;&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x5168;&#x6587;&#x5B57;&#x6BB5;&#x3002;&#x6216;&#x8005;&#xFF0C;&#x5728;&#x5206;&#x6790;&#x8FC7;&#x7A0B;&#x4E4B;&#x524D;&#xFF0C;&#x5B83;&#x5141;&#x8BB8;&#x4F60;&#x7ED8;&#x5236;&#x4F4E;&#x7EA7;&#x67E5;&#x8BE2;&#x3002;</p>
+<p>&#x8FD9;&#x6837;&#x7684;&#x67E5;&#x8BE2;&#x6709;&#x4EE5;&#x4E0B;&#x8FD9;&#x4E9B;&#xFF1A;</p>
+<ul>
+<li>Term Query&#xFF08;&#x9879;&#x67E5;&#x8BE2;&#xFF09;</li>
+</ul>
+<p>&#x67E5;&#x8BE2;&#x5305;&#x542B;&#x5728;&#x6307;&#x5B9A;&#x5B57;&#x6BB5;&#x4E2D;&#x6307;&#x5B9A;&#x7684;&#x786E;&#x5207;&#x503C;&#x7684;&#x6587;&#x6863;&#x3002;</p>
+<p>&#x67E5;&#x770B;<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/query-dsl-term-query.html" target="_blank">Term Query</a></p>
+<pre><code>
+QueryBuilder qb = termQuery(
+    &quot;name&quot;,    //field
+    &quot;kimchy&quot;   //text
+);
+</code></pre><ul>
+<li>Terms Query&#xFF08;&#x591A;&#x9879;&#x67E5;&#x8BE2;&#xFF09;</li>
+</ul>
+<p>&#x67E5;&#x8BE2;&#x5305;&#x542B;&#x4EFB;&#x610F;&#x4E00;&#x4E2A;&#x5728;&#x6307;&#x5B9A;&#x5B57;&#x6BB5;&#x4E2D;&#x6307;&#x5B9A;&#x7684;&#x591A;&#x4E2A;&#x786E;&#x5207;&#x503C;&#x7684;&#x6587;&#x6863;&#x3002;</p>
+<p>&#x67E5;&#x770B;<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/query-dsl-terms-query.html" target="_blank">Terms Query</a></p>
+<pre><code>QueryBuilder qb = termsQuery(&quot;tags&quot;,    //field
+    &quot;blue&quot;, &quot;pill&quot;);                    //values
+</code></pre><ul>
+<li>Range Query&#xFF08;&#x8303;&#x56F4;&#x67E5;&#x8BE2;&#xFF09;</li>
+</ul>
+<p>&#x67E5;&#x8BE2;&#x6307;&#x5B9A;&#x5B57;&#x6BB5;&#x5305;&#x542B;&#x6307;&#x5B9A;&#x8303;&#x56F4;&#x5185;&#x7684;&#x503C;&#xFF08;&#x65E5;&#x671F;&#xFF0C;&#x6570;&#x5B57;&#x6216;&#x5B57;&#x7B26;&#x4E32;&#xFF09;&#x7684;&#x6587;&#x6863;&#x3002;</p>
+<p>&#x67E5;&#x770B;<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/query-dsl-range-query.html" target="_blank">Range Query</a></p>
+<p>&#x65B9;&#x6CD5;&#xFF1A;</p>
+<ol>
+<li>gte() :&#x8303;&#x56F4;&#x67E5;&#x8BE2;&#x5C06;&#x5339;&#x914D;&#x5B57;&#x6BB5;&#x503C;&#x5927;&#x4E8E;&#x6216;&#x7B49;&#x4E8E;&#x6B64;&#x53C2;&#x6570;&#x503C;&#x7684;&#x6587;&#x6863;&#x3002;</li>
+<li>gt() :&#x8303;&#x56F4;&#x67E5;&#x8BE2;&#x5C06;&#x5339;&#x914D;&#x5B57;&#x6BB5;&#x503C;&#x5927;&#x4E8E;&#x6B64;&#x53C2;&#x6570;&#x503C;&#x7684;&#x6587;&#x6863;&#x3002;</li>
+<li>lte() :&#x8303;&#x56F4;&#x67E5;&#x8BE2;&#x5C06;&#x5339;&#x914D;&#x5B57;&#x6BB5;&#x503C;&#x5C0F;&#x4E8E;&#x6216;&#x7B49;&#x4E8E;&#x6B64;&#x53C2;&#x6570;&#x503C;&#x7684;&#x6587;&#x6863;&#x3002;</li>
+<li>lt() :&#x8303;&#x56F4;&#x67E5;&#x8BE2;&#x5C06;&#x5339;&#x914D;&#x5B57;&#x6BB5;&#x503C;&#x5C0F;&#x4E8E;&#x6B64;&#x53C2;&#x6570;&#x503C;&#x7684;&#x6587;&#x6863;&#x3002;</li>
+<li>from() &#x5F00;&#x59CB;&#x503C; to() &#x7ED3;&#x675F;&#x503C; &#x8FD9;&#x4E24;&#x4E2A;&#x51FD;&#x6570;&#x4E0E;includeLower()&#x548C;includeUpper()&#x51FD;&#x6570;&#x914D;&#x5957;&#x4F7F;&#x7528;&#x3002;</li>
+<li>includeLower(true) &#x8868;&#x793A; from() &#x67E5;&#x8BE2;&#x5C06;&#x5339;&#x914D;&#x5B57;&#x6BB5;&#x503C;&#x5927;&#x4E8E;&#x6216;&#x7B49;&#x4E8E;&#x6B64;&#x53C2;&#x6570;&#x503C;&#x7684;&#x6587;&#x6863;&#x3002;</li>
+<li>includeLower(false) &#x8868;&#x793A; from() &#x67E5;&#x8BE2;&#x5C06;&#x5339;&#x914D;&#x5B57;&#x6BB5;&#x503C;&#x5927;&#x4E8E;&#x6B64;&#x53C2;&#x6570;&#x503C;&#x7684;&#x6587;&#x6863;&#x3002;</li>
+<li>includeUpper(true) &#x8868;&#x793A; to() &#x67E5;&#x8BE2;&#x5C06;&#x5339;&#x914D;&#x5B57;&#x6BB5;&#x503C;&#x5C0F;&#x4E8E;&#x6216;&#x7B49;&#x4E8E;&#x6B64;&#x53C2;&#x6570;&#x503C;&#x7684;&#x6587;&#x6863;&#x3002;</li>
+<li>includeUpper(false) &#x8868;&#x793A; to() &#x67E5;&#x8BE2;&#x5C06;&#x5339;&#x914D;&#x5B57;&#x6BB5;&#x503C;&#x5C0F;&#x4E8E;&#x6B64;&#x53C2;&#x6570;&#x503C;&#x7684;&#x6587;&#x6863;&#x3002;</li>
+</ol>
+<pre><code>QueryBuilder qb = rangeQuery(&quot;price&quot;)   //field
+    .from(5)                            //&#x5F00;&#x59CB;&#x503C;&#xFF0C;&#x4E0E;includeLower()&#x548C;includeUpper()&#x51FD;&#x6570;&#x914D;&#x5957;&#x4F7F;&#x7528;
+    .to(10)                             //&#x7ED3;&#x675F;&#x503C;&#xFF0C;&#x4E0E;includeLower()&#x548C;includeUpper()&#x51FD;&#x6570;&#x914D;&#x5957;&#x4F7F;&#x7528;
+    .includeLower(true)                 // true: &#x8868;&#x793A; from() &#x67E5;&#x8BE2;&#x5C06;&#x5339;&#x914D;&#x5B57;&#x6BB5;&#x503C;&#x5927;&#x4E8E;&#x6216;&#x7B49;&#x4E8E;&#x6B64;&#x53C2;&#x6570;&#x503C;&#x7684;&#x6587;&#x6863;;   false:&#x8868;&#x793A; from() &#x67E5;&#x8BE2;&#x5C06;&#x5339;&#x914D;&#x5B57;&#x6BB5;&#x503C;&#x5927;&#x4E8E;&#x6B64;&#x53C2;&#x6570;&#x503C;&#x7684;&#x6587;&#x6863;&#x3002;
+    .includeUpper(false);               //true:&#x8868;&#x793A; to() &#x67E5;&#x8BE2;&#x5C06;&#x5339;&#x914D;&#x5B57;&#x6BB5;&#x503C;&#x5C0F;&#x4E8E;&#x6216;&#x7B49;&#x4E8E;&#x6B64;&#x53C2;&#x6570;&#x503C;&#x7684;&#x6587;&#x6863;;   false:&#x8868;&#x793A; to() &#x67E5;&#x8BE2;&#x5C06;&#x5339;&#x914D;&#x5B57;&#x6BB5;&#x503C;&#x5C0F;&#x4E8E;&#x6B64;&#x53C2;&#x6570;&#x503C;&#x7684;&#x6587;&#x6863;&#x3002;
+</code></pre><h4 id="&#x5B9E;&#x4F8B;">&#x5B9E;&#x4F8B;</h4>
+<pre><code>// Query
+RangeQueryBuilder rangeQueryBuilder = QueryBuilders.rangeQuery(&quot;age&quot;);
+rangeQueryBuilder.from(19);
+rangeQueryBuilder.to(21);
+rangeQueryBuilder.includeLower(true);
+rangeQueryBuilder.includeUpper(true);
+//RangeQueryBuilder rangeQueryBuilder = QueryBuilders.rangeQuery(&quot;age&quot;).gte(19).lte(21);
+// Search
+SearchRequestBuilder searchRequestBuilder = client.prepareSearch(index);
+searchRequestBuilder.setTypes(type);
+searchRequestBuilder.setQuery(rangeQueryBuilder);
+// &#x6267;&#x884C;
+SearchResponse searchResponse = searchRequestBuilder.execute().actionGet();
+</code></pre><p>&#x4E0A;&#x9762;&#x4EE3;&#x7801;&#x4E2D;&#x7684;&#x67E5;&#x8BE2;&#x8BED;&#x53E5;&#x4E0E;&#x4E0B;&#x9762;&#x7684;&#x662F;&#x7B49;&#x4EF7;&#x7684;&#xFF1A;</p>
+<pre><code>QueryBuilder queryBuilder = QueryBuilders.rangeQuery(&quot;age&quot;).gte(19).lte(21);
+</code></pre><ul>
+<li>Exists Query&#xFF08;&#x5B58;&#x5728;&#x67E5;&#x8BE2;&#xFF09;</li>
+</ul>
+<p>&#x67E5;&#x8BE2;&#x6307;&#x5B9A;&#x7684;&#x5B57;&#x6BB5;&#x5305;&#x542B;&#x4EFB;&#x4F55;&#x975E;&#x7A7A;&#x503C;&#x7684;&#x6587;&#x6863;,&#x5982;&#x679C;&#x6307;&#x5B9A;&#x5B57;&#x6BB5;&#x4E0A;&#x81F3;&#x5C11;&#x5B58;&#x5728;&#x4E00;&#x4E2A;no-null&#x7684;&#x503C;&#x5C31;&#x4F1A;&#x8FD4;&#x56DE;&#x8BE5;&#x6587;&#x6863;&#x3002;</p>
+<p>&#x67E5;&#x770B;<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/query-dsl-exists-query.html" target="_blank">Exists Query</a></p>
+<pre><code>QueryBuilder qb = existsQuery(&quot;name&quot;);
+</code></pre><h4 id="&#x5B9E;&#x4F8B;">&#x5B9E;&#x4F8B;</h4>
+<pre><code>// Query
+ExistsQueryBuilder existsQueryBuilder = QueryBuilders.existsQuery(&quot;name&quot;);
+// Search
+SearchRequestBuilder searchRequestBuilder = client.prepareSearch(index);
+searchRequestBuilder.setTypes(type);
+searchRequestBuilder.setQuery(existsQueryBuilder);
+// &#x6267;&#x884C;
+SearchResponse searchResponse = searchRequestBuilder.get();
+</code></pre><p>&#x4E3E;&#x4F8B;&#x8BF4;&#x660E;&#xFF0C;&#x4E0B;&#x9762;&#x7684;&#x51E0;&#x4E2A;&#x6587;&#x6863;&#x90FD;&#x4F1A;&#x5F97;&#x5230;&#x4E0A;&#x9762;&#x4EE3;&#x7801;&#x7684;&#x5339;&#x914D;&#xFF1A;</p>
+<pre><code>{ &quot;name&quot;: &quot;yoona&quot; }
+{ &quot;name&quot;: &quot;&quot; }
+{ &quot;name&quot;: &quot;-&quot; }
+{ &quot;name&quot;: [&quot;yoona&quot;] }
+{ &quot;name&quot;: [&quot;yoona&quot;, null ] }
+</code></pre><p>&#x7B2C;&#x4E00;&#x4E2A;&#x662F;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x662F;&#x4E00;&#x4E2A;&#x975E;null&#x7684;&#x503C;&#x3002;</p>
+<p>&#x7B2C;&#x4E8C;&#x4E2A;&#x662F;&#x7A7A;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x4E5F;&#x662F;&#x975E;null&#x3002;</p>
+<p>&#x7B2C;&#x4E09;&#x4E2A;&#x4F7F;&#x7528;&#x6807;&#x51C6;&#x5206;&#x6790;&#x5668;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#x5C3D;&#x7BA1;&#x4E0D;&#x4F1A;&#x8FD4;&#x56DE;&#x8BCD;&#x6761;&#xFF0C;&#x4F46;&#x662F;&#x539F;&#x59CB;&#x5B57;&#x6BB5;&#x503C;&#x662F;&#x975E;null&#x7684;&#xFF08;Even though the standard analyzer would emit zero tokens, the original field is non-null&#xFF09;&#x3002;</p>
+<p>&#x7B2C;&#x4E94;&#x4E2A;&#x4E2D;&#x81F3;&#x5C11;&#x6709;&#x4E00;&#x4E2A;&#x662F;&#x975E;null&#x503C;&#x3002;</p>
+<p>&#x4E0B;&#x9762;&#x51E0;&#x4E2A;&#x6587;&#x6863;&#x4E0D;&#x4F1A;&#x5F97;&#x5230;&#x4E0A;&#x9762;&#x4EE3;&#x7801;&#x7684;&#x5339;&#x914D;&#xFF1A;</p>
+<pre><code>{ &quot;name&quot;: null }
+{ &quot;name&quot;: [] }
+{ &quot;name&quot;: [null] }
+{ &quot;user&quot;:  &quot;bar&quot; }
+</code></pre><p>&#x7B2C;&#x4E00;&#x4E2A;&#x662F;null&#x503C;&#x3002;</p>
+<p>&#x7B2C;&#x4E8C;&#x4E2A;&#x6CA1;&#x6709;&#x503C;&#x3002;</p>
+<p>&#x7B2C;&#x4E09;&#x4E2A;&#x53EA;&#x6709;null&#x503C;&#xFF0C;&#x81F3;&#x5C11;&#x9700;&#x8981;&#x4E00;&#x4E2A;&#x975E;null&#x503C;&#x3002;</p>
+<p>&#x7B2C;&#x56DB;&#x4E2A;&#x4E0E;&#x6307;&#x5B9A;&#x5B57;&#x6BB5;&#x4E0D;&#x5339;&#x914D;&#x3002;</p>
+<ul>
+<li>Prefix Query&#xFF08;&#x524D;&#x7F00;&#x67E5;&#x8BE2;&#xFF09;</li>
+</ul>
+<p>&#x67E5;&#x627E;&#x6307;&#x5B9A;&#x5B57;&#x6BB5;&#x5305;&#x542B;&#x4EE5;&#x6307;&#x5B9A;&#x7684;&#x7CBE;&#x786E;&#x524D;&#x7F00;&#x5F00;&#x5934;&#x7684;&#x503C;&#x7684;&#x6587;&#x6863;&#x3002;</p>
+<p>&#x67E5;&#x770B;<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/query-dsl-prefix-query.html" target="_blank">Prefix Query</a></p>
+<pre><code>QueryBuilder qb = prefixQuery(
+    &quot;brand&quot;,    //field
+    &quot;heine&quot;     //prefix
+);
+</code></pre><ul>
+<li>Wildcard Query&#xFF08;&#x901A;&#x914D;&#x7B26;&#x67E5;&#x8BE2;&#xFF09;</li>
+</ul>
+<p>&#x67E5;&#x8BE2;&#x6307;&#x5B9A;&#x5B57;&#x6BB5;&#x5305;&#x542B;&#x4E0E;&#x6307;&#x5B9A;&#x6A21;&#x5F0F;&#x5339;&#x914D;&#x7684;&#x503C;&#x7684;&#x6587;&#x6863;&#xFF0C;&#x5176;&#x4E2D;&#x8BE5;&#x6A21;&#x5F0F;&#x652F;&#x6301;&#x5355;&#x5B57;&#x7B26;&#x901A;&#x914D;&#x7B26;&#xFF08;&#xFF1F;&#xFF09;&#x548C;&#x591A;&#x5B57;&#x7B26;&#x901A;&#x914D;&#x7B26;&#xFF08;*&#xFF09;,&#x548C;&#x524D;&#x7F00;&#x67E5;&#x8BE2;&#x4E00;&#x6837;&#xFF0C;&#x901A;&#x914D;&#x7B26;&#x67E5;&#x8BE2;&#x6307;&#x5B9A;&#x5B57;&#x6BB5;&#x662F;&#x672A;&#x5206;&#x6790;&#x7684;&#xFF08;not analyzed&#xFF09;</p>
+<p>&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x661F;&#x53F7;&#x4EE3;&#x66FF;0&#x4E2A;&#x6216;&#x591A;&#x4E2A;&#x5B57;&#x7B26;&#xFF0C;&#x4F7F;&#x7528;&#x95EE;&#x53F7;&#x4EE3;&#x66FF;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x3002;&#x661F;&#x53F7;&#x8868;&#x793A;&#x5339;&#x914D;&#x7684;&#x6570;&#x91CF;&#x4E0D;&#x53D7;&#x9650;&#x5236;&#xFF0C;&#x800C;&#x540E;&#x8005;&#x7684;&#x5339;&#x914D;&#x5B57;&#x7B26;&#x6570;&#x5219;&#x53D7;&#x5230;&#x9650;&#x5236;&#x3002;&#x8FD9;&#x4E2A;&#x6280;&#x5DE7;&#x4E3B;&#x8981;&#x7528;&#x4E8E;&#x82F1;&#x6587;&#x641C;&#x7D22;&#x4E2D;&#xFF0C;&#x5982;&#x8F93;&#x5165;&#x201C;&#x201C;computer*&#x201D;&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x627E;&#x5230;&#x201C;computer&#x3001;computers&#x3001;computerised&#x3001;computerized&#x201D;&#x7B49;&#x5355;&#x8BCD;&#xFF0C;&#x800C;&#x8F93;&#x5165;&#x201C;comp?ter&#x201D;&#xFF0C;&#x5219;&#x53EA;&#x80FD;&#x627E;&#x5230;&#x201C;computer&#x3001;compater&#x3001;competer&#x201D;&#x7B49;&#x5355;&#x8BCD;&#x3002;&#x6CE8;&#x610F;&#x7684;&#x662F;&#x901A;&#x914D;&#x7B26;&#x67E5;&#x8BE2;&#x4E0D;&#x592A;&#x6CE8;&#x91CD;&#x6027;&#x80FD;&#xFF0C;&#x5728;&#x53EF;&#x80FD;&#x65F6;&#x5C3D;&#x91CF;&#x907F;&#x514D;&#xFF0C;&#x7279;&#x522B;&#x662F;&#x8981;&#x907F;&#x514D;&#x524D;&#x7F00;&#x901A;&#x914D;&#x7B26;&#xFF08;&#x4EE5;&#x901A;&#x914D;&#x7B26;&#x5F00;&#x59CB;&#x7684;&#x8BCD;&#x6761;&#xFF09;&#x3002;</p>
+<pre><code>QueryBuilder qb = wildcardQuery(&quot;user&quot;, &quot;k?mc*&quot;);
+</code></pre><h4 id="&#x5B9E;&#x4F8B;">&#x5B9E;&#x4F8B;</h4>
+<pre><code>// Query
+WildcardQueryBuilder wildcardQueryBuilder = QueryBuilders.wildcardQuery(&quot;country&quot;, &quot;&#x897F;*&#x7259;&quot;);
+// Search
+SearchRequestBuilder searchRequestBuilder = client.prepareSearch(index);
+searchRequestBuilder.setTypes(type);
+searchRequestBuilder.setQuery(wildcardQueryBuilder);
+// &#x6267;&#x884C;
+SearchResponse searchResponse = searchRequestBuilder.get();
+</code></pre><p>&#x67E5;&#x770B;<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/query-dsl-wildcard-query.html" target="_blank">Wildcard Query</a></p>
+<ul>
+<li>Regexp Query&#xFF08;&#x6B63;&#x5219;&#x8868;&#x8FBE;&#x5F0F;&#x67E5;&#x8BE2;&#xFF09;</li>
+</ul>
+<p>&#x67E5;&#x8BE2;&#x6307;&#x5B9A;&#x7684;&#x5B57;&#x6BB5;&#x5305;&#x542B;&#x4E0E;&#x6307;&#x5B9A;&#x7684;&#x6B63;&#x5219;&#x8868;&#x8FBE;&#x5F0F;&#x5339;&#x914D;&#x7684;&#x503C;&#x7684;&#x6587;&#x6863;&#x3002;</p>
+<p>&#x548C;&#x524D;&#x7F00;&#x67E5;&#x8BE2;&#x4E00;&#x6837;&#xFF0C;&#x6B63;&#x5219;&#x8868;&#x8FBE;&#x5F0F;&#x67E5;&#x8BE2;&#x6307;&#x5B9A;&#x5B57;&#x6BB5;&#x662F;&#x672A;&#x5206;&#x6790;&#x7684;&#xFF08;not analyzed&#xFF09;&#x3002;&#x6B63;&#x5219;&#x8868;&#x8FBE;&#x5F0F;&#x67E5;&#x8BE2;&#x7684;&#x6027;&#x80FD;&#x53D6;&#x51B3;&#x4E8E;&#x6240;&#x9009;&#x7684;&#x6B63;&#x5219;&#x8868;&#x8FBE;&#x5F0F;&#x3002;&#x5982;&#x679C;&#x6211;&#x4EEC;&#x7684;&#x6B63;&#x5219;&#x8868;&#x8FBE;&#x5F0F;&#x5339;&#x914D;&#x8BB8;&#x591A;&#x8BCD;&#x6761;&#xFF0C;&#x67E5;&#x8BE2;&#x5C06;&#x5F88;&#x6162;&#x3002;&#x4E00;&#x822C;&#x89C4;&#x5219;&#x662F;&#xFF0C;&#x6B63;&#x5219;&#x8868;&#x8FBE;&#x5F0F;&#x5339;&#x914D;&#x7684;&#x8BCD;&#x6761;&#x6570;&#x8D8A;&#x9AD8;&#xFF0C;&#x67E5;&#x8BE2;&#x8D8A;&#x6162;&#x3002;</p>
+<p>&#x67E5;&#x770B;<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/query-dsl-regexp-query.html" target="_blank">Regexp Query</a></p>
+<pre><code>QueryBuilder qb = regexpQuery(
+    &quot;name.first&quot;,        //field
+    &quot;s.*y&quot;);             //regexp
+</code></pre><h4 id="&#x5B9E;&#x4F8B;">&#x5B9E;&#x4F8B;</h4>
+<pre><code>// Query
+RegexpQueryBuilder regexpQueryBuilder = QueryBuilders.regexpQuery(&quot;country&quot;, &quot;(&#x897F;&#x73ED;|&#x8461;&#x8404;)&#x7259;&quot;);
+
+// Search
+SearchRequestBuilder searchRequestBuilder = client.prepareSearch(index);
+searchRequestBuilder.setTypes(type);
+searchRequestBuilder.setQuery(regexpQueryBuilder);
+// &#x6267;&#x884C;
+SearchResponse searchResponse = searchRequestBuilder.get();
+</code></pre><ul>
+<li>Fuzzy Query&#xFF08;&#x6A21;&#x7CCA;&#x67E5;&#x8BE2;&#xFF09;</li>
+</ul>
+<p>&#x67E5;&#x8BE2;&#x6307;&#x5B9A;&#x5B57;&#x6BB5;&#x5305;&#x542B;&#x4E0E;&#x6307;&#x5B9A;&#x672F;&#x8BED;&#x6A21;&#x7CCA;&#x76F8;&#x4F3C;&#x7684;&#x672F;&#x8BED;&#x7684;&#x6587;&#x6863;&#x3002;&#x6A21;&#x7CCA;&#x6027;&#x6D4B;&#x91CF;&#x4E3A;1&#x6216;2&#x7684; Levenshtein&#x3002;</p>
+<p>&#x5982;&#x679C;&#x6307;&#x5B9A;&#x7684;&#x5B57;&#x6BB5;&#x662F;string&#x7C7B;&#x578B;&#xFF0C;&#x6A21;&#x7CCA;&#x67E5;&#x8BE2;&#x662F;&#x57FA;&#x4E8E;&#x7F16;&#x8F91;&#x8DDD;&#x79BB;&#x7B97;&#x6CD5;&#x6765;&#x5339;&#x914D;&#x6587;&#x6863;&#x3002;&#x7F16;&#x8F91;&#x8DDD;&#x79BB;&#x7684;&#x8BA1;&#x7B97;&#x57FA;&#x4E8E;&#x6211;&#x4EEC;&#x63D0;&#x4F9B;&#x7684;&#x67E5;&#x8BE2;&#x8BCD;&#x6761;&#x548C;&#x88AB;&#x641C;&#x7D22;&#x6587;&#x6863;&#x3002;&#x5982;&#x679C;&#x6307;&#x5B9A;&#x7684;&#x5B57;&#x6BB5;&#x662F;&#x6570;&#x503C;&#x7C7B;&#x578B;&#x6216;&#x8005;&#x65E5;&#x671F;&#x7C7B;&#x578B;&#xFF0C;&#x6A21;&#x7CCA;&#x67E5;&#x8BE2;&#x57FA;&#x4E8E;&#x5728;&#x5B57;&#x6BB5;&#x503C;&#x4E0A;&#x8FDB;&#x884C;&#x52A0;&#x51CF;&#x64CD;&#x4F5C;&#x6765;&#x5339;&#x914D;&#x6587;&#x6863;&#xFF08;The fuzzy query uses similarity based on Levenshtein edit distance for string fields, and a +/-margin on numeric and date fields&#xFF09;&#x3002;&#x6B64;&#x67E5;&#x8BE2;&#x5F88;&#x5360;&#x7528;CPU&#x8D44;&#x6E90;&#xFF0C;&#x4F46;&#x5F53;&#x9700;&#x8981;&#x6A21;&#x7CCA;&#x5339;&#x914D;&#x65F6;&#x5B83;&#x5F88;&#x6709;&#x7528;&#xFF0C;&#x4F8B;&#x5982;&#xFF0C;&#x5F53;&#x7528;&#x6237;&#x62FC;&#x5199;&#x9519;&#x8BEF;&#x65F6;&#x3002;&#x53E6;&#x5916;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5728;&#x641C;&#x7D22;&#x8BCD;&#x7684;&#x5C3E;&#x90E8;&#x52A0;&#x4E0A;&#x5B57;&#x7B26; &#x201C;~&#x201D; &#x6765;&#x8FDB;&#x884C;&#x6A21;&#x7CCA;&#x67E5;&#x8BE2;&#x3002;</p>
+<p>&#x67E5;&#x770B;<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/query-dsl-fuzzy-query.html" target="_blank">Fuzzy Query</a></p>
+<pre><code>QueryBuilder qb = fuzzyQuery(
+    &quot;name&quot;,     //field
+    &quot;kimzhy&quot;    //text
+);
+</code></pre><ul>
+<li>Type Query&#xFF08;&#x7C7B;&#x578B;&#x67E5;&#x8BE2;&#xFF09;</li>
+</ul>
+<p>&#x67E5;&#x8BE2;&#x6307;&#x5B9A;&#x7C7B;&#x578B;&#x7684;&#x6587;&#x6863;&#x3002;</p>
+<p>&#x67E5;&#x770B;<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/query-dsl-type-query.html" target="_blank">Type Query</a></p>
+<pre><code>QueryBuilder qb = typeQuery(&quot;my_type&quot;); //type
+</code></pre><ul>
+<li>Ids Query&#xFF08;ID&#x67E5;&#x8BE2;&#xFF09;</li>
+</ul>
+<p>&#x67E5;&#x8BE2;&#x5177;&#x6709;&#x6307;&#x5B9A;&#x7C7B;&#x578B;&#x548C; ID &#x7684;&#x6587;&#x6863;&#x3002;</p>
+<p>&#x67E5;&#x770B;<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/query-dsl-ids-query.html" target="_blank">Ids Query</a></p>
+<pre><code>QueryBuilder qb = idsQuery(&quot;my_type&quot;, &quot;type2&quot;)
+    .addIds(&quot;1&quot;, &quot;4&quot;, &quot;100&quot;);
+
+QueryBuilder qb = idsQuery()  // type &#x662F;&#x53EF;&#x9009;&#x62E9;&#x7684;&#xFF0C;&#x53EF;&#x4EE5;&#x4E0D;&#x5199;
+    .addIds(&quot;1&quot;, &quot;4&quot;, &quot;100&quot;);
+</code></pre>
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="full-text-queries.html" class="navigation navigation-prev " aria-label="Previous page: Full text queries">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="compound-queries.html" class="navigation navigation-next " aria-label="Next page: Compound queries">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
 
     <script>
-        var _hmt = _hmt || [];
-        (function() {
-            var hm = document.createElement("script");
-            hm.src = "https://hm.baidu.com/hm.js?853906ed403c461b2dbf1df696bdf998";
-            var s = document.getElementsByTagName("script")[0];
-            s.parentNode.insertBefore(hm, s);
-        })();
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Term level queries","level":"1.7.3","depth":2,"next":{"title":"Compound queries","level":"1.7.4","depth":2,"path":"query-dsl/compound-queries.md","ref":"query-dsl/compound-queries.md","articles":[]},"previous":{"title":"Full text queries","level":"1.7.2","depth":2,"path":"query-dsl/full-text-queries.md","ref":"query-dsl/full-text-queries.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"query-dsl/term-level-queries.md","mtime":"2017-11-08T08:39:31.988Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-01-29T15:28:32.108Z"},"basePath":"..","book":{"language":""}});
+        });
     </script>
+</div>
 
-
-	<script>
-		(function(i, s, o, g, r, a, m) {
-		    i['GoogleAnalyticsObject'] = r;
-		    i[r] = i[r] || function() {
-		        (i[r].q = i[r].q || []).push(arguments)
-		    }, i[r].l = 1 * new Date();
-		    a = s.createElement(o),
-		    m = s.getElementsByTagName(o)[0];
-		    a.async = 1;
-		    a.src = g;
-		    m.parentNode.insertBefore(a, m)
-		})(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
-		ga('create', 'UA-82833335-5', 'auto');
-		ga('send', 'pageview');
-	</script>
-
-
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
     
-</head>
-
-
-<!--[if lte IE 8]>
-<style>
-    html{ font-size: 1em }
-</style>
-<![endif]-->
-<!--[if lte IE 9]>
-<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
-<![endif]-->
-
-<body>
-    <header class="main-header"  style="background-image:url(http://7xpw2b.com1.z0.glb.clouddn.com/hexo-sinppet/img/banner2.jpg)"  >
-    <div class="main-header-box">
-        <a class="header-avatar" href="/" title="">
-            <img src="/img/avatar.jpg" alt="logo头像">
-        </a>
-        <div class="branding">
-        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
-            
-                 <img src="/img/branding.png" alt="Snippet 博客主题">  
-             
-    	</div>
-    </div>
-</header>
-    <nav class="main-navigation">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="navbar-header"><span class="nav-toggle-button collapsed" data-toggle="collapse" data-target="#main-menu" id="mnav">
-                    <span class="sr-only">Toggle navigation</span>
-                    <i class="fa fa-bars"></i>
-                    </span>
-                </div>
-                <div class="collapse navbar-collapse" id="main-menu">
-                    <ul class="menu">
-                        
-                            <li role="presentation"><a href="/"><i class="fa fa-fw "></i>主页</a>
-                            </li>
-                        
-                            <li role="presentation"><a href="/"><i class="fa fa-fw "></i>日志</a>
-                            </li>
-                        
-                            <li role="presentation"><a href="/"><i class="fa fa-fw "></i>应用</a>
-                            </li>
-                        
-                            <li role="presentation"><a href="/"><i class="fa fa-fw "></i>开源</a>
-                            </li>
-                        
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</nav>
-    <section class="content-wrap">
-        <div class="container">
-            <div class="row">
-                <main class="col-md-8 main-content ">
-                    <div class="about">
-	
-	    <article class="post">
-	        <h1 class="post-head">关于我</h1>
-	        <div class="post-body">
-	            <h3 id="Term-level-queries-术语查询"><a href="#Term-level-queries-术语查询" class="headerlink" title="Term level queries 术语查询"></a>Term level queries 术语查询</h3><p>虽然全文查询将在执行之前分析查询字符串，但是项级别查询对存储在反向索引中的确切项进行操作。</p>
-<p>这些查询通常用于结构化数据，如数字、日期和枚举，而不是全文字段。或者，在分析过程之前，它允许你绘制低级查询。</p>
-<p>这样的查询有以下这些：</p>
-<ul>
-<li>Term Query（项查询）</li>
-</ul>
-<p>查询包含在指定字段中指定的确切值的文档。</p>
-<p>查看<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/query-dsl-term-query.html" target="_blank" rel="external">Term Query</a></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line"></div><div class="line">QueryBuilder qb = termQuery(</div><div class="line">    &quot;name&quot;,    //field</div><div class="line">    &quot;kimchy&quot;   //text</div><div class="line">);</div></pre></td></tr></table></figure>
-<ul>
-<li>Terms Query（多项查询）</li>
-</ul>
-<p>查询包含任意一个在指定字段中指定的多个确切值的文档。</p>
-<p>查看<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/query-dsl-terms-query.html" target="_blank" rel="external">Terms Query</a></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">QueryBuilder qb = termsQuery(&quot;tags&quot;,    //field</div><div class="line">    &quot;blue&quot;, &quot;pill&quot;);                    //values</div></pre></td></tr></table></figure>
-<ul>
-<li>Range Query（范围查询）</li>
-</ul>
-<p>查询指定字段包含指定范围内的值（日期，数字或字符串）的文档。</p>
-<p>查看<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/query-dsl-range-query.html" target="_blank" rel="external">Range Query</a></p>
-<p>方法：</p>
-<ol>
-<li>gte() :范围查询将匹配字段值大于或等于此参数值的文档。</li>
-<li>gt() :范围查询将匹配字段值大于此参数值的文档。</li>
-<li>lte() :范围查询将匹配字段值小于或等于此参数值的文档。</li>
-<li>lt() :范围查询将匹配字段值小于此参数值的文档。</li>
-<li>from() 开始值 to() 结束值 这两个函数与includeLower()和includeUpper()函数配套使用。</li>
-<li>includeLower(true) 表示 from() 查询将匹配字段值大于或等于此参数值的文档。</li>
-<li>includeLower(false) 表示 from() 查询将匹配字段值大于此参数值的文档。</li>
-<li>includeUpper(true) 表示 to() 查询将匹配字段值小于或等于此参数值的文档。</li>
-<li>includeUpper(false) 表示 to() 查询将匹配字段值小于此参数值的文档。</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">QueryBuilder qb = rangeQuery(&quot;price&quot;)   //field</div><div class="line">    .from(5)                            //开始值，与includeLower()和includeUpper()函数配套使用</div><div class="line">    .to(10)                             //结束值，与includeLower()和includeUpper()函数配套使用</div><div class="line">    .includeLower(true)                 // true: 表示 from() 查询将匹配字段值大于或等于此参数值的文档;   false:表示 from() 查询将匹配字段值大于此参数值的文档。</div><div class="line">    .includeUpper(false);               //true:表示 to() 查询将匹配字段值小于或等于此参数值的文档;   false:表示 to() 查询将匹配字段值小于此参数值的文档。</div></pre></td></tr></table></figure>
-<h4 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h4><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">// Query</div><div class="line">RangeQueryBuilder rangeQueryBuilder = QueryBuilders.rangeQuery(&quot;age&quot;);</div><div class="line">rangeQueryBuilder.from(19);</div><div class="line">rangeQueryBuilder.to(21);</div><div class="line">rangeQueryBuilder.includeLower(true);</div><div class="line">rangeQueryBuilder.includeUpper(true);</div><div class="line">//RangeQueryBuilder rangeQueryBuilder = QueryBuilders.rangeQuery(&quot;age&quot;).gte(19).lte(21);</div><div class="line">// Search</div><div class="line">SearchRequestBuilder searchRequestBuilder = client.prepareSearch(index);</div><div class="line">searchRequestBuilder.setTypes(type);</div><div class="line">searchRequestBuilder.setQuery(rangeQueryBuilder);</div><div class="line">// 执行</div><div class="line">SearchResponse searchResponse = searchRequestBuilder.execute().actionGet();</div></pre></td></tr></table></figure>
-<p>上面代码中的查询语句与下面的是等价的：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">QueryBuilder queryBuilder = QueryBuilders.rangeQuery(&quot;age&quot;).gte(19).lte(21);</div></pre></td></tr></table></figure>
-<ul>
-<li>Exists Query（存在查询）</li>
-</ul>
-<p>查询指定的字段包含任何非空值的文档,如果指定字段上至少存在一个no-null的值就会返回该文档。</p>
-<p>查看<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/query-dsl-exists-query.html" target="_blank" rel="external">Exists Query</a></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">QueryBuilder qb = existsQuery(&quot;name&quot;);</div></pre></td></tr></table></figure>
-<h4 id="实例-1"><a href="#实例-1" class="headerlink" title="实例"></a>实例</h4><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">// Query</div><div class="line">ExistsQueryBuilder existsQueryBuilder = QueryBuilders.existsQuery(&quot;name&quot;);</div><div class="line">// Search</div><div class="line">SearchRequestBuilder searchRequestBuilder = client.prepareSearch(index);</div><div class="line">searchRequestBuilder.setTypes(type);</div><div class="line">searchRequestBuilder.setQuery(existsQueryBuilder);</div><div class="line">// 执行</div><div class="line">SearchResponse searchResponse = searchRequestBuilder.get();</div></pre></td></tr></table></figure>
-<p>举例说明，下面的几个文档都会得到上面代码的匹配：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&#123; &quot;name&quot;: &quot;yoona&quot; &#125;</div><div class="line">&#123; &quot;name&quot;: &quot;&quot; &#125;</div><div class="line">&#123; &quot;name&quot;: &quot;-&quot; &#125;</div><div class="line">&#123; &quot;name&quot;: [&quot;yoona&quot;] &#125;</div><div class="line">&#123; &quot;name&quot;: [&quot;yoona&quot;, null ] &#125;</div></pre></td></tr></table></figure>
-<p>第一个是字符串，是一个非null的值。</p>
-<p>第二个是空字符串，也是非null。</p>
-<p>第三个使用标准分析器的情况下尽管不会返回词条，但是原始字段值是非null的（Even though the standard analyzer would emit zero tokens, the original field is non-null）。</p>
-<p>第五个中至少有一个是非null值。</p>
-<p>下面几个文档不会得到上面代码的匹配：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&#123; &quot;name&quot;: null &#125;</div><div class="line">&#123; &quot;name&quot;: [] &#125;</div><div class="line">&#123; &quot;name&quot;: [null] &#125;</div><div class="line">&#123; &quot;user&quot;:  &quot;bar&quot; &#125;</div></pre></td></tr></table></figure>
-<p>第一个是null值。</p>
-<p>第二个没有值。</p>
-<p>第三个只有null值，至少需要一个非null值。</p>
-<p>第四个与指定字段不匹配。</p>
-<ul>
-<li>Prefix Query（前缀查询）</li>
-</ul>
-<p>查找指定字段包含以指定的精确前缀开头的值的文档。</p>
-<p>查看<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/query-dsl-prefix-query.html" target="_blank" rel="external">Prefix Query</a></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">QueryBuilder qb = prefixQuery(</div><div class="line">    &quot;brand&quot;,    //field</div><div class="line">    &quot;heine&quot;     //prefix</div><div class="line">);</div></pre></td></tr></table></figure>
-<ul>
-<li>Wildcard Query（通配符查询）</li>
-</ul>
-<p>查询指定字段包含与指定模式匹配的值的文档，其中该模式支持单字符通配符（？）和多字符通配符（*）,和前缀查询一样，通配符查询指定字段是未分析的（not analyzed）</p>
-<p>可以使用星号代替0个或多个字符，使用问号代替一个字符。星号表示匹配的数量不受限制，而后者的匹配字符数则受到限制。这个技巧主要用于英文搜索中，如输入““computer*”，就可以找到“computer、computers、computerised、computerized”等单词，而输入“comp?ter”，则只能找到“computer、compater、competer”等单词。注意的是通配符查询不太注重性能，在可能时尽量避免，特别是要避免前缀通配符（以通配符开始的词条）。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">QueryBuilder qb = wildcardQuery(&quot;user&quot;, &quot;k?mc*&quot;);</div></pre></td></tr></table></figure>
-<h4 id="实例-2"><a href="#实例-2" class="headerlink" title="实例"></a>实例</h4><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">// Query</div><div class="line">WildcardQueryBuilder wildcardQueryBuilder = QueryBuilders.wildcardQuery(&quot;country&quot;, &quot;西*牙&quot;);</div><div class="line">// Search</div><div class="line">SearchRequestBuilder searchRequestBuilder = client.prepareSearch(index);</div><div class="line">searchRequestBuilder.setTypes(type);</div><div class="line">searchRequestBuilder.setQuery(wildcardQueryBuilder);</div><div class="line">// 执行</div><div class="line">SearchResponse searchResponse = searchRequestBuilder.get();</div></pre></td></tr></table></figure>
-<p>查看<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/query-dsl-wildcard-query.html" target="_blank" rel="external">Wildcard Query</a></p>
-<ul>
-<li>Regexp Query（正则表达式查询）</li>
-</ul>
-<p>查询指定的字段包含与指定的正则表达式匹配的值的文档。</p>
-<p>和前缀查询一样，正则表达式查询指定字段是未分析的（not analyzed）。正则表达式查询的性能取决于所选的正则表达式。如果我们的正则表达式匹配许多词条，查询将很慢。一般规则是，正则表达式匹配的词条数越高，查询越慢。</p>
-<p>查看<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/query-dsl-regexp-query.html" target="_blank" rel="external">Regexp Query</a></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">QueryBuilder qb = regexpQuery(</div><div class="line">    &quot;name.first&quot;,        //field</div><div class="line">    &quot;s.*y&quot;);             //regexp</div></pre></td></tr></table></figure>
-<h4 id="实例-3"><a href="#实例-3" class="headerlink" title="实例"></a>实例</h4><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">// Query</div><div class="line">RegexpQueryBuilder regexpQueryBuilder = QueryBuilders.regexpQuery(&quot;country&quot;, &quot;(西班|葡萄)牙&quot;);</div><div class="line"></div><div class="line">// Search</div><div class="line">SearchRequestBuilder searchRequestBuilder = client.prepareSearch(index);</div><div class="line">searchRequestBuilder.setTypes(type);</div><div class="line">searchRequestBuilder.setQuery(regexpQueryBuilder);</div><div class="line">// 执行</div><div class="line">SearchResponse searchResponse = searchRequestBuilder.get();</div></pre></td></tr></table></figure>
-<ul>
-<li>Fuzzy Query（模糊查询）</li>
-</ul>
-<p>查询指定字段包含与指定术语模糊相似的术语的文档。模糊性测量为1或2的 Levenshtein。</p>
-<p>如果指定的字段是string类型，模糊查询是基于编辑距离算法来匹配文档。编辑距离的计算基于我们提供的查询词条和被搜索文档。如果指定的字段是数值类型或者日期类型，模糊查询基于在字段值上进行加减操作来匹配文档（The fuzzy query uses similarity based on Levenshtein edit distance for string fields, and a +/-margin on numeric and date fields）。此查询很占用CPU资源，但当需要模糊匹配时它很有用，例如，当用户拼写错误时。另外我们可以在搜索词的尾部加上字符 “~” 来进行模糊查询。</p>
-<p>查看<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/query-dsl-fuzzy-query.html" target="_blank" rel="external">Fuzzy Query</a></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">QueryBuilder qb = fuzzyQuery(</div><div class="line">    &quot;name&quot;,     //field</div><div class="line">    &quot;kimzhy&quot;    //text</div><div class="line">);</div></pre></td></tr></table></figure>
-<ul>
-<li>Type Query（类型查询）</li>
-</ul>
-<p>查询指定类型的文档。</p>
-<p>查看<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/query-dsl-type-query.html" target="_blank" rel="external">Type Query</a></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">QueryBuilder qb = typeQuery(&quot;my_type&quot;); //type</div></pre></td></tr></table></figure>
-<ul>
-<li>Ids Query（ID查询）</li>
-</ul>
-<p>查询具有指定类型和 ID 的文档。</p>
-<p>查看<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/query-dsl-ids-query.html" target="_blank" rel="external">Ids Query</a></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">QueryBuilder qb = idsQuery(&quot;my_type&quot;, &quot;type2&quot;)</div><div class="line">    .addIds(&quot;1&quot;, &quot;4&quot;, &quot;100&quot;);</div><div class="line"></div><div class="line">QueryBuilder qb = idsQuery()  // type 是可选择的，可以不写</div><div class="line">    .addIds(&quot;1&quot;, &quot;4&quot;, &quot;100&quot;);</div></pre></td></tr></table></figure>
-
-	        </div>
-	    </article>
-	
-</div>
-                </main>
-                
-    <aside class="col-md-4 sidebar">
         
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
         
-    <div class="widget">    
-        <h3 class="title">搜索</h3>
-        <div id="search-form">
-            <div id="result-mask" class="hide"></div>
-            <div class="search-area">
-                
-                    <input id="search-key" type="search" autocomplete="off" placeholder="搜点什么呢?">
-                    <button type="button" class="search-form-submit" id="search-local">站内搜索</button>
-                
-                
-            </div>
-            <div id="result-wrap" class="hide">
-                <div id="search-result"></div>
-            </div>
-            <div class="hide">
-                <template id="search-tpl">
-                    <div class="item">
-                        <a href="/{path}" title="{title}">
-                            <div class="title">{title}</div>
-                            <div class="content">{content}</div>
-                        </a>
-                    </div>
-                </template>
-            </div>
-        </div>
-    </div>
-
+    
         
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
         
-    <div class="widget notification">
-        <h3 class="title">网站公告</h3>
-        <div>
-            <p>《Spring Boot 与 kotlin 实战》 系列教程上线<br/>
-专题：<a href="https://www.jianshu.com/c/e6dbcad79e75" title="fork me" target="_blank">《Spring Boot 与 kotlin 实战》</a> <br/>
-<hr>
-<img  width="100%" align="center" src="https://static.oschina.net/uploads/img/201711/08183543_ysUa.jpg">
-</p>
-        </div>
-    </div>
-
+    
         
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
         
-    <div class="widget">
-      <h3 class="title">社交</h3> 
-        <div class="content social">
-            
-	            <a href="//github.com/quanke" rel="external nofollow" title="Github" target="_blank">
-			    	<i class="git fa fa-git"></i>
-			    </a>
-            
-	            <a href="mailto:caiquanke_88@163.com" rel="external nofollow" title="邮箱" target="_blank">
-			    	<i class="envelope-o fa fa-envelope-o"></i>
-			    </a>
-            
-	            <a href="//weibo.com/quankecai" rel="external nofollow" title="微博" target="_blank">
-			    	<i class="weibo fa fa-weibo"></i>
-			    </a>
-            
-	            <a href="//jq.qq.com/?_wv=1027&k=5MOKtIE" rel="external nofollow" title="QQ群" target="_blank">
-			    	<i class="users fa fa-users"></i>
-			    </a>
-            
-	            <a href="/atom.xml" rel="external nofollow" title="RSS" target="_blank">
-			    	<i class="feed fa fa-feed"></i>
-			    </a>
-            
-        </div>
-    </div>
-
-
+    
         
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
         
-    <div class="widget">
-        <h3 class="title">分类</h3>
-        <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/es/"><i class="fa" aria-hidden="true">Elasticsearch</i></a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/golang/"><i class="fa" aria-hidden="true">Go语言</i></a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/"><i class="fa" aria-hidden="true">Java</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MBaaS-LiveOak系列/"><i class="fa" aria-hidden="true">MBaaS-LiveOak系列</i></a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/rn/"><i class="fa" aria-hidden="true">React Native</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vertx/"><i class="fa" aria-hidden="true">Vert.x3 系列</i></a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/android/"><i class="fa" aria-hidden="true">android开发</i></a><span class="category-list-count">57</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/"><i class="fa" aria-hidden="true">git</i></a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ios/"><i class="fa" aria-hidden="true">ios开发</i></a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/node/"><i class="fa" aria-hidden="true">node.js</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/use/"><i class="fa" aria-hidden="true">使用</i></a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/bdata/"><i class="fa" aria-hidden="true">大数据</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/service/"><i class="fa" aria-hidden="true">服务端开发</i></a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/autotest/"><i class="fa" aria-hidden="true">自动化测试</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/gof/"><i class="fa" aria-hidden="true">设计模式</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/se/"><i class="fa" aria-hidden="true">软件工程</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/essay/"><i class="fa" aria-hidden="true">随笔</i></a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/project/"><i class="fa" aria-hidden="true">项目实战</i></a><span class="category-list-count">1</span></li></ul>
-    </div>
-
-
+    
         
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
         
-    <div class="widget">
-      <h3 class="title">归档</h3>
-        <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/"><i class="fa" aria-hidden="true">十二月 2017</i></a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/"><i class="fa" aria-hidden="true">十一月 2017</i></a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/"><i class="fa" aria-hidden="true">二月 2017</i></a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/"><i class="fa" aria-hidden="true">十月 2016</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/"><i class="fa" aria-hidden="true">七月 2016</i></a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/"><i class="fa" aria-hidden="true">五月 2016</i></a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/"><i class="fa" aria-hidden="true">四月 2016</i></a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/"><i class="fa" aria-hidden="true">一月 2016</i></a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/"><i class="fa" aria-hidden="true">八月 2015</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/"><i class="fa" aria-hidden="true">七月 2015</i></a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/"><i class="fa" aria-hidden="true">五月 2015</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/"><i class="fa" aria-hidden="true">四月 2015</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/"><i class="fa" aria-hidden="true">十一月 2014</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/"><i class="fa" aria-hidden="true">六月 2014</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/02/"><i class="fa" aria-hidden="true">二月 2014</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/"><i class="fa" aria-hidden="true">三月 2013</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/"><i class="fa" aria-hidden="true">二月 2013</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/"><i class="fa" aria-hidden="true">一月 2013</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/"><i class="fa" aria-hidden="true">十二月 2012</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/"><i class="fa" aria-hidden="true">十一月 2012</i></a><span class="archive-list-count">42</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/10/"><i class="fa" aria-hidden="true">十月 2012</i></a><span class="archive-list-count">19</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/"><i class="fa" aria-hidden="true">九月 2012</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/08/"><i class="fa" aria-hidden="true">八月 2012</i></a><span class="archive-list-count">5</span></li></ul>
-    </div>
-
-
+    
         
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
         
-  <div class="widget">
-    <h3 class="title">标签云</h3>
-    <div class="content tag-cloud">
-        <a href="/tags/API/" style="font-size: 11.67px;">API</a> <a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/android-pg/" style="font-size: 10px;">Android多渠道打包</a> <a href="/tags/es/" style="font-size: 16.67px;">Elasticsearch</a> <a href="/tags/Gradle/" style="font-size: 10px;">Gradle</a> <a href="/tags/IOS/" style="font-size: 10px;">IOS</a> <a href="/tags/JAVA/" style="font-size: 10px;">JAVA</a> <a href="/tags/Java/" style="font-size: 13.33px;">Java</a> <a href="/tags/th-java/" style="font-size: 10px;">Java 编程思想</a> <a href="/tags/JavaEE/" style="font-size: 10px;">JavaEE</a> <a href="/tags/LiveOak/" style="font-size: 13.33px;">LiveOak</a> <a href="/tags/MBaaS/" style="font-size: 15px;">MBaaS</a> <a href="/tags/PM2/" style="font-size: 10px;">PM2</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/rn/" style="font-size: 10px;">React Native</a> <a href="/tags/SDK/" style="font-size: 10px;">SDK</a> <a href="/tags/Spring-Boot/" style="font-size: 10px;">Spring Boot</a> <a href="/tags/vertx-for-java/" style="font-size: 10px;">Vert.x Core手册 for Java</a> <a href="/tags/Vert-x3/" style="font-size: 20px;">Vert.x3</a> <a href="/tags/Vertx/" style="font-size: 20px;">Vertx</a> <a href="/tags/windows-install/" style="font-size: 10px;">Windows10安装</a> <a href="/tags/android/" style="font-size: 18.33px;">android</a> <a href="/tags/android-a/" style="font-size: 10px;">android动画</a> <a href="/tags/elasticsearch/" style="font-size: 10px;">elasticsearch</a> <a href="/tags/gitbook/" style="font-size: 10px;">gitbook</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/logstash/" style="font-size: 10px;">logstash</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/node-js-运行/" style="font-size: 10px;">node.js 运行</a> <a href="/tags/spirng-boot/" style="font-size: 10px;">spirng boot</a> <a href="/tags/swagger-ui/" style="font-size: 10px;">swagger ui</a> <a href="/tags/swagger-api/" style="font-size: 10px;">swagger-api</a> <a href="/tags/swagger-edit/" style="font-size: 10px;">swagger-edit</a> <a href="/tags/bdaga/" style="font-size: 16.67px;">大数据</a> <a href="/tags/开源/" style="font-size: 10px;">开源</a> <a href="/tags/conclusion/" style="font-size: 10px;">总结</a> <a href="/tags/api/" style="font-size: 10px;">接口文档</a> <a href="/tags/careful/" style="font-size: 10px;">注意</a> <a href="/tags/career-planning/" style="font-size: 10px;">职业规划</a> <a href="/tags/autotest/" style="font-size: 10px;">自动化测试</a> <a href="/tags/gof/" style="font-size: 10px;">设计模式</a> <a href="/tags/data/" style="font-size: 11.67px;">资料</a> <a href="/tags/test/" style="font-size: 10px;">软件测试</a>
-    </div>
-  </div>
+    
 
-
-        
-        
-    <div class="widget">
-        <h3 class="title">友链</h3>
-        <div class="content friends-link">
-        
-            <a href="http://quanke.name" class="fa" target="_blank">个人博客</a>
-        
-            <a href="http://satra.gitee.io/blog/" class="fa" target="_blank">我在万达摆地摊</a>
-        
-        </div>
-    </div>
-
-
-        
-    </aside>
-
-            </div>
-        </div>
-    </section>
-    <footer class="main-footer">
-    <div class="container">
-        <div class="row">
-        </div>
-    </div>
-</footer>
-
-<a id="back-to-top" class="hide">
-	<i class="fa fa-chevron-up"></i>
-</a>
-
-
-
-
-    <div class="copyright">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12"> 
-                <span>Copyright &copy; 2017
-                </span> | 
-                <span>
-                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
-                </span> | 
-                <span>
-                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
-                </span>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-	<script src="/js/search.js?rev=@@hash"></script>
-
-
-<script src="/js/app.js?rev=@@hash"></script>
-
-
-</body>
+    </body>
 </html>
+

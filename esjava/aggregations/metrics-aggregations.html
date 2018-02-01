@@ -1,418 +1,1025 @@
+
 <!DOCTYPE HTML>
-<html lang="zh-CN">
-<head>
-    <!--Setting-->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
-    <meta http-equiv="Cache-Control" content="no-siteapp">
-    <meta http-equiv="Cache-Control" content="no-transform">
-    <meta name="renderer" content="webkit|ie-comp|ie-stand">
-    <meta name="apple-mobile-web-app-capable" content="全科-不安分的码农">
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Metrics aggregations · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="format-detection" content="telephone=no,email=no,adress=no">
-    <meta name="browsermode" content="application">
-    <meta name="screen-orientation" content="portrait">
-    <link rel="dns-prefetch" href="http://test.quanke.name">
-    <!--SEO-->
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="bucket-aggregations.html" />
+    
+    
+    <link rel="prev" href="structuring-aggregations.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
 
 
-
-
-
-<meta name="robots" content="all" />
-<meta name="google" content="all" />
-<meta name="googlebot" content="all" />
-<meta name="verify" content="all" />
-    <!--Title-->
-
-
-<title>全科-不安分的码农</title>
-
-
-    <link rel="alternate" href="/atom.xml" title="全科-不安分的码农" type="application/atom+xml">
-
-
-    <link rel="icon" href="/favicon.ico">
+<ul class="summary">
+    
+    
 
     
 
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
 
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../dependency.html">
+            
+                <a href="../dependency.html">
+            
+                    
+                    Dependency
+            
+                </a>
+            
 
-<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css?rev=3.3.4">
-<link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../client.html">
+            
+                <a href="../client.html">
+            
+                    
+                    Client
+            
+                </a>
+            
 
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../client/transport-client.html">
+            
+                <a href="../client/transport-client.html">
+            
+                    
+                    Transport Client
+            
+                </a>
+            
 
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../client/xpack-transport-client.html">
+            
+                <a href="../client/xpack-transport-client.html">
+            
+                    
+                    XPack Transport Client
+            
+                </a>
+            
 
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../document-apis.html">
+            
+                <a href="../document-apis.html">
+            
+                    
+                    Document APIs
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../document-apis/index-api.html">
+            
+                <a href="../document-apis/index-api.html">
+            
+                    
+                    Index API
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../document-apis/get-api.html">
+            
+                <a href="../document-apis/get-api.html">
+            
+                    
+                    Get API
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../document-apis/delete-api.html">
+            
+                <a href="../document-apis/delete-api.html">
+            
+                    
+                    Delete API
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="../document-apis/delete-by-query-api.html">
+            
+                <a href="../document-apis/delete-by-query-api.html">
+            
+                    
+                    Delete By Query API
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" data-path="../document-apis/update-api.html">
+            
+                <a href="../document-apis/update-api.html">
+            
+                    
+                    Update API
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.6" data-path="../document-apis/multi-get-api.html">
+            
+                <a href="../document-apis/multi-get-api.html">
+            
+                    
+                    Multi Get API
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.7" data-path="../document-apis/bulk-api.html">
+            
+                <a href="../document-apis/bulk-api.html">
+            
+                    
+                    Bulk API
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.8" data-path="../document-apis/using-bulk-processor.html">
+            
+                <a href="../document-apis/using-bulk-processor.html">
+            
+                    
+                    Using Bulk Processor
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../search-api.html">
+            
+                <a href="../search-api.html">
+            
+                    
+                    Search API
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../search-api/using-scrolls-in-java.html">
+            
+                <a href="../search-api/using-scrolls-in-java.html">
+            
+                    
+                    Using scrolls in Java
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../search-api/multisearch-api.html">
+            
+                <a href="../search-api/multisearch-api.html">
+            
+                    
+                    MultiSearch API
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="../search-api/using-aggregations.html">
+            
+                <a href="../search-api/using-aggregations.html">
+            
+                    
+                    Using Aggregations
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="../search-api/terminate-after.html">
+            
+                <a href="../search-api/terminate-after.html">
+            
+                    
+                    Terminate After
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5" data-path="../search-api/search-template.html">
+            
+                <a href="../search-api/search-template.html">
+            
+                    
+                    Search Template
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../aggregations.html">
+            
+                <a href="../aggregations.html">
+            
+                    
+                    Aggregations
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="structuring-aggregations.html">
+            
+                <a href="structuring-aggregations.html">
+            
+                    
+                    Structuring aggregations
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.6.2" data-path="metrics-aggregations.html">
+            
+                <a href="metrics-aggregations.html">
+            
+                    
+                    Metrics aggregations
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="bucket-aggregations.html">
+            
+                <a href="bucket-aggregations.html">
+            
+                    
+                    Bucket aggregations
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../query-dsl.html">
+            
+                <a href="../query-dsl.html">
+            
+                    
+                    Query DSL
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="../query-dsl/match-all-query.html">
+            
+                <a href="../query-dsl/match-all-query.html">
+            
+                    
+                    Match All Query
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.2" data-path="../query-dsl/full-text-queries.html">
+            
+                <a href="../query-dsl/full-text-queries.html">
+            
+                    
+                    Full text queries
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.3" data-path="../query-dsl/term-level-queries.html">
+            
+                <a href="../query-dsl/term-level-queries.html">
+            
+                    
+                    Term level queries
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.4" data-path="../query-dsl/compound-queries.html">
+            
+                <a href="../query-dsl/compound-queries.html">
+            
+                    
+                    Compound queries
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.5" data-path="../query-dsl/joining-queries.html">
+            
+                <a href="../query-dsl/joining-queries.html">
+            
+                    
+                    Joining queries
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.6" data-path="../query-dsl/geo-queries.html">
+            
+                <a href="../query-dsl/geo-queries.html">
+            
+                    
+                    Geo queries
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.7" data-path="../query-dsl/specialized-queries.html">
+            
+                <a href="../query-dsl/specialized-queries.html">
+            
+                    
+                    Specialized queries
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.8" data-path="../query-dsl/span-queries.html">
+            
+                <a href="../query-dsl/span-queries.html">
+            
+                    
+                    Span queries
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="../indexed-scripts-api.html">
+            
+                <a href="../indexed-scripts-api.html">
+            
+                    
+                    Indexed Scripts API
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="../indexed-scripts-api/script-language.html">
+            
+                <a href="../indexed-scripts-api/script-language.html">
+            
+                    
+                    Script Language
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="../java-api-administration.html">
+            
+                <a href="../java-api-administration.html">
+            
+                    
+                    Java API Administration
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.1" data-path="../java-api-administration/indices-administration.html">
+            
+                <a href="../java-api-administration/indices-administration.html">
+            
+                    
+                    Indices Administration
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.2" data-path="../java-api-administration/cluster-administration.html">
+            
+                <a href="../java-api-administration/cluster-administration.html">
+            
+                    
+                    Cluster Administration
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
 
     
 
+    <li class="divider"></li>
 
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Metrics aggregations</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h3 id="metrics-aggregations">Metrics aggregations</h3>
+<blockquote>
+<p>&#x8BA1;&#x7B97;&#x5EA6;&#x91CF;&#x8FD9;&#x7C7B;&#x7684;&#x805A;&#x5408;&#x64CD;&#x4F5C;&#x662F;&#x4EE5;&#x4F7F;&#x7528;&#x4E00;&#x79CD;&#x65B9;&#x5F0F;&#x6216;&#x8005;&#x4ECE;&#x6587;&#x6863;&#x4E2D;&#x63D0;&#x53D6;&#x9700;&#x8981;&#x805A;&#x5408;&#x7684;&#x503C;&#x4E3A;&#x57FA;&#x7840;&#x7684;&#x3002;&#x8FD9;&#x4E9B;&#x6570;&#x636E;&#x4E0D;&#x4F46;&#x53EF;&#x4EE5;&#x4ECE;&#x6587;&#x6863;&#xFF08;&#x4F7F;&#x7528;&#x6570;&#x636E;&#x5C5E;&#x6027;&#xFF09;&#x7684;&#x5C5E;&#x6027;&#x4E2D;&#x63D0;&#x53D6;&#x51FA;&#x6765;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x811A;&#x672C;&#x751F;&#x6210;&#x3002;</p>
+<p>&#x6570;&#x503C;&#x8BA1;&#x91CF;&#x805A;&#x5408;&#x64CD;&#x4F5C;&#x662F;&#x80FD;&#x591F;&#x4EA7;&#x751F;&#x5177;&#x4F53;&#x7684;&#x6570;&#x503C;&#x7684;&#x4E00;&#x79CD;&#x8BA1;&#x91CF;&#x805A;&#x5408;&#x64CD;&#x4F5C;&#x3002;&#x4E00;&#x4E9B;&#x805A;&#x5408;&#x64CD;&#x4F5C;&#x8F93;&#x51FA;&#x5355;&#x4E2A;&#x7684;&#x8BA1;&#x91CF;&#x6570;&#x503C;&#xFF08;&#x4F8B;&#x5982;avg&#xFF09;&#xFF0C;&#x5E76;&#x4E14;&#x88AB;&#x79F0;&#x4F5C;single-value numeric metric aggregation&#xFF0C;&#x5176;&#x4ED6;&#x4EA7;&#x751F;&#x591A;&#x4E2A;&#x8BA1;&#x91CF;&#x6570;&#x503C;&#xFF08;&#x4F8B;&#x5982; stats&#xFF09;&#x7684;&#x79F0;&#x4F5C; multi-value numeric metrics aggregation&#x3002;&#x8FD9;&#x4E24;&#x79CD;&#x4E0D;&#x540C;&#x7684;&#x805A;&#x5408;&#x64CD;&#x4F5C;&#x53EA;&#x6709;&#x5728;&#x6876;&#x805A;&#x5408;&#x7684;&#x5B50;&#x805A;&#x5408;&#x64CD;&#x4F5C;&#x4E2D;&#x624D;&#x4F1A;&#x6709;&#x4E0D;&#x540C;&#x7684;&#x8868;&#x73B0;&#xFF08;&#x6709;&#x4E9B;&#x6876;&#x805A;&#x5408;&#x53EF;&#x4EE5;&#x57FA;&#x4E8E;&#x6BCF;&#x4E2A;&#x7684;&#x6570;&#x503C;&#x8BA1;&#x91CF;&#x6765;&#x5BF9;&#x8FD4;&#x56DE;&#x7684;&#x6876;&#x8FDB;&#x884C;&#x6392;&#x5E8F;&#xFF09;&#x3002;</p>
+</blockquote>
+<h4 id="min-aggregatione-&#x6700;&#x5C0F;&#x503C;&#x805A;&#x5408;">Min Aggregatione &#x6700;&#x5C0F;&#x503C;&#x805A;&#x5408;</h4>
+<p>&#x4E0B;&#x9762;&#x662F;&#x5982;&#x4F55;&#x7528;Java API &#x4F7F;&#x7528;<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-metrics-min-aggregation.html" target="_blank">&#x6700;&#x5C0F;&#x503C;&#x805A;&#x5408;</a></p>
+<h5 id="&#x51C6;&#x5907;&#x805A;&#x5408;&#x8BF7;&#x6C42;">&#x51C6;&#x5907;&#x805A;&#x5408;&#x8BF7;&#x6C42;</h5>
+<p>&#x4E0B;&#x9762;&#x662F;&#x5982;&#x4F55;&#x521B;&#x5EFA;&#x805A;&#x5408;&#x8BF7;&#x6C42;&#x7684;&#x662F;&#x793A;&#x4F8B;&#xFF1A;</p>
+<pre><code>MinAggregationBuilder aggregation =
+        AggregationBuilders
+                .min(&quot;agg&quot;)
+                .field(&quot;height&quot;);
+</code></pre><h5 id="&#x4F7F;&#x7528;&#x805A;&#x5408;&#x8BF7;&#x6C42;">&#x4F7F;&#x7528;&#x805A;&#x5408;&#x8BF7;&#x6C42;</h5>
+<pre><code>import org.elasticsearch.search.aggregations.metrics.min.Min;
+</code></pre><pre><code>// sr is here your SearchResponse object
+Min agg = sr.getAggregations().get(&quot;agg&quot;);
+double value = agg.getValue();
+</code></pre><h4 id="max-aggregation-&#x6700;&#x5927;&#x503C;&#x805A;&#x5408;">Max Aggregation &#x6700;&#x5927;&#x503C;&#x805A;&#x5408;</h4>
+<p>&#x4E0B;&#x9762;&#x662F;&#x5982;&#x4F55;&#x7528;Java API &#x4F7F;&#x7528;<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-metrics-max-aggregation.html" target="_blank">&#x6700;&#x5927;&#x503C;&#x805A;&#x5408;</a></p>
+<h5 id="&#x51C6;&#x5907;&#x805A;&#x5408;&#x8BF7;&#x6C42;">&#x51C6;&#x5907;&#x805A;&#x5408;&#x8BF7;&#x6C42;</h5>
+<p>&#x4E0B;&#x9762;&#x662F;&#x5982;&#x4F55;&#x521B;&#x5EFA;&#x805A;&#x5408;&#x8BF7;&#x6C42;&#x7684;&#x662F;&#x793A;&#x4F8B;&#xFF1A;</p>
+<pre><code>MaxAggregationBuilder aggregation =
+        AggregationBuilders
+                .max(&quot;agg&quot;)
+                .field(&quot;height&quot;);
+</code></pre><h5 id="&#x4F7F;&#x7528;&#x805A;&#x5408;&#x8BF7;&#x6C42;">&#x4F7F;&#x7528;&#x805A;&#x5408;&#x8BF7;&#x6C42;</h5>
+<pre><code>import org.elasticsearch.search.aggregations.metrics.max.Max;
+</code></pre><pre><code>// sr is here your SearchResponse object
+Min agg = sr.getAggregations().get(&quot;agg&quot;);
+double value = agg.getValue();
+</code></pre><h4 id="sum-aggregation-&#x6C42;&#x548C;&#x805A;&#x5408;">Sum Aggregation &#x6C42;&#x548C;&#x805A;&#x5408;</h4>
+<p>&#x4E0B;&#x9762;&#x662F;&#x5982;&#x4F55;&#x7528;Java API &#x4F7F;&#x7528;<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-metrics-sum-aggregation.html" target="_blank">&#x6C42;&#x548C;&#x805A;&#x5408;</a></p>
+<h5 id="&#x51C6;&#x5907;&#x805A;&#x5408;&#x8BF7;&#x6C42;">&#x51C6;&#x5907;&#x805A;&#x5408;&#x8BF7;&#x6C42;</h5>
+<p>&#x4E0B;&#x9762;&#x662F;&#x5982;&#x4F55;&#x521B;&#x5EFA;&#x805A;&#x5408;&#x8BF7;&#x6C42;&#x7684;&#x662F;&#x793A;&#x4F8B;&#xFF1A;</p>
+<pre><code>SumAggregationBuilder aggregation =
+        AggregationBuilders
+                .sum(&quot;agg&quot;)
+                .field(&quot;height&quot;);
+</code></pre><h5 id="&#x4F7F;&#x7528;&#x805A;&#x5408;&#x8BF7;&#x6C42;">&#x4F7F;&#x7528;&#x805A;&#x5408;&#x8BF7;&#x6C42;</h5>
+<pre><code>import org.elasticsearch.search.aggregations.metrics.sum.Sum;
+</code></pre><pre><code>// sr is here your SearchResponse object
+Sum agg = sr.getAggregations().get(&quot;agg&quot;);
+double value = agg.getValue();
+</code></pre><h4 id="avg-aggregation-&#x5E73;&#x5747;&#x503C;&#x805A;&#x5408;">Avg Aggregation &#x5E73;&#x5747;&#x503C;&#x805A;&#x5408;</h4>
+<p>&#x4E0B;&#x9762;&#x662F;&#x5982;&#x4F55;&#x7528;Java API &#x4F7F;&#x7528;<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-metrics-avg-aggregation.html" target="_blank">&#x5E73;&#x5747;&#x503C;&#x805A;&#x5408;</a></p>
+<h5 id="&#x51C6;&#x5907;&#x805A;&#x5408;&#x8BF7;&#x6C42;">&#x51C6;&#x5907;&#x805A;&#x5408;&#x8BF7;&#x6C42;</h5>
+<p>&#x4E0B;&#x9762;&#x662F;&#x5982;&#x4F55;&#x521B;&#x5EFA;&#x805A;&#x5408;&#x8BF7;&#x6C42;&#x7684;&#x662F;&#x793A;&#x4F8B;&#xFF1A;</p>
+<pre><code>AvgAggregationBuilder aggregation =
+        AggregationBuilders
+                .avg(&quot;agg&quot;)
+                .field(&quot;height&quot;);
+</code></pre><h5 id="&#x4F7F;&#x7528;&#x805A;&#x5408;&#x8BF7;&#x6C42;">&#x4F7F;&#x7528;&#x805A;&#x5408;&#x8BF7;&#x6C42;</h5>
+<pre><code>import org.elasticsearch.search.aggregations.metrics.avg.Avg;
+</code></pre><pre><code>// sr is here your SearchResponse object
+Avg agg = sr.getAggregations().get(&quot;agg&quot;);
+double value = agg.getValue();
+</code></pre><h4 id="stats-aggregation-&#x7EDF;&#x8BA1;&#x805A;&#x5408;">Stats Aggregation &#x7EDF;&#x8BA1;&#x805A;&#x5408;</h4>
+<blockquote>
+<p>&#x7EDF;&#x8BA1;&#x805A;&#x5408;&#x2014;&#x2014;&#x57FA;&#x4E8E;&#x6587;&#x6863;&#x7684;&#x67D0;&#x4E2A;&#x503C;&#xFF0C;&#x8BA1;&#x7B97;&#x51FA;&#x4E00;&#x4E9B;&#x7EDF;&#x8BA1;&#x4FE1;&#x606F;&#xFF08;min&#x3001;max&#x3001;sum&#x3001;count&#x3001;avg&#xFF09;, &#x7528;&#x4E8E;&#x8BA1;&#x7B97;&#x7684;&#x503C;&#x53EF;&#x4EE5;&#x662F;&#x7279;&#x5B9A;&#x7684;&#x6570;&#x503C;&#x578B;&#x5B57;&#x6BB5;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x811A;&#x672C;&#x8BA1;&#x7B97;&#x800C;&#x6765;&#x3002;</p>
+</blockquote>
+<p>&#x4E0B;&#x9762;&#x662F;&#x5982;&#x4F55;&#x7528;Java API &#x4F7F;&#x7528;<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-metrics-stats-aggregation.html" target="_blank">&#x7EDF;&#x8BA1;&#x805A;&#x5408;</a></p>
+<h5 id="&#x51C6;&#x5907;&#x805A;&#x5408;&#x8BF7;&#x6C42;">&#x51C6;&#x5907;&#x805A;&#x5408;&#x8BF7;&#x6C42;</h5>
+<p>&#x4E0B;&#x9762;&#x662F;&#x5982;&#x4F55;&#x521B;&#x5EFA;&#x805A;&#x5408;&#x8BF7;&#x6C42;&#x7684;&#x662F;&#x793A;&#x4F8B;&#xFF1A;</p>
+<pre><code>StatsAggregationBuilder aggregation =
+        AggregationBuilders
+                .stats(&quot;agg&quot;)
+                .field(&quot;height&quot;);
+</code></pre><h5 id="&#x4F7F;&#x7528;&#x805A;&#x5408;&#x8BF7;&#x6C42;">&#x4F7F;&#x7528;&#x805A;&#x5408;&#x8BF7;&#x6C42;</h5>
+<pre><code>import org.elasticsearch.search.aggregations.metrics.stats.Stats;
+</code></pre><pre><code>// sr is here your SearchResponse object
+Stats agg = sr.getAggregations().get(&quot;agg&quot;);
+double min = agg.getMin();
+double max = agg.getMax();
+double avg = agg.getAvg();
+double sum = agg.getSum();
+long count = agg.getCount();
+</code></pre><h4 id="extended-stats-aggregation-&#x6269;&#x5C55;&#x7EDF;&#x8BA1;&#x805A;&#x5408;">Extended Stats Aggregation &#x6269;&#x5C55;&#x7EDF;&#x8BA1;&#x805A;&#x5408;</h4>
+<blockquote>
+<p>&#x6269;&#x5C55;&#x7EDF;&#x8BA1;&#x805A;&#x5408;&#x2014;&#x2014;&#x57FA;&#x4E8E;&#x6587;&#x6863;&#x7684;&#x67D0;&#x4E2A;&#x503C;&#xFF0C;&#x8BA1;&#x7B97;&#x51FA;&#x4E00;&#x4E9B;&#x7EDF;&#x8BA1;&#x4FE1;&#x606F;&#xFF08;&#x6BD4;&#x666E;&#x901A;&#x7684;stats&#x805A;&#x5408;&#x591A;&#x4E86;sum_of_squares&#x3001;variance&#x3001;std_deviation&#x3001;std_deviation_bounds&#xFF09;, &#x7528;&#x4E8E;&#x8BA1;&#x7B97;&#x7684;&#x503C;&#x53EF;&#x4EE5;&#x662F;&#x7279;&#x5B9A;&#x7684;&#x6570;&#x503C;&#x578B;&#x5B57;&#x6BB5;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x811A;&#x672C;&#x8BA1;&#x7B97;&#x800C;&#x6765;&#x3002;</p>
+</blockquote>
+<p>&#x4E0B;&#x9762;&#x662F;&#x5982;&#x4F55;&#x7528;Java API &#x4F7F;&#x7528;<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-metrics-extendedstats-aggregation.html" target="_blank">&#x6269;&#x5C55;&#x7EDF;&#x8BA1;&#x805A;&#x5408;</a></p>
+<h5 id="&#x51C6;&#x5907;&#x805A;&#x5408;&#x8BF7;&#x6C42;">&#x51C6;&#x5907;&#x805A;&#x5408;&#x8BF7;&#x6C42;</h5>
+<p>&#x4E0B;&#x9762;&#x662F;&#x5982;&#x4F55;&#x521B;&#x5EFA;&#x805A;&#x5408;&#x8BF7;&#x6C42;&#x7684;&#x662F;&#x793A;&#x4F8B;&#xFF1A;</p>
+<pre><code>ExtendedStatsAggregationBuilder aggregation =
+        AggregationBuilders
+                .extendedStats(&quot;agg&quot;)
+                .field(&quot;height&quot;);
+</code></pre><h5 id="&#x4F7F;&#x7528;&#x805A;&#x5408;&#x8BF7;&#x6C42;">&#x4F7F;&#x7528;&#x805A;&#x5408;&#x8BF7;&#x6C42;</h5>
+<pre><code>import org.elasticsearch.search.aggregations.metrics.stats.extended.ExtendedStats;
+</code></pre><pre><code>// sr is here your SearchResponse object
+ExtendedStats agg = sr.getAggregations().get(&quot;agg&quot;);
+double min = agg.getMin();
+double max = agg.getMax();
+double avg = agg.getAvg();
+double sum = agg.getSum();
+long count = agg.getCount();
+double stdDeviation = agg.getStdDeviation();
+double sumOfSquares = agg.getSumOfSquares();
+double variance = agg.getVariance();
+</code></pre><h4 id="value-count-aggregation-&#x503C;&#x8BA1;&#x6570;&#x805A;&#x5408;">Value Count Aggregation &#x503C;&#x8BA1;&#x6570;&#x805A;&#x5408;</h4>
+<blockquote>
+<p>&#x503C;&#x8BA1;&#x6570;&#x805A;&#x5408;&#x2014;&#x2014;&#x8BA1;&#x7B97;&#x805A;&#x5408;&#x6587;&#x6863;&#x4E2D;&#x67D0;&#x4E2A;&#x503C;&#x7684;&#x4E2A;&#x6570;, &#x7528;&#x4E8E;&#x8BA1;&#x7B97;&#x7684;&#x503C;&#x53EF;&#x4EE5;&#x662F;&#x7279;&#x5B9A;&#x7684;&#x6570;&#x503C;&#x578B;&#x5B57;&#x6BB5;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x811A;&#x672C;&#x8BA1;&#x7B97;&#x800C;&#x6765;&#x3002;</p>
+<p>&#x8BE5;&#x805A;&#x5408;&#x4E00;&#x822C;&#x57DF;&#x5176;&#x5B83; single-value &#x805A;&#x5408;&#x8054;&#x5408;&#x4F7F;&#x7528;&#xFF0C;&#x6BD4;&#x5982;&#x5728;&#x8BA1;&#x7B97;&#x4E00;&#x4E2A;&#x5B57;&#x6BB5;&#x7684;&#x5E73;&#x5747;&#x503C;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x53EF;&#x80FD;&#x8FD8;&#x4F1A;&#x5173;&#x6CE8;&#x8FD9;&#x4E2A;&#x5E73;&#x5747;&#x503C;&#x662F;&#x7531;&#x591A;&#x5C11;&#x4E2A;&#x503C;&#x8BA1;&#x7B97;&#x800C;&#x6765;&#x3002;</p>
+</blockquote>
+<p>&#x4E0B;&#x9762;&#x662F;&#x5982;&#x4F55;&#x7528;Java API &#x4F7F;&#x7528;<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-metrics-valuecount-aggregation.html" target="_blank">&#x503C;&#x8BA1;&#x6570;&#x805A;&#x5408;</a></p>
+<h5 id="&#x51C6;&#x5907;&#x805A;&#x5408;&#x8BF7;&#x6C42;">&#x51C6;&#x5907;&#x805A;&#x5408;&#x8BF7;&#x6C42;</h5>
+<p>&#x4E0B;&#x9762;&#x662F;&#x5982;&#x4F55;&#x521B;&#x5EFA;&#x805A;&#x5408;&#x8BF7;&#x6C42;&#x7684;&#x662F;&#x793A;&#x4F8B;&#xFF1A;</p>
+<pre><code>ValueCountAggregationBuilder aggregation =
+        AggregationBuilders
+                .count(&quot;agg&quot;)
+                .field(&quot;height&quot;);
+</code></pre><h5 id="&#x4F7F;&#x7528;&#x805A;&#x5408;&#x8BF7;&#x6C42;">&#x4F7F;&#x7528;&#x805A;&#x5408;&#x8BF7;&#x6C42;</h5>
+<pre><code>import org.elasticsearch.search.aggregations.metrics.valuecount.ValueCount;
+</code></pre><pre><code>// sr is here your SearchResponse object
+ValueCount agg = sr.getAggregations().get(&quot;agg&quot;);
+long value = agg.getValue();
+</code></pre><h4 id="percentile-aggregation-&#x767E;&#x5206;&#x767E;&#x805A;&#x5408;">Percentile Aggregation &#x767E;&#x5206;&#x767E;&#x805A;&#x5408;</h4>
+<blockquote>
+<p>&#x767E;&#x5206;&#x767E;&#x805A;&#x5408;&#x2014;&#x2014;&#x57FA;&#x4E8E;&#x805A;&#x5408;&#x6587;&#x6863;&#x4E2D;&#x67D0;&#x4E2A;&#x6570;&#x503C;&#x7C7B;&#x578B;&#x7684;&#x503C;&#xFF0C;&#x6C42;&#x8FD9;&#x4E9B;&#x503C;&#x4E2D;&#x7684;&#x4E00;&#x4E2A;&#x6216;&#x8005;&#x591A;&#x4E2A;&#x767E;&#x5206;&#x6BD4;, &#x7528;&#x4E8E;&#x8BA1;&#x7B97;&#x7684;&#x503C;&#x53EF;&#x4EE5;&#x662F;&#x7279;&#x5B9A;&#x7684;&#x6570;&#x503C;&#x578B;&#x5B57;&#x6BB5;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x811A;&#x672C;&#x8BA1;&#x7B97;&#x800C;&#x6765;&#x3002;</p>
+</blockquote>
+<p>&#x4E0B;&#x9762;&#x662F;&#x5982;&#x4F55;&#x7528;Java API &#x4F7F;&#x7528;<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-metrics-percentile-aggregation.html" target="_blank">&#x767E;&#x5206;&#x767E;&#x805A;&#x5408;</a></p>
+<h5 id="&#x51C6;&#x5907;&#x805A;&#x5408;&#x8BF7;&#x6C42;">&#x51C6;&#x5907;&#x805A;&#x5408;&#x8BF7;&#x6C42;</h5>
+<p>&#x4E0B;&#x9762;&#x662F;&#x5982;&#x4F55;&#x521B;&#x5EFA;&#x805A;&#x5408;&#x8BF7;&#x6C42;&#x7684;&#x662F;&#x793A;&#x4F8B;&#xFF1A;</p>
+<pre><code>PercentilesAggregationBuilder aggregation =
+        AggregationBuilders
+                .percentiles(&quot;agg&quot;)
+                .field(&quot;height&quot;);
+</code></pre><p>&#x53EF;&#x4EE5;&#x63D0;&#x4F9B;&#x767E;&#x5206;&#x4F4D;&#x6570;&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x4F7F;&#x7528;&#x9ED8;&#x8BA4;&#x503C;&#xFF1A;</p>
+<pre><code>PercentilesAggregationBuilder aggregation =
+        AggregationBuilders
+                .percentiles(&quot;agg&quot;)
+                .field(&quot;height&quot;)
+                .percentiles(1.0, 5.0, 10.0, 20.0, 30.0, 75.0, 95.0, 99.0);
+</code></pre><h5 id="&#x4F7F;&#x7528;&#x805A;&#x5408;&#x8BF7;&#x6C42;">&#x4F7F;&#x7528;&#x805A;&#x5408;&#x8BF7;&#x6C42;</h5>
+<pre><code>import org.elasticsearch.search.aggregations.metrics.percentiles.Percentile;
+import org.elasticsearch.search.aggregations.metrics.percentiles.Percentiles;
+</code></pre><pre><code>// sr is here your SearchResponse object
+Percentiles agg = sr.getAggregations().get(&quot;agg&quot;);
+// For each entry
+for (Percentile entry : agg) {
+    double percent = entry.getPercent();    // Percent
+    double value = entry.getValue();        // Value
+
+    logger.info(&quot;percent [{}], value [{}]&quot;, percent, value);
+}
+</code></pre><p>&#x5927;&#x6982;&#x8F93;&#x51FA;&#xFF1A;</p>
+<pre><code>percent [1.0], value [0.814338896154595]
+percent [5.0], value [0.8761912455821302]
+percent [25.0], value [1.173346540141847]
+percent [50.0], value [1.5432023318692198]
+percent [75.0], value [1.923915462033674]
+percent [95.0], value [2.2273644908535335]
+percent [99.0], value [2.284989339108279]
+</code></pre><h4 id="percentile-ranks-aggregation-&#x767E;&#x5206;&#x6BD4;&#x7B49;&#x7EA7;&#x805A;&#x5408;">Percentile Ranks Aggregation &#x767E;&#x5206;&#x6BD4;&#x7B49;&#x7EA7;&#x805A;&#x5408;</h4>
+<blockquote>
+<p>&#x4E00;&#x4E2A;multi-value&#x6307;&#x6807;&#x805A;&#x5408;&#xFF0C;&#x5B83;&#x901A;&#x8FC7;&#x4ECE;&#x805A;&#x5408;&#x6587;&#x6863;&#x4E2D;&#x63D0;&#x53D6;&#x6570;&#x503C;&#x6765;&#x8BA1;&#x7B97;&#x4E00;&#x4E2A;&#x6216;&#x591A;&#x4E2A;&#x767E;&#x5206;&#x6BD4;&#x3002;&#x8FD9;&#x4E9B;&#x503C;&#x53EF;&#x4EE5;&#x4ECE;&#x7279;&#x5B9A;&#x6570;&#x503C;&#x5B57;&#x6BB5;&#x4E2D;&#x63D0;&#x53D6;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x7531;&#x63D0;&#x4F9B;&#x7684;&#x811A;&#x672C;&#x751F;&#x6210;&#x3002;</p>
+<p>&#x6CE8;&#x610F;&#xFF1A;&#x8BF7;&#x53C2;&#x8003;&#x767E;&#x5206;&#x6BD4;&#xFF08;&#x901A;&#x5E38;&#xFF09;&#x8FD1;&#x89C6;&#x503C;&#xFF08;percentiles are (usually approximate)&#xFF09;&#x548C;&#x538B;&#x7F29;&#xFF08;Compression&#xFF09;&#x4EE5;&#x83B7;&#x5F97;&#x5173;&#x4E8E;&#x8FD1;&#x89C6;&#x503C;&#x7684;&#x5EFA;&#x8BAE;&#x548C;&#x5185;&#x5B58;&#x4F7F;&#x7528;&#x7684;&#x767E;&#x5206;&#x6BD4;&#x6392;&#x4F4D;&#x805A;&#x5408;&#x3002;&#x767E;&#x5206;&#x6BD4;&#x6392;&#x4F4D;&#x5C55;&#x793A;&#x90A3;&#x4E9B;&#x5728;&#x67D0;&#x4E00;&#x503C;&#x4E4B;&#x4E0B;&#x7684;&#x89C2;&#x6D4B;&#x503C;&#x7684;&#x767E;&#x5206;&#x6BD4;&#x3002;&#x4F8B;&#x5982;&#xFF0C;&#x5047;&#x5982;&#x67D0;&#x4E00;&#x76F4;&#x5927;&#x4E8E;&#x7B49;&#x4E8E;&#x88AB;&#x89C2;&#x6D4B;&#x503C;&#x7684;95%&#xFF0C;&#x5219;&#x79F0;&#x5176;&#x4E3A;&#x7B2C;95&#x767E;&#x5206;&#x4F4D;&#x6570;&#x3002;&#x5047;&#x8BBE;&#x4F60;&#x7684;&#x6570;&#x636E;&#x7531;&#x7F51;&#x9875;&#x52A0;&#x8F7D;&#x65F6;&#x95F4;&#x7EC4;&#x6210;&#x3002;&#x4F60;&#x53EF;&#x80FD;&#x6709;&#x4E00;&#x4E2A;&#x670D;&#x52A1;&#x534F;&#x8BAE;&#xFF0C;95%&#x9875;&#x9762;&#x9700;&#x8981;&#x5728;15ms&#x52A0;&#x8F7D;&#x5B8C;&#x5168;&#xFF0C;99%&#x9875;&#x9762;&#x5728;30ms&#x52A0;&#x8F7D;&#x5B8C;&#x5168;&#x3002;</p>
+</blockquote>
+<p>&#x4E0B;&#x9762;&#x662F;&#x5982;&#x4F55;&#x7528;Java API &#x4F7F;&#x7528;<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-metrics-percentile-rank-aggregation.html" target="_blank">&#x767E;&#x5206;&#x6BD4;&#x7B49;&#x7EA7;&#x805A;&#x5408;</a></p>
+<h5 id="&#x51C6;&#x5907;&#x805A;&#x5408;&#x8BF7;&#x6C42;">&#x51C6;&#x5907;&#x805A;&#x5408;&#x8BF7;&#x6C42;</h5>
+<p>&#x4E0B;&#x9762;&#x662F;&#x5982;&#x4F55;&#x521B;&#x5EFA;&#x805A;&#x5408;&#x8BF7;&#x6C42;&#x7684;&#x662F;&#x793A;&#x4F8B;&#xFF1A;</p>
+<pre><code>PercentilesAggregationBuilder aggregation =
+        AggregationBuilders
+                .percentiles(&quot;agg&quot;)
+                .field(&quot;height&quot;);
+</code></pre><h5 id="&#x4F7F;&#x7528;&#x805A;&#x5408;&#x8BF7;&#x6C42;">&#x4F7F;&#x7528;&#x805A;&#x5408;&#x8BF7;&#x6C42;</h5>
+<pre><code>import org.elasticsearch.search.aggregations.metrics.percentiles.Percentile;
+import org.elasticsearch.search.aggregations.metrics.percentiles.PercentileRanks;
+</code></pre><pre><code>// sr is here your SearchResponse object
+PercentileRanks agg = sr.getAggregations().get(&quot;agg&quot;);
+// For each entry
+for (Percentile entry : agg) {
+    double percent = entry.getPercent();    // Percent
+    double value = entry.getValue();        // Value
+
+    logger.info(&quot;percent [{}], value [{}]&quot;, percent, value);
+}
+</code></pre><p>&#x5927;&#x6982;&#x8F93;&#x51FA;&#xFF1A;</p>
+<pre><code>percent [29.664353095090945], value [1.24]
+percent [73.9335313461868], value [1.91]
+percent [94.40095147327283], value [2.22]
+</code></pre><h4 id="cardinality-aggregation-&#x57FA;&#x6570;&#x805A;&#x5408;">Cardinality Aggregation &#x57FA;&#x6570;&#x805A;&#x5408;</h4>
+<blockquote>
+<p>&#x57FA;&#x4E8E;&#x6587;&#x6863;&#x7684;&#x67D0;&#x4E2A;&#x503C;&#xFF0C;&#x8BA1;&#x7B97;&#x6587;&#x6863;&#x975E;&#x91CD;&#x590D;&#x7684;&#x4E2A;&#x6570;&#xFF08;&#x53BB;&#x91CD;&#x8BA1;&#x6570;&#xFF09;&#x3002;&#x3002;&#x8FD9;&#x4E9B;&#x503C;&#x53EF;&#x4EE5;&#x4ECE;&#x7279;&#x5B9A;&#x6570;&#x503C;&#x5B57;&#x6BB5;&#x4E2D;&#x63D0;&#x53D6;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x7531;&#x63D0;&#x4F9B;&#x7684;&#x811A;&#x672C;&#x751F;&#x6210;&#x3002;</p>
+</blockquote>
+<p>&#x4E0B;&#x9762;&#x662F;&#x5982;&#x4F55;&#x7528;Java API &#x4F7F;&#x7528;<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-metrics-cardinality-aggregation.html" target="_blank">&#x57FA;&#x6570;&#x805A;&#x5408;</a></p>
+<h5 id="&#x51C6;&#x5907;&#x805A;&#x5408;&#x8BF7;&#x6C42;">&#x51C6;&#x5907;&#x805A;&#x5408;&#x8BF7;&#x6C42;</h5>
+<p>&#x4E0B;&#x9762;&#x662F;&#x5982;&#x4F55;&#x521B;&#x5EFA;&#x805A;&#x5408;&#x8BF7;&#x6C42;&#x7684;&#x662F;&#x793A;&#x4F8B;&#xFF1A;</p>
+<pre><code>CardinalityAggregationBuilder aggregation =
+        AggregationBuilders
+                .cardinality(&quot;agg&quot;)
+                .field(&quot;tags&quot;);
+</code></pre><h5 id="&#x4F7F;&#x7528;&#x805A;&#x5408;&#x8BF7;&#x6C42;">&#x4F7F;&#x7528;&#x805A;&#x5408;&#x8BF7;&#x6C42;</h5>
+<pre><code>import org.elasticsearch.search.aggregations.metrics.cardinality.Cardinality;
+</code></pre><pre><code>// sr is here your SearchResponse object
+Cardinality agg = sr.getAggregations().get(&quot;agg&quot;);
+long value = agg.getValue();
+</code></pre><h4 id="geo-bounds-aggregation-&#x5730;&#x7406;&#x8FB9;&#x754C;&#x805A;&#x5408;">Geo Bounds Aggregation &#x5730;&#x7406;&#x8FB9;&#x754C;&#x805A;&#x5408;</h4>
+<blockquote>
+<p>&#x5730;&#x7406;&#x8FB9;&#x754C;&#x805A;&#x5408;&#x2014;&#x2014;&#x57FA;&#x4E8E;&#x6587;&#x6863;&#x7684;&#x67D0;&#x4E2A;&#x5B57;&#x6BB5;&#xFF08;geo-point&#x7C7B;&#x578B;&#x5B57;&#x6BB5;&#xFF09;&#xFF0C;&#x8BA1;&#x7B97;&#x51FA;&#x8BE5;&#x5B57;&#x6BB5;&#x6240;&#x6709;&#x5730;&#x7406;&#x5750;&#x6807;&#x70B9;&#x7684;&#x8FB9;&#x754C;&#xFF08;&#x5DE6;&#x4E0A;&#x89D2;/&#x53F3;&#x4E0B;&#x89D2;&#x5750;&#x6807;&#x70B9;&#xFF09;&#x3002;</p>
+</blockquote>
+<p>&#x4E0B;&#x9762;&#x662F;&#x5982;&#x4F55;&#x7528;Java API &#x4F7F;&#x7528;<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-metrics-geobounds-aggregation.html" target="_blank">&#x5730;&#x7406;&#x8FB9;&#x754C;&#x805A;&#x5408;</a></p>
+<h5 id="&#x51C6;&#x5907;&#x805A;&#x5408;&#x8BF7;&#x6C42;">&#x51C6;&#x5907;&#x805A;&#x5408;&#x8BF7;&#x6C42;</h5>
+<p>&#x4E0B;&#x9762;&#x662F;&#x5982;&#x4F55;&#x521B;&#x5EFA;&#x805A;&#x5408;&#x8BF7;&#x6C42;&#x7684;&#x662F;&#x793A;&#x4F8B;&#xFF1A;</p>
+<pre><code>GeoBoundsBuilder aggregation =
+        GeoBoundsAggregationBuilder
+                .geoBounds(&quot;agg&quot;)
+                .field(&quot;address.location&quot;)
+                .wrapLongitude(true);
+</code></pre><h5 id="&#x4F7F;&#x7528;&#x805A;&#x5408;&#x8BF7;&#x6C42;">&#x4F7F;&#x7528;&#x805A;&#x5408;&#x8BF7;&#x6C42;</h5>
+<pre><code>import org.elasticsearch.search.aggregations.metrics.geobounds.GeoBounds;
+</code></pre><pre><code>// sr is here your SearchResponse object
+GeoBounds agg = sr.getAggregations().get(&quot;agg&quot;);
+GeoPoint bottomRight = agg.bottomRight();
+GeoPoint topLeft = agg.topLeft();
+logger.info(&quot;bottomRight {}, topLeft {}&quot;, bottomRight, topLeft);
+</code></pre><p>&#x5927;&#x6982;&#x4F1A;&#x8F93;&#x51FA;&#xFF1A;</p>
+<pre><code>bottomRight [40.70500764381921, 13.952946866893775], topLeft [53.49603022435221, -4.190029308156676]
+</code></pre><h4 id="top-hits-aggregation-&#x6700;&#x9AD8;&#x5339;&#x914D;&#x6743;&#x503C;&#x805A;&#x5408;">Top Hits Aggregation &#x6700;&#x9AD8;&#x5339;&#x914D;&#x6743;&#x503C;&#x805A;&#x5408;</h4>
+<blockquote>
+<p>&#x6700;&#x9AD8;&#x5339;&#x914D;&#x6743;&#x503C;&#x805A;&#x5408;&#x2014;&#x2014;&#x8DDF;&#x8E2A;&#x805A;&#x5408;&#x4E2D;&#x76F8;&#x5173;&#x6027;&#x6700;&#x9AD8;&#x7684;&#x6587;&#x6863;&#x3002;&#x8BE5;&#x805A;&#x5408;&#x4E00;&#x822C;&#x7528;&#x505A; sub-aggregation&#xFF0C;&#x4EE5;&#x6B64;&#x6765;&#x805A;&#x5408;&#x6BCF;&#x4E2A;&#x6876;&#x4E2D;&#x7684;&#x6700;&#x9AD8;&#x5339;&#x914D;&#x7684;&#x6587;&#x6863;&#x3002;</p>
+</blockquote>
+<p>&#x4E0B;&#x9762;&#x662F;&#x5982;&#x4F55;&#x7528;Java API &#x4F7F;&#x7528;<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-metrics-top-hits-aggregation.html" target="_blank">&#x6700;&#x9AD8;&#x5339;&#x914D;&#x6743;&#x503C;&#x805A;&#x5408;</a></p>
+<h5 id="&#x51C6;&#x5907;&#x805A;&#x5408;&#x8BF7;&#x6C42;">&#x51C6;&#x5907;&#x805A;&#x5408;&#x8BF7;&#x6C42;</h5>
+<p>&#x4E0B;&#x9762;&#x662F;&#x5982;&#x4F55;&#x521B;&#x5EFA;&#x805A;&#x5408;&#x8BF7;&#x6C42;&#x7684;&#x662F;&#x793A;&#x4F8B;&#xFF1A;</p>
+<pre><code>AggregationBuilder aggregation =
+    AggregationBuilders
+        .terms(&quot;agg&quot;).field(&quot;gender&quot;)
+        .subAggregation(
+            AggregationBuilders.topHits(&quot;top&quot;)
+        );
+</code></pre><p>&#x5927;&#x591A;&#x6570;&#x6807;&#x51C6;&#x7684;&#x641C;&#x7D22;&#x9009;&#x9879;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#xFF0C;&#x6BD4;&#x5982;&#xFF1A;<code>from</code>, <code>size</code>, <code>sort</code>, <code>highlight</code>, <code>explain</code> &#x2026;</p>
+<pre><code>AggregationBuilder aggregation =
+    AggregationBuilders
+        .terms(&quot;agg&quot;).field(&quot;gender&quot;)
+        .subAggregation(
+            AggregationBuilders.topHits(&quot;top&quot;)
+                .explain(true)
+                .size(1)
+                .from(10)
+        );
+</code></pre><h5 id="&#x4F7F;&#x7528;&#x805A;&#x5408;&#x8BF7;&#x6C42;">&#x4F7F;&#x7528;&#x805A;&#x5408;&#x8BF7;&#x6C42;</h5>
+<pre><code>import org.elasticsearch.search.aggregations.bucket.terms.Terms;
+import org.elasticsearch.search.aggregations.metrics.tophits.TopHits;
+</code></pre><pre><code>// sr is here your SearchResponse object
+Terms agg = sr.getAggregations().get(&quot;agg&quot;);
+
+// For each entry
+for (Terms.Bucket entry : agg.getBuckets()) {
+    String key = entry.getKey();                    // bucket key
+    long docCount = entry.getDocCount();            // Doc count
+    logger.info(&quot;key [{}], doc_count [{}]&quot;, key, docCount);
+
+    // We ask for top_hits for each bucket
+    TopHits topHits = entry.getAggregations().get(&quot;top&quot;);
+    for (SearchHit hit : topHits.getHits().getHits()) {
+        logger.info(&quot; -&gt; id [{}], _source [{}]&quot;, hit.getId(), hit.getSourceAsString());
+    }
+}
+</code></pre><p>&#x5927;&#x6982;&#x4F1A;&#x8F93;&#x51FA;&#xFF1A;</p>
+<pre><code>key [male], doc_count [5107]
+ -&gt; id [AUnzSZze9k7PKXtq04x2], _source [{&quot;gender&quot;:&quot;male&quot;,...}]
+ -&gt; id [AUnzSZzj9k7PKXtq04x4], _source [{&quot;gender&quot;:&quot;male&quot;,...}]
+ -&gt; id [AUnzSZzl9k7PKXtq04x5], _source [{&quot;gender&quot;:&quot;male&quot;,...}]
+key [female], doc_count [4893]
+ -&gt; id [AUnzSZzM9k7PKXtq04xy], _source [{&quot;gender&quot;:&quot;female&quot;,...}]
+ -&gt; id [AUnzSZzp9k7PKXtq04x8], _source [{&quot;gender&quot;:&quot;female&quot;,...}]
+ -&gt; id [AUnzSZ0W9k7PKXtq04yS], _source [{&quot;gender&quot;:&quot;female&quot;,...}]
+</code></pre><h4 id="scripted-metric-aggregation">Scripted Metric Aggregation</h4>
+<blockquote>
+<p>&#x6B64;&#x529F;&#x80FD;&#x4E3A;&#x5B9E;&#x9A8C;&#x6027;&#x7684;&#xFF0C;&#x4E0D;&#x5EFA;&#x8BAE;&#x751F;&#x4EA7;&#x4F7F;&#x7528;&#xFF0C;&#x6240;&#x4EE5;&#x4E5F;&#x4E0D;&#x505A;&#x8FC7;&#x591A;&#x8BF4;&#x660E; &#x6709;&#x5174;&#x8DA3;&#x53EF;&#x4EE5;&#x81EA;&#x5DF1;&#x53C2;&#x8003; <a href="https://www.elastic.co/guide/en/elasticsearch/client/java-api/current/_metrics_aggregations.html#java-aggs-metrics-scripted-metric" target="_blank">&#x5B98;&#x65B9;&#x6587;&#x6863;</a></p>
+</blockquote>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="structuring-aggregations.html" class="navigation navigation-prev " aria-label="Previous page: Structuring aggregations">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="bucket-aggregations.html" class="navigation navigation-next " aria-label="Next page: Bucket aggregations">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
 
     <script>
-        var _hmt = _hmt || [];
-        (function() {
-            var hm = document.createElement("script");
-            hm.src = "https://hm.baidu.com/hm.js?853906ed403c461b2dbf1df696bdf998";
-            var s = document.getElementsByTagName("script")[0];
-            s.parentNode.insertBefore(hm, s);
-        })();
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Metrics aggregations","level":"1.6.2","depth":2,"next":{"title":"Bucket aggregations","level":"1.6.3","depth":2,"path":"aggregations/bucket-aggregations.md","ref":"aggregations/bucket-aggregations.md","articles":[]},"previous":{"title":"Structuring aggregations","level":"1.6.1","depth":2,"path":"aggregations/structuring-aggregations.md","ref":"aggregations/structuring-aggregations.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"aggregations/metrics-aggregations.md","mtime":"2017-11-08T08:32:22.726Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-01-29T15:28:32.108Z"},"basePath":"..","book":{"language":""}});
+        });
     </script>
+</div>
 
-
-	<script>
-		(function(i, s, o, g, r, a, m) {
-		    i['GoogleAnalyticsObject'] = r;
-		    i[r] = i[r] || function() {
-		        (i[r].q = i[r].q || []).push(arguments)
-		    }, i[r].l = 1 * new Date();
-		    a = s.createElement(o),
-		    m = s.getElementsByTagName(o)[0];
-		    a.async = 1;
-		    a.src = g;
-		    m.parentNode.insertBefore(a, m)
-		})(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
-		ga('create', 'UA-82833335-5', 'auto');
-		ga('send', 'pageview');
-	</script>
-
-
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
     
-</head>
-
-
-<!--[if lte IE 8]>
-<style>
-    html{ font-size: 1em }
-</style>
-<![endif]-->
-<!--[if lte IE 9]>
-<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
-<![endif]-->
-
-<body>
-    <header class="main-header"  style="background-image:url(http://7xpw2b.com1.z0.glb.clouddn.com/hexo-sinppet/img/banner2.jpg)"  >
-    <div class="main-header-box">
-        <a class="header-avatar" href="/" title="">
-            <img src="/img/avatar.jpg" alt="logo头像">
-        </a>
-        <div class="branding">
-        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
-            
-                 <img src="/img/branding.png" alt="Snippet 博客主题">  
-             
-    	</div>
-    </div>
-</header>
-    <nav class="main-navigation">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="navbar-header"><span class="nav-toggle-button collapsed" data-toggle="collapse" data-target="#main-menu" id="mnav">
-                    <span class="sr-only">Toggle navigation</span>
-                    <i class="fa fa-bars"></i>
-                    </span>
-                </div>
-                <div class="collapse navbar-collapse" id="main-menu">
-                    <ul class="menu">
-                        
-                            <li role="presentation"><a href="/"><i class="fa fa-fw "></i>主页</a>
-                            </li>
-                        
-                            <li role="presentation"><a href="/"><i class="fa fa-fw "></i>日志</a>
-                            </li>
-                        
-                            <li role="presentation"><a href="/"><i class="fa fa-fw "></i>应用</a>
-                            </li>
-                        
-                            <li role="presentation"><a href="/"><i class="fa fa-fw "></i>开源</a>
-                            </li>
-                        
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</nav>
-    <section class="content-wrap">
-        <div class="container">
-            <div class="row">
-                <main class="col-md-8 main-content ">
-                    <div class="about">
-	
-	    <article class="post">
-	        <h1 class="post-head">关于我</h1>
-	        <div class="post-body">
-	            <h3 id="Metrics-aggregations"><a href="#Metrics-aggregations" class="headerlink" title="Metrics aggregations"></a>Metrics aggregations</h3><blockquote>
-<p>计算度量这类的聚合操作是以使用一种方式或者从文档中提取需要聚合的值为基础的。这些数据不但可以从文档（使用数据属性）的属性中提取出来，也可以使用脚本生成。</p>
-<p>数值计量聚合操作是能够产生具体的数值的一种计量聚合操作。一些聚合操作输出单个的计量数值（例如avg），并且被称作single-value numeric metric aggregation，其他产生多个计量数值（例如 stats）的称作 multi-value numeric metrics aggregation。这两种不同的聚合操作只有在桶聚合的子聚合操作中才会有不同的表现（有些桶聚合可以基于每个的数值计量来对返回的桶进行排序）。</p>
-</blockquote>
-<h4 id="Min-Aggregatione-最小值聚合"><a href="#Min-Aggregatione-最小值聚合" class="headerlink" title="Min Aggregatione 最小值聚合"></a>Min Aggregatione 最小值聚合</h4><p>下面是如何用Java API 使用<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-metrics-min-aggregation.html" target="_blank" rel="external">最小值聚合</a></p>
-<h5 id="准备聚合请求"><a href="#准备聚合请求" class="headerlink" title="准备聚合请求"></a>准备聚合请求</h5><p>下面是如何创建聚合请求的是示例：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">MinAggregationBuilder aggregation =</div><div class="line">        AggregationBuilders</div><div class="line">                .min(&quot;agg&quot;)</div><div class="line">                .field(&quot;height&quot;);</div></pre></td></tr></table></figure>
-<h5 id="使用聚合请求"><a href="#使用聚合请求" class="headerlink" title="使用聚合请求"></a>使用聚合请求</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">import org.elasticsearch.search.aggregations.metrics.min.Min;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">// sr is here your SearchResponse object</div><div class="line">Min agg = sr.getAggregations().get(&quot;agg&quot;);</div><div class="line">double value = agg.getValue();</div></pre></td></tr></table></figure>
-<h4 id="Max-Aggregation-最大值聚合"><a href="#Max-Aggregation-最大值聚合" class="headerlink" title="Max Aggregation 最大值聚合"></a>Max Aggregation 最大值聚合</h4><p>下面是如何用Java API 使用<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-metrics-max-aggregation.html" target="_blank" rel="external">最大值聚合</a></p>
-<h5 id="准备聚合请求-1"><a href="#准备聚合请求-1" class="headerlink" title="准备聚合请求"></a>准备聚合请求</h5><p>下面是如何创建聚合请求的是示例：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">MaxAggregationBuilder aggregation =</div><div class="line">        AggregationBuilders</div><div class="line">                .max(&quot;agg&quot;)</div><div class="line">                .field(&quot;height&quot;);</div></pre></td></tr></table></figure>
-<h5 id="使用聚合请求-1"><a href="#使用聚合请求-1" class="headerlink" title="使用聚合请求"></a>使用聚合请求</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">import org.elasticsearch.search.aggregations.metrics.max.Max;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">// sr is here your SearchResponse object</div><div class="line">Min agg = sr.getAggregations().get(&quot;agg&quot;);</div><div class="line">double value = agg.getValue();</div></pre></td></tr></table></figure>
-<h4 id="Sum-Aggregation-求和聚合"><a href="#Sum-Aggregation-求和聚合" class="headerlink" title="Sum Aggregation 求和聚合"></a>Sum Aggregation 求和聚合</h4><p>下面是如何用Java API 使用<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-metrics-sum-aggregation.html" target="_blank" rel="external">求和聚合</a></p>
-<h5 id="准备聚合请求-2"><a href="#准备聚合请求-2" class="headerlink" title="准备聚合请求"></a>准备聚合请求</h5><p>下面是如何创建聚合请求的是示例：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">SumAggregationBuilder aggregation =</div><div class="line">        AggregationBuilders</div><div class="line">                .sum(&quot;agg&quot;)</div><div class="line">                .field(&quot;height&quot;);</div></pre></td></tr></table></figure>
-<h5 id="使用聚合请求-2"><a href="#使用聚合请求-2" class="headerlink" title="使用聚合请求"></a>使用聚合请求</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">import org.elasticsearch.search.aggregations.metrics.sum.Sum;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">// sr is here your SearchResponse object</div><div class="line">Sum agg = sr.getAggregations().get(&quot;agg&quot;);</div><div class="line">double value = agg.getValue();</div></pre></td></tr></table></figure>
-<h4 id="Avg-Aggregation-平均值聚合"><a href="#Avg-Aggregation-平均值聚合" class="headerlink" title="Avg Aggregation 平均值聚合"></a>Avg Aggregation 平均值聚合</h4><p>下面是如何用Java API 使用<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-metrics-avg-aggregation.html" target="_blank" rel="external">平均值聚合</a></p>
-<h5 id="准备聚合请求-3"><a href="#准备聚合请求-3" class="headerlink" title="准备聚合请求"></a>准备聚合请求</h5><p>下面是如何创建聚合请求的是示例：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">AvgAggregationBuilder aggregation =</div><div class="line">        AggregationBuilders</div><div class="line">                .avg(&quot;agg&quot;)</div><div class="line">                .field(&quot;height&quot;);</div></pre></td></tr></table></figure>
-<h5 id="使用聚合请求-3"><a href="#使用聚合请求-3" class="headerlink" title="使用聚合请求"></a>使用聚合请求</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">import org.elasticsearch.search.aggregations.metrics.avg.Avg;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">// sr is here your SearchResponse object</div><div class="line">Avg agg = sr.getAggregations().get(&quot;agg&quot;);</div><div class="line">double value = agg.getValue();</div></pre></td></tr></table></figure>
-<h4 id="Stats-Aggregation-统计聚合"><a href="#Stats-Aggregation-统计聚合" class="headerlink" title="Stats Aggregation 统计聚合"></a>Stats Aggregation 统计聚合</h4><blockquote>
-<p>统计聚合——基于文档的某个值，计算出一些统计信息（min、max、sum、count、avg）, 用于计算的值可以是特定的数值型字段，也可以通过脚本计算而来。</p>
-</blockquote>
-<p>下面是如何用Java API 使用<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-metrics-stats-aggregation.html" target="_blank" rel="external">统计聚合</a></p>
-<h5 id="准备聚合请求-4"><a href="#准备聚合请求-4" class="headerlink" title="准备聚合请求"></a>准备聚合请求</h5><p>下面是如何创建聚合请求的是示例：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">StatsAggregationBuilder aggregation =</div><div class="line">        AggregationBuilders</div><div class="line">                .stats(&quot;agg&quot;)</div><div class="line">                .field(&quot;height&quot;);</div></pre></td></tr></table></figure>
-<h5 id="使用聚合请求-4"><a href="#使用聚合请求-4" class="headerlink" title="使用聚合请求"></a>使用聚合请求</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">import org.elasticsearch.search.aggregations.metrics.stats.Stats;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">// sr is here your SearchResponse object</div><div class="line">Stats agg = sr.getAggregations().get(&quot;agg&quot;);</div><div class="line">double min = agg.getMin();</div><div class="line">double max = agg.getMax();</div><div class="line">double avg = agg.getAvg();</div><div class="line">double sum = agg.getSum();</div><div class="line">long count = agg.getCount();</div></pre></td></tr></table></figure>
-<h4 id="Extended-Stats-Aggregation-扩展统计聚合"><a href="#Extended-Stats-Aggregation-扩展统计聚合" class="headerlink" title="Extended Stats Aggregation 扩展统计聚合"></a>Extended Stats Aggregation 扩展统计聚合</h4><blockquote>
-<p>扩展统计聚合——基于文档的某个值，计算出一些统计信息（比普通的stats聚合多了sum_of_squares、variance、std_deviation、std_deviation_bounds）, 用于计算的值可以是特定的数值型字段，也可以通过脚本计算而来。</p>
-</blockquote>
-<p>下面是如何用Java API 使用<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-metrics-extendedstats-aggregation.html" target="_blank" rel="external">扩展统计聚合</a></p>
-<h5 id="准备聚合请求-5"><a href="#准备聚合请求-5" class="headerlink" title="准备聚合请求"></a>准备聚合请求</h5><p>下面是如何创建聚合请求的是示例：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">ExtendedStatsAggregationBuilder aggregation =</div><div class="line">        AggregationBuilders</div><div class="line">                .extendedStats(&quot;agg&quot;)</div><div class="line">                .field(&quot;height&quot;);</div></pre></td></tr></table></figure>
-<h5 id="使用聚合请求-5"><a href="#使用聚合请求-5" class="headerlink" title="使用聚合请求"></a>使用聚合请求</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">import org.elasticsearch.search.aggregations.metrics.stats.extended.ExtendedStats;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">// sr is here your SearchResponse object</div><div class="line">ExtendedStats agg = sr.getAggregations().get(&quot;agg&quot;);</div><div class="line">double min = agg.getMin();</div><div class="line">double max = agg.getMax();</div><div class="line">double avg = agg.getAvg();</div><div class="line">double sum = agg.getSum();</div><div class="line">long count = agg.getCount();</div><div class="line">double stdDeviation = agg.getStdDeviation();</div><div class="line">double sumOfSquares = agg.getSumOfSquares();</div><div class="line">double variance = agg.getVariance();</div></pre></td></tr></table></figure>
-<h4 id="Value-Count-Aggregation-值计数聚合"><a href="#Value-Count-Aggregation-值计数聚合" class="headerlink" title="Value Count Aggregation 值计数聚合"></a>Value Count Aggregation 值计数聚合</h4><blockquote>
-<p>值计数聚合——计算聚合文档中某个值的个数, 用于计算的值可以是特定的数值型字段，也可以通过脚本计算而来。</p>
-<p>该聚合一般域其它 single-value 聚合联合使用，比如在计算一个字段的平均值的时候，可能还会关注这个平均值是由多少个值计算而来。</p>
-</blockquote>
-<p>下面是如何用Java API 使用<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-metrics-valuecount-aggregation.html" target="_blank" rel="external">值计数聚合</a></p>
-<h5 id="准备聚合请求-6"><a href="#准备聚合请求-6" class="headerlink" title="准备聚合请求"></a>准备聚合请求</h5><p>下面是如何创建聚合请求的是示例：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">ValueCountAggregationBuilder aggregation =</div><div class="line">        AggregationBuilders</div><div class="line">                .count(&quot;agg&quot;)</div><div class="line">                .field(&quot;height&quot;);</div></pre></td></tr></table></figure>
-<h5 id="使用聚合请求-6"><a href="#使用聚合请求-6" class="headerlink" title="使用聚合请求"></a>使用聚合请求</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">import org.elasticsearch.search.aggregations.metrics.valuecount.ValueCount;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">// sr is here your SearchResponse object</div><div class="line">ValueCount agg = sr.getAggregations().get(&quot;agg&quot;);</div><div class="line">long value = agg.getValue();</div></pre></td></tr></table></figure>
-<h4 id="Percentile-Aggregation-百分百聚合"><a href="#Percentile-Aggregation-百分百聚合" class="headerlink" title="Percentile Aggregation 百分百聚合"></a>Percentile Aggregation 百分百聚合</h4><blockquote>
-<p>百分百聚合——基于聚合文档中某个数值类型的值，求这些值中的一个或者多个百分比, 用于计算的值可以是特定的数值型字段，也可以通过脚本计算而来。</p>
-</blockquote>
-<p>下面是如何用Java API 使用<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-metrics-percentile-aggregation.html" target="_blank" rel="external">百分百聚合</a></p>
-<h5 id="准备聚合请求-7"><a href="#准备聚合请求-7" class="headerlink" title="准备聚合请求"></a>准备聚合请求</h5><p>下面是如何创建聚合请求的是示例：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">PercentilesAggregationBuilder aggregation =</div><div class="line">        AggregationBuilders</div><div class="line">                .percentiles(&quot;agg&quot;)</div><div class="line">                .field(&quot;height&quot;);</div></pre></td></tr></table></figure>
-<p>可以提供百分位数，而不是使用默认值：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">PercentilesAggregationBuilder aggregation =</div><div class="line">        AggregationBuilders</div><div class="line">                .percentiles(&quot;agg&quot;)</div><div class="line">                .field(&quot;height&quot;)</div><div class="line">                .percentiles(1.0, 5.0, 10.0, 20.0, 30.0, 75.0, 95.0, 99.0);</div></pre></td></tr></table></figure>
-<h5 id="使用聚合请求-7"><a href="#使用聚合请求-7" class="headerlink" title="使用聚合请求"></a>使用聚合请求</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">import org.elasticsearch.search.aggregations.metrics.percentiles.Percentile;</div><div class="line">import org.elasticsearch.search.aggregations.metrics.percentiles.Percentiles;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">// sr is here your SearchResponse object</div><div class="line">Percentiles agg = sr.getAggregations().get(&quot;agg&quot;);</div><div class="line">// For each entry</div><div class="line">for (Percentile entry : agg) &#123;</div><div class="line">    double percent = entry.getPercent();    // Percent</div><div class="line">    double value = entry.getValue();        // Value</div><div class="line"></div><div class="line">    logger.info(&quot;percent [&#123;&#125;], value [&#123;&#125;]&quot;, percent, value);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>大概输出：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">percent [1.0], value [0.814338896154595]</div><div class="line">percent [5.0], value [0.8761912455821302]</div><div class="line">percent [25.0], value [1.173346540141847]</div><div class="line">percent [50.0], value [1.5432023318692198]</div><div class="line">percent [75.0], value [1.923915462033674]</div><div class="line">percent [95.0], value [2.2273644908535335]</div><div class="line">percent [99.0], value [2.284989339108279]</div></pre></td></tr></table></figure>
-<h4 id="Percentile-Ranks-Aggregation-百分比等级聚合"><a href="#Percentile-Ranks-Aggregation-百分比等级聚合" class="headerlink" title="Percentile Ranks Aggregation 百分比等级聚合"></a>Percentile Ranks Aggregation 百分比等级聚合</h4><blockquote>
-<p>一个multi-value指标聚合，它通过从聚合文档中提取数值来计算一个或多个百分比。这些值可以从特定数值字段中提取，也可以由提供的脚本生成。</p>
-<p>注意：请参考百分比（通常）近视值（percentiles are (usually approximate)）和压缩（Compression）以获得关于近视值的建议和内存使用的百分比排位聚合。百分比排位展示那些在某一值之下的观测值的百分比。例如，假如某一直大于等于被观测值的95%，则称其为第95百分位数。假设你的数据由网页加载时间组成。你可能有一个服务协议，95%页面需要在15ms加载完全，99%页面在30ms加载完全。</p>
-</blockquote>
-<p>下面是如何用Java API 使用<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-metrics-percentile-rank-aggregation.html" target="_blank" rel="external">百分比等级聚合</a></p>
-<h5 id="准备聚合请求-8"><a href="#准备聚合请求-8" class="headerlink" title="准备聚合请求"></a>准备聚合请求</h5><p>下面是如何创建聚合请求的是示例：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">PercentilesAggregationBuilder aggregation =</div><div class="line">        AggregationBuilders</div><div class="line">                .percentiles(&quot;agg&quot;)</div><div class="line">                .field(&quot;height&quot;);</div></pre></td></tr></table></figure>
-<h5 id="使用聚合请求-8"><a href="#使用聚合请求-8" class="headerlink" title="使用聚合请求"></a>使用聚合请求</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">import org.elasticsearch.search.aggregations.metrics.percentiles.Percentile;</div><div class="line">import org.elasticsearch.search.aggregations.metrics.percentiles.PercentileRanks;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">// sr is here your SearchResponse object</div><div class="line">PercentileRanks agg = sr.getAggregations().get(&quot;agg&quot;);</div><div class="line">// For each entry</div><div class="line">for (Percentile entry : agg) &#123;</div><div class="line">    double percent = entry.getPercent();    // Percent</div><div class="line">    double value = entry.getValue();        // Value</div><div class="line"></div><div class="line">    logger.info(&quot;percent [&#123;&#125;], value [&#123;&#125;]&quot;, percent, value);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>大概输出：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">percent [29.664353095090945], value [1.24]</div><div class="line">percent [73.9335313461868], value [1.91]</div><div class="line">percent [94.40095147327283], value [2.22]</div></pre></td></tr></table></figure>
-<h4 id="Cardinality-Aggregation-基数聚合"><a href="#Cardinality-Aggregation-基数聚合" class="headerlink" title="Cardinality Aggregation 基数聚合"></a>Cardinality Aggregation 基数聚合</h4><blockquote>
-<p>基于文档的某个值，计算文档非重复的个数（去重计数）。。这些值可以从特定数值字段中提取，也可以由提供的脚本生成。</p>
-</blockquote>
-<p>下面是如何用Java API 使用<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-metrics-cardinality-aggregation.html" target="_blank" rel="external">基数聚合</a></p>
-<h5 id="准备聚合请求-9"><a href="#准备聚合请求-9" class="headerlink" title="准备聚合请求"></a>准备聚合请求</h5><p>下面是如何创建聚合请求的是示例：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">CardinalityAggregationBuilder aggregation =</div><div class="line">        AggregationBuilders</div><div class="line">                .cardinality(&quot;agg&quot;)</div><div class="line">                .field(&quot;tags&quot;);</div></pre></td></tr></table></figure>
-<h5 id="使用聚合请求-9"><a href="#使用聚合请求-9" class="headerlink" title="使用聚合请求"></a>使用聚合请求</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">import org.elasticsearch.search.aggregations.metrics.cardinality.Cardinality;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">// sr is here your SearchResponse object</div><div class="line">Cardinality agg = sr.getAggregations().get(&quot;agg&quot;);</div><div class="line">long value = agg.getValue();</div></pre></td></tr></table></figure>
-<h4 id="Geo-Bounds-Aggregation-地理边界聚合"><a href="#Geo-Bounds-Aggregation-地理边界聚合" class="headerlink" title="Geo Bounds Aggregation 地理边界聚合"></a>Geo Bounds Aggregation 地理边界聚合</h4><blockquote>
-<p>地理边界聚合——基于文档的某个字段（geo-point类型字段），计算出该字段所有地理坐标点的边界（左上角/右下角坐标点）。</p>
-</blockquote>
-<p>下面是如何用Java API 使用<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-metrics-geobounds-aggregation.html" target="_blank" rel="external">地理边界聚合</a></p>
-<h5 id="准备聚合请求-10"><a href="#准备聚合请求-10" class="headerlink" title="准备聚合请求"></a>准备聚合请求</h5><p>下面是如何创建聚合请求的是示例：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">GeoBoundsBuilder aggregation =</div><div class="line">        GeoBoundsAggregationBuilder</div><div class="line">                .geoBounds(&quot;agg&quot;)</div><div class="line">                .field(&quot;address.location&quot;)</div><div class="line">                .wrapLongitude(true);</div></pre></td></tr></table></figure>
-<h5 id="使用聚合请求-10"><a href="#使用聚合请求-10" class="headerlink" title="使用聚合请求"></a>使用聚合请求</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">import org.elasticsearch.search.aggregations.metrics.geobounds.GeoBounds;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">// sr is here your SearchResponse object</div><div class="line">GeoBounds agg = sr.getAggregations().get(&quot;agg&quot;);</div><div class="line">GeoPoint bottomRight = agg.bottomRight();</div><div class="line">GeoPoint topLeft = agg.topLeft();</div><div class="line">logger.info(&quot;bottomRight &#123;&#125;, topLeft &#123;&#125;&quot;, bottomRight, topLeft);</div></pre></td></tr></table></figure>
-<p>大概会输出：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">bottomRight [40.70500764381921, 13.952946866893775], topLeft [53.49603022435221, -4.190029308156676]</div></pre></td></tr></table></figure>
-<h4 id="Top-Hits-Aggregation-最高匹配权值聚合"><a href="#Top-Hits-Aggregation-最高匹配权值聚合" class="headerlink" title="Top Hits Aggregation 最高匹配权值聚合"></a>Top Hits Aggregation 最高匹配权值聚合</h4><blockquote>
-<p>最高匹配权值聚合——跟踪聚合中相关性最高的文档。该聚合一般用做 sub-aggregation，以此来聚合每个桶中的最高匹配的文档。</p>
-</blockquote>
-<p>下面是如何用Java API 使用<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-metrics-top-hits-aggregation.html" target="_blank" rel="external">最高匹配权值聚合</a></p>
-<h5 id="准备聚合请求-11"><a href="#准备聚合请求-11" class="headerlink" title="准备聚合请求"></a>准备聚合请求</h5><p>下面是如何创建聚合请求的是示例：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">AggregationBuilder aggregation =</div><div class="line">    AggregationBuilders</div><div class="line">        .terms(&quot;agg&quot;).field(&quot;gender&quot;)</div><div class="line">        .subAggregation(</div><div class="line">            AggregationBuilders.topHits(&quot;top&quot;)</div><div class="line">        );</div></pre></td></tr></table></figure>
-<p>大多数标准的搜索选项可以使用，比如：<code>from</code>, <code>size</code>, <code>sort</code>, <code>highlight</code>, <code>explain</code> …</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">AggregationBuilder aggregation =</div><div class="line">    AggregationBuilders</div><div class="line">        .terms(&quot;agg&quot;).field(&quot;gender&quot;)</div><div class="line">        .subAggregation(</div><div class="line">            AggregationBuilders.topHits(&quot;top&quot;)</div><div class="line">                .explain(true)</div><div class="line">                .size(1)</div><div class="line">                .from(10)</div><div class="line">        );</div></pre></td></tr></table></figure>
-<h5 id="使用聚合请求-11"><a href="#使用聚合请求-11" class="headerlink" title="使用聚合请求"></a>使用聚合请求</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">import org.elasticsearch.search.aggregations.bucket.terms.Terms;</div><div class="line">import org.elasticsearch.search.aggregations.metrics.tophits.TopHits;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">// sr is here your SearchResponse object</div><div class="line">Terms agg = sr.getAggregations().get(&quot;agg&quot;);</div><div class="line"></div><div class="line">// For each entry</div><div class="line">for (Terms.Bucket entry : agg.getBuckets()) &#123;</div><div class="line">    String key = entry.getKey();                    // bucket key</div><div class="line">    long docCount = entry.getDocCount();            // Doc count</div><div class="line">    logger.info(&quot;key [&#123;&#125;], doc_count [&#123;&#125;]&quot;, key, docCount);</div><div class="line"></div><div class="line">    // We ask for top_hits for each bucket</div><div class="line">    TopHits topHits = entry.getAggregations().get(&quot;top&quot;);</div><div class="line">    for (SearchHit hit : topHits.getHits().getHits()) &#123;</div><div class="line">        logger.info(&quot; -&gt; id [&#123;&#125;], _source [&#123;&#125;]&quot;, hit.getId(), hit.getSourceAsString());</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>大概会输出：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">key [male], doc_count [5107]</div><div class="line"> -&gt; id [AUnzSZze9k7PKXtq04x2], _source [&#123;&quot;gender&quot;:&quot;male&quot;,...&#125;]</div><div class="line"> -&gt; id [AUnzSZzj9k7PKXtq04x4], _source [&#123;&quot;gender&quot;:&quot;male&quot;,...&#125;]</div><div class="line"> -&gt; id [AUnzSZzl9k7PKXtq04x5], _source [&#123;&quot;gender&quot;:&quot;male&quot;,...&#125;]</div><div class="line">key [female], doc_count [4893]</div><div class="line"> -&gt; id [AUnzSZzM9k7PKXtq04xy], _source [&#123;&quot;gender&quot;:&quot;female&quot;,...&#125;]</div><div class="line"> -&gt; id [AUnzSZzp9k7PKXtq04x8], _source [&#123;&quot;gender&quot;:&quot;female&quot;,...&#125;]</div><div class="line"> -&gt; id [AUnzSZ0W9k7PKXtq04yS], _source [&#123;&quot;gender&quot;:&quot;female&quot;,...&#125;]</div></pre></td></tr></table></figure>
-<h4 id="Scripted-Metric-Aggregation"><a href="#Scripted-Metric-Aggregation" class="headerlink" title="Scripted Metric Aggregation"></a>Scripted Metric Aggregation</h4><blockquote>
-<p>此功能为实验性的，不建议生产使用，所以也不做过多说明 有兴趣可以自己参考 <a href="https://www.elastic.co/guide/en/elasticsearch/client/java-api/current/_metrics_aggregations.html#java-aggs-metrics-scripted-metric" target="_blank" rel="external">官方文档</a></p>
-</blockquote>
-
-	        </div>
-	    </article>
-	
-</div>
-                </main>
-                
-    <aside class="col-md-4 sidebar">
         
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
         
-    <div class="widget">    
-        <h3 class="title">搜索</h3>
-        <div id="search-form">
-            <div id="result-mask" class="hide"></div>
-            <div class="search-area">
-                
-                    <input id="search-key" type="search" autocomplete="off" placeholder="搜点什么呢?">
-                    <button type="button" class="search-form-submit" id="search-local">站内搜索</button>
-                
-                
-            </div>
-            <div id="result-wrap" class="hide">
-                <div id="search-result"></div>
-            </div>
-            <div class="hide">
-                <template id="search-tpl">
-                    <div class="item">
-                        <a href="/{path}" title="{title}">
-                            <div class="title">{title}</div>
-                            <div class="content">{content}</div>
-                        </a>
-                    </div>
-                </template>
-            </div>
-        </div>
-    </div>
-
+    
         
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
         
-    <div class="widget notification">
-        <h3 class="title">网站公告</h3>
-        <div>
-            <p>《Spring Boot 与 kotlin 实战》 系列教程上线<br/>
-专题：<a href="https://www.jianshu.com/c/e6dbcad79e75" title="fork me" target="_blank">《Spring Boot 与 kotlin 实战》</a> <br/>
-<hr>
-<img  width="100%" align="center" src="https://static.oschina.net/uploads/img/201711/08183543_ysUa.jpg">
-</p>
-        </div>
-    </div>
-
+    
         
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
         
-    <div class="widget">
-      <h3 class="title">社交</h3> 
-        <div class="content social">
-            
-	            <a href="//github.com/quanke" rel="external nofollow" title="Github" target="_blank">
-			    	<i class="git fa fa-git"></i>
-			    </a>
-            
-	            <a href="mailto:caiquanke_88@163.com" rel="external nofollow" title="邮箱" target="_blank">
-			    	<i class="envelope-o fa fa-envelope-o"></i>
-			    </a>
-            
-	            <a href="//weibo.com/quankecai" rel="external nofollow" title="微博" target="_blank">
-			    	<i class="weibo fa fa-weibo"></i>
-			    </a>
-            
-	            <a href="//jq.qq.com/?_wv=1027&k=5MOKtIE" rel="external nofollow" title="QQ群" target="_blank">
-			    	<i class="users fa fa-users"></i>
-			    </a>
-            
-	            <a href="/atom.xml" rel="external nofollow" title="RSS" target="_blank">
-			    	<i class="feed fa fa-feed"></i>
-			    </a>
-            
-        </div>
-    </div>
-
-
+    
         
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
         
-    <div class="widget">
-        <h3 class="title">分类</h3>
-        <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/es/"><i class="fa" aria-hidden="true">Elasticsearch</i></a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/golang/"><i class="fa" aria-hidden="true">Go语言</i></a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/"><i class="fa" aria-hidden="true">Java</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MBaaS-LiveOak系列/"><i class="fa" aria-hidden="true">MBaaS-LiveOak系列</i></a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/rn/"><i class="fa" aria-hidden="true">React Native</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vertx/"><i class="fa" aria-hidden="true">Vert.x3 系列</i></a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/android/"><i class="fa" aria-hidden="true">android开发</i></a><span class="category-list-count">57</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/"><i class="fa" aria-hidden="true">git</i></a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ios/"><i class="fa" aria-hidden="true">ios开发</i></a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/node/"><i class="fa" aria-hidden="true">node.js</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/use/"><i class="fa" aria-hidden="true">使用</i></a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/bdata/"><i class="fa" aria-hidden="true">大数据</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/service/"><i class="fa" aria-hidden="true">服务端开发</i></a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/autotest/"><i class="fa" aria-hidden="true">自动化测试</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/gof/"><i class="fa" aria-hidden="true">设计模式</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/se/"><i class="fa" aria-hidden="true">软件工程</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/essay/"><i class="fa" aria-hidden="true">随笔</i></a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/project/"><i class="fa" aria-hidden="true">项目实战</i></a><span class="category-list-count">1</span></li></ul>
-    </div>
-
-
+    
         
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
         
-    <div class="widget">
-      <h3 class="title">归档</h3>
-        <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/"><i class="fa" aria-hidden="true">十二月 2017</i></a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/"><i class="fa" aria-hidden="true">十一月 2017</i></a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/"><i class="fa" aria-hidden="true">二月 2017</i></a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/"><i class="fa" aria-hidden="true">十月 2016</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/"><i class="fa" aria-hidden="true">七月 2016</i></a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/"><i class="fa" aria-hidden="true">五月 2016</i></a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/"><i class="fa" aria-hidden="true">四月 2016</i></a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/"><i class="fa" aria-hidden="true">一月 2016</i></a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/"><i class="fa" aria-hidden="true">八月 2015</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/"><i class="fa" aria-hidden="true">七月 2015</i></a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/"><i class="fa" aria-hidden="true">五月 2015</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/"><i class="fa" aria-hidden="true">四月 2015</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/"><i class="fa" aria-hidden="true">十一月 2014</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/"><i class="fa" aria-hidden="true">六月 2014</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/02/"><i class="fa" aria-hidden="true">二月 2014</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/"><i class="fa" aria-hidden="true">三月 2013</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/"><i class="fa" aria-hidden="true">二月 2013</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/"><i class="fa" aria-hidden="true">一月 2013</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/"><i class="fa" aria-hidden="true">十二月 2012</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/"><i class="fa" aria-hidden="true">十一月 2012</i></a><span class="archive-list-count">42</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/10/"><i class="fa" aria-hidden="true">十月 2012</i></a><span class="archive-list-count">19</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/"><i class="fa" aria-hidden="true">九月 2012</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/08/"><i class="fa" aria-hidden="true">八月 2012</i></a><span class="archive-list-count">5</span></li></ul>
-    </div>
-
-
+    
         
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
         
-  <div class="widget">
-    <h3 class="title">标签云</h3>
-    <div class="content tag-cloud">
-        <a href="/tags/API/" style="font-size: 11.67px;">API</a> <a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/android-pg/" style="font-size: 10px;">Android多渠道打包</a> <a href="/tags/es/" style="font-size: 16.67px;">Elasticsearch</a> <a href="/tags/Gradle/" style="font-size: 10px;">Gradle</a> <a href="/tags/IOS/" style="font-size: 10px;">IOS</a> <a href="/tags/JAVA/" style="font-size: 10px;">JAVA</a> <a href="/tags/Java/" style="font-size: 13.33px;">Java</a> <a href="/tags/th-java/" style="font-size: 10px;">Java 编程思想</a> <a href="/tags/JavaEE/" style="font-size: 10px;">JavaEE</a> <a href="/tags/LiveOak/" style="font-size: 13.33px;">LiveOak</a> <a href="/tags/MBaaS/" style="font-size: 15px;">MBaaS</a> <a href="/tags/PM2/" style="font-size: 10px;">PM2</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/rn/" style="font-size: 10px;">React Native</a> <a href="/tags/SDK/" style="font-size: 10px;">SDK</a> <a href="/tags/Spring-Boot/" style="font-size: 10px;">Spring Boot</a> <a href="/tags/vertx-for-java/" style="font-size: 10px;">Vert.x Core手册 for Java</a> <a href="/tags/Vert-x3/" style="font-size: 20px;">Vert.x3</a> <a href="/tags/Vertx/" style="font-size: 20px;">Vertx</a> <a href="/tags/windows-install/" style="font-size: 10px;">Windows10安装</a> <a href="/tags/android/" style="font-size: 18.33px;">android</a> <a href="/tags/android-a/" style="font-size: 10px;">android动画</a> <a href="/tags/elasticsearch/" style="font-size: 10px;">elasticsearch</a> <a href="/tags/gitbook/" style="font-size: 10px;">gitbook</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/logstash/" style="font-size: 10px;">logstash</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/node-js-运行/" style="font-size: 10px;">node.js 运行</a> <a href="/tags/spirng-boot/" style="font-size: 10px;">spirng boot</a> <a href="/tags/swagger-ui/" style="font-size: 10px;">swagger ui</a> <a href="/tags/swagger-api/" style="font-size: 10px;">swagger-api</a> <a href="/tags/swagger-edit/" style="font-size: 10px;">swagger-edit</a> <a href="/tags/bdaga/" style="font-size: 16.67px;">大数据</a> <a href="/tags/开源/" style="font-size: 10px;">开源</a> <a href="/tags/conclusion/" style="font-size: 10px;">总结</a> <a href="/tags/api/" style="font-size: 10px;">接口文档</a> <a href="/tags/careful/" style="font-size: 10px;">注意</a> <a href="/tags/career-planning/" style="font-size: 10px;">职业规划</a> <a href="/tags/autotest/" style="font-size: 10px;">自动化测试</a> <a href="/tags/gof/" style="font-size: 10px;">设计模式</a> <a href="/tags/data/" style="font-size: 11.67px;">资料</a> <a href="/tags/test/" style="font-size: 10px;">软件测试</a>
-    </div>
-  </div>
+    
 
-
-        
-        
-    <div class="widget">
-        <h3 class="title">友链</h3>
-        <div class="content friends-link">
-        
-            <a href="http://quanke.name" class="fa" target="_blank">个人博客</a>
-        
-            <a href="http://satra.gitee.io/blog/" class="fa" target="_blank">我在万达摆地摊</a>
-        
-        </div>
-    </div>
-
-
-        
-    </aside>
-
-            </div>
-        </div>
-    </section>
-    <footer class="main-footer">
-    <div class="container">
-        <div class="row">
-        </div>
-    </div>
-</footer>
-
-<a id="back-to-top" class="hide">
-	<i class="fa fa-chevron-up"></i>
-</a>
-
-
-
-
-    <div class="copyright">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12"> 
-                <span>Copyright &copy; 2017
-                </span> | 
-                <span>
-                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
-                </span> | 
-                <span>
-                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
-                </span>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-	<script src="/js/search.js?rev=@@hash"></script>
-
-
-<script src="/js/app.js?rev=@@hash"></script>
-
-
-</body>
+    </body>
 </html>
+

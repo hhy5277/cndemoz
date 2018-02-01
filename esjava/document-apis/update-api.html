@@ -1,331 +1,818 @@
+
 <!DOCTYPE HTML>
-<html lang="zh-CN">
-<head>
-    <!--Setting-->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
-    <meta http-equiv="Cache-Control" content="no-siteapp">
-    <meta http-equiv="Cache-Control" content="no-transform">
-    <meta name="renderer" content="webkit|ie-comp|ie-stand">
-    <meta name="apple-mobile-web-app-capable" content="全科-不安分的码农">
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Update API · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="format-detection" content="telephone=no,email=no,adress=no">
-    <meta name="browsermode" content="application">
-    <meta name="screen-orientation" content="portrait">
-    <link rel="dns-prefetch" href="http://test.quanke.name">
-    <!--SEO-->
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="multi-get-api.html" />
+    
+    
+    <link rel="prev" href="delete-by-query-api.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
 
 
-
-
-
-<meta name="robots" content="all" />
-<meta name="google" content="all" />
-<meta name="googlebot" content="all" />
-<meta name="verify" content="all" />
-    <!--Title-->
-
-
-<title>全科-不安分的码农</title>
-
-
-    <link rel="alternate" href="/atom.xml" title="全科-不安分的码农" type="application/atom+xml">
-
-
-    <link rel="icon" href="/favicon.ico">
+<ul class="summary">
+    
+    
 
     
 
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
 
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../dependency.html">
+            
+                <a href="../dependency.html">
+            
+                    
+                    Dependency
+            
+                </a>
+            
 
-<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css?rev=3.3.4">
-<link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../client.html">
+            
+                <a href="../client.html">
+            
+                    
+                    Client
+            
+                </a>
+            
 
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../client/transport-client.html">
+            
+                <a href="../client/transport-client.html">
+            
+                    
+                    Transport Client
+            
+                </a>
+            
 
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../client/xpack-transport-client.html">
+            
+                <a href="../client/xpack-transport-client.html">
+            
+                    
+                    XPack Transport Client
+            
+                </a>
+            
 
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../document-apis.html">
+            
+                <a href="../document-apis.html">
+            
+                    
+                    Document APIs
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="index-api.html">
+            
+                <a href="index-api.html">
+            
+                    
+                    Index API
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="get-api.html">
+            
+                <a href="get-api.html">
+            
+                    
+                    Get API
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="delete-api.html">
+            
+                <a href="delete-api.html">
+            
+                    
+                    Delete API
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="delete-by-query-api.html">
+            
+                <a href="delete-by-query-api.html">
+            
+                    
+                    Delete By Query API
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.4.5" data-path="update-api.html">
+            
+                <a href="update-api.html">
+            
+                    
+                    Update API
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.6" data-path="multi-get-api.html">
+            
+                <a href="multi-get-api.html">
+            
+                    
+                    Multi Get API
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.7" data-path="bulk-api.html">
+            
+                <a href="bulk-api.html">
+            
+                    
+                    Bulk API
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.8" data-path="using-bulk-processor.html">
+            
+                <a href="using-bulk-processor.html">
+            
+                    
+                    Using Bulk Processor
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../search-api.html">
+            
+                <a href="../search-api.html">
+            
+                    
+                    Search API
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../search-api/using-scrolls-in-java.html">
+            
+                <a href="../search-api/using-scrolls-in-java.html">
+            
+                    
+                    Using scrolls in Java
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../search-api/multisearch-api.html">
+            
+                <a href="../search-api/multisearch-api.html">
+            
+                    
+                    MultiSearch API
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="../search-api/using-aggregations.html">
+            
+                <a href="../search-api/using-aggregations.html">
+            
+                    
+                    Using Aggregations
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="../search-api/terminate-after.html">
+            
+                <a href="../search-api/terminate-after.html">
+            
+                    
+                    Terminate After
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5" data-path="../search-api/search-template.html">
+            
+                <a href="../search-api/search-template.html">
+            
+                    
+                    Search Template
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../aggregations.html">
+            
+                <a href="../aggregations.html">
+            
+                    
+                    Aggregations
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../aggregations/structuring-aggregations.html">
+            
+                <a href="../aggregations/structuring-aggregations.html">
+            
+                    
+                    Structuring aggregations
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="../aggregations/metrics-aggregations.html">
+            
+                <a href="../aggregations/metrics-aggregations.html">
+            
+                    
+                    Metrics aggregations
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="../aggregations/bucket-aggregations.html">
+            
+                <a href="../aggregations/bucket-aggregations.html">
+            
+                    
+                    Bucket aggregations
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../query-dsl.html">
+            
+                <a href="../query-dsl.html">
+            
+                    
+                    Query DSL
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="../query-dsl/match-all-query.html">
+            
+                <a href="../query-dsl/match-all-query.html">
+            
+                    
+                    Match All Query
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.2" data-path="../query-dsl/full-text-queries.html">
+            
+                <a href="../query-dsl/full-text-queries.html">
+            
+                    
+                    Full text queries
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.3" data-path="../query-dsl/term-level-queries.html">
+            
+                <a href="../query-dsl/term-level-queries.html">
+            
+                    
+                    Term level queries
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.4" data-path="../query-dsl/compound-queries.html">
+            
+                <a href="../query-dsl/compound-queries.html">
+            
+                    
+                    Compound queries
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.5" data-path="../query-dsl/joining-queries.html">
+            
+                <a href="../query-dsl/joining-queries.html">
+            
+                    
+                    Joining queries
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.6" data-path="../query-dsl/geo-queries.html">
+            
+                <a href="../query-dsl/geo-queries.html">
+            
+                    
+                    Geo queries
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.7" data-path="../query-dsl/specialized-queries.html">
+            
+                <a href="../query-dsl/specialized-queries.html">
+            
+                    
+                    Specialized queries
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.8" data-path="../query-dsl/span-queries.html">
+            
+                <a href="../query-dsl/span-queries.html">
+            
+                    
+                    Span queries
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="../indexed-scripts-api.html">
+            
+                <a href="../indexed-scripts-api.html">
+            
+                    
+                    Indexed Scripts API
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="../indexed-scripts-api/script-language.html">
+            
+                <a href="../indexed-scripts-api/script-language.html">
+            
+                    
+                    Script Language
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="../java-api-administration.html">
+            
+                <a href="../java-api-administration.html">
+            
+                    
+                    Java API Administration
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.1" data-path="../java-api-administration/indices-administration.html">
+            
+                <a href="../java-api-administration/indices-administration.html">
+            
+                    
+                    Indices Administration
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.2" data-path="../java-api-administration/cluster-administration.html">
+            
+                <a href="../java-api-administration/cluster-administration.html">
+            
+                    
+                    Cluster Administration
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
 
     
 
+    <li class="divider"></li>
 
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Update API</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h3 id="update-api">Update API</h3>
+<p>&#x66F4;&#x65B0;&#x7D22;&#x5F15;</p>
+<p>&#x6709;&#x4E24;&#x79CD;&#x65B9;&#x5F0F;&#x66F4;&#x65B0;&#x7D22;&#x5F15;&#xFF1A;</p>
+<ul>
+<li>&#x521B;&#x5EFA; <code>UpdateRequest</code>,&#x901A;&#x8FC7;client&#x53D1;&#x9001;&#xFF1B;</li>
+<li>&#x4F7F;&#x7528; <code>prepareUpdate()</code> &#x65B9;&#x6CD5;&#xFF1B;</li>
+</ul>
+<h4 id="&#x4F7F;&#x7528;updaterequest">&#x4F7F;&#x7528;UpdateRequest</h4>
+<pre><code>UpdateRequest updateRequest = new UpdateRequest();
+updateRequest.index(&quot;index&quot;);
+updateRequest.type(&quot;type&quot;);
+updateRequest.id(&quot;1&quot;);
+updateRequest.doc(jsonBuilder()
+        .startObject()
+            .field(&quot;gender&quot;, &quot;male&quot;)
+        .endObject());
+client.update(updateRequest).get();
+</code></pre><h4 id="&#x4F7F;&#x7528;-prepareupdate-&#x65B9;&#x6CD5;">&#x4F7F;&#x7528; <code>prepareUpdate()</code> &#x65B9;&#x6CD5;</h4>
+<pre><code>client.prepareUpdate(&quot;ttl&quot;, &quot;doc&quot;, &quot;1&quot;)
+        .setScript(new Script(&quot;ctx._source.gender = \&quot;male\&quot;&quot;  ,ScriptService.ScriptType.INLINE, null, null))//&#x811A;&#x672C;&#x53EF;&#x4EE5;&#x662F;&#x672C;&#x5730;&#x6587;&#x4EF6;&#x5B58;&#x50A8;&#x7684;&#xFF0C;&#x5982;&#x679C;&#x4F7F;&#x7528;&#x6587;&#x4EF6;&#x5B58;&#x50A8;&#x7684;&#x811A;&#x672C;&#xFF0C;&#x9700;&#x8981;&#x8BBE;&#x7F6E; ScriptService.ScriptType.FILE 
+        .get();
+
+client.prepareUpdate(&quot;ttl&quot;, &quot;doc&quot;, &quot;1&quot;)
+        .setDoc(jsonBuilder()   //&#x5408;&#x5E76;&#x5230;&#x73B0;&#x6709;&#x6587;&#x6863;
+            .startObject()
+                .field(&quot;gender&quot;, &quot;male&quot;)
+            .endObject())
+        .get();
+</code></pre><h4 id="update-by-script">Update by script</h4>
+<p>&#x4F7F;&#x7528;&#x811A;&#x672C;&#x66F4;&#x65B0;&#x6587;&#x6863;</p>
+<pre><code>UpdateRequest updateRequest = new UpdateRequest(&quot;ttl&quot;, &quot;doc&quot;, &quot;1&quot;)
+        .script(new Script(&quot;ctx._source.gender = \&quot;male\&quot;&quot;));
+client.update(updateRequest).get();
+</code></pre><h4 id="update-by-merging-documents">Update by merging documents</h4>
+<p>&#x5408;&#x5E76;&#x6587;&#x6863;</p>
+<pre><code>UpdateRequest updateRequest = new UpdateRequest(&quot;index&quot;, &quot;type&quot;, &quot;1&quot;)
+        .doc(jsonBuilder()
+            .startObject()
+                .field(&quot;gender&quot;, &quot;male&quot;)
+            .endObject());
+client.update(updateRequest).get();
+</code></pre><h4 id="upsert">Upsert</h4>
+<p>&#x66F4;&#x65B0;&#x63D2;&#x5165;,&#x5982;&#x679C;&#x5B58;&#x5728;&#x6587;&#x6863;&#x5C31;&#x66F4;&#x65B0;&#xFF0C;&#x5982;&#x679C;&#x4E0D;&#x5B58;&#x5728;&#x5C31;&#x63D2;&#x5165;</p>
+<pre><code>IndexRequest indexRequest = new IndexRequest(&quot;index&quot;, &quot;type&quot;, &quot;1&quot;)
+        .source(jsonBuilder()
+            .startObject()
+                .field(&quot;name&quot;, &quot;Joe Smith&quot;)
+                .field(&quot;gender&quot;, &quot;male&quot;)
+            .endObject());
+UpdateRequest updateRequest = new UpdateRequest(&quot;index&quot;, &quot;type&quot;, &quot;1&quot;)
+        .doc(jsonBuilder()
+            .startObject()
+                .field(&quot;gender&quot;, &quot;male&quot;)
+            .endObject())
+        .upsert(indexRequest); //&#x5982;&#x679C;&#x4E0D;&#x5B58;&#x5728;&#x6B64;&#x6587;&#x6863; &#xFF0C;&#x5C31;&#x589E;&#x52A0; `indexRequest`
+client.update(updateRequest).get();
+</code></pre><p>&#x5982;&#x679C; <code>index/type/1</code> &#x5B58;&#x5728;&#xFF0C;&#x7C7B;&#x4F3C;&#x4E0B;&#x9762;&#x7684;&#x6587;&#x6863;&#xFF1A;</p>
+<pre><code>{
+    &quot;name&quot;  : &quot;Joe Dalton&quot;,
+    &quot;gender&quot;: &quot;male&quot;        
+}
+</code></pre><p>&#x5982;&#x679C;&#x4E0D;&#x5B58;&#x5728;&#xFF0C;&#x4F1A;&#x63D2;&#x5165;&#x65B0;&#x7684;&#x6587;&#x6863;&#xFF1A;</p>
+<pre><code>{
+    &quot;name&quot; : &quot;Joe Smith&quot;,
+    &quot;gender&quot;: &quot;male&quot;
+}
+</code></pre>
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="delete-by-query-api.html" class="navigation navigation-prev " aria-label="Previous page: Delete By Query API">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="multi-get-api.html" class="navigation navigation-next " aria-label="Next page: Multi Get API">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
 
     <script>
-        var _hmt = _hmt || [];
-        (function() {
-            var hm = document.createElement("script");
-            hm.src = "https://hm.baidu.com/hm.js?853906ed403c461b2dbf1df696bdf998";
-            var s = document.getElementsByTagName("script")[0];
-            s.parentNode.insertBefore(hm, s);
-        })();
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Update API","level":"1.4.5","depth":2,"next":{"title":"Multi Get API","level":"1.4.6","depth":2,"path":"document-apis/multi-get-api.md","ref":"document-apis/multi-get-api.md","articles":[]},"previous":{"title":"Delete By Query API","level":"1.4.4","depth":2,"path":"document-apis/delete-by-query-api.md","ref":"document-apis/delete-by-query-api.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"document-apis/update-api.md","mtime":"2017-11-08T08:21:02.689Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-01-29T15:28:32.108Z"},"basePath":"..","book":{"language":""}});
+        });
     </script>
+</div>
 
-
-	<script>
-		(function(i, s, o, g, r, a, m) {
-		    i['GoogleAnalyticsObject'] = r;
-		    i[r] = i[r] || function() {
-		        (i[r].q = i[r].q || []).push(arguments)
-		    }, i[r].l = 1 * new Date();
-		    a = s.createElement(o),
-		    m = s.getElementsByTagName(o)[0];
-		    a.async = 1;
-		    a.src = g;
-		    m.parentNode.insertBefore(a, m)
-		})(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
-		ga('create', 'UA-82833335-5', 'auto');
-		ga('send', 'pageview');
-	</script>
-
-
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
     
-</head>
-
-
-<!--[if lte IE 8]>
-<style>
-    html{ font-size: 1em }
-</style>
-<![endif]-->
-<!--[if lte IE 9]>
-<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
-<![endif]-->
-
-<body>
-    <header class="main-header"  style="background-image:url(http://7xpw2b.com1.z0.glb.clouddn.com/hexo-sinppet/img/banner2.jpg)"  >
-    <div class="main-header-box">
-        <a class="header-avatar" href="/" title="">
-            <img src="/img/avatar.jpg" alt="logo头像">
-        </a>
-        <div class="branding">
-        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
-            
-                 <img src="/img/branding.png" alt="Snippet 博客主题">  
-             
-    	</div>
-    </div>
-</header>
-    <nav class="main-navigation">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="navbar-header"><span class="nav-toggle-button collapsed" data-toggle="collapse" data-target="#main-menu" id="mnav">
-                    <span class="sr-only">Toggle navigation</span>
-                    <i class="fa fa-bars"></i>
-                    </span>
-                </div>
-                <div class="collapse navbar-collapse" id="main-menu">
-                    <ul class="menu">
-                        
-                            <li role="presentation"><a href="/"><i class="fa fa-fw "></i>主页</a>
-                            </li>
-                        
-                            <li role="presentation"><a href="/"><i class="fa fa-fw "></i>日志</a>
-                            </li>
-                        
-                            <li role="presentation"><a href="/"><i class="fa fa-fw "></i>应用</a>
-                            </li>
-                        
-                            <li role="presentation"><a href="/"><i class="fa fa-fw "></i>开源</a>
-                            </li>
-                        
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</nav>
-    <section class="content-wrap">
-        <div class="container">
-            <div class="row">
-                <main class="col-md-8 main-content ">
-                    <div class="about">
-	
-	    <article class="post">
-	        <h1 class="post-head">关于我</h1>
-	        <div class="post-body">
-	            <h3 id="Update-API"><a href="#Update-API" class="headerlink" title="Update API"></a>Update API</h3><p>更新索引</p>
-<p>有两种方式更新索引：</p>
-<ul>
-<li>创建 <code>UpdateRequest</code>,通过client发送；</li>
-<li>使用 <code>prepareUpdate()</code> 方法；</li>
-</ul>
-<h4 id="使用UpdateRequest"><a href="#使用UpdateRequest" class="headerlink" title="使用UpdateRequest"></a>使用UpdateRequest</h4><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">UpdateRequest updateRequest = new UpdateRequest();</div><div class="line">updateRequest.index(&quot;index&quot;);</div><div class="line">updateRequest.type(&quot;type&quot;);</div><div class="line">updateRequest.id(&quot;1&quot;);</div><div class="line">updateRequest.doc(jsonBuilder()</div><div class="line">        .startObject()</div><div class="line">            .field(&quot;gender&quot;, &quot;male&quot;)</div><div class="line">        .endObject());</div><div class="line">client.update(updateRequest).get();</div></pre></td></tr></table></figure>
-<h4 id="使用-prepareUpdate-方法"><a href="#使用-prepareUpdate-方法" class="headerlink" title="使用 prepareUpdate() 方法"></a>使用 <code>prepareUpdate()</code> 方法</h4><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">client.prepareUpdate(&quot;ttl&quot;, &quot;doc&quot;, &quot;1&quot;)</div><div class="line">        .setScript(new Script(&quot;ctx._source.gender = \&quot;male\&quot;&quot;  ,ScriptService.ScriptType.INLINE, null, null))//脚本可以是本地文件存储的，如果使用文件存储的脚本，需要设置 ScriptService.ScriptType.FILE </div><div class="line">        .get();</div><div class="line"></div><div class="line">client.prepareUpdate(&quot;ttl&quot;, &quot;doc&quot;, &quot;1&quot;)</div><div class="line">        .setDoc(jsonBuilder()   //合并到现有文档</div><div class="line">            .startObject()</div><div class="line">                .field(&quot;gender&quot;, &quot;male&quot;)</div><div class="line">            .endObject())</div><div class="line">        .get();</div></pre></td></tr></table></figure>
-<h4 id="Update-by-script"><a href="#Update-by-script" class="headerlink" title="Update by script"></a>Update by script</h4><p>使用脚本更新文档</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">UpdateRequest updateRequest = new UpdateRequest(&quot;ttl&quot;, &quot;doc&quot;, &quot;1&quot;)</div><div class="line">        .script(new Script(&quot;ctx._source.gender = \&quot;male\&quot;&quot;));</div><div class="line">client.update(updateRequest).get();</div></pre></td></tr></table></figure>
-<h4 id="Update-by-merging-documents"><a href="#Update-by-merging-documents" class="headerlink" title="Update by merging documents"></a>Update by merging documents</h4><p>合并文档</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">UpdateRequest updateRequest = new UpdateRequest(&quot;index&quot;, &quot;type&quot;, &quot;1&quot;)</div><div class="line">        .doc(jsonBuilder()</div><div class="line">            .startObject()</div><div class="line">                .field(&quot;gender&quot;, &quot;male&quot;)</div><div class="line">            .endObject());</div><div class="line">client.update(updateRequest).get();</div></pre></td></tr></table></figure>
-<h4 id="Upsert"><a href="#Upsert" class="headerlink" title="Upsert"></a>Upsert</h4><p>更新插入,如果存在文档就更新，如果不存在就插入</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">IndexRequest indexRequest = new IndexRequest(&quot;index&quot;, &quot;type&quot;, &quot;1&quot;)</div><div class="line">        .source(jsonBuilder()</div><div class="line">            .startObject()</div><div class="line">                .field(&quot;name&quot;, &quot;Joe Smith&quot;)</div><div class="line">                .field(&quot;gender&quot;, &quot;male&quot;)</div><div class="line">            .endObject());</div><div class="line">UpdateRequest updateRequest = new UpdateRequest(&quot;index&quot;, &quot;type&quot;, &quot;1&quot;)</div><div class="line">        .doc(jsonBuilder()</div><div class="line">            .startObject()</div><div class="line">                .field(&quot;gender&quot;, &quot;male&quot;)</div><div class="line">            .endObject())</div><div class="line">        .upsert(indexRequest); //如果不存在此文档 ，就增加 `indexRequest`</div><div class="line">client.update(updateRequest).get();</div></pre></td></tr></table></figure>
-<p>如果 <code>index/type/1</code> 存在，类似下面的文档：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&#123;</div><div class="line">    &quot;name&quot;  : &quot;Joe Dalton&quot;,</div><div class="line">    &quot;gender&quot;: &quot;male&quot;        </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>如果不存在，会插入新的文档：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&#123;</div><div class="line">    &quot;name&quot; : &quot;Joe Smith&quot;,</div><div class="line">    &quot;gender&quot;: &quot;male&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-
-	        </div>
-	    </article>
-	
-</div>
-                </main>
-                
-    <aside class="col-md-4 sidebar">
         
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
         
-    <div class="widget">    
-        <h3 class="title">搜索</h3>
-        <div id="search-form">
-            <div id="result-mask" class="hide"></div>
-            <div class="search-area">
-                
-                    <input id="search-key" type="search" autocomplete="off" placeholder="搜点什么呢?">
-                    <button type="button" class="search-form-submit" id="search-local">站内搜索</button>
-                
-                
-            </div>
-            <div id="result-wrap" class="hide">
-                <div id="search-result"></div>
-            </div>
-            <div class="hide">
-                <template id="search-tpl">
-                    <div class="item">
-                        <a href="/{path}" title="{title}">
-                            <div class="title">{title}</div>
-                            <div class="content">{content}</div>
-                        </a>
-                    </div>
-                </template>
-            </div>
-        </div>
-    </div>
-
+    
         
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
         
-    <div class="widget notification">
-        <h3 class="title">网站公告</h3>
-        <div>
-            <p>《Spring Boot 与 kotlin 实战》 系列教程上线<br/>
-专题：<a href="https://www.jianshu.com/c/e6dbcad79e75" title="fork me" target="_blank">《Spring Boot 与 kotlin 实战》</a> <br/>
-<hr>
-<img  width="100%" align="center" src="https://static.oschina.net/uploads/img/201711/08183543_ysUa.jpg">
-</p>
-        </div>
-    </div>
-
+    
         
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
         
-    <div class="widget">
-      <h3 class="title">社交</h3> 
-        <div class="content social">
-            
-	            <a href="//github.com/quanke" rel="external nofollow" title="Github" target="_blank">
-			    	<i class="git fa fa-git"></i>
-			    </a>
-            
-	            <a href="mailto:caiquanke_88@163.com" rel="external nofollow" title="邮箱" target="_blank">
-			    	<i class="envelope-o fa fa-envelope-o"></i>
-			    </a>
-            
-	            <a href="//weibo.com/quankecai" rel="external nofollow" title="微博" target="_blank">
-			    	<i class="weibo fa fa-weibo"></i>
-			    </a>
-            
-	            <a href="//jq.qq.com/?_wv=1027&k=5MOKtIE" rel="external nofollow" title="QQ群" target="_blank">
-			    	<i class="users fa fa-users"></i>
-			    </a>
-            
-	            <a href="/atom.xml" rel="external nofollow" title="RSS" target="_blank">
-			    	<i class="feed fa fa-feed"></i>
-			    </a>
-            
-        </div>
-    </div>
-
-
+    
         
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
         
-    <div class="widget">
-        <h3 class="title">分类</h3>
-        <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/es/"><i class="fa" aria-hidden="true">Elasticsearch</i></a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/golang/"><i class="fa" aria-hidden="true">Go语言</i></a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/"><i class="fa" aria-hidden="true">Java</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MBaaS-LiveOak系列/"><i class="fa" aria-hidden="true">MBaaS-LiveOak系列</i></a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/rn/"><i class="fa" aria-hidden="true">React Native</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vertx/"><i class="fa" aria-hidden="true">Vert.x3 系列</i></a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/android/"><i class="fa" aria-hidden="true">android开发</i></a><span class="category-list-count">57</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/"><i class="fa" aria-hidden="true">git</i></a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ios/"><i class="fa" aria-hidden="true">ios开发</i></a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/node/"><i class="fa" aria-hidden="true">node.js</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/use/"><i class="fa" aria-hidden="true">使用</i></a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/bdata/"><i class="fa" aria-hidden="true">大数据</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/service/"><i class="fa" aria-hidden="true">服务端开发</i></a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/autotest/"><i class="fa" aria-hidden="true">自动化测试</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/gof/"><i class="fa" aria-hidden="true">设计模式</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/se/"><i class="fa" aria-hidden="true">软件工程</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/essay/"><i class="fa" aria-hidden="true">随笔</i></a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/project/"><i class="fa" aria-hidden="true">项目实战</i></a><span class="category-list-count">1</span></li></ul>
-    </div>
-
-
+    
         
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
         
-    <div class="widget">
-      <h3 class="title">归档</h3>
-        <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/"><i class="fa" aria-hidden="true">十二月 2017</i></a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/"><i class="fa" aria-hidden="true">十一月 2017</i></a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/"><i class="fa" aria-hidden="true">二月 2017</i></a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/"><i class="fa" aria-hidden="true">十月 2016</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/"><i class="fa" aria-hidden="true">七月 2016</i></a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/"><i class="fa" aria-hidden="true">五月 2016</i></a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/"><i class="fa" aria-hidden="true">四月 2016</i></a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/"><i class="fa" aria-hidden="true">一月 2016</i></a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/"><i class="fa" aria-hidden="true">八月 2015</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/"><i class="fa" aria-hidden="true">七月 2015</i></a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/"><i class="fa" aria-hidden="true">五月 2015</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/"><i class="fa" aria-hidden="true">四月 2015</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/"><i class="fa" aria-hidden="true">十一月 2014</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/"><i class="fa" aria-hidden="true">六月 2014</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/02/"><i class="fa" aria-hidden="true">二月 2014</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/"><i class="fa" aria-hidden="true">三月 2013</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/"><i class="fa" aria-hidden="true">二月 2013</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/"><i class="fa" aria-hidden="true">一月 2013</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/"><i class="fa" aria-hidden="true">十二月 2012</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/"><i class="fa" aria-hidden="true">十一月 2012</i></a><span class="archive-list-count">42</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/10/"><i class="fa" aria-hidden="true">十月 2012</i></a><span class="archive-list-count">19</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/"><i class="fa" aria-hidden="true">九月 2012</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/08/"><i class="fa" aria-hidden="true">八月 2012</i></a><span class="archive-list-count">5</span></li></ul>
-    </div>
-
-
+    
         
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
         
-  <div class="widget">
-    <h3 class="title">标签云</h3>
-    <div class="content tag-cloud">
-        <a href="/tags/API/" style="font-size: 11.67px;">API</a> <a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/android-pg/" style="font-size: 10px;">Android多渠道打包</a> <a href="/tags/es/" style="font-size: 16.67px;">Elasticsearch</a> <a href="/tags/Gradle/" style="font-size: 10px;">Gradle</a> <a href="/tags/IOS/" style="font-size: 10px;">IOS</a> <a href="/tags/JAVA/" style="font-size: 10px;">JAVA</a> <a href="/tags/Java/" style="font-size: 13.33px;">Java</a> <a href="/tags/th-java/" style="font-size: 10px;">Java 编程思想</a> <a href="/tags/JavaEE/" style="font-size: 10px;">JavaEE</a> <a href="/tags/LiveOak/" style="font-size: 13.33px;">LiveOak</a> <a href="/tags/MBaaS/" style="font-size: 15px;">MBaaS</a> <a href="/tags/PM2/" style="font-size: 10px;">PM2</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/rn/" style="font-size: 10px;">React Native</a> <a href="/tags/SDK/" style="font-size: 10px;">SDK</a> <a href="/tags/Spring-Boot/" style="font-size: 10px;">Spring Boot</a> <a href="/tags/vertx-for-java/" style="font-size: 10px;">Vert.x Core手册 for Java</a> <a href="/tags/Vert-x3/" style="font-size: 20px;">Vert.x3</a> <a href="/tags/Vertx/" style="font-size: 20px;">Vertx</a> <a href="/tags/windows-install/" style="font-size: 10px;">Windows10安装</a> <a href="/tags/android/" style="font-size: 18.33px;">android</a> <a href="/tags/android-a/" style="font-size: 10px;">android动画</a> <a href="/tags/elasticsearch/" style="font-size: 10px;">elasticsearch</a> <a href="/tags/gitbook/" style="font-size: 10px;">gitbook</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/logstash/" style="font-size: 10px;">logstash</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/node-js-运行/" style="font-size: 10px;">node.js 运行</a> <a href="/tags/spirng-boot/" style="font-size: 10px;">spirng boot</a> <a href="/tags/swagger-ui/" style="font-size: 10px;">swagger ui</a> <a href="/tags/swagger-api/" style="font-size: 10px;">swagger-api</a> <a href="/tags/swagger-edit/" style="font-size: 10px;">swagger-edit</a> <a href="/tags/bdaga/" style="font-size: 16.67px;">大数据</a> <a href="/tags/开源/" style="font-size: 10px;">开源</a> <a href="/tags/conclusion/" style="font-size: 10px;">总结</a> <a href="/tags/api/" style="font-size: 10px;">接口文档</a> <a href="/tags/careful/" style="font-size: 10px;">注意</a> <a href="/tags/career-planning/" style="font-size: 10px;">职业规划</a> <a href="/tags/autotest/" style="font-size: 10px;">自动化测试</a> <a href="/tags/gof/" style="font-size: 10px;">设计模式</a> <a href="/tags/data/" style="font-size: 11.67px;">资料</a> <a href="/tags/test/" style="font-size: 10px;">软件测试</a>
-    </div>
-  </div>
+    
 
-
-        
-        
-    <div class="widget">
-        <h3 class="title">友链</h3>
-        <div class="content friends-link">
-        
-            <a href="http://quanke.name" class="fa" target="_blank">个人博客</a>
-        
-            <a href="http://satra.gitee.io/blog/" class="fa" target="_blank">我在万达摆地摊</a>
-        
-        </div>
-    </div>
-
-
-        
-    </aside>
-
-            </div>
-        </div>
-    </section>
-    <footer class="main-footer">
-    <div class="container">
-        <div class="row">
-        </div>
-    </div>
-</footer>
-
-<a id="back-to-top" class="hide">
-	<i class="fa fa-chevron-up"></i>
-</a>
-
-
-
-
-    <div class="copyright">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12"> 
-                <span>Copyright &copy; 2017
-                </span> | 
-                <span>
-                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
-                </span> | 
-                <span>
-                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
-                </span>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-	<script src="/js/search.js?rev=@@hash"></script>
-
-
-<script src="/js/app.js?rev=@@hash"></script>
-
-
-</body>
+    </body>
 </html>
+
