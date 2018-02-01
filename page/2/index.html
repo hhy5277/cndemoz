@@ -1,2331 +1,934 @@
-<!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next gemini use-motion" lang="zh-Hans">
+<!DOCTYPE HTML>
+<html lang="zh-CN">
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-<meta name="theme-color" content="#222">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="全科-不安分的码农">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://test.quanke.name">
+    <!--SEO-->
 
 
 
 
 
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
 
 
+<title>全科-不安分的码农</title>
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="alternate" href="/atom.xml" title="全科-不安分的码农" type="application/atom+xml">
 
 
+    <link rel="icon" href="/favicon.ico">
 
+    
 
 
 
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css?rev=3.3.4">
+<link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
 
 
 
 
+    
 
 
 
 
+	<script>
+		(function(i, s, o, g, r, a, m) {
+		    i['GoogleAnalyticsObject'] = r;
+		    i[r] = i[r] || function() {
+		        (i[r].q = i[r].q || []).push(arguments)
+		    }, i[r].l = 1 * new Date();
+		    a = s.createElement(o),
+		    m = s.getElementsByTagName(o)[0];
+		    a.async = 1;
+		    a.src = g;
+		    m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+		ga('create', 'UA-82833335-5', 'auto');
+		ga('send', 'pageview');
+	</script>
 
 
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="quanke, java" />
-
-
-
-
-
-  <link rel="alternate" href="/atom.xml" title="全科-不安分的码农" type="application/atom+xml" />
-
-
-
-
-
-
-<meta property="og:type" content="website">
-<meta property="og:title" content="全科-不安分的码农">
-<meta property="og:url" content="http://quanke.name/page/2/index.html">
-<meta property="og:site_name" content="全科-不安分的码农">
-<meta property="og:locale" content="zh-Hans">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="全科-不安分的码农">
-
-
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Gemini',
-    version: '5.1.3',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
-
-
-
-  <link rel="canonical" href="http://quanke.name/page/2/"/>
-
-
-
-
-
-  <title>全科-不安分的码农</title>
-  
-
-
-
-
-
-  <script type="text/javascript">
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?853906ed403c461b2dbf1df696bdf998";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
-
-
-
-
+    
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
-  
-  
-    
-  
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
 
-  <div class="container sidebar-position-left 
-  page-home">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">全科-不安分的码农</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+<body>
+    <header class="main-header"  style="background-image:url(http://7xpw2b.com1.z0.glb.clouddn.com/hexo-sinppet/img/banner2.jpg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title="">
+            <img src="/img/avatar.jpg" alt="logo头像">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                 <img src="/img/branding.png" alt="Snippet 博客主题">  
+             
+    	</div>
     </div>
-      
-        <p class="site-subtitle">android，ios，html5，微服务架构，XP，scrum，项目管理（PMP）</p>
-      
-  </div>
-
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
-  </div>
-</div>
-
-<nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            分类
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-
-      
-    </ul>
-  
-
-  
-</nav>
-
-
-
- </div>
-    </header>
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-  <section id="posts" class="posts-expand">
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://quanke.name/2017/02/23/一个老司机工程师整理的自动化测试资料/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="全科">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/dog.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="全科-不安分的码农">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/02/23/一个老司机工程师整理的自动化测试资料/" itemprop="url">一个老司机工程师整理的自动化测试资料</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-23T00:05:15+08:00">
-                2017-02-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/自动化测试/" itemprop="url" rel="index">
-                    <span itemprop="name">自动化测试</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/02/23/一个老司机工程师整理的自动化测试资料/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/02/23/一个老司机工程师整理的自动化测试资料/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li>欢迎关注<a href="http://quanke.name/">http://quanke.name/</a></li>
-<li>转载请注明出处，谢谢</li>
-</ul>
-<h4 id="Python教程"><a href="#Python教程" class="headerlink" title="Python教程"></a>Python教程</h4><hr>
-<p><a href="http://www.liaoxuefeng.com/wiki/001374738125095c955c1e6d8bb493182103fac9270762a000" target="_blank" rel="external">http://www.liaoxuefeng.com/wiki/001374738125095c955c1e6d8bb493182103fac9270762a000</a></p>
-<h4 id="Appium："><a href="#Appium：" class="headerlink" title="Appium："></a>Appium：</h4><p><a href="http://appium.io/slate/en/master/#" target="_blank" rel="external">http://appium.io/slate/en/master/#</a></p>
-<p>Appium 中文 Appium API 文档<br><a href="https://testerhome.com/topics/3144" target="_blank" rel="external">https://testerhome.com/topics/3144</a></p>
-<p>Appium移动自动化测试（虫师写的系列，质量高）<br><a href="http://www.cnblogs.com/fnng/p/4540731.html" target="_blank" rel="external">http://www.cnblogs.com/fnng/p/4540731.html</a></p>
-<p>Robot Framework +Appium的简单教程及实例<br><a href="http://blog.csdn.net/xyh421/article/details/52119872" target="_blank" rel="external">http://blog.csdn.net/xyh421/article/details/52119872</a></p>
-<p>Python + Appium+ IOS自动化测试<br><a href="http://blog.csdn.net/temanm/article/details/49641133" target="_blank" rel="external">http://blog.csdn.net/temanm/article/details/49641133</a></p>
-<p>Saucelabs+Java+TestNG+Appium+Maven+Git+Jenkins+ReportNG for Android 自动化测试<br><a href="http://blog.csdn.net/wanglin_lin/article/details/51931728" target="_blank" rel="external">http://blog.csdn.net/wanglin_lin/article/details/51931728</a></p>
-<h4 id="Selenium-2"><a href="#Selenium-2" class="headerlink" title="Selenium 2"></a>Selenium 2</h4><hr>
-<p>Selenium 2 入门<br><a href="http://www.ibm.com/developerworks/cn/web/wa-selenium2/" target="_blank" rel="external">http://www.ibm.com/developerworks/cn/web/wa-selenium2/</a></p>
-<h4 id="Robot-Framework自动化测试"><a href="#Robot-Framework自动化测试" class="headerlink" title="Robot Framework自动化测试"></a>Robot Framework自动化测试</h4><hr>
-<p>Robot Framework自动化测试（一）—第一个脚本<br><a href="http://www.cnblogs.com/fnng/p/3871712.html" target="_blank" rel="external">http://www.cnblogs.com/fnng/p/3871712.html</a></p>
-<p>Robot Framework自动化测试 —视频与教程免费分享（里面有 <code>PDF</code> 质量非常高）<br><a href="http://www.cnblogs.com/fnng/p/4333977.html" target="_blank" rel="external">http://www.cnblogs.com/fnng/p/4333977.html</a></p>
-<p>Jenkins+robotframework+svn持续集成环境配置<br><a href="http://lijunwei1228ok.blog.163.com/blog/static/97383797201407113453672/" target="_blank" rel="external">http://lijunwei1228ok.blog.163.com/blog/static/97383797201407113453672/</a></p>
-<p>这个是一个程序员学习自动化测试的一个过程和资料，之后会有一些原创内容，欢迎关注</p>
-<pre><code>如果你想零基础开始 从入门到精通 学习软件测试，建议花几块钱买视频教程
-</code></pre><p><a href="https://item.taobao.com/item.htm?id=544901106180" target="_blank" rel="external">https://item.taobao.com/item.htm?id=544901106180</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://quanke.name/2016/10/26/APP版本管理SDK项目实战-准备篇/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="全科">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/dog.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="全科-不安分的码农">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/10/26/APP版本管理SDK项目实战-准备篇/" itemprop="url">APP版本管理SDK项目实战-准备篇</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-10-26T20:42:19+08:00">
-                2016-10-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/项目实战/" itemprop="url" rel="index">
-                    <span itemprop="name">项目实战</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2016/10/26/APP版本管理SDK项目实战-准备篇/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/26/APP版本管理SDK项目实战-准备篇/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li>欢迎关注<a href="http://quanke.name/">http://quanke.name/</a></li>
-<li>转载请注明出处，谢谢</li>
-</ul>
-<p>因为友盟APP版本管理服务关闭（这是官方通知：<a href="http://bbs.umeng.com/thread-14590-1-1.html" target="_blank" rel="external">http://bbs.umeng.com/thread-14590-1-1.html</a> ），我计划做一个类似友盟的APP版本管理的功能，开放SDK，方便大家使用，我会把开发过程的思路分享给大家。</p>
-<h4 id="项目简介："><a href="#项目简介：" class="headerlink" title="项目简介："></a>项目简介：</h4><p>版本管理项目我觉得对于所有的APP都是需要的，前期希望能做到和友盟一样。支持自动更新、手动更新、静默更新、强制更新、断点续传、忽略版本，服务端开放RESTFul的API，支持WEB管理页面，文件存储对接七牛，之后会支持各种存储</p>
-<p>整个项目会涉及到API设计、移动端SDK开发、服务端开发、服务器选型、我打算全部自己一个人搞定</p>
-<p>API我打算采用RESTFul架构，使用swagger在线调试API，分别用POST、PUT、GET、DELETE方法对资源做CURD操作。使用RESTFul的难点在于如何定义好各种资源的表述，即URI的定义。</p>
-<p>SDK开发则打算第一版只用原生实现，优先Android SDK开发，之后再开发IOS SDK。</p>
-<p>服务端开发准备使用最经典的SSM，数据库使用最最最经典的MySQL。</p>
-<p>WEB管理后台使用Bootstrap响应式后台管理系统meadmin模板</p>
-<p>服务器先自己本地开发，之后考虑阿里云或者其他。</p>
-<h4 id="功能需求整理："><a href="#功能需求整理：" class="headerlink" title="功能需求整理："></a>功能需求整理：</h4><h5 id="SDK"><a href="#SDK" class="headerlink" title="SDK:"></a>SDK:</h5><ul>
-<li>自动更新</li>
-<li>手动更新</li>
-<li>静默更新</li>
-<li>强制更新</li>
-<li>断点续传</li>
-<li>忽略版本</li>
-</ul>
-<h5 id="服务端："><a href="#服务端：" class="headerlink" title="服务端："></a>服务端：</h5><ul>
-<li>web管理</li>
-<li>七牛存储</li>
-<li>多个APP管理</li>
-<li>渠道包支持</li>
-<li>统计</li>
-</ul>
-<h4 id="写在最后："><a href="#写在最后：" class="headerlink" title="写在最后："></a>写在最后：</h4><p>因为是SDK，管理使用模板，所以没有原型设计，功能确定好，就可以设计API了。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://quanke.name/2016/10/26/Android-DownloadManager-ERROR-UNKNOWN-在API-17-巨坑完美解决/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="全科">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/dog.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="全科-不安分的码农">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/10/26/Android-DownloadManager-ERROR-UNKNOWN-在API-17-巨坑完美解决/" itemprop="url">Android DownloadManager ERROR_UNKNOWN 在API 17 巨坑完美解决</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-10-26T20:36:20+08:00">
-                2016-10-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/android开发/" itemprop="url" rel="index">
-                    <span itemprop="name">android开发</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2016/10/26/Android-DownloadManager-ERROR-UNKNOWN-在API-17-巨坑完美解决/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/26/Android-DownloadManager-ERROR-UNKNOWN-在API-17-巨坑完美解决/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li>欢迎关注<a href="http://quanke.name/">http://quanke.name/</a></li>
-<li>转载请注明出处，谢谢</li>
-</ul>
-<p>现在做了一个下载，为了兼容性直接使用Android Sdk 自带的 <a href="https://developer.android.com/reference/android/app/DownloadManager.html" target="_blank" rel="external">DownloadManager</a> 开发，在其他手机上都是OK，只有在有一台vivo上不行。</p>
-<p>我尝试使用vivo系统浏览器去下载这个链接，也是OK的，这个排除了网络问题和系统下载的bug的问题。</p>
-<p>尝试去找错误给我返回一个<code>ERROR_UNKNOWN</code>,完全SB了，此路不通。</p>
-<p>尝试换一个链接去下载，居然也是OK的，所以确定了是链接的问题，链接有什么问题？我对比了一下，除了下载失败链接里包含了中括号<code>[]</code>,其他也没有什么不一样的，所以我尝试着使用<code>%5B</code>、<code>%5D</code> 替换 <code>[]</code>,居然好了。这也太奇葩了吧。。。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">url = url.replace(&quot;[&quot;,&quot;%5B&quot;).replace(&quot;]&quot;,&quot;%5D&quot;);</div></pre></td></tr></table></figure>
-<p>之后我去Google了一下，搞明白了，原来Android系统在18之前有这么一个问题，之后修复了。</p>
-<p>最终解决：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">if(Build.VERSION.SDK_INT&lt;=Build.VERSION_CODES.JELLY_BEAN_MR2)&#123;</div><div class="line">            uri = uri.replace(&quot;[&quot;,&quot;%5B&quot;).replace(&quot;]&quot;,&quot;%5D&quot;);</div><div class="line">        &#125;</div></pre></td></tr></table></figure>
-<p>参考：</p>
-<p><a href="http://stackoverflow.com/questions/37976748/downloadmanager-fails-with-error-unknown-on-api-17" target="_blank" rel="external">http://stackoverflow.com/questions/37976748/downloadmanager-fails-with-error-unknown-on-api-17</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://quanke.name/2016/07/22/Android-Studio-Service-AIDL-详解/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="全科">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/dog.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="全科-不安分的码农">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/07/22/Android-Studio-Service-AIDL-详解/" itemprop="url">Android Studio Service AIDL 详解</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-07-22T23:35:30+08:00">
-                2016-07-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/android开发/" itemprop="url" rel="index">
-                    <span itemprop="name">android开发</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2016/07/22/Android-Studio-Service-AIDL-详解/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/22/Android-Studio-Service-AIDL-详解/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li>欢迎关注<a href="http://quanke.name/">http://quanke.name/</a></li>
-<li>转载请注明出处，谢谢</li>
-</ul>
-<p>公司产品之前IM这块存在很多问题，消息到达率低，加上协议上有些问题，丢消息频繁，所以需要重构IM，AIDL不能解决以上问题。好吧！那AIDL可以解决什么问题？什么是AIDL？</p>
-<h3 id="什么是AIDL？"><a href="#什么是AIDL？" class="headerlink" title="什么是AIDL？"></a>什么是AIDL？</h3><p><code>AIDL</code>是 <code>Android Interface definition language</code>的缩写，它是一种<code>Android</code>内部进程通信接口的描述语言，通过它我们可以定义进程间的通信接口</p>
-<h3 id="AIDL可以解决什么问题？"><a href="#AIDL可以解决什么问题？" class="headerlink" title="AIDL可以解决什么问题？"></a>AIDL可以解决什么问题？</h3><ul>
-<li>可以实现多个应用程序共享同一个Service的功能，比如：IM服务可以提供给多个APP使用，先在推送基本都是采取这种方案</li>
-<li>可以跨进程调用服务里的方法</li>
-</ul>
-<h3 id="Android-Studio-AIDL-实战"><a href="#Android-Studio-AIDL-实战" class="headerlink" title="Android Studio AIDL 实战"></a>Android Studio AIDL 实战</h3><p>大部分文章介绍都是在eclipse下介绍的，现在 Android Studio 作为开发工具比较普及了，所以我在Android Studio 下介绍（其实区别不大）。</p>
-<p>言归正传，我们需要使用Android Studio实现一个远程Service，并且建立AIDL进行通信。</p>
-<h4 id="搭建了简单的Service框架"><a href="#搭建了简单的Service框架" class="headerlink" title="搭建了简单的Service框架"></a>搭建了简单的Service框架</h4><p>1.继承Service</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">package name.quanke.aidldemo;</div><div class="line"></div><div class="line">import android.app.Service;</div><div class="line">import android.content.Intent;</div><div class="line">import android.os.IBinder;</div><div class="line"></div><div class="line"></div><div class="line">/**</div><div class="line"> *</div><div class="line"> * Created by http://quanke.name on 16/7/23.</div><div class="line"> */</div><div class="line">public class PushService extends Service &#123;</div><div class="line">    public PushService() &#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public IBinder onBind(Intent intent) &#123;</div><div class="line">        return new LibHandler();</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    @Override</div><div class="line">    public boolean onUnbind(Intent intent) &#123;</div><div class="line">        return super.onUnbind(intent);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>2.在AndroidManifest.xml里注册 </p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;manifest xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</div><div class="line">          package=&quot;name.quanke.aidldemo&quot;&gt;</div><div class="line"></div><div class="line">    &lt;application</div><div class="line">            android:allowBackup=&quot;true&quot;</div><div class="line">            android:icon=&quot;@mipmap/ic_launcher&quot;</div><div class="line">            android:label=&quot;@string/app_name&quot;</div><div class="line">            android:name=&quot;.App&quot;</div><div class="line">            android:supportsRtl=&quot;true&quot;</div><div class="line">            android:theme=&quot;@style/AppTheme&quot;&gt;</div><div class="line">        &lt;activity android:name=&quot;.MainActivity&quot;&gt;</div><div class="line">            &lt;intent-filter&gt;</div><div class="line">                &lt;action android:name=&quot;android.intent.action.MAIN&quot;/&gt;</div><div class="line"></div><div class="line">                &lt;category android:name=&quot;android.intent.category.LAUNCHER&quot;/&gt;</div><div class="line">            &lt;/intent-filter&gt;</div><div class="line">        &lt;/activity&gt;</div><div class="line"></div><div class="line">        &lt;service</div><div class="line">                android:name=&quot;.PushService&quot;</div><div class="line">                android:enabled=&quot;true&quot;</div><div class="line">                android:process=&quot;:push&quot;</div><div class="line">                android:exported=&quot;true&quot;&gt;</div><div class="line">        &lt;/service&gt;</div><div class="line">    &lt;/application&gt;</div><div class="line"></div><div class="line">&lt;/manifest&gt;</div></pre></td></tr></table></figure>
-<h4 id="建立AIDL"><a href="#建立AIDL" class="headerlink" title="建立AIDL"></a>建立AIDL</h4><h5 id="1-创建AIDL文件夹"><a href="#1-创建AIDL文件夹" class="headerlink" title="1.创建AIDL文件夹"></a>1.创建AIDL文件夹</h5><img src="/2016/07/22/Android-Studio-Service-AIDL-详解/1.png" title="1.创建AIDL文件夹">
-<h5 id="2-创建AIDL文件"><a href="#2-创建AIDL文件" class="headerlink" title="2.创建AIDL文件"></a>2.创建AIDL文件</h5><img src="/2016/07/22/Android-Studio-Service-AIDL-详解/2.png" title="2.创建AIDL文件">
-<h5 id="3-编写AIDL文件"><a href="#3-编写AIDL文件" class="headerlink" title="3.编写AIDL文件"></a>3.编写AIDL文件</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">// IHandler.aidl</div><div class="line">package name.quanke.aidldemo;</div><div class="line"></div><div class="line">// Declare any non-default types here with import statements</div><div class="line"></div><div class="line">interface IHandler &#123;</div><div class="line">    void connect();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h5 id="4-AIDL文件-生成接口"><a href="#4-AIDL文件-生成接口" class="headerlink" title="4.AIDL文件 生成接口"></a>4.AIDL文件 生成接口</h5><img src="/2016/07/22/Android-Studio-Service-AIDL-详解/4.png" title="4.AIDL文件 生成接口">
-<p>生成后的样子</p>
-<img src="/2016/07/22/Android-Studio-Service-AIDL-详解/3.png" title="4.AIDL文件 生成后的样子">
-<h5 id="5-编写客户端-ServiceConnection"><a href="#5-编写客户端-ServiceConnection" class="headerlink" title="5.编写客户端 ServiceConnection"></a>5.编写客户端 ServiceConnection</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">package name.quanke.aidldemo;</div><div class="line"></div><div class="line">import android.app.Application;</div><div class="line">import android.content.ComponentName;</div><div class="line">import android.content.Context;</div><div class="line">import android.content.Intent;</div><div class="line">import android.content.ServiceConnection;</div><div class="line">import android.os.IBinder;</div><div class="line">import android.os.RemoteException;</div><div class="line">import android.util.Log;</div><div class="line"></div><div class="line">/**</div><div class="line"> * Created by quanke on 16/7/23.</div><div class="line"> */</div><div class="line">public class PushManager &#123;</div><div class="line"></div><div class="line">    private static final String TAG = &quot;PushManager.class&quot;;</div><div class="line">    private IHandler iHandler;</div><div class="line"></div><div class="line">    private static PushManager ourInstance = new PushManager();</div><div class="line"></div><div class="line">    public static PushManager getInstance() &#123;</div><div class="line">        return ourInstance;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    private PushManager() &#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void init(Application app)&#123;</div><div class="line"></div><div class="line">        Intent binderIntent = new Intent(app,PushService.class);</div><div class="line">        app.bindService(binderIntent, serviceConnection, Context.BIND_AUTO_CREATE);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void connect()&#123;</div><div class="line">        try &#123;</div><div class="line">            //通过AIDL远程调用</div><div class="line">            Log.d(TAG,&quot;++start Remote++&quot;);</div><div class="line">            iHandler.connect();</div><div class="line">        &#125; catch (RemoteException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    private ServiceConnection serviceConnection = new ServiceConnection() &#123;</div><div class="line">        @Override</div><div class="line">        public void onServiceConnected(ComponentName name, IBinder service) &#123;</div><div class="line">            iHandler = IHandler.Stub.asInterface(service);</div><div class="line">            //连接成功调动</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        @Override</div><div class="line">        public void onServiceDisconnected(ComponentName name) &#123;</div><div class="line">            //断开连接调用</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h5 id="6-编写服务端实现connect方法"><a href="#6-编写服务端实现connect方法" class="headerlink" title="6.编写服务端实现connect方法"></a>6.编写服务端实现connect方法</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">package name.quanke.aidldemo;</div><div class="line"></div><div class="line">import android.os.IBinder;</div><div class="line">import android.os.RemoteException;</div><div class="line">import android.util.Log;</div><div class="line"></div><div class="line">/**</div><div class="line"> *</div><div class="line"> * Created by quanke on 16/7/23.</div><div class="line"> */</div><div class="line">public class LibHandler extends IHandler.Stub&#123;</div><div class="line"></div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void connect() throws RemoteException &#123;</div><div class="line">        Log.d(&quot;&quot;,&quot;connect()&quot;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public IBinder asBinder() &#123;</div><div class="line">        return null;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>以上实现了简单的连接，接下来我们实现传递自定义类型</p>
-<h4 id="传递自定义的类型"><a href="#传递自定义的类型" class="headerlink" title="传递自定义的类型"></a>传递自定义的类型</h4><p>AIDL默认支持的类型包括Java基本类型（int、long、boolean等），和（String、List、Map、CharSequence），如果要传递自定义的类型需要实现android.os.Parcelable接口。自己写了一个实体类public class Message implements Parcelable。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">package name.quanke.aidldemo.model;</div><div class="line"></div><div class="line">import android.os.Parcel;</div><div class="line">import android.os.Parcelable;</div><div class="line"></div><div class="line">/**</div><div class="line"> * </div><div class="line"> * Created by quanke on 16/7/23.</div><div class="line"> */</div><div class="line">public class Message implements Parcelable &#123;</div><div class="line">    private long id;</div><div class="line">    private String content;</div><div class="line"></div><div class="line"></div><div class="line">    public long getId() &#123;</div><div class="line">        return id;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void setId(long id) &#123;</div><div class="line">        this.id = id;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public String getContent() &#123;</div><div class="line">        return content;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void setContent(String content) &#123;</div><div class="line">        this.content = content;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public String toString() &#123;</div><div class="line">        return &quot;Message&#123;&quot; +</div><div class="line">                &quot;id=&quot; + id +</div><div class="line">                &quot;, content=&apos;&quot; + content + &apos;\&apos;&apos; +</div><div class="line">                &apos;&#125;&apos;;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public int describeContents() &#123;</div><div class="line">        return 0;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void writeToParcel(Parcel dest, int flags) &#123;</div><div class="line">        dest.writeLong(this.id);</div><div class="line">        dest.writeString(this.content);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public Message() &#123;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    protected Message(Parcel in) &#123;</div><div class="line">        this.id = in.readLong();</div><div class="line">        this.content = in.readString();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public static final Creator&lt;Message&gt; CREATOR = new Creator&lt;Message&gt;() &#123;</div><div class="line">        @Override</div><div class="line">        public Message createFromParcel(Parcel source) &#123;</div><div class="line">            return new Message(source);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        @Override</div><div class="line">        public Message[] newArray(int size) &#123;</div><div class="line">            return new Message[size];</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>修改IHandler</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">// IHandler.aidl</div><div class="line">package name.quanke.aidldemo;</div><div class="line"></div><div class="line">// Declare any non-default types here with import statements</div><div class="line"></div><div class="line">import name.quanke.aidldemo.model.Message;</div><div class="line"></div><div class="line">interface IHandler &#123;</div><div class="line">    void connect();</div><div class="line"></div><div class="line">    void sendMessage(Message message);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>编译项目，报错</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">/Users/quanke/Dev/android/src/AIDLDemo/app/src/main/aidl/name/quanke/aidldemo/IHandler.aidl</div><div class="line">Error:(6) couldn&apos;t find import for class name.quanke.aidldemo.model.Message</div><div class="line">Error:Execution failed for task &apos;:app:compileDebugAidl&apos;.</div><div class="line">&gt; java.lang.RuntimeException: com.android.ide.common.process.ProcessException: org.gradle.process.internal.ExecException: Process &apos;command &apos;/Users/quanke/Dev/android/tools/android-sdks/build-tools/23.0.3/aidl&apos;&apos; finished with non-zero exit value 1</div><div class="line">Information:BUILD FAILED</div></pre></td></tr></table></figure>
-<p>因为自定义类型不仅要定义实现android.os.Parcelable接口的类，还得为该实现类定义一个aidl文件，如下：</p>
-<img src="/2016/07/22/Android-Studio-Service-AIDL-详解/5.png" title="自定义类aidl文件">
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">// IHandler.aidl</div><div class="line">package name.quanke.aidldemo.model;</div><div class="line"></div><div class="line">// Declare any non-default types here with import statements</div><div class="line"></div><div class="line">import name.quanke.aidldemo.model.Message;</div><div class="line"></div><div class="line">parcelable Message ;</div></pre></td></tr></table></figure>
-<blockquote>
-<p><code>切记</code> 自定类型aidl文件名字、路径需要和自定义类名字、路径保持一致，</p>
-</blockquote>
-<p>编译项目，还是报错</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">parameter 1: &apos;Message message&apos; can be an out parameter, so you must declare it as in, out or inout.</div></pre></td></tr></table></figure>
-<p><code>AIDL</code>不是 Java。它是真的很接近，但它不是 Java。</p>
-<p>Java 参数没有方向的概念，AIDL 参数有方向，参数可以从客户端传到服务端，再返回来。</p>
-<p>如果<code>sendMessage</code>方法的<code>message</code>参数是纯粹的输入参数–这意味着是从客户端到服务器的数据，你需要在AIDL声明：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">void sendMessage(in Message message);</div></pre></td></tr></table></figure>
-<p>如果<code>sendMessage</code>方法的<code>message</code>参数是纯粹的输出-这意味着它的数据是通过从服务器到客户端，使用：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">void sendMessage(out Message message);</div></pre></td></tr></table></figure>
-<p>如果<code>sendMessage</code>方法的<code>message</code>参数是输入也是输出-客户端的值在服务可能会修改，使用：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">void sendMessage(inout Message message);</div></pre></td></tr></table></figure>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>Android Studio Service AIDL 详解 就到这里，现在应该可以使用AIDL实现想要的功能了，实现简答的AIDL很简单，主要是在自定义类型的时候，有几个坑注意就好。</p>
-<p><code>源码地址：</code> <a href="https://github.com/quanke/AIDLDemo.git" target="_blank" rel="external">https://github.com/quanke/AIDLDemo.git</a> </p>
-<blockquote>
-<p>有什么问题欢迎留言。</p>
-<p>如果喜欢请关注我，赞我，来抚平我虚荣的心</p>
-</blockquote>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://quanke.name/2016/07/19/完美解决-Android-6-java-lang-AbstractMethodError/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="全科">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/dog.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="全科-不安分的码农">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/07/19/完美解决-Android-6-java-lang-AbstractMethodError/" itemprop="url">完美解决 Android 6 java.lang.AbstractMethodError</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-07-19T21:55:13+08:00">
-                2016-07-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/android开发/" itemprop="url" rel="index">
-                    <span itemprop="name">android开发</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2016/07/19/完美解决-Android-6-java-lang-AbstractMethodError/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/19/完美解决-Android-6-java-lang-AbstractMethodError/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li>欢迎关注<a href="http://quanke.name/">http://quanke.name/</a></li>
-<li>转载请注明出处，谢谢</li>
-</ul>
-<p>在Android Marshmallow (6.0)中有一个异常，异常信息中居然没有和APP包相关的东西，感觉这是Android SDK的一个坑</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">java.lang.AbstractMethodError: abstract method “int android.text.ParcelableSpan.getSpanTypeIdInternal()”</div></pre></td></tr></table></figure>
-<p>Google一下，还真有人也遇到了同样的问题，看了半天也没有解决方案,只是解释了，为什么会有这个问题，大概就是在 Android 6.0 之后 <code>ParcelableSpan</code> 接口的 <code>getSpanTypeIdInternal</code> 和 <code>writeToParcelInternal</code> 方法是 <code>@hide</code> 标记了，多次提醒我们要看Google的文档，但是怎么解决呢？找另外的方法吧，此处不通。。。</p>
-<p>既然不能实现<code>ParcelableSpan</code>接口了，那就换一种方式实现吧。</p>
-<p>我换成继承<code>android.text.style.UnderlineSpan</code>类，居然可以了</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">package com.utan.app.utantop;</div><div class="line"></div><div class="line">import android.os.Parcel;</div><div class="line">import android.text.style.UnderlineSpan;</div><div class="line"></div><div class="line">/**</div><div class="line"> * </div><div class="line"> * Created by quanke.name on 2016/7/16.</div><div class="line"> * App Url:utantop.com</div><div class="line"> */</div><div class="line">public class UtanUnderlineSpan extends UnderlineSpan &#123;</div><div class="line">    public UtanUnderlineSpan() &#123;</div><div class="line">        super();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public UtanUnderlineSpan(Parcel src) &#123;</div><div class="line">        super(src);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><a href="https://medium.com/@numan1617/android-framework-classes-choose-wisely-2f8300f6c255#.3669g6u0m" target="_blank" rel="external">https://medium.com/@numan1617/android-framework-classes-choose-wisely-2f8300f6c255#.3669g6u0m</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://quanke.name/2016/07/19/完美解决-java-lang-NoClassDefFoundError-R-R-巨坑/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="全科">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/dog.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="全科-不安分的码农">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/07/19/完美解决-java-lang-NoClassDefFoundError-R-R-巨坑/" itemprop="url">完美解决 java.lang.NoClassDefFoundError  R R 巨坑</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-07-19T21:53:59+08:00">
-                2016-07-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/android开发/" itemprop="url" rel="index">
-                    <span itemprop="name">android开发</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2016/07/19/完美解决-java-lang-NoClassDefFoundError-R-R-巨坑/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/19/完美解决-java-lang-NoClassDefFoundError-R-R-巨坑/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li>欢迎关注<a href="http://quanke.name/">http://quanke.name/</a></li>
-<li>转载请注明出处，谢谢</li>
-</ul>
-<blockquote>
-<p>此坑有点大，害我同事弄了一周没有搞定</p>
-</blockquote>
-<p>开始的时候是报另外一个错误，也是NoClassDefFoundError异常，但这个是因为包冲突的问题,删除掉一些包就好了。但是这个问题没有这么简单。</p>
-<p>首先描述一下我们的场景吧：</p>
-<p>我们做了一个<code>优谈TOP</code> APP，主要的逻辑代码是在一个单独的<code>android studio module</code> 实现的，这个主要是为了可以导入到公司其他APP里面，就是把<code>优谈TOP</code>当成sdk，嵌入到公司其他APP里，我们使用<code>优谈TOP</code>单独运行的时候没有一点问题，导入到另外要一个APP的时候，问题就出现了。</p>
-<p>百度，Google搜了以大堆资料，都没有解决，最后在<code>stackoverflow</code>找到了一种方案。还真可以</p>
-<p><code>stackoverflow</code> 连接 <a href="http://stackoverflow.com/questions/32110859/fatal-exception-java-lang-noclassdeffounderror-android-support-v7-appcompat-r" target="_blank" rel="external">http://stackoverflow.com/questions/32110859/fatal-exception-java-lang-noclassdeffounderror-android-support-v7-appcompat-r</a></p>
-<blockquote>
-<p>看了这个才知道，这是Dex超出方法数的限制问题，Dex达到极限时，会创建多个Dex文件，android Lollipop 没有处理，需要在应用中处理 。</p>
-</blockquote>
-<h3 id="第一步："><a href="#第一步：" class="headerlink" title="第一步："></a>第一步：</h3><p>在 <code>build.gradle</code> 中增加(非 <code>root</code> <code>build.gradle</code> )</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">dependencies &#123;</div><div class="line">    compile &apos;com.android.support:multidex:1.0.0&apos;</div><div class="line">&#125;</div><div class="line">defaultConfig &#123;          </div><div class="line">    multiDexEnabled true</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="第二步："><a href="#第二步：" class="headerlink" title="第二步："></a>第二步：</h3><p>在AndroidManifest.xml增加</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&lt;application</div><div class="line">        ...</div><div class="line">        android:name=&quot;android.support.multidex.MultiDexApplication&quot;&gt;</div><div class="line">        ...</div><div class="line">&lt;/application&gt;</div></pre></td></tr></table></figure>
-<p>如果需要自己实现 <code>Application</code>,需要重写<code>attachBaseContext</code>方法</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">import android.support.multidex.MultiDexApplication;</div><div class="line">import android.support.multidex.MultiDex;</div><div class="line"></div><div class="line">public class MyApplication extends MultiDexApplication &#123;</div><div class="line"> // ......</div><div class="line"></div><div class="line">    @Override</div><div class="line">    protected void attachBaseContext(Context base) &#123;</div><div class="line">        super.attachBaseContext(base);</div><div class="line">        MultiDex.install(this);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>或者</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">import android.support.multidex.MultiDex;</div><div class="line">public class MyApplication extends Application &#123;</div><div class="line"> // ......</div><div class="line"></div><div class="line">    @Override</div><div class="line">    protected void attachBaseContext(Context base) &#123;</div><div class="line">        super.attachBaseContext(base);</div><div class="line">        MultiDex.install(this);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>参考：<a href="https://developer.android.com/tools/building/multidex.html#mdex-gradle" target="_blank" rel="external">https://developer.android.com/tools/building/multidex.html#mdex-gradle</a> </p>
-<p>这里记录一下没有解决我的问题的方案，也许你有用：</p>
-<p><a href="http://stackoverflow.com/questions/32110859/fatal-exception-java-lang-noclassdeffounderror-android-support-v7-appcompat-r?noredirect=1&amp;lq=1" target="_blank" rel="external">http://stackoverflow.com/questions/32110859/fatal-exception-java-lang-noclassdeffounderror-android-support-v7-appcompat-r?noredirect=1&amp;lq=1</a></p>
-<p><a href="http://stackoverflow.com/questions/27614538/crash-java-lang-noclassdeffounderror-android-support-v7-appcompat-rlayout" target="_blank" rel="external">http://stackoverflow.com/questions/27614538/crash-java-lang-noclassdeffounderror-android-support-v7-appcompat-rlayout</a></p>
-<p><a href="http://stackoverflow.com/questions/9870995/android-java-lang-noclassdeffounderror" target="_blank" rel="external">http://stackoverflow.com/questions/9870995/android-java-lang-noclassdeffounderror</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://quanke.name/2016/07/19/Android-fastjson和Realm的完美结合，有坑/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="全科">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/dog.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="全科-不安分的码农">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/07/19/Android-fastjson和Realm的完美结合，有坑/" itemprop="url">Android fastjson和Realm的完美结合，有坑</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-07-19T21:52:11+08:00">
-                2016-07-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/android开发/" itemprop="url" rel="index">
-                    <span itemprop="name">android开发</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2016/07/19/Android-fastjson和Realm的完美结合，有坑/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/19/Android-fastjson和Realm的完美结合，有坑/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li>欢迎关注<a href="http://quanke.name/">http://quanke.name/</a></li>
-<li>转载请注明出处，谢谢</li>
-</ul>
-<blockquote>
-<p>源码地址：<a href="https://github.com/quanke/FastjsonRealm" target="_blank" rel="external">https://github.com/quanke/FastjsonRealm</a></p>
-</blockquote>
-<p>Realm的安装和fastjson的安装这里就不详细说了。详细的文档在这里 <a href="https://realm.io/docs/java/" target="_blank" rel="external">https://realm.io/docs/java/</a> ，最好看英文文档，中文文档，不是最新的，而且看起来别扭。</p>
-<p>现在Realm Java 的最新版本是 1.1.0，fastjson Android的版本是1.1.52</p>
-<h3 id="安装Realm-Java"><a href="#安装Realm-Java" class="headerlink" title="安装Realm Java"></a>安装Realm Java</h3><h4 id="在项目中（最外层的build-gradle文件）build-gradle中增加"><a href="#在项目中（最外层的build-gradle文件）build-gradle中增加" class="headerlink" title="在项目中（最外层的build.gradle文件）build.gradle中增加"></a>在项目中（最外层的build.gradle文件）build.gradle中增加</h4><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">buildscript &#123;</div><div class="line">    repositories &#123;</div><div class="line">        jcenter()</div><div class="line">    &#125;</div><div class="line">    dependencies &#123;</div><div class="line">        classpath &quot;io.realm:realm-gradle-plugin:1.1.0&quot;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="在应用中-一般是名为app模型-build-gradle增加"><a href="#在应用中-一般是名为app模型-build-gradle增加" class="headerlink" title="在应用中(一般是名为app模型)build.gradle增加"></a>在应用中(一般是名为app模型)build.gradle增加</h4><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">apply plugin: &apos;realm-android&apos;</div></pre></td></tr></table></figure>
-<h3 id="安装fastjson"><a href="#安装fastjson" class="headerlink" title="安装fastjson"></a>安装fastjson</h3><h4 id="在应用中-一般是名为app模型-build-gradle增加-1"><a href="#在应用中-一般是名为app模型-build-gradle增加-1" class="headerlink" title="在应用中(一般是名为app模型)build.gradle增加"></a>在应用中(一般是名为app模型)build.gradle增加</h4><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">compile &apos;com.alibaba:fastjson:1.1.52.android&apos;</div></pre></td></tr></table></figure>
-<h3 id="现在我们写一个模型"><a href="#现在我们写一个模型" class="headerlink" title="现在我们写一个模型"></a>现在我们写一个模型</h3><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">/**</div><div class="line"> * </div><div class="line"> * Created by quanke(http://quanke.name) on 2016/7/18.</div><div class="line"> */</div><div class="line">public class User extends RealmObject implements Serializable&#123;</div><div class="line"></div><div class="line"></div><div class="line">    public User() &#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    private String          name;</div><div class="line">    private int             age;</div><div class="line"></div><div class="line">    @Ignore</div><div class="line">    private int             sessionId;</div><div class="line"></div><div class="line">    // Standard getters &amp; setters generated by your IDE…</div><div class="line">    public String getName() &#123; return name; &#125;</div><div class="line">    public void   setName(String name) &#123; this.name = name; &#125;</div><div class="line">    public int    getAge() &#123; return age; &#125;</div><div class="line">    public void   setAge(int age) &#123; this.age = age; &#125;</div><div class="line">    public int    getSessionId() &#123; return sessionId; &#125;</div><div class="line">    public void   setSessionId(int sessionId) &#123; this.sessionId = sessionId; &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="把User对象通过fastjson转为String"><a href="#把User对象通过fastjson转为String" class="headerlink" title="把User对象通过fastjson转为String"></a>把User对象通过fastjson转为String</h3><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line"></div><div class="line">/**</div><div class="line"></div><div class="line"> * Created by quanke(http://quanke.name) on 2016/7/18.</div><div class="line"> */</div><div class="line">public class MainActivity extends AppCompatActivity &#123;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</div><div class="line">        super.onCreate(savedInstanceState);</div><div class="line">        setContentView(R.layout.activity_main);</div><div class="line"></div><div class="line">        User user = new User();</div><div class="line">        user.setAge(2);</div><div class="line">        user.setName(&quot;http://quanke.name&quot;);</div><div class="line"></div><div class="line">        String userStr = JSON.toJSONString(user);</div><div class="line"></div><div class="line">        Log.d(&quot;userStr:&quot;,userStr);</div><div class="line"></div><div class="line">        User userObj = JSON.parseObject(userStr,User.class);</div><div class="line"></div><div class="line">        Log.d(&quot;userObj:&quot;,userObj+&quot;&quot;);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这个时候，我以为可以完美的运行了，但是运行的时候，报异常了。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">java.lang.NoClassDefFoundError: rx.Observable</div><div class="line">at libcore.reflect.InternalNames.getClass(InternalNames.java:55)</div><div class="line">...</div></pre></td></tr></table></figure>
-<blockquote>
-<p>怎么解决？这里有两种方法。。</p>
-</blockquote>
-<h4 id="第一种：直接使用-RxJava"><a href="#第一种：直接使用-RxJava" class="headerlink" title="第一种：直接使用 RxJava"></a>第一种：直接使用 <code>RxJava</code></h4><h4 id="第二种，不想使用-RxJava，那就创建一个-Observable-空文件"><a href="#第二种，不想使用-RxJava，那就创建一个-Observable-空文件" class="headerlink" title="第二种，不想使用 RxJava，那就创建一个 Observable 空文件"></a>第二种，不想使用 <code>RxJava</code>，那就创建一个 <code>Observable</code> 空文件</h4><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">package rx;</div><div class="line"></div><div class="line">public class Observable &#123;</div><div class="line">    // Dummy class required for Jackson-Databind support if</div><div class="line">    // RxJava is not a project dependency.</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>其实解决方案是官方提供的，只是里面的例子是Jackson而我用的是国产fastjson</p>
-<p>Realm 的详细使用这里就不说了。。。有很多小伙伴分享了，但我还是建议看官方文档 <a href="https://realm.io/docs/java/" target="_blank" rel="external">https://realm.io/docs/java/</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://quanke.name/2016/05/08/Thinking-in-Java-Java-编程思想-PDF-ePub-Mobi格式电子书/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="全科">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/dog.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="全科-不安分的码农">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/05/08/Thinking-in-Java-Java-编程思想-PDF-ePub-Mobi格式电子书/" itemprop="url">Thinking in Java (Java 编程思想) PDF ePub Mobi格式电子书</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-05-08T16:01:19+08:00">
-                2016-05-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2016/05/08/Thinking-in-Java-Java-编程思想-PDF-ePub-Mobi格式电子书/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/08/Thinking-in-Java-Java-编程思想-PDF-ePub-Mobi格式电子书/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li>欢迎关注<a href="http://quanke.name/">http://quanke.name/</a></li>
-<li>转载请注明出处，谢谢</li>
-</ul>
-<hr>
-<p>本书来自网络，<a href="http://quanke.name">http://quanke.name</a> 整理成电子书，支持PDF,ePub,Mobi格式，方便大家下载阅读。</p>
-<p>阅读地址：<a href="https://www.gitbook.com/read/book/quanke/think-in-java" target="_blank" rel="external">https://www.gitbook.com/read/book/quanke/think-in-java</a></p>
-<p>下载地址：<a href="https://www.gitbook.com/book/quanke/think-in-java/" target="_blank" rel="external">https://www.gitbook.com/book/quanke/think-in-java/</a></p>
-<p>github地址：<a href="https://github.com/quanke/think-in-java" target="_blank" rel="external">https://github.com/quanke/think-in-java</a></p>
-<p>编辑：<a href="http://quanke.name">http://quanke.name</a></p>
-<p>第13章没有编辑，觉得没有意义，Java的GUI先在应用少，有时间在编辑好。。。</p>
-<p>编辑整理辛苦，还望大神们点一下star ，抚平我虚荣的心</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://quanke.name/2016/05/06/打造简单灵活的支持所有View的Android-空页面及错误页面/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="全科">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/dog.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="全科-不安分的码农">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/05/06/打造简单灵活的支持所有View的Android-空页面及错误页面/" itemprop="url">打造简单灵活的支持所有View的Android 空页面及错误页面</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-05-06T00:18:24+08:00">
-                2016-05-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/android开发/" itemprop="url" rel="index">
-                    <span itemprop="name">android开发</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2016/05/06/打造简单灵活的支持所有View的Android-空页面及错误页面/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/06/打造简单灵活的支持所有View的Android-空页面及错误页面/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li>欢迎关注<a href="http://quanke.name/">http://quanke.name/</a></li>
-<li>转载请注明出处，谢谢</li>
-</ul>
-<hr>
-<p>当页面加载数据失败，数据为空，或者数据加载中需要可以操作其他地方，我们应该怎么办？</p>
-<p>体验良好的APP都会做相应的处理。</p>
-<ol>
-<li><p>比如网络异常，会显示一个网络异常页面，提示用户去检查网络；</p>
-</li>
-<li><p>数据为空时，出现一个温馨的空页面，引导用户去创建数据等；</p>
-</li>
-<li><p>当数据在加载中时，我想按返回按钮，想切换tab，想做更多的事情时，弹出一个loading就不是那么友好了，直接在页面的内容显示区域显示加载中，问题就解决了。</p>
-</li>
-</ol>
-<p>这些方法各大app都在使用，但是怎么发开？每一个页面都写一个空页、面错误页面和loading页面吗？那也太恶心了吧。</p>
-<p>下面我们一起打造简单灵活的支持所有View的Android 空页面及错误页面：</p>
-<p>开始之前先看效果：</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/432952-7e05ff41a62e9bce.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="打造简单灵活的支持所有View的Android 空页面及错误页面.png"></p>
-<p>继承LinearLayout</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">public class EmptyLayout extends LinearLayout&#123;</div><div class="line"></div><div class="line">public EmptyLayout(Context context, AttributeSet attrs) &#123;</div><div class="line">        super(context, attrs);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>我们需要实现三种不同的页面，所以需要定义三种类型：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line"></div><div class="line">/**</div><div class="line">    * The empty state</div><div class="line">    */</div><div class="line">   public final static int TYPE_EMPTY = 1;</div><div class="line">   /**</div><div class="line">    * The loading state</div><div class="line">    */</div><div class="line">   public final static int TYPE_LOADING = 2;</div><div class="line">   /**</div><div class="line">    * The error state</div><div class="line">    */</div><div class="line">   public final static int TYPE_ERROR = 3;</div></pre></td></tr></table></figure>
-<p>定义操作方法：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line"></div><div class="line">/**</div><div class="line">     * 展示错误信息</div><div class="line">     * @param resId 图片资源id</div><div class="line">     * @param text</div><div class="line">     */</div><div class="line">    public void showError(int resId,String text)</div><div class="line"></div><div class="line">/**</div><div class="line">     * 展示空信息</div><div class="line">     * @param resId 图片资源id</div><div class="line">     * @param text</div><div class="line">     */</div><div class="line">    public void showEmpty(int resId,String text)</div><div class="line"></div><div class="line">/**</div><div class="line">     * 展示加载中</div><div class="line">     * @param resId 图片资源id</div><div class="line">     * @param text</div><div class="line">     */</div><div class="line">    public void showLoading(int resId,String text)</div><div class="line"></div><div class="line">/**</div><div class="line">     *隐藏EmptyLayout</div><div class="line">     */</div><div class="line">    public void hide()</div></pre></td></tr></table></figure>
-<p>获得EmptyLayout的子view，方便隐藏或者展示子view（这里的子view 一般用户展示本来的内容）</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">/**</div><div class="line">     * 获得EmptyLayout的子view</div><div class="line">     */</div><div class="line">    private void getChildViews()&#123;</div><div class="line">        int childCount = getChildCount();</div><div class="line">        Log.d(&quot;EmptyLayout&quot;,&quot;ChildCount:&quot;+childCount);</div><div class="line">        View view;</div><div class="line">        for (int i=0;i&lt;childCount;i++)&#123;</div><div class="line">            view = getChildAt(i);</div><div class="line">            if (isEmptyView(view))&#123;</div><div class="line">                continue;</div><div class="line">            &#125;</div><div class="line">            childViews.add(view);</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
-<p>判断view 对象是否是EmptyView ：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line"></div><div class="line">/**</div><div class="line">     * 判断view 对象是否是EmptyView</div><div class="line">     * @param view</div><div class="line">     * @return</div><div class="line">     */</div><div class="line">    private boolean isEmptyView(View view)&#123;</div><div class="line">        if ((view == null||mEmptyRelativeLayout == view||view == mLoadingView||view == mEmptyView||view == mErrorView))&#123;</div><div class="line">            return true;</div><div class="line">        &#125;</div><div class="line">        return false;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
-<p>当数据为空时调用:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">public void showEmpty()&#123;</div><div class="line"></div><div class="line">        getChildViews(); //获得除EmptyView的其他子view</div><div class="line">        hideChildView(); //把子view隐藏了</div><div class="line">        this.mEmptyType = TYPE_EMPTY;</div><div class="line">        changeEmptyType();</div><div class="line">        </div><div class="line">    &#125;</div></pre></td></tr></table></figure>
-<p>其他方法和这个类似，思路很简单，大家可以试试</p>
-<p>使用很简单</p>
-<p>在布局文件里增加：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&lt;name.quanke.app.libs.emptylayout.EmptyLayout</div><div class="line">        android:id=&quot;@+id/emptyLayout&quot;</div><div class="line">        android:layout_width=&quot;match_parent&quot;</div><div class="line">        android:layout_height=&quot;match_parent&quot;&gt;</div><div class="line"></div><div class="line">        &lt;TextView</div><div class="line">            android:id=&quot;@+id/textHello&quot;</div><div class="line">            android:layout_width=&quot;wrap_content&quot;</div><div class="line">            android:layout_height=&quot;wrap_content&quot;</div><div class="line">            android:text=&quot;Hello World!&quot; /&gt;</div><div class="line"></div><div class="line">&lt;/name.quanke.app.libs.emptylayout.EmptyLayout&gt;</div></pre></td></tr></table></figure>
-<p>代码里增加:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">findViewById(R.id.btnLoading).setOnClickListener(new View.OnClickListener() &#123;</div><div class="line">            @Override</div><div class="line">            public void onClick(View view) &#123;</div><div class="line">                emptyLayout.showLoading();</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">        findViewById(R.id.btnEmpty).setOnClickListener(new View.OnClickListener() &#123;</div><div class="line">            @Override</div><div class="line">            public void onClick(View view) &#123;</div><div class="line">                emptyLayout.showEmpty();</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">        findViewById(R.id.btnError).setOnClickListener(new View.OnClickListener() &#123;</div><div class="line">            @Override</div><div class="line">            public void onClick(View view) &#123;</div><div class="line">                emptyLayout.showError();</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">        findViewById(R.id.btnData).setOnClickListener(new View.OnClickListener() &#123;</div><div class="line">            @Override</div><div class="line">            public void onClick(View view) &#123;</div><div class="line">                emptyLayout.hide();</div><div class="line">            &#125;</div><div class="line">        &#125;);</div></pre></td></tr></table></figure>
-<p>好了，使用起来就这么简单。。。支持所有的view</p>
-<p>源码放在github上：<a href="https://github.com/quanke/AndroidEmptyLayout" target="_blank" rel="external">https://github.com/quanke/AndroidEmptyLayout</a></p>
-<p>欢迎讨论</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://quanke.name/2016/05/04/Vert-x-3-Core手册-for-Java-中文版/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="全科">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/dog.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="全科-不安分的码农">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/05/04/Vert-x-3-Core手册-for-Java-中文版/" itemprop="url">Vert.x 3 Core手册 for Java 中文版</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-05-04T07:58:21+08:00">
-                2016-05-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Vert-x3-系列/" itemprop="url" rel="index">
-                    <span itemprop="name">Vert.x3 系列</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2016/05/04/Vert-x-3-Core手册-for-Java-中文版/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/04/Vert-x-3-Core手册-for-Java-中文版/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li>欢迎关注<a href="http://quanke.name/">http://quanke.name/</a></li>
-<li>交流群：<code>231419585</code>- </li>
-<li>转载请注明出处，谢谢</li>
-</ul>
-<ul>
-<li>阅读地址：<a href="http://vertx.quanke.name/" target="_blank" rel="external">http://vertx.quanke.name/</a></li>
-<li>下载地址：<a href="https://www.gitbook.com/book/quanke/vert-x-core-manual-for-java" target="_blank" rel="external">https://www.gitbook.com/book/quanke/vert-x-core-manual-for-java</a></li>
-<li>本书源码地址：<a href="https://github.com/quanke/vert-x-core-manual-for-java" target="_blank" rel="external">https://github.com/quanke/vert-x-core-manual-for-java</a></li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-  </section>
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
-  </nav>
-
-
-
-          </div>
-          
-
-
-          
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <img class="site-author-image" itemprop="image"
-                src="/images/dog.jpg"
-                alt="全科" />
-            
-              <p class="site-author-name" itemprop="name">全科</p>
-              <p class="site-description motion-element" itemprop="description"></p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">120</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">18</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">45</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-            <div class="feed-link motion-element">
-              <a href="/atom.xml" rel="alternate">
-                <i class="fa fa-rss"></i>
-                RSS
-              </a>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only">Toggle navigation</span>
+                    <i class="fa fa-bars"></i>
+                    </span>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation"><a href="/"><i class="fa fa-fw "></i>主页</a>
+                            </li>
+                        
+                            <li role="presentation"><a href="/"><i class="fa fa-fw "></i>日志</a>
+                            </li>
+                        
+                            <li role="presentation"><a href="/"><i class="fa fa-fw "></i>应用</a>
+                            </li>
+                        
+                            <li role="presentation"><a href="/"><i class="fa fa-fw "></i>开源</a>
+                            </li>
+                        
+                    </ul>
+                </div>
             </div>
-          
-
-          <div class="links-of-author motion-element">
-            
-              
-                <span class="links-of-author-item">
-                  <a href="https://github.com/quanke" target="_blank" title="GitHub">
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content ">
                     
-                      <i class="fa fa-fw fa-github"></i>GitHub</a>
-                </span>
-              
+
+
+
+
+
+
+
+<article class="post">
+    
+        <div class="post-media">
+            <a href="/posts/55306/">
+                <img class="img-ajax" src="/img/loading.gif"  data-src="http://upload-images.jianshu.io/upload_images/432952-e297ef08da09dbd1?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"   alt="Android Gradle 相同应用多包名打包，实现测试发布包分离，不同服务器地址以生成不同安装包"> 
+            </a>
+        </div>
+    
+    <div class="post-content">
+        <div class="post-head home-post-head">
+            <h1 class="post-title">
+                <a href="/posts/55306/">Android Gradle 相同应用多包名打包，实现测试发布包分离，不同服务器地址以生成不同安装包</a>
+            </h1>
+            <div class="post-meta">  &bull;
+                <time class="post-date" datetime="" title="">
+                    2017年02月23日
+                </time>
+            </div>
+        </div>
+        <p class="brief">
             
-          </div>
+                
+欢迎关注http://quanke.name/
+转载请注明出处，谢谢
 
-          
-          
-
-          
-          
-
-          
+Android Gradle 相同应用多包名打包，实现测试发布包分离，不同服务器地址以生成不同安装包简介：公司的新需求：同一份代码打出另一个包名的apk，即包名...
+            
+        </p> 
+    </div>
+    <footer class="post-footer clearfix">
+        <div class="pull-left tag-list">
+            <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <span>android开发</span>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            Gradle
+            
+        </span>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">2017/02/23</span>
+    </span>
+</div>
 
         </div>
-      </section>
 
-      
+        <div class="post-permalink"> 
+            <a href="/posts/55306/" class="btn btn-default">阅读全文</a>
+        </div>
+    </footer>
+</article>
 
-      
 
+<article class="post">
+    
+    <div class="post-content">
+        <div class="post-head home-post-head">
+            <h1 class="post-title">
+                <a href="/posts/16982/">一个老司机工程师整理的自动化测试资料</a>
+            </h1>
+            <div class="post-meta">  &bull;
+                <time class="post-date" datetime="" title="">
+                    2017年02月23日
+                </time>
+            </div>
+        </div>
+        <p class="brief">
+            
+                
+欢迎关注http://quanke.name/
+转载请注明出处，谢谢
+
+Python教程
+http://www.liaoxuefeng.com/wiki/001374738125095c955c1e6d8bb493182103fac...
+            
+        </p> 
     </div>
-  </aside>
+    <footer class="post-footer clearfix">
+        <div class="pull-left tag-list">
+            <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <span>自动化测试</span>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            自动化测试
+            
+        </span>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">2017/02/23</span>
+    </span>
+</div>
+
+        </div>
+
+        <div class="post-permalink"> 
+            <a href="/posts/16982/" class="btn btn-default">阅读全文</a>
+        </div>
+    </footer>
+</article>
+
+
+<article class="post">
+    
+    <div class="post-content">
+        <div class="post-head home-post-head">
+            <h1 class="post-title">
+                <a href="/posts/47009/">APP版本管理SDK项目实战-准备篇</a>
+            </h1>
+            <div class="post-meta">  &bull;
+                <time class="post-date" datetime="" title="">
+                    2016年10月26日
+                </time>
+            </div>
+        </div>
+        <p class="brief">
+            
+                
+欢迎关注http://quanke.name/
+转载请注明出处，谢谢
+
+因为友盟APP版本管理服务关闭（这是官方通知：http://bbs.umeng.com/thread-14590-1-1.html ），我计划做一个类似友盟的A...
+            
+        </p> 
+    </div>
+    <footer class="post-footer clearfix">
+        <div class="pull-left tag-list">
+            <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <span>项目实战</span>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            SDK
+            
+        </span>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">2016/10/26</span>
+    </span>
+</div>
+
+        </div>
+
+        <div class="post-permalink"> 
+            <a href="/posts/47009/" class="btn btn-default">阅读全文</a>
+        </div>
+    </footer>
+</article>
+
+
+<article class="post">
+    
+    <div class="post-content">
+        <div class="post-head home-post-head">
+            <h1 class="post-title">
+                <a href="/posts/42104/">Android DownloadManager ERROR_UNKNOWN 在API 17 巨坑完美解决</a>
+            </h1>
+            <div class="post-meta">  &bull;
+                <time class="post-date" datetime="" title="">
+                    2016年10月26日
+                </time>
+            </div>
+        </div>
+        <p class="brief">
+            
+                
+欢迎关注http://quanke.name/
+转载请注明出处，谢谢
+
+现在做了一个下载，为了兼容性直接使用Android Sdk 自带的 DownloadManager 开发，在其他手机上都是OK，只有在有一台vivo上不行。
+我...
+            
+        </p> 
+    </div>
+    <footer class="post-footer clearfix">
+        <div class="pull-left tag-list">
+            <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <span>android开发</span>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            android
+            
+        </span>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">2016/10/26</span>
+    </span>
+</div>
+
+        </div>
+
+        <div class="post-permalink"> 
+            <a href="/posts/42104/" class="btn btn-default">阅读全文</a>
+        </div>
+    </footer>
+</article>
+
+
+<article class="post">
+    
+        <div class="post-media">
+            <a href="/posts/52572/">
+                <img class="img-ajax" src="/img/loading.gif"  data-src="/posts/52572/5.png"   alt="Android Studio Service AIDL 详解"> 
+            </a>
+        </div>
+    
+    <div class="post-content">
+        <div class="post-head home-post-head">
+            <h1 class="post-title">
+                <a href="/posts/52572/">Android Studio Service AIDL 详解</a>
+            </h1>
+            <div class="post-meta">  &bull;
+                <time class="post-date" datetime="" title="">
+                    2016年07月22日
+                </time>
+            </div>
+        </div>
+        <p class="brief">
+            
+                
+欢迎关注http://quanke.name/
+转载请注明出处，谢谢
+
+公司产品之前IM这块存在很多问题，消息到达率低，加上协议上有些问题，丢消息频繁，所以需要重构IM，AIDL不能解决以上问题。好吧！那AIDL可以解决什么问题？什...
+            
+        </p> 
+    </div>
+    <footer class="post-footer clearfix">
+        <div class="pull-left tag-list">
+            <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <span>android开发</span>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            android
+            
+        </span>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">2016/07/22</span>
+    </span>
+</div>
+
+        </div>
+
+        <div class="post-permalink"> 
+            <a href="/posts/52572/" class="btn btn-default">阅读全文</a>
+        </div>
+    </footer>
+</article>
+
+
+<article class="post">
+    
+    <div class="post-content">
+        <div class="post-head home-post-head">
+            <h1 class="post-title">
+                <a href="/posts/60800/">完美解决 Android 6 java.lang.AbstractMethodError</a>
+            </h1>
+            <div class="post-meta">  &bull;
+                <time class="post-date" datetime="" title="">
+                    2016年07月19日
+                </time>
+            </div>
+        </div>
+        <p class="brief">
+            
+                
+欢迎关注http://quanke.name/
+转载请注明出处，谢谢
+
+在Android Marshmallow (6.0)中有一个异常，异常信息中居然没有和APP包相关的东西，感觉这是Android SDK的一个坑
+java.la...
+            
+        </p> 
+    </div>
+    <footer class="post-footer clearfix">
+        <div class="pull-left tag-list">
+            <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <span>android开发</span>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            android
+            
+        </span>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">2016/07/19</span>
+    </span>
+</div>
+
+        </div>
+
+        <div class="post-permalink"> 
+            <a href="/posts/60800/" class="btn btn-default">阅读全文</a>
+        </div>
+    </footer>
+</article>
+
+
+<article class="post">
+    
+    <div class="post-content">
+        <div class="post-head home-post-head">
+            <h1 class="post-title">
+                <a href="/posts/57394/">完美解决 java.lang.NoClassDefFoundError  R R 巨坑</a>
+            </h1>
+            <div class="post-meta">  &bull;
+                <time class="post-date" datetime="" title="">
+                    2016年07月19日
+                </time>
+            </div>
+        </div>
+        <p class="brief">
+            
+                
+欢迎关注http://quanke.name/
+转载请注明出处，谢谢
+
+
+此坑有点大，害我同事弄了一周没有搞定
+
+开始的时候是报另外一个错误，也是NoClassDefFoundError异常，但这个是因为包冲突的问题,删除掉一些包就...
+            
+        </p> 
+    </div>
+    <footer class="post-footer clearfix">
+        <div class="pull-left tag-list">
+            <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <span>android开发</span>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            android
+            
+        </span>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">2016/07/19</span>
+    </span>
+</div>
+
+        </div>
+
+        <div class="post-permalink"> 
+            <a href="/posts/57394/" class="btn btn-default">阅读全文</a>
+        </div>
+    </footer>
+</article>
+
+
+<article class="post">
+    
+    <div class="post-content">
+        <div class="post-head home-post-head">
+            <h1 class="post-title">
+                <a href="/posts/22728/">Android fastjson和Realm的完美结合，有坑</a>
+            </h1>
+            <div class="post-meta">  &bull;
+                <time class="post-date" datetime="" title="">
+                    2016年07月19日
+                </time>
+            </div>
+        </div>
+        <p class="brief">
+            
+                
+欢迎关注http://quanke.name/
+转载请注明出处，谢谢
+
+
+源码地址：https://github.com/quanke/FastjsonRealm
+
+Realm的安装和fastjson的安装这里就不详细说了。详细的文...
+            
+        </p> 
+    </div>
+    <footer class="post-footer clearfix">
+        <div class="pull-left tag-list">
+            <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <span>android开发</span>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            android
+            
+        </span>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">2016/07/19</span>
+    </span>
+</div>
+
+        </div>
+
+        <div class="post-permalink"> 
+            <a href="/posts/22728/" class="btn btn-default">阅读全文</a>
+        </div>
+    </footer>
+</article>
+
+
+<article class="post">
+    
+    <div class="post-content">
+        <div class="post-head home-post-head">
+            <h1 class="post-title">
+                <a href="/posts/25790/">Thinking in Java (Java 编程思想) PDF ePub Mobi格式电子书</a>
+            </h1>
+            <div class="post-meta">  &bull;
+                <time class="post-date" datetime="" title="">
+                    2016年05月08日
+                </time>
+            </div>
+        </div>
+        <p class="brief">
+            
+                
+欢迎关注http://quanke.name/
+转载请注明出处，谢谢
+
+
+本书来自网络，http://quanke.name 整理成电子书，支持PDF,ePub,Mobi格式，方便大家下载阅读。
+阅读地址：https://www.g...
+            
+        </p> 
+    </div>
+    <footer class="post-footer clearfix">
+        <div class="pull-left tag-list">
+            <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <span>Java</span>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            Java
+            
+        </span>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">2016/05/08</span>
+    </span>
+</div>
+
+        </div>
+
+        <div class="post-permalink"> 
+            <a href="/posts/25790/" class="btn btn-default">阅读全文</a>
+        </div>
+    </footer>
+</article>
+
+
+<article class="post">
+    
+        <div class="post-media">
+            <a href="/posts/7329/">
+                <img class="img-ajax" src="/img/loading.gif"  data-src="http://upload-images.jianshu.io/upload_images/432952-7e05ff41a62e9bce.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"   alt="打造简单灵活的支持所有View的Android 空页面及错误页面"> 
+            </a>
+        </div>
+    
+    <div class="post-content">
+        <div class="post-head home-post-head">
+            <h1 class="post-title">
+                <a href="/posts/7329/">打造简单灵活的支持所有View的Android 空页面及错误页面</a>
+            </h1>
+            <div class="post-meta">  &bull;
+                <time class="post-date" datetime="" title="">
+                    2016年05月06日
+                </time>
+            </div>
+        </div>
+        <p class="brief">
+            
+                
+欢迎关注http://quanke.name/
+转载请注明出处，谢谢
+
+
+当页面加载数据失败，数据为空，或者数据加载中需要可以操作其他地方，我们应该怎么办？
+体验良好的APP都会做相应的处理。
+
+比如网络异常，会显示一个网络异常页面...
+            
+        </p> 
+    </div>
+    <footer class="post-footer clearfix">
+        <div class="pull-left tag-list">
+            <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <span>android开发</span>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            android
+            
+        </span>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">2016/05/06</span>
+    </span>
+</div>
+
+        </div>
+
+        <div class="post-permalink"> 
+            <a href="/posts/7329/" class="btn btn-default">阅读全文</a>
+        </div>
+    </footer>
+</article>
+
+
+
+
+    <nav class="pagination" role="navigation">
+        <div id="page-nav">
+            <a class="extend prev" rel="prev" href="/"><i class='fa fa-angle-left'></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/3/"><i class='fa fa-angle-right'></i></a>
+        </div>
+    </nav>
+
+
+
+                </main>
+                
+    <aside class="col-md-4 sidebar">
+        
+        
+    <div class="widget">    
+        <h3 class="title">搜索</h3>
+        <div id="search-form">
+            <div id="result-mask" class="hide"></div>
+            <div class="search-area">
+                
+                    <input id="search-key" type="search" autocomplete="off" placeholder="搜点什么呢?">
+                    <button type="button" class="search-form-submit" id="search-local">站内搜索</button>
+                
+                
+            </div>
+            <div id="result-wrap" class="hide">
+                <div id="search-result"></div>
+            </div>
+            <div class="hide">
+                <template id="search-tpl">
+                    <div class="item">
+                        <a href="/{path}" title="{title}">
+                            <div class="title">{title}</div>
+                            <div class="content">{content}</div>
+                        </a>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </div>
+
+        
+        
+    <div class="widget notification">
+        <h3 class="title">网站公告</h3>
+        <div>
+            <p>《Spring Boot 与 kotlin 实战》 系列教程上线<br/>
+专题：<a href="https://www.jianshu.com/c/e6dbcad79e75" title="fork me" target="_blank">《Spring Boot 与 kotlin 实战》</a> <br/>
+<hr>
+<img  width="100%" align="center" src="https://static.oschina.net/uploads/img/201711/08183543_ysUa.jpg">
+</p>
+        </div>
+    </div>
+
+        
+        
+    <div class="widget">
+      <h3 class="title">社交</h3> 
+        <div class="content social">
+            
+	            <a href="//github.com/quanke" rel="external nofollow" title="Github" target="_blank">
+			    	<i class="git fa fa-git"></i>
+			    </a>
+            
+	            <a href="mailto:caiquanke_88@163.com" rel="external nofollow" title="邮箱" target="_blank">
+			    	<i class="envelope-o fa fa-envelope-o"></i>
+			    </a>
+            
+	            <a href="//weibo.com/quankecai" rel="external nofollow" title="微博" target="_blank">
+			    	<i class="weibo fa fa-weibo"></i>
+			    </a>
+            
+	            <a href="//jq.qq.com/?_wv=1027&k=5MOKtIE" rel="external nofollow" title="QQ群" target="_blank">
+			    	<i class="users fa fa-users"></i>
+			    </a>
+            
+	            <a href="/atom.xml" rel="external nofollow" title="RSS" target="_blank">
+			    	<i class="feed fa fa-feed"></i>
+			    </a>
+            
+        </div>
+    </div>
 
 
         
-      </div>
-    </main>
+        
+    <div class="widget">
+        <h3 class="title">分类</h3>
+        <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/es/"><i class="fa" aria-hidden="true">Elasticsearch</i></a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/golang/"><i class="fa" aria-hidden="true">Go语言</i></a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/"><i class="fa" aria-hidden="true">Java</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MBaaS-LiveOak系列/"><i class="fa" aria-hidden="true">MBaaS-LiveOak系列</i></a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/rn/"><i class="fa" aria-hidden="true">React Native</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vertx/"><i class="fa" aria-hidden="true">Vert.x3 系列</i></a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/android/"><i class="fa" aria-hidden="true">android开发</i></a><span class="category-list-count">57</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/"><i class="fa" aria-hidden="true">git</i></a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ios/"><i class="fa" aria-hidden="true">ios开发</i></a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/node/"><i class="fa" aria-hidden="true">node.js</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/use/"><i class="fa" aria-hidden="true">使用</i></a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/bdata/"><i class="fa" aria-hidden="true">大数据</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/service/"><i class="fa" aria-hidden="true">服务端开发</i></a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/autotest/"><i class="fa" aria-hidden="true">自动化测试</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/gof/"><i class="fa" aria-hidden="true">设计模式</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/se/"><i class="fa" aria-hidden="true">软件工程</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/essay/"><i class="fa" aria-hidden="true">随笔</i></a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/project/"><i class="fa" aria-hidden="true">项目实战</i></a><span class="category-list-count">1</span></li></ul>
+    </div>
 
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">全科</span>
 
-  
+        
+        
+    <div class="widget">
+      <h3 class="title">归档</h3>
+        <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/"><i class="fa" aria-hidden="true">十二月 2017</i></a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/"><i class="fa" aria-hidden="true">十一月 2017</i></a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/"><i class="fa" aria-hidden="true">二月 2017</i></a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/"><i class="fa" aria-hidden="true">十月 2016</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/"><i class="fa" aria-hidden="true">七月 2016</i></a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/"><i class="fa" aria-hidden="true">五月 2016</i></a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/"><i class="fa" aria-hidden="true">四月 2016</i></a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/"><i class="fa" aria-hidden="true">一月 2016</i></a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/"><i class="fa" aria-hidden="true">八月 2015</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/"><i class="fa" aria-hidden="true">七月 2015</i></a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/"><i class="fa" aria-hidden="true">五月 2015</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/"><i class="fa" aria-hidden="true">四月 2015</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/"><i class="fa" aria-hidden="true">十一月 2014</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/"><i class="fa" aria-hidden="true">六月 2014</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/02/"><i class="fa" aria-hidden="true">二月 2014</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/"><i class="fa" aria-hidden="true">三月 2013</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/"><i class="fa" aria-hidden="true">二月 2013</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/"><i class="fa" aria-hidden="true">一月 2013</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/"><i class="fa" aria-hidden="true">十二月 2012</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/"><i class="fa" aria-hidden="true">十一月 2012</i></a><span class="archive-list-count">42</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/10/"><i class="fa" aria-hidden="true">十月 2012</i></a><span class="archive-list-count">19</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/"><i class="fa" aria-hidden="true">九月 2012</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/08/"><i class="fa" aria-hidden="true">八月 2012</i></a><span class="archive-list-count">5</span></li></ul>
+    </div>
+
+
+        
+        
+  <div class="widget">
+    <h3 class="title">标签云</h3>
+    <div class="content tag-cloud">
+        <a href="/tags/API/" style="font-size: 11.67px;">API</a> <a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/android-pg/" style="font-size: 10px;">Android多渠道打包</a> <a href="/tags/es/" style="font-size: 16.67px;">Elasticsearch</a> <a href="/tags/Gradle/" style="font-size: 10px;">Gradle</a> <a href="/tags/IOS/" style="font-size: 10px;">IOS</a> <a href="/tags/JAVA/" style="font-size: 10px;">JAVA</a> <a href="/tags/Java/" style="font-size: 13.33px;">Java</a> <a href="/tags/th-java/" style="font-size: 10px;">Java 编程思想</a> <a href="/tags/JavaEE/" style="font-size: 10px;">JavaEE</a> <a href="/tags/LiveOak/" style="font-size: 13.33px;">LiveOak</a> <a href="/tags/MBaaS/" style="font-size: 15px;">MBaaS</a> <a href="/tags/PM2/" style="font-size: 10px;">PM2</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/rn/" style="font-size: 10px;">React Native</a> <a href="/tags/SDK/" style="font-size: 10px;">SDK</a> <a href="/tags/Spring-Boot/" style="font-size: 10px;">Spring Boot</a> <a href="/tags/vertx-for-java/" style="font-size: 10px;">Vert.x Core手册 for Java</a> <a href="/tags/Vert-x3/" style="font-size: 20px;">Vert.x3</a> <a href="/tags/Vertx/" style="font-size: 20px;">Vertx</a> <a href="/tags/windows-install/" style="font-size: 10px;">Windows10安装</a> <a href="/tags/android/" style="font-size: 18.33px;">android</a> <a href="/tags/android-a/" style="font-size: 10px;">android动画</a> <a href="/tags/elasticsearch/" style="font-size: 10px;">elasticsearch</a> <a href="/tags/gitbook/" style="font-size: 10px;">gitbook</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/logstash/" style="font-size: 10px;">logstash</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/node-js-运行/" style="font-size: 10px;">node.js 运行</a> <a href="/tags/spirng-boot/" style="font-size: 10px;">spirng boot</a> <a href="/tags/swagger-ui/" style="font-size: 10px;">swagger ui</a> <a href="/tags/swagger-api/" style="font-size: 10px;">swagger-api</a> <a href="/tags/swagger-edit/" style="font-size: 10px;">swagger-edit</a> <a href="/tags/bdaga/" style="font-size: 16.67px;">大数据</a> <a href="/tags/开源/" style="font-size: 10px;">开源</a> <a href="/tags/conclusion/" style="font-size: 10px;">总结</a> <a href="/tags/api/" style="font-size: 10px;">接口文档</a> <a href="/tags/careful/" style="font-size: 10px;">注意</a> <a href="/tags/career-planning/" style="font-size: 10px;">职业规划</a> <a href="/tags/autotest/" style="font-size: 10px;">自动化测试</a> <a href="/tags/gof/" style="font-size: 10px;">设计模式</a> <a href="/tags/data/" style="font-size: 11.67px;">资料</a> <a href="/tags/test/" style="font-size: 10px;">软件测试</a>
+    </div>
+  </div>
+
+
+        
+        
+    <div class="widget">
+        <h3 class="title">友链</h3>
+        <div class="content friends-link">
+        
+            <a href="http://quanke.name" class="fa" target="_blank">个人博客</a>
+        
+            <a href="http://satra.gitee.io/blog/" class="fa" target="_blank">我在万达摆地摊</a>
+        
+        </div>
+    </div>
+
+
+        
+    </aside>
+
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12"> 
+                <span>Copyright &copy; 2017
+                </span> | 
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> | 
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
 </div>
 
 
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
+	<script src="/js/search.js?rev=@@hash"></script>
 
 
-  <span class="post-meta-divider">|</span>
+<script src="/js/app.js?rev=@@hash"></script>
 
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
-
-
-
-  
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
-
-
-
-  
-
-  
-    
-  
-
-  <script type="text/javascript">
-    var duoshuoQuery = {short_name:"quanke"};
-    (function() {
-      var ds = document.createElement('script');
-      ds.type = 'text/javascript';ds.async = true;
-      ds.id = 'duoshuo-script';
-      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-      ds.charset = 'UTF-8';
-      (document.getElementsByTagName('head')[0]
-      || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
-  </script>
-
-  
-    
-    
-    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
-    <script src="/js/src/hook-duoshuo.js"></script>
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-
-
-
-  
-
-
-
-
-
-  
-
-  
-
-  
-
-  
-  
-
-  
-
-  
-
-  
 
 </body>
 </html>
