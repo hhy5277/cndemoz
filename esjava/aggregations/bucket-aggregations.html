@@ -1,0 +1,468 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="全科-不安分的码农">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://test.quanke.name">
+    <!--SEO-->
+
+
+
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+
+<title>全科-不安分的码农</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="全科-不安分的码农" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css?rev=3.3.4">
+<link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?853906ed403c461b2dbf1df696bdf998";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+	<script>
+		(function(i, s, o, g, r, a, m) {
+		    i['GoogleAnalyticsObject'] = r;
+		    i[r] = i[r] || function() {
+		        (i[r].q = i[r].q || []).push(arguments)
+		    }, i[r].l = 1 * new Date();
+		    a = s.createElement(o),
+		    m = s.getElementsByTagName(o)[0];
+		    a.async = 1;
+		    a.src = g;
+		    m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+		ga('create', 'UA-82833335-5', 'auto');
+		ga('send', 'pageview');
+	</script>
+
+
+    
+</head>
+
+
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header"  style="background-image:url(http://7xpw2b.com1.z0.glb.clouddn.com/hexo-sinppet/img/banner2.jpg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title="">
+            <img src="/img/avatar.jpg" alt="logo头像">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                 <img src="/img/branding.png" alt="Snippet 博客主题">  
+             
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only">Toggle navigation</span>
+                    <i class="fa fa-bars"></i>
+                    </span>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation"><a href="/"><i class="fa fa-fw "></i>主页</a>
+                            </li>
+                        
+                            <li role="presentation"><a href="/"><i class="fa fa-fw "></i>日志</a>
+                            </li>
+                        
+                            <li role="presentation"><a href="/"><i class="fa fa-fw "></i>应用</a>
+                            </li>
+                        
+                            <li role="presentation"><a href="/"><i class="fa fa-fw "></i>开源</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content ">
+                    <div class="about">
+	
+	    <article class="post">
+	        <h1 class="post-head">关于我</h1>
+	        <div class="post-body">
+	            <h3 id="Bucket-aggregations-桶分聚合"><a href="#Bucket-aggregations-桶分聚合" class="headerlink" title="Bucket aggregations 桶分聚合"></a>Bucket aggregations 桶分聚合</h3><blockquote>
+<p>Bucket aggregations  不像 metrics aggregations 那样计算指标，恰恰相反，它创建文档的buckets，每个buckets与标准（取决于聚合类型）相关联，它决定了当前上下文中的文档是否会“falls”到它。换句话说，bucket可以有效地定义文档集合。除了buckets本身，bucket集合还计算并返回“落入”每个bucket的文档数量。</p>
+<p>与度量聚合相比，Bucket聚合可以保存子聚合，这些子聚合将针对由其“父”bucket聚合创建的bucket进行聚合。</p>
+<p>有不同的bucket聚合器，每个具有不同的“bucketing”策略,一些定义一个单独的bucket，一些定义多个bucket的固定数量，另一些定义在聚合过程中动态创建bucket</p>
+</blockquote>
+<h4 id="Global-Aggregation-全局聚合"><a href="#Global-Aggregation-全局聚合" class="headerlink" title="Global Aggregation 全局聚合"></a>Global Aggregation 全局聚合</h4><blockquote>
+<p>定义搜索执行上下文中的所有文档的单个bucket，这个上下文由索引和您正在搜索的文档类型定义，但不受搜索查询本身的影响。</p>
+<p>全局聚合器只能作为顶层聚合器放置，因为将全局聚合器嵌入到另一个分组聚合器中是没有意义的。</p>
+</blockquote>
+<p>下面是如何使用 <code>Java API</code> 使用<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-bucket-global-aggregation.html" target="_blank" rel="external">全局聚合</a></p>
+<h5 id="准备聚合请求"><a href="#准备聚合请求" class="headerlink" title="准备聚合请求"></a>准备聚合请求</h5><p>下面是如何创建聚合请求的是示例：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">AggregationBuilders</div><div class="line">    .global(&quot;agg&quot;)</div><div class="line">    .subAggregation(AggregationBuilders.terms(&quot;genders&quot;).field(&quot;gender&quot;));</div></pre></td></tr></table></figure>
+<h5 id="使用聚合请求"><a href="#使用聚合请求" class="headerlink" title="使用聚合请求"></a>使用聚合请求</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">import org.elasticsearch.search.aggregations.bucket.global.Global;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">// sr is here your SearchResponse object</div><div class="line">Global agg = sr.getAggregations().get(&quot;agg&quot;);</div><div class="line">agg.getDocCount(); // Doc count</div></pre></td></tr></table></figure>
+<h4 id="Filter-Aggregation-过滤聚合"><a href="#Filter-Aggregation-过滤聚合" class="headerlink" title="Filter Aggregation 过滤聚合"></a>Filter Aggregation 过滤聚合</h4><blockquote>
+<p>过滤聚合——基于一个条件，来对当前的文档进行过滤的聚合。</p>
+</blockquote>
+<p>下面是如何使用 <code>Java API</code> 使用<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-bucket-filter-aggregation.html" target="_blank" rel="external">过滤聚合</a></p>
+<h5 id="准备聚合请求-1"><a href="#准备聚合请求-1" class="headerlink" title="准备聚合请求"></a>准备聚合请求</h5><p>下面是如何创建聚合请求的是示例：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">AggregationBuilders</div><div class="line">    .filter(&quot;agg&quot;, QueryBuilders.termQuery(&quot;gender&quot;, &quot;male&quot;));</div></pre></td></tr></table></figure>
+<h5 id="使用聚合请求-1"><a href="#使用聚合请求-1" class="headerlink" title="使用聚合请求"></a>使用聚合请求</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">import org.elasticsearch.search.aggregations.bucket.filter.Filter;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">// sr is here your SearchResponse object</div><div class="line">Filter agg = sr.getAggregations().get(&quot;agg&quot;);</div><div class="line">agg.getDocCount(); // Doc count</div></pre></td></tr></table></figure>
+<h4 id="Filters-Aggregation-多过滤聚合"><a href="#Filters-Aggregation-多过滤聚合" class="headerlink" title="Filters Aggregation 多过滤聚合"></a>Filters Aggregation 多过滤聚合</h4><blockquote>
+<p>多过滤聚合——基于多个过滤条件，来对当前文档进行【过滤】的聚合，每个过滤都包含所有满足它的文档（多个bucket中可能重复）。</p>
+</blockquote>
+<p>下面是如何使用 <code>Java API</code> 使用<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-bucket-filters-aggregation.html" target="_blank" rel="external">多过滤聚合</a></p>
+<h5 id="准备聚合请求-2"><a href="#准备聚合请求-2" class="headerlink" title="准备聚合请求"></a>准备聚合请求</h5><p>下面是如何创建聚合请求的是示例：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">AggregationBuilder aggregation =</div><div class="line">    AggregationBuilders</div><div class="line">        .filters(&quot;agg&quot;,</div><div class="line">            new FiltersAggregator.KeyedFilter(&quot;men&quot;, QueryBuilders.termQuery(&quot;gender&quot;, &quot;male&quot;)),</div><div class="line">            new FiltersAggregator.KeyedFilter(&quot;women&quot;, QueryBuilders.termQuery(&quot;gender&quot;, &quot;female&quot;)));</div></pre></td></tr></table></figure>
+<h5 id="使用聚合请求-2"><a href="#使用聚合请求-2" class="headerlink" title="使用聚合请求"></a>使用聚合请求</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">import org.elasticsearch.search.aggregations.bucket.filters.Filters;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">// sr is here your SearchResponse object</div><div class="line">Filters agg = sr.getAggregations().get(&quot;agg&quot;);</div><div class="line"></div><div class="line">// For each entry</div><div class="line">for (Filters.Bucket entry : agg.getBuckets()) &#123;</div><div class="line">    String key = entry.getKeyAsString();            // bucket key</div><div class="line">    long docCount = entry.getDocCount();            // Doc count</div><div class="line">    logger.info(&quot;key [&#123;&#125;], doc_count [&#123;&#125;]&quot;, key, docCount);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>大概输出</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">key [men], doc_count [4982]</div><div class="line">key [women], doc_count [5018]</div></pre></td></tr></table></figure>
+<h4 id="Missing-Aggregation-基于字段数据的单桶聚合"><a href="#Missing-Aggregation-基于字段数据的单桶聚合" class="headerlink" title="Missing Aggregation 基于字段数据的单桶聚合"></a>Missing Aggregation 基于字段数据的单桶聚合</h4><blockquote>
+<p>基于字段数据的单桶聚合，创建当前文档集上下文中缺少字段值的所有文档的bucket（桶）（有效地，丢失了一个字段或配置了NULL值集），此聚合器通常与其他字段数据桶聚合器（例如范围）结合使用，以返回由于缺少字段数据值而无法放置在任何其他存储区中的所有文档的信息。</p>
+</blockquote>
+<p>下面是如何使用 <code>Java API</code> 使用<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-bucket-missing-aggregation.html" target="_blank" rel="external">基于字段数据的单桶聚合</a></p>
+<h5 id="准备聚合请求-3"><a href="#准备聚合请求-3" class="headerlink" title="准备聚合请求"></a>准备聚合请求</h5><p>下面是如何创建聚合请求的是示例：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">AggregationBuilders.missing(&quot;agg&quot;).field(&quot;gender&quot;);</div></pre></td></tr></table></figure>
+<h5 id="使用聚合请求-3"><a href="#使用聚合请求-3" class="headerlink" title="使用聚合请求"></a>使用聚合请求</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">import org.elasticsearch.search.aggregations.bucket.missing.Missing;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">// sr is here your SearchResponse object</div><div class="line">Missing agg = sr.getAggregations().get(&quot;agg&quot;);</div><div class="line">agg.getDocCount(); // Doc count</div></pre></td></tr></table></figure>
+<h4 id="Nested-Aggregation-嵌套类型聚合"><a href="#Nested-Aggregation-嵌套类型聚合" class="headerlink" title="Nested Aggregation 嵌套类型聚合"></a>Nested Aggregation 嵌套类型聚合</h4><blockquote>
+<p>基于嵌套（nested）数据类型，把该【嵌套类型的信息】聚合到单个桶里，然后就可以对嵌套类型做进一步的聚合操作。</p>
+</blockquote>
+<p>下面是如何使用 <code>Java API</code> 使用<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-bucket-nested-aggregation.html" target="_blank" rel="external">嵌套类型聚合</a></p>
+<h5 id="准备聚合请求-4"><a href="#准备聚合请求-4" class="headerlink" title="准备聚合请求"></a>准备聚合请求</h5><p>下面是如何创建聚合请求的是示例：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">AggregationBuilders</div><div class="line">    .nested(&quot;agg&quot;, &quot;resellers&quot;);</div></pre></td></tr></table></figure>
+<h5 id="使用聚合请求-4"><a href="#使用聚合请求-4" class="headerlink" title="使用聚合请求"></a>使用聚合请求</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">import org.elasticsearch.search.aggregations.bucket.nested.Nested;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">// sr is here your SearchResponse object</div><div class="line">Nested agg = sr.getAggregations().get(&quot;agg&quot;);</div><div class="line">agg.getDocCount(); // Doc count</div></pre></td></tr></table></figure>
+<h4 id="Reverse-nested-Aggregation"><a href="#Reverse-nested-Aggregation" class="headerlink" title="Reverse nested Aggregation"></a>Reverse nested Aggregation</h4><blockquote>
+<p>一个特殊的单桶聚合，可以从嵌套文档中聚合父文档。实际上，这种聚合可以从嵌套的块结构中跳出来，并链接到其他嵌套的结构或根文档.这允许嵌套不是嵌套对象的一部分的其他聚合在嵌套聚合中。<br>reverse_nested 聚合必须定义在nested之中</p>
+</blockquote>
+<p>下面是如何使用 <code>Java API</code> 使用<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-bucket-reverse-nested-aggregation.html" target="_blank" rel="external">Reverse nested Aggregation</a></p>
+<h5 id="准备聚合请求-5"><a href="#准备聚合请求-5" class="headerlink" title="准备聚合请求"></a>准备聚合请求</h5><p>下面是如何创建聚合请求的是示例：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">AggregationBuilder aggregation =</div><div class="line">    AggregationBuilders</div><div class="line">        .nested(&quot;agg&quot;, &quot;resellers&quot;)</div><div class="line">        .subAggregation(</div><div class="line">                AggregationBuilders</div><div class="line">                        .terms(&quot;name&quot;).field(&quot;resellers.name&quot;)</div><div class="line">                        .subAggregation(</div><div class="line">                                AggregationBuilders</div><div class="line">                                        .reverseNested(&quot;reseller_to_product&quot;)</div><div class="line">                        )</div><div class="line">        );</div></pre></td></tr></table></figure>
+<h5 id="使用聚合请求-5"><a href="#使用聚合请求-5" class="headerlink" title="使用聚合请求"></a>使用聚合请求</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">import org.elasticsearch.search.aggregations.bucket.nested.Nested;</div><div class="line">import org.elasticsearch.search.aggregations.bucket.nested.ReverseNested;</div><div class="line">import org.elasticsearch.search.aggregations.bucket.terms.Terms;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">// sr is here your SearchResponse object</div><div class="line">Nested agg = sr.getAggregations().get(&quot;agg&quot;);</div><div class="line">Terms name = agg.getAggregations().get(&quot;name&quot;);</div><div class="line">for (Terms.Bucket bucket : name.getBuckets()) &#123;</div><div class="line">    ReverseNested resellerToProduct = bucket.getAggregations().get(&quot;reseller_to_product&quot;);</div><div class="line">    resellerToProduct.getDocCount(); // Doc count</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="Children-Aggregation"><a href="#Children-Aggregation" class="headerlink" title="Children Aggregation"></a>Children Aggregation</h4><blockquote>
+<p>一种特殊的单桶聚合，可以将父文档类型上的桶聚合到子文档上。</p>
+</blockquote>
+<p>下面是如何使用 <code>Java API</code> 使用<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-bucket-children-aggregation.html" target="_blank" rel="external">Children Aggregation</a></p>
+<h5 id="准备聚合请求-6"><a href="#准备聚合请求-6" class="headerlink" title="准备聚合请求"></a>准备聚合请求</h5><p>下面是如何创建聚合请求的是示例：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">AggregationBuilder aggregation =</div><div class="line">    AggregationBuilders</div><div class="line">        .children(&quot;agg&quot;, &quot;reseller&quot;); // agg 是聚合名，reseller 是子类型</div></pre></td></tr></table></figure>
+<h5 id="使用聚合请求-6"><a href="#使用聚合请求-6" class="headerlink" title="使用聚合请求"></a>使用聚合请求</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">import org.elasticsearch.join.aggregations.Children;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">// sr is here your SearchResponse object</div><div class="line">Children agg = sr.getAggregations().get(&quot;agg&quot;);</div><div class="line">agg.getDocCount(); // Doc count</div></pre></td></tr></table></figure>
+<h4 id="Terms-Aggregation-词元聚合"><a href="#Terms-Aggregation-词元聚合" class="headerlink" title="Terms Aggregation 词元聚合"></a>Terms Aggregation 词元聚合</h4><blockquote>
+<p>基于某个field，该 field 内的每一个【唯一词元】为一个桶，并计算每个桶内文档个数。默认返回顺序是按照文档个数多少排序。当不返回所有 buckets 的情况，文档个数可能不准确。</p>
+</blockquote>
+<p>下面是如何使用 <code>Java API</code> 使用<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-bucket-terms-aggregation.html" target="_blank" rel="external">Terms Aggregation</a></p>
+<h5 id="准备聚合请求-7"><a href="#准备聚合请求-7" class="headerlink" title="准备聚合请求"></a>准备聚合请求</h5><p>下面是如何创建聚合请求的是示例：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">AggregationBuilders</div><div class="line">    .terms(&quot;genders&quot;)</div><div class="line">    .field(&quot;gender&quot;);</div></pre></td></tr></table></figure>
+<h5 id="使用聚合请求-7"><a href="#使用聚合请求-7" class="headerlink" title="使用聚合请求"></a>使用聚合请求</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">import org.elasticsearch.search.aggregations.bucket.terms.Terms;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">// sr is here your SearchResponse object</div><div class="line">Terms genders = sr.getAggregations().get(&quot;genders&quot;);</div><div class="line"></div><div class="line">// For each entry</div><div class="line">for (Terms.Bucket entry : genders.getBuckets()) &#123;</div><div class="line">    entry.getKey();      // Term</div><div class="line">    entry.getDocCount(); // Doc count</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="Order-排序"><a href="#Order-排序" class="headerlink" title="Order 排序"></a>Order 排序</h4><p>通过 <code>doc_count</code> 按升序排列：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">AggregationBuilders</div><div class="line">    .terms(&quot;genders&quot;)</div><div class="line">    .field(&quot;gender&quot;)</div><div class="line">    .order(Terms.Order.count(true))</div></pre></td></tr></table></figure>
+<p>按字词顺序，升序排列：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">AggregationBuilders</div><div class="line">    .terms(&quot;genders&quot;)</div><div class="line">    .field(&quot;gender&quot;)</div><div class="line">    .order(Terms.Order.term(true))</div></pre></td></tr></table></figure>
+<p>按metrics 子聚合排列（标示为聚合名）</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">AggregationBuilders</div><div class="line">    .terms(&quot;genders&quot;)</div><div class="line">    .field(&quot;gender&quot;)</div><div class="line">    .order(Terms.Order.aggregation(&quot;avg_height&quot;, false))</div><div class="line">    .subAggregation(</div><div class="line">        AggregationBuilders.avg(&quot;avg_height&quot;).field(&quot;height&quot;)</div><div class="line">    )</div></pre></td></tr></table></figure>
+<h4 id="Significant-Terms-Aggregation"><a href="#Significant-Terms-Aggregation" class="headerlink" title="Significant Terms Aggregation"></a>Significant Terms Aggregation</h4><blockquote>
+<p>返回集合中感兴趣的或者不常见的词条的聚合</p>
+</blockquote>
+<p>下面是如何使用 <code>Java API</code> 使用<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-bucket-significantterms-aggregation.html" target="_blank" rel="external">Significant Terms Aggregation</a></p>
+<h5 id="准备聚合请求-8"><a href="#准备聚合请求-8" class="headerlink" title="准备聚合请求"></a>准备聚合请求</h5><p>下面是如何创建聚合请求的是示例：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">AggregationBuilder aggregation =</div><div class="line">        AggregationBuilders</div><div class="line">                .significantTerms(&quot;significant_countries&quot;)</div><div class="line">                .field(&quot;address.country&quot;);</div><div class="line"></div><div class="line">// Let say you search for men only</div><div class="line">SearchResponse sr = client.prepareSearch()</div><div class="line">        .setQuery(QueryBuilders.termQuery(&quot;gender&quot;, &quot;male&quot;))</div><div class="line">        .addAggregation(aggregation)</div><div class="line">        .get();</div></pre></td></tr></table></figure>
+<h5 id="使用聚合请求-8"><a href="#使用聚合请求-8" class="headerlink" title="使用聚合请求"></a>使用聚合请求</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">import org.elasticsearch.search.aggregations.bucket.significant.SignificantTerms;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">// sr is here your SearchResponse object</div><div class="line">SignificantTerms agg = sr.getAggregations().get(&quot;significant_countries&quot;);</div><div class="line"></div><div class="line">// For each entry</div><div class="line">for (SignificantTerms.Bucket entry : agg.getBuckets()) &#123;</div><div class="line">    entry.getKey();      // Term</div><div class="line">    entry.getDocCount(); // Doc count</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="Range-Aggregation-范围聚合"><a href="#Range-Aggregation-范围聚合" class="headerlink" title="Range Aggregation 范围聚合"></a>Range Aggregation 范围聚合</h4><blockquote>
+<p>基于某个值（可以是 field 或 script），以【字段范围】来桶分聚合。范围聚合包括 from 值，不包括 to 值（区间前闭后开）。</p>
+</blockquote>
+<p>下面是如何使用 <code>Java API</code> 使用<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-bucket-range-aggregation.html" target="_blank" rel="external">Range Aggregation</a></p>
+<h5 id="准备聚合请求-9"><a href="#准备聚合请求-9" class="headerlink" title="准备聚合请求"></a>准备聚合请求</h5><p>下面是如何创建聚合请求的是示例：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">AggregationBuilder aggregation =</div><div class="line">        AggregationBuilders</div><div class="line">                .range(&quot;agg&quot;)</div><div class="line">                .field(&quot;height&quot;)</div><div class="line">                .addUnboundedTo(1.0f)               // from -infinity to 1.0 (excluded)</div><div class="line">                .addRange(1.0f, 1.5f)               // from 1.0 to 1.5 (excluded)</div><div class="line">                .addUnboundedFrom(1.5f);            // from 1.5 to +infinity</div></pre></td></tr></table></figure>
+<h5 id="使用聚合请求-9"><a href="#使用聚合请求-9" class="headerlink" title="使用聚合请求"></a>使用聚合请求</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">import org.elasticsearch.search.aggregations.bucket.range.Range;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">// sr is here your SearchResponse object</div><div class="line">Range agg = sr.getAggregations().get(&quot;agg&quot;);</div><div class="line"></div><div class="line">// For each entry</div><div class="line">for (Range.Bucket entry : agg.getBuckets()) &#123;</div><div class="line">    String key = entry.getKeyAsString();             // Range as key</div><div class="line">    Number from = (Number) entry.getFrom();          // Bucket from</div><div class="line">    Number to = (Number) entry.getTo();              // Bucket to</div><div class="line">    long docCount = entry.getDocCount();    // Doc count</div><div class="line"></div><div class="line">    logger.info(&quot;key [&#123;&#125;], from [&#123;&#125;], to [&#123;&#125;], doc_count [&#123;&#125;]&quot;, key, from, to, docCount);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">key [*-1.0], from [-Infinity], to [1.0], doc_count [9]</div><div class="line">key [1.0-1.5], from [1.0], to [1.5], doc_count [21]</div><div class="line">key [1.5-*], from [1.5], to [Infinity], doc_count [20]</div></pre></td></tr></table></figure>
+<h4 id="Date-Range-Aggregation-日期范围聚合"><a href="#Date-Range-Aggregation-日期范围聚合" class="headerlink" title="Date Range Aggregation 日期范围聚合"></a>Date Range Aggregation 日期范围聚合</h4><blockquote>
+<p>日期范围聚合——基于日期类型的值，以【日期范围】来桶分聚合。</p>
+<p>日期范围可以用各种 Date Math 表达式。</p>
+<p>同样的，包括 from 的值，不包括 to 的值。</p>
+</blockquote>
+<p>下面是如何使用 <code>Java API</code> 使用<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-bucket-daterange-aggregation.html" target="_blank" rel="external">Date Range Aggregation</a></p>
+<h5 id="准备聚合请求-10"><a href="#准备聚合请求-10" class="headerlink" title="准备聚合请求"></a>准备聚合请求</h5><p>下面是如何创建聚合请求的是示例：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">AggregationBuilder aggregation =</div><div class="line">        AggregationBuilders</div><div class="line">                .dateRange(&quot;agg&quot;)</div><div class="line">                .field(&quot;dateOfBirth&quot;)</div><div class="line">                .format(&quot;yyyy&quot;)</div><div class="line">                .addUnboundedTo(&quot;1950&quot;)    // from -infinity to 1950 (excluded)</div><div class="line">                .addRange(&quot;1950&quot;, &quot;1960&quot;)  // from 1950 to 1960 (excluded)</div><div class="line">                .addUnboundedFrom(&quot;1960&quot;); // from 1960 to +infinity</div></pre></td></tr></table></figure>
+<h5 id="使用聚合请求-10"><a href="#使用聚合请求-10" class="headerlink" title="使用聚合请求"></a>使用聚合请求</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">import org.elasticsearch.search.aggregations.bucket.range.Range;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">// sr is here your SearchResponse object</div><div class="line">Range agg = sr.getAggregations().get(&quot;agg&quot;);</div><div class="line"></div><div class="line">// For each entry</div><div class="line">for (Range.Bucket entry : agg.getBuckets()) &#123;</div><div class="line">    String key = entry.getKeyAsString();                // Date range as key</div><div class="line">    DateTime fromAsDate = (DateTime) entry.getFrom();   // Date bucket from as a Date</div><div class="line">    DateTime toAsDate = (DateTime) entry.getTo();       // Date bucket to as a Date</div><div class="line">    long docCount = entry.getDocCount();                // Doc count</div><div class="line"></div><div class="line">    logger.info(&quot;key [&#123;&#125;], from [&#123;&#125;], to [&#123;&#125;], doc_count [&#123;&#125;]&quot;, key, fromAsDate, toAsDate, docCount);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">key [*-1950], from [null], to [1950-01-01T00:00:00.000Z], doc_count [8]</div><div class="line">key [1950-1960], from [1950-01-01T00:00:00.000Z], to [1960-01-01T00:00:00.000Z], doc_count [5]</div><div class="line">key [1960-*], from [1960-01-01T00:00:00.000Z], to [null], doc_count [37]</div></pre></td></tr></table></figure>
+<h4 id="Ip-Range-Aggregation-Ip范围聚合"><a href="#Ip-Range-Aggregation-Ip范围聚合" class="headerlink" title="Ip Range Aggregation Ip范围聚合"></a>Ip Range Aggregation Ip范围聚合</h4><p>下面是如何使用 <code>Java API</code> 使用<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-bucket-iprange-aggregation.html" target="_blank" rel="external">Ip Range Aggregation</a></p>
+<h5 id="准备聚合请求-11"><a href="#准备聚合请求-11" class="headerlink" title="准备聚合请求"></a>准备聚合请求</h5><p>下面是如何创建聚合请求的是示例：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">AggregatorBuilder&lt;?&gt; aggregation =</div><div class="line">        AggregationBuilders</div><div class="line">                .ipRange(&quot;agg&quot;)</div><div class="line">                .field(&quot;ip&quot;)</div><div class="line">                .addUnboundedTo(&quot;192.168.1.0&quot;)             // from -infinity to 192.168.1.0 (excluded)</div><div class="line">                .addRange(&quot;192.168.1.0&quot;, &quot;192.168.2.0&quot;)    // from 192.168.1.0 to 192.168.2.0 (excluded)</div><div class="line">                .addUnboundedFrom(&quot;192.168.2.0&quot;);          // from 192.168.2.0 to +infinity</div></pre></td></tr></table></figure>
+<h5 id="使用聚合请求-11"><a href="#使用聚合请求-11" class="headerlink" title="使用聚合请求"></a>使用聚合请求</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">import org.elasticsearch.search.aggregations.bucket.range.Range;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">// sr is here your SearchResponse object</div><div class="line">Range agg = sr.getAggregations().get(&quot;agg&quot;);</div><div class="line"></div><div class="line">// For each entry</div><div class="line">for (Range.Bucket entry : agg.getBuckets()) &#123;</div><div class="line">    String key = entry.getKeyAsString();            // Ip range as key</div><div class="line">    String fromAsString = entry.getFromAsString();  // Ip bucket from as a String</div><div class="line">    String toAsString = entry.getToAsString();      // Ip bucket to as a String</div><div class="line">    long docCount = entry.getDocCount();            // Doc count</div><div class="line"></div><div class="line">    logger.info(&quot;key [&#123;&#125;], from [&#123;&#125;], to [&#123;&#125;], doc_count [&#123;&#125;]&quot;, key, fromAsString, toAsString, docCount);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">key [*-1950], from [null], to [1950-01-01T00:00:00.000Z], doc_count [8]</div><div class="line">key [1950-1960], from [1950-01-01T00:00:00.000Z], to [1960-01-01T00:00:00.000Z], doc_count [5]</div><div class="line">key [1960-*], from [1960-01-01T00:00:00.000Z], to [null], doc_count [37]</div></pre></td></tr></table></figure>
+<h4 id="Histogram-Aggregation-直方图聚合"><a href="#Histogram-Aggregation-直方图聚合" class="headerlink" title="Histogram Aggregation 直方图聚合"></a>Histogram Aggregation 直方图聚合</h4><blockquote>
+<p>基于文档中的某个【数值类型】字段，通过计算来动态的分桶。</p>
+</blockquote>
+<p>下面是如何使用 <code>Java API</code> 使用<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-bucket-histogram-aggregation.html" target="_blank" rel="external">Histogram Aggregation</a></p>
+<h5 id="准备聚合请求-12"><a href="#准备聚合请求-12" class="headerlink" title="准备聚合请求"></a>准备聚合请求</h5><p>下面是如何创建聚合请求的是示例：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">AggregationBuilder aggregation =</div><div class="line">        AggregationBuilders</div><div class="line">                .histogram(&quot;agg&quot;)</div><div class="line">                .field(&quot;height&quot;)</div><div class="line">                .interval(1);</div></pre></td></tr></table></figure>
+<h5 id="使用聚合请求-12"><a href="#使用聚合请求-12" class="headerlink" title="使用聚合请求"></a>使用聚合请求</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">import org.elasticsearch.search.aggregations.bucket.histogram.Histogram;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">// sr is here your SearchResponse object</div><div class="line">Histogram agg = sr.getAggregations().get(&quot;agg&quot;);</div><div class="line"></div><div class="line">// For each entry</div><div class="line">for (Histogram.Bucket entry : agg.getBuckets()) &#123;</div><div class="line">    Number key = (Number) entry.getKey();   // Key</div><div class="line">    long docCount = entry.getDocCount();    // Doc count</div><div class="line"></div><div class="line">    logger.info(&quot;key [&#123;&#125;], doc_count [&#123;&#125;]&quot;, key, docCount);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="Date-Histogram-Aggregation-日期范围直方图聚合"><a href="#Date-Histogram-Aggregation-日期范围直方图聚合" class="headerlink" title="Date Histogram Aggregation 日期范围直方图聚合"></a>Date Histogram Aggregation 日期范围直方图聚合</h4><blockquote>
+<p>与直方图类似的多bucket聚合，但只能应用于日期值.。</p>
+</blockquote>
+<p>下面是如何使用 <code>Java API</code> 使用<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-bucket-datehistogram-aggregation.html" target="_blank" rel="external"> Date Histogram Aggregation</a></p>
+<h5 id="准备聚合请求-13"><a href="#准备聚合请求-13" class="headerlink" title="准备聚合请求"></a>准备聚合请求</h5><p>下面是如何创建聚合请求的是示例：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">AggregationBuilder aggregation =</div><div class="line">        AggregationBuilders</div><div class="line">                .dateHistogram(&quot;agg&quot;)</div><div class="line">                .field(&quot;dateOfBirth&quot;)</div><div class="line">                .dateHistogramInterval(DateHistogramInterval.YEAR);</div></pre></td></tr></table></figure>
+<p>或者把时间间隔设置为10天</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">AggregationBuilder aggregation =</div><div class="line">        AggregationBuilders</div><div class="line">                .dateHistogram(&quot;agg&quot;)</div><div class="line">                .field(&quot;dateOfBirth&quot;)</div><div class="line">                .dateHistogramInterval(DateHistogramInterval.days(10));</div></pre></td></tr></table></figure>
+<h5 id="使用聚合请求-13"><a href="#使用聚合请求-13" class="headerlink" title="使用聚合请求"></a>使用聚合请求</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">import org.elasticsearch.search.aggregations.bucket.histogram.Histogram;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">// sr is here your SearchResponse object</div><div class="line">Histogram agg = sr.getAggregations().get(&quot;agg&quot;);</div><div class="line"></div><div class="line">// For each entry</div><div class="line">for (Histogram.Bucket entry : agg.getBuckets()) &#123;</div><div class="line">    DateTime key = (DateTime) entry.getKey();    // Key</div><div class="line">    String keyAsString = entry.getKeyAsString(); // Key as String</div><div class="line">    long docCount = entry.getDocCount();         // Doc count</div><div class="line"></div><div class="line">    logger.info(&quot;key [&#123;&#125;], date [&#123;&#125;], doc_count [&#123;&#125;]&quot;, keyAsString, key.getYear(), docCount);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">key [1942-01-01T00:00:00.000Z], date [1942], doc_count [1]</div><div class="line">key [1945-01-01T00:00:00.000Z], date [1945], doc_count [1]</div><div class="line">key [1946-01-01T00:00:00.000Z], date [1946], doc_count [1]</div><div class="line">...</div><div class="line">key [2005-01-01T00:00:00.000Z], date [2005], doc_count [1]</div><div class="line">key [2007-01-01T00:00:00.000Z], date [2007], doc_count [2]</div><div class="line">key [2008-01-01T00:00:00.000Z], date [2008], doc_count [3]</div></pre></td></tr></table></figure>
+<h4 id="Geo-Distance-Aggregation-地理距离聚合"><a href="#Geo-Distance-Aggregation-地理距离聚合" class="headerlink" title="Geo Distance Aggregation 地理距离聚合"></a>Geo Distance Aggregation 地理距离聚合</h4><blockquote>
+<p>在geo_point字段上工作的多bucket聚合和概念上的工作非常类似于range(范围)聚合.用户可以定义原点的点和距离范围的集合。聚合计算每个文档值与原点的距离，并根据范围确定其所属的bucket(桶)（如果文档和原点之间的距离落在bucket(桶)的距离范围内，则文档属于bucket(桶) )</p>
+</blockquote>
+<p>下面是如何使用 <code>Java API</code> 使用<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-bucket-geodistance-aggregation.html" target="_blank" rel="external">  Geo Distance Aggregation</a></p>
+<h5 id="准备聚合请求-14"><a href="#准备聚合请求-14" class="headerlink" title="准备聚合请求"></a>准备聚合请求</h5><p>下面是如何创建聚合请求的是示例：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">AggregationBuilder aggregation =</div><div class="line">        AggregationBuilders</div><div class="line">                .geoDistance(&quot;agg&quot;, new GeoPoint(48.84237171118314,2.33320027692004))</div><div class="line">                .field(&quot;address.location&quot;)</div><div class="line">                .unit(DistanceUnit.KILOMETERS)</div><div class="line">                .addUnboundedTo(3.0)</div><div class="line">                .addRange(3.0, 10.0)</div><div class="line">                .addRange(10.0, 500.0);</div></pre></td></tr></table></figure>
+<h5 id="使用聚合请求-14"><a href="#使用聚合请求-14" class="headerlink" title="使用聚合请求"></a>使用聚合请求</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">import org.elasticsearch.search.aggregations.bucket.range.Range;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">// sr is here your SearchResponse object</div><div class="line">Range agg = sr.getAggregations().get(&quot;agg&quot;);</div><div class="line"></div><div class="line">// For each entry</div><div class="line">for (Range.Bucket entry : agg.getBuckets()) &#123;</div><div class="line">    String key = entry.getKeyAsString();    // key as String</div><div class="line">    Number from = (Number) entry.getFrom(); // bucket from value</div><div class="line">    Number to = (Number) entry.getTo();     // bucket to value</div><div class="line">    long docCount = entry.getDocCount();    // Doc count</div><div class="line"></div><div class="line">    logger.info(&quot;key [&#123;&#125;], from [&#123;&#125;], to [&#123;&#125;], doc_count [&#123;&#125;]&quot;, key, from, to, docCount);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">key [*-3.0], from [0.0], to [3.0], doc_count [161]</div><div class="line">key [3.0-10.0], from [3.0], to [10.0], doc_count [460]</div><div class="line">key [10.0-500.0], from [10.0], to [500.0], doc_count [4925]</div></pre></td></tr></table></figure>
+<h4 id="Geo-Hash-Grid-Aggregation-GeoHash网格聚合"><a href="#Geo-Hash-Grid-Aggregation-GeoHash网格聚合" class="headerlink" title="Geo Hash Grid Aggregation GeoHash网格聚合"></a>Geo Hash Grid Aggregation GeoHash网格聚合</h4><blockquote>
+<p>在geo_point字段和组上工作的多bucket聚合将指向网格中表示单元格的bucket。生成的网格可以是稀疏的，并且只包含具有匹配数据的单元格。每个单元格使用具有用户可定义精度的 <a href="http://en.wikipedia.org/wiki/Geohash" target="_blank" rel="external">geohash</a> 进行标记。</p>
+</blockquote>
+<p>下面是如何使用 <code>Java API</code> 使用<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/search-aggregations-bucket-geohashgrid-aggregation.html" target="_blank" rel="external">Geo Hash Grid Aggregation</a></p>
+<h5 id="准备聚合请求-15"><a href="#准备聚合请求-15" class="headerlink" title="准备聚合请求"></a>准备聚合请求</h5><p>下面是如何创建聚合请求的是示例：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">AggregationBuilder aggregation =</div><div class="line">        AggregationBuilders</div><div class="line">                .geohashGrid(&quot;agg&quot;)</div><div class="line">                .field(&quot;address.location&quot;)</div><div class="line">                .precision(4);</div></pre></td></tr></table></figure>
+<h5 id="使用聚合请求-15"><a href="#使用聚合请求-15" class="headerlink" title="使用聚合请求"></a>使用聚合请求</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">import org.elasticsearch.search.aggregations.bucket.geogrid.GeoHashGrid;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">// sr is here your SearchResponse object</div><div class="line">GeoHashGrid agg = sr.getAggregations().get(&quot;agg&quot;);</div><div class="line"></div><div class="line">// For each entry</div><div class="line">for (GeoHashGrid.Bucket entry : agg.getBuckets()) &#123;</div><div class="line">    String keyAsString = entry.getKeyAsString(); // key as String</div><div class="line">    GeoPoint key = (GeoPoint) entry.getKey();    // key as geo point</div><div class="line">    long docCount = entry.getDocCount();         // Doc count</div><div class="line"></div><div class="line">    logger.info(&quot;key [&#123;&#125;], point &#123;&#125;, doc_count [&#123;&#125;]&quot;, keyAsString, key, docCount);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>输出：</p>
+<p>```<br>key [gbqu], point [47.197265625, -1.58203125], doc_count [1282]<br>key [gbvn], point [50.361328125, -4.04296875], doc_count [1248]<br>key [u1j0], point [50.712890625, 7.20703125], doc_count [1156]<br>key [u0j2], point [45.087890625, 7.55859375], doc_count [1138]<br>…</p>
+
+	        </div>
+	    </article>
+	
+</div>
+                </main>
+                
+    <aside class="col-md-4 sidebar">
+        
+        
+    <div class="widget">    
+        <h3 class="title">搜索</h3>
+        <div id="search-form">
+            <div id="result-mask" class="hide"></div>
+            <div class="search-area">
+                
+                    <input id="search-key" type="search" autocomplete="off" placeholder="搜点什么呢?">
+                    <button type="button" class="search-form-submit" id="search-local">站内搜索</button>
+                
+                
+            </div>
+            <div id="result-wrap" class="hide">
+                <div id="search-result"></div>
+            </div>
+            <div class="hide">
+                <template id="search-tpl">
+                    <div class="item">
+                        <a href="/{path}" title="{title}">
+                            <div class="title">{title}</div>
+                            <div class="content">{content}</div>
+                        </a>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </div>
+
+        
+        
+    <div class="widget notification">
+        <h3 class="title">网站公告</h3>
+        <div>
+            <p>《Spring Boot 与 kotlin 实战》 系列教程上线<br/>
+专题：<a href="https://www.jianshu.com/c/e6dbcad79e75" title="fork me" target="_blank">《Spring Boot 与 kotlin 实战》</a> <br/>
+<hr>
+<img  width="100%" align="center" src="https://static.oschina.net/uploads/img/201711/08183543_ysUa.jpg">
+</p>
+        </div>
+    </div>
+
+        
+        
+    <div class="widget">
+      <h3 class="title">社交</h3> 
+        <div class="content social">
+            
+	            <a href="//github.com/quanke" rel="external nofollow" title="Github" target="_blank">
+			    	<i class="git fa fa-git"></i>
+			    </a>
+            
+	            <a href="mailto:caiquanke_88@163.com" rel="external nofollow" title="邮箱" target="_blank">
+			    	<i class="envelope-o fa fa-envelope-o"></i>
+			    </a>
+            
+	            <a href="//weibo.com/quankecai" rel="external nofollow" title="微博" target="_blank">
+			    	<i class="weibo fa fa-weibo"></i>
+			    </a>
+            
+	            <a href="//jq.qq.com/?_wv=1027&k=5MOKtIE" rel="external nofollow" title="QQ群" target="_blank">
+			    	<i class="users fa fa-users"></i>
+			    </a>
+            
+	            <a href="/atom.xml" rel="external nofollow" title="RSS" target="_blank">
+			    	<i class="feed fa fa-feed"></i>
+			    </a>
+            
+        </div>
+    </div>
+
+
+        
+        
+    <div class="widget">
+        <h3 class="title">分类</h3>
+        <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/es/"><i class="fa" aria-hidden="true">Elasticsearch</i></a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/golang/"><i class="fa" aria-hidden="true">Go语言</i></a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/"><i class="fa" aria-hidden="true">Java</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MBaaS-LiveOak系列/"><i class="fa" aria-hidden="true">MBaaS-LiveOak系列</i></a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/rn/"><i class="fa" aria-hidden="true">React Native</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vertx/"><i class="fa" aria-hidden="true">Vert.x3 系列</i></a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/android/"><i class="fa" aria-hidden="true">android开发</i></a><span class="category-list-count">57</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/"><i class="fa" aria-hidden="true">git</i></a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ios/"><i class="fa" aria-hidden="true">ios开发</i></a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/node/"><i class="fa" aria-hidden="true">node.js</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/use/"><i class="fa" aria-hidden="true">使用</i></a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/bdata/"><i class="fa" aria-hidden="true">大数据</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/service/"><i class="fa" aria-hidden="true">服务端开发</i></a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/autotest/"><i class="fa" aria-hidden="true">自动化测试</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/gof/"><i class="fa" aria-hidden="true">设计模式</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/se/"><i class="fa" aria-hidden="true">软件工程</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/essay/"><i class="fa" aria-hidden="true">随笔</i></a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/project/"><i class="fa" aria-hidden="true">项目实战</i></a><span class="category-list-count">1</span></li></ul>
+    </div>
+
+
+        
+        
+    <div class="widget">
+      <h3 class="title">归档</h3>
+        <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/"><i class="fa" aria-hidden="true">十二月 2017</i></a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/"><i class="fa" aria-hidden="true">十一月 2017</i></a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/"><i class="fa" aria-hidden="true">二月 2017</i></a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/"><i class="fa" aria-hidden="true">十月 2016</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/"><i class="fa" aria-hidden="true">七月 2016</i></a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/"><i class="fa" aria-hidden="true">五月 2016</i></a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/"><i class="fa" aria-hidden="true">四月 2016</i></a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/"><i class="fa" aria-hidden="true">一月 2016</i></a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/"><i class="fa" aria-hidden="true">八月 2015</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/"><i class="fa" aria-hidden="true">七月 2015</i></a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/"><i class="fa" aria-hidden="true">五月 2015</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/"><i class="fa" aria-hidden="true">四月 2015</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/"><i class="fa" aria-hidden="true">十一月 2014</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/"><i class="fa" aria-hidden="true">六月 2014</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/02/"><i class="fa" aria-hidden="true">二月 2014</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/"><i class="fa" aria-hidden="true">三月 2013</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/"><i class="fa" aria-hidden="true">二月 2013</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/"><i class="fa" aria-hidden="true">一月 2013</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/"><i class="fa" aria-hidden="true">十二月 2012</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/"><i class="fa" aria-hidden="true">十一月 2012</i></a><span class="archive-list-count">42</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/10/"><i class="fa" aria-hidden="true">十月 2012</i></a><span class="archive-list-count">19</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/"><i class="fa" aria-hidden="true">九月 2012</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/08/"><i class="fa" aria-hidden="true">八月 2012</i></a><span class="archive-list-count">5</span></li></ul>
+    </div>
+
+
+        
+        
+  <div class="widget">
+    <h3 class="title">标签云</h3>
+    <div class="content tag-cloud">
+        <a href="/tags/API/" style="font-size: 11.67px;">API</a> <a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/android-pg/" style="font-size: 10px;">Android多渠道打包</a> <a href="/tags/es/" style="font-size: 16.67px;">Elasticsearch</a> <a href="/tags/Gradle/" style="font-size: 10px;">Gradle</a> <a href="/tags/IOS/" style="font-size: 10px;">IOS</a> <a href="/tags/JAVA/" style="font-size: 10px;">JAVA</a> <a href="/tags/Java/" style="font-size: 13.33px;">Java</a> <a href="/tags/th-java/" style="font-size: 10px;">Java 编程思想</a> <a href="/tags/JavaEE/" style="font-size: 10px;">JavaEE</a> <a href="/tags/LiveOak/" style="font-size: 13.33px;">LiveOak</a> <a href="/tags/MBaaS/" style="font-size: 15px;">MBaaS</a> <a href="/tags/PM2/" style="font-size: 10px;">PM2</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/rn/" style="font-size: 10px;">React Native</a> <a href="/tags/SDK/" style="font-size: 10px;">SDK</a> <a href="/tags/Spring-Boot/" style="font-size: 10px;">Spring Boot</a> <a href="/tags/vertx-for-java/" style="font-size: 10px;">Vert.x Core手册 for Java</a> <a href="/tags/Vert-x3/" style="font-size: 20px;">Vert.x3</a> <a href="/tags/Vertx/" style="font-size: 20px;">Vertx</a> <a href="/tags/windows-install/" style="font-size: 10px;">Windows10安装</a> <a href="/tags/android/" style="font-size: 18.33px;">android</a> <a href="/tags/android-a/" style="font-size: 10px;">android动画</a> <a href="/tags/elasticsearch/" style="font-size: 10px;">elasticsearch</a> <a href="/tags/gitbook/" style="font-size: 10px;">gitbook</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/logstash/" style="font-size: 10px;">logstash</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/node-js-运行/" style="font-size: 10px;">node.js 运行</a> <a href="/tags/spirng-boot/" style="font-size: 10px;">spirng boot</a> <a href="/tags/swagger-ui/" style="font-size: 10px;">swagger ui</a> <a href="/tags/swagger-api/" style="font-size: 10px;">swagger-api</a> <a href="/tags/swagger-edit/" style="font-size: 10px;">swagger-edit</a> <a href="/tags/bdaga/" style="font-size: 16.67px;">大数据</a> <a href="/tags/开源/" style="font-size: 10px;">开源</a> <a href="/tags/conclusion/" style="font-size: 10px;">总结</a> <a href="/tags/api/" style="font-size: 10px;">接口文档</a> <a href="/tags/careful/" style="font-size: 10px;">注意</a> <a href="/tags/career-planning/" style="font-size: 10px;">职业规划</a> <a href="/tags/autotest/" style="font-size: 10px;">自动化测试</a> <a href="/tags/gof/" style="font-size: 10px;">设计模式</a> <a href="/tags/data/" style="font-size: 11.67px;">资料</a> <a href="/tags/test/" style="font-size: 10px;">软件测试</a>
+    </div>
+  </div>
+
+
+        
+        
+    <div class="widget">
+        <h3 class="title">友链</h3>
+        <div class="content friends-link">
+        
+            <a href="http://quanke.name" class="fa" target="_blank">个人博客</a>
+        
+            <a href="http://satra.gitee.io/blog/" class="fa" target="_blank">我在万达摆地摊</a>
+        
+        </div>
+    </div>
+
+
+        
+    </aside>
+
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12"> 
+                <span>Copyright &copy; 2017
+                </span> | 
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> | 
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+	<script src="/js/search.js?rev=@@hash"></script>
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+
+</body>
+</html>
